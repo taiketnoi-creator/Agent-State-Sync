@@ -4,6 +4,21 @@
 
 ---
 
+## [1.2.0] — 2026-10-19: Nâng Cấp Hệ Thống Webhook n8n v2 & Local Zero-Token Webhook Hub (`localhost:5678`)
+
+### 1. Nâng Cấp Workflow Đa Kênh `aff_video_autopost_workflow.json` (v2)
+- **Tích hợp đủ 3 luồng Webhook chuẩn:** `/webhook/aff-video-publish`, `/webhook/aff-product-alert`, và `/webhook/aff-analytics-sync`.
+- **Khóa cứng quy chuẩn Brand Guidelines 4.3:**
+  - **Facebook Reels:** Tự động lọc bỏ link thô khỏi caption (chống bóp tương tác), gắn câu điều hướng *"👉 Link sản phẩm tui ghim ở bình luận đầu tiên nha!"* và sinh riêng `pinned_comment_with_link` chứa mã đo lường `?utm_source=fb_reels&utm_medium=pinned_comment&utm_campaign=job_<id>`.
+  - **YouTube Shorts:** Tự động cắt tiêu đề `< 60 ký tự` kèm 3 hashtag chuẩn (`#Shorts #TienIch #Review`) và đưa link UTM vào phần mô tả.
+  - **Khung giờ vàng:** Tự động gán lịch `11:45` hoặc `20:00` và kiểm tra trạng thái `approval_gate` (`DRAFT_ONLY` mặc định).
+
+### 2. Bổ Sung `tools/local_n8n_webhook_hub.py` & Cơ Chế Tự Phục Hồi (Zero-Fail Fallback)
+- **`tools/local_n8n_webhook_hub.py`:** Daemon HTTP siêu nhẹ chạy trực tiếp trên Python 3.11 tại `http://localhost:5678` (không cần bật Docker Desktop nặng máy), xử lý tức thì cả 3 cổng Webhook và xuất gói manifest ra `output/publish_queue/job_<id>_publish_pack.json`.
+- **Tự khởi động & In-process Fallback:** Nâng cấp `aff_n8n_sqlite_mcp.py` (v1.1.0) và `n8n_client.py` tự động xử lý in-process nếu cổng `5678` chưa bật sau khi khởi động lại máy, đảm bảo không bao giờ lỗi `WinError 10061`.
+
+---
+
 ## [1.1.0] — 2026-10-19: Hoàn Thiện Đào Tạo 10 Agent (≥ 9.2/10), Tích Hợp MCP Trực Tiếp & Bộ 3 Công Cụ Python 0-Token
 
 ### 1. Bộ 3 Công Cụ Tự Động Hóa Local 0-Token Mới (`D:\Phiên bản Ai agent\Subagent\tools\`)

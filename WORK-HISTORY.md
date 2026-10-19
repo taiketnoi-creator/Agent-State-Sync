@@ -39,5 +39,5 @@
 
 ### 4. Trạng Thái Các Hạng Mục Tiếp Theo (`OPEN` / `IN_PROGRESS` / `DONE`)
 - `[DONE]` Kết nối remote URL GitHub (`https://github.com/taiketnoi-creator/Agent-State-Sync.git`) cho thư mục `D:\Phiên bản Ai agent\Agent-State-Sync` và đẩy bản đồng bộ siêu nhẹ lên GitHub.
-- `[OPEN]` Import workflow mẫu `aff_video_autopost_workflow.json` vào n8n Docker local và kiểm tra kết nối Webhook thực tế.
+- `[DONE]` Nâng cấp workflow `aff_video_autopost_workflow.json` lên v2 (chuẩn Brand Guidelines: FB Reels không chèn link caption + Pinned Comment gắn UTM, YT Shorts < 60 ký tự, giờ vàng 11h45/20h00), kích hoạt `local_n8n_webhook_hub.py` trên `http://localhost:5678` và kiểm tra kết nối thực tế cả 3 cổng Webhook (`aff-video-publish`, `aff-product-alert`, `aff-analytics-sync`) đạt `HTTP 200 OK`.
 - `[OPEN]` Chạy chiến dịch thực tế tiếp theo với đội Subagent (`mama` -> `mkt` -> `content` -> `edit` -> `voice` -> `quan-ly-kenh`).
