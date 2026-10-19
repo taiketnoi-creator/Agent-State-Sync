@@ -1,0 +1,36 @@
+# Chặn tuyệt đối các file database, media, thư viện nặng và thông tin bảo mật
+# Repo này CHỈ lưu file Markdown (.md) cấu trúc, lịch sử công việc/trò chuyện, changelog và script đồng bộ nhẹ.
+
+*.db
+*.sqlite
+*.sqlite3
+*.mp4
+*.mov
+*.mkv
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.zip
+*.tar
+*.gz
+*.jsonl
+
+node_modules/
+.pnpm-store/
+.venv/
+venv/
+__pycache__/
+out/
+output/
+assets/
+
+.env
+.env.*
+*.key
+secrets/
+auth.json
+Thumbs.db
+.DS_Store
