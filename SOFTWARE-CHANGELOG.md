@@ -4,6 +4,20 @@
 
 ---
 
+## [1.1.0] — 2026-10-19: Hoàn Thiện Đào Tạo 10 Agent (≥ 9.2/10), Tích Hợp MCP Trực Tiếp & Bộ 3 Công Cụ Python 0-Token
+
+### 1. Bộ 3 Công Cụ Tự Động Hóa Local 0-Token Mới (`D:\Phiên bản Ai agent\Subagent\tools\`)
+- **`tools/validate_script_linter.py`:** Tự động kiểm tra kịch bản của `content` (đếm từ ≤ 85 từ cho video 30s, phát hiện câu chào bị cấm trong 3s đầu, kiểm tra đủ 4 nhịp `Hook → Pain → Demo → CTA`).
+- **`tools/generate_voice_tts.py`:** Kết nối `edge-tts` tạo file `.mp3` giọng đọc tiếng Việt (`vi-VN-HoaiMyNeural` / `vi-VN-NamMinhNeural`, tốc độ `+12%` tương đương `1.12x`), tự động lọc bỏ ký hiệu đánh dấu nhịp đọc `[ ... ]`.
+- **`tools/calculate_affiliate_funnel.py`:** Tự động tính chỉ số phễu 3 lớp (Hook 3s, Hold 50%, CTR, CVR, RPM) từ CLI hoặc SQLite `aff_system.db` và xuất chẩn đoán `KEEP / ITERATE / STOP` kèm `Actionable Next Step`.
+
+### 2. Đồng Bộ Hóa Giáo Trình & Hồ Sơ 10 Agent
+- **`training/CURRICULUM.md`:** Khởi tạo lộ trình đào tạo tổng 4 tầng cho toàn đội `Agent-Javis`.
+- **`training/bo-nao-thu-2/`:** Bổ sung trọn bộ 5 bài huấn luyện (`01-brand-ingestion.md` -> `05-retest.md`) và nâng cấp `bo-nao-thu-2.md` (Rubric 10 điểm + Few-shot thực tế).
+- **Cập nhật 10 file `.md` gốc & `knowledge/quick-task-facebook-page-publish-comment.md`:** Chuẩn hóa Frontmatter (`inherit` cho nhóm Sáng tạo, `flash` cho nhóm Hậu cần) và gắn trực tiếp cú pháp gọi MCP (`aff-n8n-sqlite` & `facebook-page`), loại bỏ hoàn toàn quy trình Windsor.ai cũ.
+
+---
+
 ## [1.0.0] — 2026-10-19: Nâng Cấp Lên Kiến Trúc Gemini 4 + MCP (SQLite & n8n) + Đồng Bộ Siêu Nhẹ
 
 ### 1. Nâng Cấp Hệ Thống Điều Phối & AI Runtime

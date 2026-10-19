@@ -21,6 +21,11 @@
 - [x] Kích hoạt cấu hình `.agents/GEMINI.md` và gắn đủ 4 bộ Skills (`ai-affiliate-page-operator`, `product-video-editor`, `ai-video-factory`, `n8n-automation-bridge`) vào `D:\Phiên bản Ai agent\Subagent\.agents\skills\`.
 - [x] Định nghĩa đầy đủ 9 Subagent chuyên biệt của đội `Agent-Javis` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) dưới sự điều phối của `mama` (Gemini 4).
 - [x] Nâng cấp cơ chế **Smart Model Tiering & Batch Execution** trong `.agents/GEMINI.md` theo phê duyệt của CEO: giữ `mama`, `mkt`, `content`, `edit` chạy `inherit` (Gemini 4) và chuyển 6 Subagent hậu cần (`voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) sang `flash` kèm gộp lệnh song song để tiết kiệm tối đa Quota Gemini 4.
+- [x] Kiểm toán toàn diện 10 Agent và hoàn tất **4 nâng cấp đồng bộ đưa toàn đội lên chuẩn ≥ 9.2/10**:
+  1. Cập nhật Frontmatter (`inherit` / `flash`) và tích hợp quy trình gọi trực tiếp MCP (`aff-n8n-sqlite`, `facebook-page`) vào cả 10 file `.md` gốc; viết lại `knowledge/quick-task-facebook-page-publish-comment.md` chuẩn MCP 100%.
+  2. Xây dựng trọn bộ 5 bài đào tạo cho `training/bo-nao-thu-2/` (`01-brand-ingestion.md` -> `05-retest.md`), bổ sung Rubric 10 điểm & Few-shot vào `bo-nao-thu-2.md`, và khởi tạo lộ trình tổng `training/CURRICULUM.md`.
+  3. Lập trình và kiểm thử 3 công cụ tự động 0-token trong `tools/`: `validate_script_linter.py` (đếm từ ≤85, chặn câu chào 3s đầu), `generate_voice_tts.py` (xuất `.mp3` tiếng Việt tốc độ 1.12x qua `edge-tts`), `calculate_affiliate_funnel.py` (tính phễu 3 lớp & xuất quyết định `KEEP/ITERATE/STOP`).
+- [x] Trang bị cơ chế **Báo Cáo Khởi Động Phiên Tự Động Đa Máy (`tools/mama_boot_check.py` & Hook `SessionStart`)**: Tự động pull trạng thái mới nhất từ GitHub, tính `%` tiến độ mục tiêu và kiểm tra kết nối trực tiếp Facebook Page, n8n, SQLite, FFmpeg/Edge-TTS ngay khi bắt đầu chat ở bất kỳ máy nào.
 - [x] Khởi tạo Repo đồng bộ siêu nhẹ tại `D:\Phiên bản Ai agent\Agent-State-Sync` và kết nối remote GitHub `https://github.com/taiketnoi-creator/Agent-State-Sync.git` kèm cơ chế tự động đồng bộ hai chiều sau mỗi lượt trò chuyện (`on_stop_sync.py` & `generate_snapshot.py`).
 
 ### 3. Chỉ Mục Tri Thức Hiện Có Từ Bộ Não Thứ 2 (`VALIDATED`)
