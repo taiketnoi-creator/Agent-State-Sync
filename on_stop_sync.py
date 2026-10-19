@@ -11,7 +11,9 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 SYNC_DIR = r"D:\Phiên bản Ai agent\Agent-State-Sync"
+SUBAGENT_DIR = r"D:\Phiên bản Ai agent\Subagent"
 RECENT_LOG_PATH = os.path.join(SYNC_DIR, "RECENT-CONVERSATION.md")
+SUBAGENT_RECENT_LOG_PATH = os.path.join(SUBAGENT_DIR, "RECENT-CONVERSATION.md")
 SNAPSHOT_SCRIPT = os.path.join(SYNC_DIR, "generate_snapshot.py")
 
 def extract_recent_turns(transcript_path, max_turns=10):
@@ -66,9 +68,11 @@ def update_recent_conversation(payload):
     else:
         lines.append("*(Đang đồng bộ từ phiên hiện tại)*")
 
-    os.makedirs(SYNC_DIR, exist_ok=True)
-    with open(RECENT_LOG_PATH, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines))
+    text_out = "\n".join(lines)
+    for path in (RECENT_LOG_PATH, SUBAGENT_RECENT_LOG_PATH):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text_out)
 
 def trigger_background_git_sync():
     # Spawn detached background process so the chat turn finishes in <50ms with zero lag

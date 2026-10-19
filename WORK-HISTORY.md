@@ -20,7 +20,7 @@
 - [x] Kết nối tích hợp thêm `facebook-page` MCP Server (`C:\Users\guicci\.codex\mcp\facebook-mcp-server\server.py`) vào `C:\Users\guicci\.gemini\config\mcp_config.json`.
 - [x] Kích hoạt cấu hình `.agents/GEMINI.md` và gắn đủ 4 bộ Skills (`ai-affiliate-page-operator`, `product-video-editor`, `ai-video-factory`, `n8n-automation-bridge`) vào `D:\Phiên bản Ai agent\Subagent\.agents\skills\`.
 - [x] Định nghĩa đầy đủ 9 Subagent chuyên biệt của đội `Agent-Javis` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) dưới sự điều phối của `mama` (Gemini 4).
-- [x] Khởi tạo Repo đồng bộ siêu nhẹ tại `D:\Phiên bản Ai agent\Agent-State-Sync`.
+- [x] Khởi tạo Repo đồng bộ siêu nhẹ tại `D:\Phiên bản Ai agent\Agent-State-Sync` và kết nối remote GitHub `https://github.com/taiketnoi-creator/Agent-State-Sync.git` kèm cơ chế tự động đồng bộ hai chiều sau mỗi lượt trò chuyện (`on_stop_sync.py` & `generate_snapshot.py`).
 
 ### 3. Chỉ Mục Tri Thức Hiện Có Từ Bộ Não Thứ 2 (`VALIDATED`)
 *(Tham chiếu tại `D:\Phiên bản Ai agent\Subagent\knowledge\bo-nao-thu-2\INDEX.md`)*
@@ -31,7 +31,7 @@
 - `MEM-20261013-video-slide-composition-lessons`: Bài học thực chiến về bố cục và mật độ hình ảnh cho video slide.
 - `MEM-20261014-ai-page-comment-hook-playbook`: Playbook 2 bài/ngày kéo bình luận cho Page AI.
 
-### 4. Trạng Thái Các Hạng Mục Tiếp Theo (`OPEN` / `IN_PROGRESS`)
-- `[OPEN]` Kết nối remote URL GitHub mới cho thư mục `D:\Phiên bản Ai agent\Agent-State-Sync` để đẩy bản đồng bộ siêu nhẹ đầu tiên.
+### 4. Trạng Thái Các Hạng Mục Tiếp Theo (`OPEN` / `IN_PROGRESS` / `DONE`)
+- `[DONE]` Kết nối remote URL GitHub (`https://github.com/taiketnoi-creator/Agent-State-Sync.git`) cho thư mục `D:\Phiên bản Ai agent\Agent-State-Sync` và đẩy bản đồng bộ siêu nhẹ lên GitHub.
 - `[OPEN]` Import workflow mẫu `aff_video_autopost_workflow.json` vào n8n Docker local và kiểm tra kết nối Webhook thực tế.
 - `[OPEN]` Chạy chiến dịch thực tế tiếp theo với đội Subagent (`mama` -> `mkt` -> `content` -> `edit` -> `voice` -> `quan-ly-kenh`).

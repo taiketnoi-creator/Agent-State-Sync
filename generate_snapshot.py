@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import os
 import platform
+import shutil
 import sqlite3
 import sys
 
@@ -10,7 +11,31 @@ if hasattr(sys.stdout, "reconfigure"):
 
 DB_PATH = r"C:\Users\guicci\.gemini\antigravity\scratch\ai-aff-video-system\data\aff_system.db"
 SUBAGENT_DIR = r"D:\Phiên bản Ai agent\Subagent"
-OUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "STATE-SNAPSHOT.md")
+SYNC_DIR = r"D:\Phiên bản Ai agent\Agent-State-Sync"
+
+SYNC_FILES = [
+    "PROJECT-BLUEPRINT.md",
+    "WORK-HISTORY.md",
+    "SOFTWARE-CHANGELOG.md",
+    "RECENT-CONVERSATION.md",
+    "STATE-SNAPSHOT.md",
+]
+
+def sync_bidirectional():
+    """Keep the 5 lightweight state files mirrored between Subagent workspace and Agent-State-Sync repo."""
+    for fname in SYNC_FILES:
+        p_sub = os.path.join(SUBAGENT_DIR, fname)
+        p_sync = os.path.join(SYNC_DIR, fname)
+        if os.path.exists(p_sub) and os.path.exists(p_sync):
+            # Copy whichever is newer to the other
+            if os.path.getmtime(p_sub) > os.path.getmtime(p_sync) + 0.5:
+                shutil.copy2(p_sub, p_sync)
+            elif os.path.getmtime(p_sync) > os.path.getmtime(p_sub) + 0.5:
+                shutil.copy2(p_sync, p_sub)
+        elif os.path.exists(p_sync) and not os.path.exists(p_sub):
+            shutil.copy2(p_sync, p_sub)
+        elif os.path.exists(p_sub) and not os.path.exists(p_sync):
+            shutil.copy2(p_sub, p_sync)
 
 def main():
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -51,9 +76,13 @@ def main():
 {json_block}
 ```
 """
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
-        f.write(md)
-    print("Updated STATE-SNAPSHOT.md successfully.")
+    for target_dir in (SYNC_DIR, SUBAGENT_DIR):
+        if os.path.exists(target_dir):
+            with open(os.path.join(target_dir, "STATE-SNAPSHOT.md"), "w", encoding="utf-8") as f:
+                f.write(md)
+
+    sync_bidirectional()
+    print("Updated STATE-SNAPSHOT.md and mirrored state files between Subagent and Agent-State-Sync.")
 
 if __name__ == "__main__":
     main()
