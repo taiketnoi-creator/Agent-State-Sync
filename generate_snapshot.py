@@ -9,9 +9,9 @@ import sys
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-DB_PATH = r"C:\Users\guicci\.gemini\antigravity\scratch\ai-aff-video-system\data\aff_system.db"
-SUBAGENT_DIR = r"D:\Phiên bản Ai agent\Subagent"
-SYNC_DIR = r"D:\Phiên bản Ai agent\Agent-State-Sync"
+DB_PATH = os.path.join(os.path.expanduser("~"), ".gemini", "antigravity", "scratch", "ai-aff-video-system", "data", "aff_system.db")
+SYNC_DIR = os.path.dirname(os.path.abspath(__file__))
+SUBAGENT_DIR = os.path.join(os.path.dirname(SYNC_DIR), "Subagent")
 
 SYNC_FILES = [
     "PROJECT-BLUEPRINT.md",

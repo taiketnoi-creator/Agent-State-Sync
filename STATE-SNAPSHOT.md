@@ -1,7 +1,7 @@
 # Bản Chụp Trạng Thái Tự Động (Lightweight State Snapshot)
 
-- **Cập nhật lần cuối:** `2026-10-20 14:50:22`
-- **Máy thực hiện:** `DESKTOP-NH840HH`
+- **Cập nhật lần cuối:** `2026-10-20 18:10:28`
+- **Máy thực hiện:** `Admin-PC`
 
 ## 1. Các Thư Mục Chiến Dịch Hiện Có (`D:\Phiên bản Ai agent\Subagent\campaigns`)
 - `2026-10-10`

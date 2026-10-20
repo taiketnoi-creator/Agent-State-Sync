@@ -10,8 +10,8 @@ if hasattr(sys.stdin, "reconfigure"):
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-SYNC_DIR = r"D:\Phiên bản Ai agent\Agent-State-Sync"
-SUBAGENT_DIR = r"D:\Phiên bản Ai agent\Subagent"
+SYNC_DIR = os.path.dirname(os.path.abspath(__file__))
+SUBAGENT_DIR = os.path.join(os.path.dirname(SYNC_DIR), "Subagent")
 RECENT_LOG_PATH = os.path.join(SYNC_DIR, "RECENT-CONVERSATION.md")
 SUBAGENT_RECENT_LOG_PATH = os.path.join(SUBAGENT_DIR, "RECENT-CONVERSATION.md")
 SNAPSHOT_SCRIPT = os.path.join(SYNC_DIR, "generate_snapshot.py")
