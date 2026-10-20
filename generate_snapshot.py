@@ -21,21 +21,46 @@ SYNC_FILES = [
     "STATE-SNAPSHOT.md",
 ]
 
+def sync_file_pair(p_sub: str, p_sync: str):
+    os.makedirs(os.path.dirname(p_sub), exist_ok=True)
+    os.makedirs(os.path.dirname(p_sync), exist_ok=True)
+    if os.path.exists(p_sub) and os.path.exists(p_sync):
+        if os.path.getmtime(p_sub) > os.path.getmtime(p_sync) + 0.5:
+            shutil.copy2(p_sub, p_sync)
+        elif os.path.getmtime(p_sync) > os.path.getmtime(p_sub) + 0.5:
+            shutil.copy2(p_sync, p_sub)
+    elif os.path.exists(p_sync) and not os.path.exists(p_sub):
+        shutil.copy2(p_sync, p_sub)
+    elif os.path.exists(p_sub) and not os.path.exists(p_sync):
+        shutil.copy2(p_sub, p_sync)
+
+
+def sync_markdown_tree(rel_root: str):
+    """Mirror lightweight .md files under rel_root between Subagent and Agent-State-Sync."""
+    sub_root = os.path.join(SUBAGENT_DIR, rel_root)
+    sync_root = os.path.join(SYNC_DIR, rel_root)
+    rel_paths = set()
+    for base in (sub_root, sync_root):
+        if not os.path.exists(base):
+            continue
+        for root, _, files in os.walk(base):
+            for f in files:
+                if f.lower().endswith(".md"):
+                    full_p = os.path.join(root, f)
+                    rel_p = os.path.relpath(full_p, base)
+                    rel_paths.add(rel_p)
+    for rel_p in sorted(rel_paths):
+        sync_file_pair(os.path.join(sub_root, rel_p), os.path.join(sync_root, rel_p))
+
+
 def sync_bidirectional():
-    """Keep the 5 lightweight state files mirrored between Subagent workspace and Agent-State-Sync repo."""
+    """Keep lightweight state files, Second Brain memories, and campaign .md docs mirrored."""
     for fname in SYNC_FILES:
         p_sub = os.path.join(SUBAGENT_DIR, fname)
         p_sync = os.path.join(SYNC_DIR, fname)
-        if os.path.exists(p_sub) and os.path.exists(p_sync):
-            # Copy whichever is newer to the other
-            if os.path.getmtime(p_sub) > os.path.getmtime(p_sync) + 0.5:
-                shutil.copy2(p_sub, p_sync)
-            elif os.path.getmtime(p_sync) > os.path.getmtime(p_sub) + 0.5:
-                shutil.copy2(p_sync, p_sub)
-        elif os.path.exists(p_sync) and not os.path.exists(p_sub):
-            shutil.copy2(p_sync, p_sub)
-        elif os.path.exists(p_sub) and not os.path.exists(p_sync):
-            shutil.copy2(p_sub, p_sync)
+        sync_file_pair(p_sub, p_sync)
+    sync_markdown_tree(os.path.join("knowledge", "bo-nao-thu-2"))
+    sync_markdown_tree(os.path.join("campaigns", "2026-10-21"))
 
 def main():
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -4,6 +4,24 @@
 
 ---
 
+## [1.5.0] — 2026-10-21: Bộ Công Cụ Tự Động Hóa Video AI Bán Hàng Số Lượng Lớn (SLL) Đa Sản Phẩm (`veo_step4_auto.py` & `build_step4_step5_auto.py`)
+
+### 1. Quy Chuẩn Vàng & Prompt Google Flow v2 Cho Video AI Bán Hàng SLL (`Sandwich A-Roll ↔ B-Roll 8 Nhịp`)
+- **`knowledge/quy-chuan-video-ai-ban-hang-sll.md` & `MEM-20261020-video-ai-ban-hang-sll-playbook.md`:**
+  - Chuẩn hóa cấu trúc 8 nhịp đan xen `A-Roll (MC) ↔ B-Roll (Cận cảnh sản phẩm/kết quả)` giúp chống nhàm chán và áp dụng linh hoạt cho mọi ngành hàng (Gia dụng, Điện tử, Mỹ phẩm, Thời trang, Sức khỏe).
+  - Khắc phục triệt để 4 lỗi AI thường gặp: Cấm AI vẽ chữ tiếng Việt lên nút bấm/poster cuối; khóa cứng `Rigid product geometry` chống biến dạng sản phẩm; dùng 1 trục Voiceover liền mạch chống khoảng lặng chết; tự động đè 3 lớp PNG trong suốt (`CHÚ Ý!`, `Logo góc phải`, `Khiên Vàng Bảo Hành 3D`) + phụ đề `.ass` 1 dòng chuẩn Brand-Kit (`#87FF00` & Trắng).
+- **`FLOW_BUILD_PROMPT.md` (`PROMPT 6`):**
+  - Bổ sung Prompt nâng cấp ứng dụng Google Flow lên cấu trúc 8 nhịp `A-Roll + B-Roll` và thêm nút xuất `Raw Scenes Pack (SLL)` để trộn hàng loạt bằng FFmpeg.
+
+### 2. Công Cụ Tự Động Hóa Bước 4 & Bước 5 Không Cần Đụng Tay (`tools/veo_step4_auto.py` & `build_step4_step5_auto.py`)
+- **`tools/veo_step4_auto.py`:** Tự động gửi 8 ảnh Keyframe `9:16` kèm Prompt chuyển động vào Google Veo API (`veo-2.0-generate-001` / `veo-3.0-generate-preview`) khi có `GEMINI_API_KEY`, hoặc tự động fallback sang trình dựng chuyển động FFmpeg 30fps local.
+- **`campaigns/2026-10-21/quat-cam-tay-imi-5000mah/build_step4_step5_auto.py`:**
+  - Tự động vẽ 3 lớp đồ họa PNG trong suốt `1080×1920` bằng `.NET System.Drawing` (không cần cài thư viện ngoài).
+  - Tự động render 8 clip chuyển động `raw_scenes/scene_01..08.mp4` khớp từng phần trăm giây với `voiceover_v1.mp3`.
+  - Tự động đóng gói video thương mại hoàn chỉnh `outputs/quat_cam_tay_imi_v1_commercial.mp4` (`39.89s`, `1080×1920 @ 30fps`) gồm: Sticker `CHÚ Ý!` + Logo `iMI • 120 SPEED` + Khiên `CHÍNH HÃNG iMI - PIN TRÂU 5000mAh - BẢO HÀNH UY TÍN` + Phụ đề `.ass` 1 dòng + Voiceover + Nhạc nền `-18dB` + SFX.
+
+---
+
 ## [1.4.0] — 2026-10-21: Tự Động Dọn Kho Hình Ảnh & Video Local Sau 7 Ngày (`cleanup_old_media.py`) & Xuất Bản Ảnh Local (`fb_publish_image_post.py`)
 
 ### 1. Công Cụ Tự Động Dọn Kho Media Local Quá Hạn 7 Ngày (`tools/cleanup_old_media.py` & `tools/run_cleanup_7d.bat`)

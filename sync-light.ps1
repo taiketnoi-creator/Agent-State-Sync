@@ -29,6 +29,7 @@ if ($Mode -eq 'start') {
     if ($hasOrigin) {
         git pull --rebase origin main
     }
+    & $py "$PSScriptRoot\generate_snapshot.py"
     Write-Output "=== SYNCED LATEST PROJECT HISTORY ==="
     Write-Output "Read PROJECT-BLUEPRINT.md and WORK-HISTORY.md to continue immediately."
     exit 0
