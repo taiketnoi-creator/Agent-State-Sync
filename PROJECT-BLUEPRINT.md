@@ -52,8 +52,7 @@ Database SQLite tại local gồm 4 bảng chuẩn (được quản lý tự đ�
 
 ### 4.1. Bộ Skills tại `D:\Phiên bản Ai agent\Subagent\.agents\skills\`
 - **`ai-affiliate-page-operator`**: Quy trình xây dựng và vận hành hệ thống Page AI Affiliate tại Việt Nam (tỷ lệ nội dung 70/20/10, 14–30 ngày launch backlog).
-- **`product-video-editor`**: Cắt lọc source video thô, xoay `transpose=2` sang dọc `9:16` (`1080x1920`), loại bỏ đoạn rung và tắt audio hiện trường.
-- **`ai-video-factory`**: Giữ đồng nhất nhân vật thương hiệu và chạy script `ffmpeg_render.py` tại local tốn 0 token.
+- **`ai-video-factory`**: Phục vụ 2 định dạng video chủ lực (**Video AI Bán Hàng** và **Video Slide Remotion**), kết hợp script `ffmpeg_render.py` tại local tốn 0 token.
 - **`n8n-automation-bridge`**: Kết nối Webhook hai chiều với n8n local (`http://localhost:5678`).
 
 ### 4.2. Bộ MCP Servers trong `mcp_config.json`

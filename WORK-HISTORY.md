@@ -40,5 +40,6 @@
 ### 4. Trạng Thái Các Hạng Mục Tiếp Theo (`OPEN` / `IN_PROGRESS` / `DONE`)
 - `[DONE]` Kết nối remote URL GitHub (`https://github.com/taiketnoi-creator/Agent-State-Sync.git`) cho thư mục `D:\Phiên bản Ai agent\Agent-State-Sync` và đẩy bản đồng bộ siêu nhẹ lên GitHub.
 - `[DONE]` Nâng cấp workflow `aff_video_autopost_workflow.json` lên v2 (chuẩn Brand Guidelines: FB Reels không chèn link caption + Pinned Comment gắn UTM, YT Shorts < 60 ký tự, giờ vàng 11h45/20h00), kích hoạt `local_n8n_webhook_hub.py` trên `http://localhost:5678` và kiểm tra kết nối thực tế cả 3 cổng Webhook (`aff-video-publish`, `aff-product-alert`, `aff-analytics-sync`) đạt `HTTP 200 OK`.
+- `[DONE]` Tinh gọn Subagent `edit`: Xóa bỏ Nhóm 3 (`REAL-01..05` & `product-video-editor`) và Nhóm 4 (`07-ai-channel-ip-system.md` & `08-no-people-visual-style.md` không phục vụ bán hàng); kích hoạt `node` v24.13.0, `pnpm` 11.0.8 và cài đặt đầy đủ `node_modules` Remotion 4.0 cho 2 định dạng video chủ lực (**Video AI Bán Hàng** & **Video Slide**).
 - `[OPEN]` Điền `FACEBOOK_PAGE_ID` và `FACEBOOK_ACCESS_TOKEN` vào file `.env` (`~/.codex/mcp/facebook-mcp-server/.env`) để kết nối Fanpage Facebook với `facebook-page` MCP.
 - `[OPEN]` Chạy chiến dịch thực tế tiếp theo với đội Subagent (`mama` -> `mkt` -> `content` -> `edit` -> `voice` -> `quan-ly-kenh`).
