@@ -4,6 +4,21 @@
 
 ---
 
+## [1.3.0] — 2026-10-20: Tích Hợp Skill `social-media-research` & Nâng Cấp `ffmpeg_render.py` (Batch Storyboard Mixing)
+
+### 1. Bộ Kỹ Năng Nghiên Cứu MXH Mới (`.agents/skills/social-media-research/`)
+- Kế thừa và Việt hóa từ `ScrapeCreators/social-media-research-skills` với 4 quy trình chuẩn cho `mkt`, `content`, và `cham-soc-kenh`:
+  - **Outlier Post Finder:** Chấm điểm độ bứt phá (`view_lift`, `engagement_lift`) so với trung vị (`median`) của kênh.
+  - **Comment Mining:** Phân loại bình luận thực tế tiếng Việt/Anh vào 6 nhóm VoC (`buying_intent`, `objections`, `pain_points`, `questions`, `praise`, `other`).
+  - **Transcript Intelligence:** Tự động tách lời thoại video thành 4 nhịp (`00-03s Hook`, `03-10s Pain`, `10-23s Demo Proof`, `23-30s CTA`) và kiểm tra Hard Gate (`<= 85 từ`, không chào hỏi 3s đầu).
+  - **Script Local 0-Token:** `.agents/skills/social-media-research/scripts/social_research_analyzer.py`.
+
+### 2. Nâng Cấp Trình Dựng Video FFmpeg (`.agents/skills/ai-video-factory/scripts/ffmpeg_render.py`)
+- Tích hợp cơ chế **Folder-Level Storyboard Batch Mixing** từ `YILS-LIN/short-video-factory` (`--scenes-dir` + `--batch-count`).
+- Nối mượt nhiều clip/ảnh phân cảnh bằng `filter_complex` (`concat=n=N:v=1:a=0`), tự động đo thời lượng giọng đọc qua `ffprobe`, trộn âm thanh chuẩn phòng thu (Voiceover `-3dB`, BGM `-18dB`) và đóng cứng phụ đề `.srt`.
+
+---
+
 ## [1.2.0] — 2026-10-19: Nâng Cấp Hệ Thống Webhook n8n v2 & Local Zero-Token Webhook Hub (`localhost:5678`)
 
 ### 1. Nâng Cấp Workflow Đa Kênh `aff_video_autopost_workflow.json` (v2)
