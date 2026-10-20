@@ -4,6 +4,23 @@
 
 ---
 
+## [1.4.0] — 2026-10-21: Tự Động Dọn Kho Hình Ảnh & Video Local Sau 7 Ngày (`cleanup_old_media.py`) & Xuất Bản Ảnh Local (`fb_publish_image_post.py`)
+
+### 1. Công Cụ Tự Động Dọn Kho Media Local Quá Hạn 7 Ngày (`tools/cleanup_old_media.py` & `tools/run_cleanup_7d.bat`)
+- **Mục tiêu:** Tự động xóa toàn bộ hình ảnh (`.jpg`, `.png`, `.webp`), video (`.mp4`, `.mov`), âm thanh (`.mp3`, `.wav`) và thư mục build tạm (`remotion/`, `images/`, `assets/`, `qa-frames/`, `out/`, `node_modules/`) trong `campaigns/<YYYY-MM-DD>/` và `templates/remotion-cuongit-template/out/` khi đã quá **7 ngày** (`--days 7`), giữ cho ổ cứng local luôn nhẹ và sạch.
+- **Bảo vệ an toàn tuyệt đối:**
+  - Giữ lại các file nhật ký `.md` siêu nhẹ (vài KB) trong `campaigns/<YYYY-MM-DD>/` để bảo toàn lịch sử Post ID và kịch bản.
+  - Không bao giờ chạm tới thư mục tài nguyên gốc `assets/` (chứa mẫu chuẩn `ai-players-image-styles/` và `sales-pages-image-styles/`), `brand-kit/`, `knowledge/`, `training/`, `tools/` và `aff_system.db`.
+- **Kích hoạt 3 lớp lịch tự động:**
+  1. **Hook Khởi Động Phiên (`tools/mama_boot_check.py`):** Tự động quét và dọn media quá hạn > 7 ngày mỗi khi mở Antigravity và hiển thị dung lượng kho `campaigns/` ngay trong bảng Báo Cáo Khởi Động Phiên.
+  2. **Windows Task Scheduler (`AgentJavis_MediaCleanup_7Days`):** Chạy ngầm hàng ngày lúc `09:00 AM` (kèm cờ `StartWhenAvailable` tự chạy bù ngay khi bật máy).
+  3. **Antigravity Standing Cron (`0 9 * * *`):** Chạy định kỳ mỗi ngày khi Antigravity đang mở.
+
+### 2. Công Cụ Đăng Bài Ảnh Local & Bình Luận Đầu Tiên (`tools/fb_publish_image_post.py`)
+- Upload trực tiếp ảnh `.jpg`/`.png` từ ổ cứng lên Facebook Graph API (`/{page_id}/photos`) cho bất kỳ Fanpage nào trong `pages_vault.json` và tự động ghim ngay `Pinned Comment #1` chứa link tài liệu/sản phẩm (`/{post_id}/comments`) với chi phí **0 token**.
+
+---
+
 ## [1.3.0] — 2026-10-20: Tích Hợp Skill `social-media-research` & Nâng Cấp `ffmpeg_render.py` (Batch Storyboard Mixing)
 
 ### 1. Bộ Kỹ Năng Nghiên Cứu MXH Mới (`.agents/skills/social-media-research/`)
