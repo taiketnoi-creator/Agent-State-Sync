@@ -4,6 +4,19 @@
 
 ---
 
+## [1.6.0] — 2026-10-21: Hệ Thống Tự Động Hóa Link & Đối Soát Shopee Affiliate Cá Nhân (`shopee_link_manager.py`) & Cẩm Nang Đa Kênh 2026
+
+### 1. Công Cụ Tự Động Lấy Link, Quản Lý Kho SKU & Đối Soát Chuyển Đổi Shopee Affiliate (`tools/shopee_link_manager.py`)
+- **Giải mã & Khóa cứng `SHOPEE_AFFILIATE_ID = 17395830088`:** Tự động bóc tách mã Publisher ID cá nhân từ 1 link rút gọn mẫu (`https://s.shopee.vn/6q1eCGjYkW`) và tạo link qua cổng Universal Redirect chính thức của Shopee (`https://s.shopee.vn/an_redir?origin_link=...&affiliate_id=17395830088&sub_id=...`).
+- **Mở rộng SQLite `aff_system.db`:** Thêm 2 bảng mới `shopee_page_links` (lưu ma trận link 5 tầng `Sub_ID` cho 3 Page Bán Hàng: `ktx`, `deadline`, `phongtro`) và `shopee_conversions` (nhập và phân tích báo cáo CSV từ `affiliate.shopee.vn`).
+- **Tự động nâng cấp Pinned Comment trên Facebook (`--upgrade-live-fb-comments`):** Quét và cập nhật trực tiếp toàn bộ 6/6 Pinned Comment đang chạy trên 3 Fanpage Bán Hàng sang link Affiliate chính chủ gắn `Sub_ID` riêng.
+- **Xuất Batch CSV (`campaigns/shopee-links/shopee_custom_link_batch.csv`):** Tương thích 100% với công cụ *Chuyển đổi link hàng loạt* trên `affiliate.shopee.vn/offer/custom_link`.
+
+### 2. Cẩm Nang Đa Kênh AI Affiliate 2026 (`FB Reels` + `YouTube Shorts/Shopping` + `Threads`)
+- Lưu trữ tại `campaigns/2026-10-21/multi-channel-ai-affiliate-research/` (`01-fb-reels-ai-video-archetypes.md` & `02-youtube-shorts-and-threads-playbook.md`) và Bộ Não Thứ 2 (`MEM-20261021-multi-channel-ai-affiliate-playbook.md`).
+
+---
+
 ## [1.5.0] — 2026-10-21: Bộ Công Cụ Tự Động Hóa Video AI Bán Hàng Số Lượng Lớn (SLL) Đa Sản Phẩm (`veo_step4_auto.py` & `build_step4_step5_auto.py`)
 
 ### 1. Quy Chuẩn Vàng & Prompt Google Flow v2 Cho Video AI Bán Hàng SLL (`Sandwich A-Roll ↔ B-Roll 8 Nhịp`)

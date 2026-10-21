@@ -61,6 +61,12 @@ def sync_bidirectional():
         sync_file_pair(p_sub, p_sync)
     sync_markdown_tree(os.path.join("knowledge", "bo-nao-thu-2"))
     sync_markdown_tree(os.path.join("campaigns", "2026-10-21"))
+    for rel_tool in (
+        os.path.join("tools", "shopee_link_manager.py"),
+        os.path.join("tools", "mama_boot_check.py"),
+        os.path.join("campaigns", "shopee-links", "shopee_custom_link_batch.csv"),
+    ):
+        sync_file_pair(os.path.join(SUBAGENT_DIR, rel_tool), os.path.join(SYNC_DIR, rel_tool))
 
 def main():
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
