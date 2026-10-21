@@ -69,6 +69,17 @@ def check_git_sync(auto_pull: bool = False) -> str:
                     )
                 except Exception:
                     pass
+    snapshot_script = STATE_SYNC_DIR / "generate_snapshot.py"
+    if snapshot_script.exists():
+        try:
+            subprocess.run(
+                [sys.executable, str(snapshot_script)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=3.0,
+            )
+        except Exception:
+            pass
     try:
         branch = subprocess.check_output(
             ["git", "-C", str(target), "rev-parse", "--abbrev-ref", "HEAD"],

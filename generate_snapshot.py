@@ -52,7 +52,8 @@ def sync_file_pair(p_sub: str, p_sync: str):
 
 
 def sync_tree_by_ext(rel_root: str, exts=(".md",)):
-    """Mirror lightweight text/code files under rel_root between Subagent and Agent-State-Sync."""
+    """Mirror lightweight text/code files under rel_root between Subagent and Agent-State-Sync.
+    If exts is None, mirror ALL files inside rel_root."""
     sub_root = os.path.join(SUBAGENT_DIR, rel_root)
     sync_root = os.path.join(SYNC_DIR, rel_root)
     rel_paths = set()
@@ -65,7 +66,7 @@ def sync_tree_by_ext(rel_root: str, exts=(".md",)):
                 if d not in ("__pycache__", "node_modules", ".git", "out", "assets", "images", "raw_scenes", "outputs", "keyframes_v1", "qa-frames")
             ]
             for f in files:
-                if f.lower().endswith(exts):
+                if exts is None or f.lower().endswith(exts):
                     full_p = os.path.join(root, f)
                     rel_p = os.path.relpath(full_p, base)
                     rel_paths.add(rel_p)
@@ -74,12 +75,12 @@ def sync_tree_by_ext(rel_root: str, exts=(".md",)):
 
 
 def sync_bidirectional():
-    """Keep lightweight state files, 10 Agent definitions, training, knowledge, skills, tools, and campaign .md docs mirrored."""
+    """Keep lightweight state files, 10 Agent definitions, ALL training files, knowledge, skills, tools, and campaign .md docs mirrored."""
     for fname in SYNC_FILES:
         p_sub = os.path.join(SUBAGENT_DIR, fname)
         p_sync = os.path.join(SYNC_DIR, fname)
         sync_file_pair(p_sub, p_sync)
-    sync_tree_by_ext("training", (".md", ".json"))
+    sync_tree_by_ext("training", None)
     sync_tree_by_ext("knowledge", (".md", ".json"))
     sync_tree_by_ext(os.path.join(".agents", "skills"), (".md", ".py", ".json"))
     sync_tree_by_ext("tools", (".py", ".bat", ".ps1"))
