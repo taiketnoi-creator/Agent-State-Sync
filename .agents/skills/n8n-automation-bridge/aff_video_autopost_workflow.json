@@ -1,0 +1,137 @@
+{
+  "name": "AI Affiliate & Video Multi-Channel Auto-Publisher v2 (Brand-Compliant)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aff-video-publish",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-video-publish",
+      "name": "Webhook: aff-video-publish",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body ? $json.body.video_path : $json.video_path }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "validate-video-payload",
+      "name": "Gate: Validate Video & Payload",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst jobId = body.job_id || 'auto';\nconst rawUrl = (body.aff_url || '').trim();\nconst sep = rawUrl.includes('?') ? '&' : '?';\nconst fbUtmUrl = rawUrl ? `${rawUrl}${sep}utm_source=fb_reels&utm_medium=pinned_comment&utm_campaign=job_${jobId}` : '';\nconst ytUtmUrl = rawUrl ? `${rawUrl}${sep}utm_source=yt_shorts&utm_medium=description&utm_campaign=job_${jobId}` : '';\n\n// Strip any raw URLs from FB Reels caption to prevent reach penalty (Brand Guidelines 4.3)\nconst cleanCaption = (body.caption || body.title || 'Đồ tiện ích thông minh đáng thử').replace(/https?:\\/\\/\\S+/g, '').trim();\nconst fbCaption = `${cleanCaption}\\n\\n👉 Link sản phẩm tui ghim ở bình luận đầu tiên nha!`;\nconst fbPinnedComment = fbUtmUrl ? `🔥 Chốt đơn chính hãng giá hời tại đây nha các bác: ${fbUtmUrl}` : '🔥 Link sản phẩm đang cập nhật ở đầu kênh nha!';\n\n// YT Shorts title < 60 chars + 3 hashtags\nconst baseTitle = (body.title || 'Món đồ tiện ích cứu cánh mỗi ngày').slice(0, 35).trim();\nconst ytTitle = `${baseTitle} #Shorts #TienIch #Review`;\nconst ytDescription = `${cleanCaption}\\n\\n👉 Chi tiết món này tui để ở đây và Link bio đầu kênh nhé: ${ytUtmUrl}`;\n\n// Golden hour slot selection (11:45 or 20:00)\nconst slot = body.schedule_slot === '20:00' ? '20:00' : '11:45';\n\nreturn [{\n  json: {\n    status: 'READY_FOR_PUBLISH_QUEUE',\n    job_id: jobId,\n    product_id: body.product_id || 1,\n    video_path: body.video_path,\n    schedule_slot: slot,\n    approval_gate: body.approval_status || 'DRAFT_ONLY',\n    channels: {\n      facebook_reels: {\n        caption_no_link: fbCaption,\n        pinned_comment_with_link: fbPinnedComment,\n        tracked_aff_url: fbUtmUrl\n      },\n      youtube_shorts: {\n        title_under_60_chars: ytTitle,\n        title_length: ytTitle.length,\n        description: ytDescription,\n        tracked_aff_url: ytUtmUrl\n      }\n    },\n    processed_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "format-multi-channel-pack",
+      "name": "Code: Format Brand-Compliant Multi-Channel Pack & Golden Hour",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 180]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aff-product-alert",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-product-alert",
+      "name": "Webhook: aff-product-alert",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 440]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nreturn [{\n  json: {\n    status: 'PRODUCT_ALERT_LOGGED',\n    product_name: body.name || 'Unknown SKU',\n    score: body.score || 0,\n    commission: body.commission || 'N/A',\n    hook_angle: body.hook_angle || '',\n    alert_message: `🎯 [WINNING SKU] ${body.name || 'SKU'} (Score: ${body.score || 0}/100 | HH: ${body.commission || 'N/A'}) - Hook: ${body.hook_angle || ''}`,\n    processed_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "format-product-alert",
+      "name": "Code: Format Winning SKU Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 440]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aff-analytics-sync",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-analytics-sync",
+      "name": "Webhook: aff-analytics-sync",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 660]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst views = Number(body.views || 0);\nconst clicks = Number(body.clicks || 0);\nconst orders = Number(body.orders || 0);\nconst ctr = views > 0 ? Number(((clicks / views) * 100).toFixed(2)) : 0;\nconst cvr = clicks > 0 ? Number(((orders / clicks) * 100).toFixed(2)) : 0;\nconst decision = orders > 0 && ctr >= 1.5 ? 'KEEP_AND_SCALE' : (views >= 1000 && ctr < 0.8 ? 'ITERATE_HOOK_CTA' : 'MONITOR');\nreturn [{\n  json: {\n    status: 'ANALYTICS_SYNCED',\n    job_id: body.job_id || 0,\n    metrics: { views, clicks, orders, ctr_pct: ctr, cvr_pct: cvr },\n    recommendation: decision,\n    processed_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "format-analytics-sync",
+      "name": "Code: Compute Funnel Metrics & Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 660]
+    }
+  ],
+  "connections": {
+    "Webhook: aff-video-publish": {
+      "main": [
+        [
+          {
+            "node": "Gate: Validate Video & Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: Validate Video & Payload": {
+      "main": [
+        [
+          {
+            "node": "Code: Format Brand-Compliant Multi-Channel Pack & Golden Hour",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: aff-product-alert": {
+      "main": [
+        [
+          {
+            "node": "Code: Format Winning SKU Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: aff-analytics-sync": {
+      "main": [
+        [
+          {
+            "node": "Code: Compute Funnel Metrics & Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

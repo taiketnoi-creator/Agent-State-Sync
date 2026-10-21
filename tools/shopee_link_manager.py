@@ -226,7 +226,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1421270697727753_122106524439511096",
         "comment_id": "122106524439511096_1681189970310941",
         "sku_code": "tui_nen_chan_khong",
-        "product_name": "Combo Túi Nén Chân Không PA+PE Kèm Bơm Tay Mini",
+        "product_name": "Combo 8 Túi Nén Hút Chân Không PA+PE Kèm Bơm Tay Đựng Chăn Màn",
+        "clean_product_url": "https://shopee.vn/product/121890267/18836537162",
         "price_vnd": 65000,
     },
     {
@@ -236,7 +237,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1421270697727753_122106524061511096",
         "comment_id": "122106524061511096_1635038298270096",
         "sku_code": "quat_kep_giuong_360",
-        "product_name": "Quạt Tích Điện Mini Kẹp Giường Xoay 360° (Sạc Type-C)",
+        "product_name": "Quạt Tích Điện Mini Để Bàn Có Đế Kẹp Giường Xoay 360 Độ",
+        "clean_product_url": "https://shopee.vn/product/75279512/27584306480",
         "price_vnd": 99000,
     },
     {
@@ -246,7 +248,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1407231352464711_122111499867502096",
         "comment_id": "122111499867502096_2558864567929784",
         "sku_code": "den_kep_man_hinh",
-        "product_name": "Đèn Kẹp Màn Hình Chiếu Sáng Bất Đối Xứng (3 Màu Nắng)",
+        "product_name": "Đèn Treo Kẹp Màn Hình Máy Tính Chống Lóa Bảo Vệ Mắt TB-30",
+        "clean_product_url": "https://shopee.vn/product/806240928/27831334571",
         "price_vnd": 189000,
     },
     {
@@ -256,7 +259,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1407231352464711_122111499567502096",
         "comment_id": "122111499567502096_1793301908590293",
         "sku_code": "gia_do_laptop_360",
-        "product_name": "Giá Đỡ Điện Thoại / Laptop Xoay 360° Hợp Kim Nhôm",
+        "product_name": "Kệ Giá Đỡ Laptop Hợp Kim Nhôm SE50 Nâng Cao Xoay 360 Độ",
+        "clean_product_url": "https://shopee.vn/product/35958362/23171742273",
         "price_vnd": 89000,
     },
     {
@@ -266,7 +270,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1442323328956326_122101744053514839",
         "comment_id": "122101744053514839_1707730694109011",
         "sku_code": "bo_cat_got_rau_cu",
-        "product_name": "Bộ Cắt Gọt Rau Củ Đa Năng Kèm Rổ Xoay (6–8 Lưỡi Dao)",
+        "product_name": "Bộ Dụng Cụ Bào Cắt Gọt Rau Củ Quả Đa Năng Kèm Rổ 9in1",
+        "clean_product_url": "https://shopee.vn/product/239730392/6134468445",
         "price_vnd": 95000,
     },
     {
@@ -276,7 +281,8 @@ LIVE_POST_COMMENT_TARGETS = [
         "post_id": "1442323328956326_122101743429514839",
         "comment_id": "122101743429514839_4270790293220291",
         "sku_code": "may_hut_bui_mini",
-        "product_name": "Máy Hút Bụi Mini Cầm Tay Sạc Type-C (Đủ Đầu Hút)",
+        "product_name": "Máy Hút Bụi Cầm Tay Không Dây Mini 5 Trong 1 Đa Năng",
+        "clean_product_url": "https://shopee.vn/product/196261835/40969424649",
         "price_vnd": 149000,
     },
 ]
@@ -316,12 +322,9 @@ def upgrade_live_fb_comments() -> int:
             if not m_url:
                 continue
             old_link = m_url.group(0)
-            # Nếu link cũ đã là an_redir thì trích origin_link ra, nếu chưa thì dùng old_link
-            if "an_redir" in old_link and "origin_link=" in old_link:
-                parsed_q = urllib.parse.parse_qs(urllib.parse.urlparse(old_link).query)
-                origin_target = parsed_q.get("origin_link", [old_link])[0]
-            else:
-                origin_target = old_link
+            # BẮT BUỘC dùng link đích sản phẩm trực tiếp (https://shopee.vn/product/{shop_id}/{item_id})
+            # Tuyệt đối CẤM dùng link tìm kiếm từ khóa shopee.vn/search?keyword=...
+            origin_target = item.get("clean_product_url") or old_link
 
             sub_list = [pkey, sku, "img_1x1", "20261020_live", "macro_grid"]
             sub_comb = "-".join(sub_list)
@@ -513,8 +516,11 @@ def init_db() -> sqlite3.Connection:
 def build_an_redir_link(clean_url: str, aff_id: str, sub_ids: list[str]) -> str:
     """
     Tạo link Affiliate tự động qua cổng Universal Redirect của Shopee (`s.shopee.vn/an_redir`).
-    Nếu chưa điền `SHOPEE_AFFILIATE_ID`, vẫn tạo link có cấu trúc UTM/Sub_ID chuẩn để thay ID bất kỳ lúc nào.
+    HARD GATE: Cấm tuyệt đối việc bọc link tìm kiếm `shopee.vn/search` hoặc `shopee.vn/list`!
+    Bắt buộc `clean_url` phải là link sản phẩm cụ thể (`https://shopee.vn/product/{shop_id}/{item_id}`).
     """
+    if "/search" in clean_url or "/list/" in clean_url:
+        raise ValueError(f"HARD GATE BLOCKED: Cấm dùng link tìm kiếm '{clean_url}' làm link Affiliate! Phải dùng https://shopee.vn/product/{{shop_id}}/{{item_id}}")
     sub_str = "-".join(s for s in sub_ids if s)
     encoded_origin = urllib.parse.quote(clean_url, safe="")
     if aff_id:

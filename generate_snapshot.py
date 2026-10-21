@@ -19,7 +19,23 @@ SYNC_FILES = [
     "SOFTWARE-CHANGELOG.md",
     "RECENT-CONVERSATION.md",
     "STATE-SNAPSHOT.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "HUONG-DAN-SU-DUNG.md",
+    "HUONG-DAN-CAI-DAT-MAY-MOI.md",
+    "skills-manifest.md",
+    "mama.md",
+    "mkt.md",
+    "content.md",
+    "edit.md",
+    "voice.md",
+    "content-da-kenh.md",
+    "quan-ly-kenh.md",
+    "cham-soc-kenh.md",
+    "hieu-suat.md",
+    "bo-nao-thu-2.md",
 ]
+
 
 def sync_file_pair(p_sub: str, p_sync: str):
     os.makedirs(os.path.dirname(p_sub), exist_ok=True)
@@ -35,17 +51,21 @@ def sync_file_pair(p_sub: str, p_sync: str):
         shutil.copy2(p_sub, p_sync)
 
 
-def sync_markdown_tree(rel_root: str):
-    """Mirror lightweight .md files under rel_root between Subagent and Agent-State-Sync."""
+def sync_tree_by_ext(rel_root: str, exts=(".md",)):
+    """Mirror lightweight text/code files under rel_root between Subagent and Agent-State-Sync."""
     sub_root = os.path.join(SUBAGENT_DIR, rel_root)
     sync_root = os.path.join(SYNC_DIR, rel_root)
     rel_paths = set()
     for base in (sub_root, sync_root):
         if not os.path.exists(base):
             continue
-        for root, _, files in os.walk(base):
+        for root, dirs, files in os.walk(base):
+            dirs[:] = [
+                d for d in dirs
+                if d not in ("__pycache__", "node_modules", ".git", "out", "assets", "images", "raw_scenes", "outputs", "keyframes_v1", "qa-frames")
+            ]
             for f in files:
-                if f.lower().endswith(".md"):
+                if f.lower().endswith(exts):
                     full_p = os.path.join(root, f)
                     rel_p = os.path.relpath(full_p, base)
                     rel_paths.add(rel_p)
@@ -54,19 +74,17 @@ def sync_markdown_tree(rel_root: str):
 
 
 def sync_bidirectional():
-    """Keep lightweight state files, Second Brain memories, and campaign .md docs mirrored."""
+    """Keep lightweight state files, 10 Agent definitions, training, knowledge, skills, tools, and campaign .md docs mirrored."""
     for fname in SYNC_FILES:
         p_sub = os.path.join(SUBAGENT_DIR, fname)
         p_sync = os.path.join(SYNC_DIR, fname)
         sync_file_pair(p_sub, p_sync)
-    sync_markdown_tree(os.path.join("knowledge", "bo-nao-thu-2"))
-    sync_markdown_tree(os.path.join("campaigns", "2026-10-21"))
-    for rel_tool in (
-        os.path.join("tools", "shopee_link_manager.py"),
-        os.path.join("tools", "mama_boot_check.py"),
-        os.path.join("campaigns", "shopee-links", "shopee_custom_link_batch.csv"),
-    ):
-        sync_file_pair(os.path.join(SUBAGENT_DIR, rel_tool), os.path.join(SYNC_DIR, rel_tool))
+    sync_tree_by_ext("training", (".md", ".json"))
+    sync_tree_by_ext("knowledge", (".md", ".json"))
+    sync_tree_by_ext(os.path.join(".agents", "skills"), (".md", ".py", ".json"))
+    sync_tree_by_ext("tools", (".py", ".bat", ".ps1"))
+    sync_tree_by_ext("campaigns", (".md", ".csv"))
+
 
 def main():
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -114,6 +132,7 @@ def main():
 
     sync_bidirectional()
     print("Updated STATE-SNAPSHOT.md and mirrored state files between Subagent and Agent-State-Sync.")
+
 
 if __name__ == "__main__":
     main()
