@@ -105,19 +105,50 @@ NICHE_META = [
 
 
 def get_ws_url() -> str:
+    import subprocess
     import urllib.request
-    try:
-        with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.5) as resp:
-            info = json.loads(resp.read().decode("utf-8", errors="ignore"))
-            if info.get("webSocketDebuggerUrl"):
-                return info["webSocketDebuggerUrl"]
-    except Exception:
-        pass
+
+    def _fetch_ws() -> str:
+        try:
+            with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.5) as resp:
+                info = json.loads(resp.read().decode("utf-8", errors="ignore"))
+                if info.get("webSocketDebuggerUrl"):
+                    return info["webSocketDebuggerUrl"]
+        except Exception:
+            pass
+        return ""
+
+    ws = _fetch_ws()
+    if ws:
+        return ws
+
+    import socket
     port_file = pathlib.Path.home() / "AppData/Local/Google/Chrome/User Data/DevToolsActivePort"
     if port_file.exists():
         lines = port_file.read_text(encoding="utf-8", errors="ignore").strip().splitlines()
         if len(lines) >= 2:
-            return f"ws://127.0.0.1:{lines[0].strip()}{lines[1].strip()}"
+            try:
+                with socket.create_connection(("127.0.0.1", int(lines[0].strip())), timeout=1.0):
+                    return f"ws://127.0.0.1:{lines[0].strip()}{lines[1].strip()}"
+            except Exception:
+                pass
+
+    chrome_exe = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    bot_profile_dir = str(SUBAGENT_DIR / ".chrome-fb-bot")
+    if pathlib.Path(chrome_exe).exists():
+        # Tuy?t ??i KH?NG d?ng taskkill l?n Chrome ch?nh c?a CEO; ch? m? 1 c?a s? Chrome ??c l?p ri?ng cho Bot
+        subprocess.Popen([
+            chrome_exe,
+            f"--user-data-dir={bot_profile_dir}",
+            "--remote-debugging-port=9222",
+            "https://www.facebook.com",
+        ])
+        for _ in range(10):
+            time.sleep(1.0)
+            ws = _fetch_ws()
+            if ws:
+                return ws
+
     return "ws://127.0.0.1:9222/devtools/browser/9cab8ce5-72db-4557-b425-7932842973c6"
 
 
@@ -153,7 +184,8 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
         browser = p.chromium.connect_over_cdp(ws_url, timeout=18000)
         ctx = browser.contexts[0]
         fb_pages = [pg for pg in ctx.pages if "facebook.com" in pg.url]
-        pg = fb_pages[-1] if fb_pages else ctx.pages[0]
+        non_chrome = [pg for pg in ctx.pages if not pg.url.startswith("chrome://")]
+        pg = fb_pages[-1] if fb_pages else (non_chrome[-1] if non_chrome else ctx.new_page())
         pg.bring_to_front()
 
         for niche in NICHE_META:

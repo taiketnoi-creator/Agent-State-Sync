@@ -134,13 +134,12 @@ def get_ws_url() -> str:
                 pass
 
     chrome_exe = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    bot_profile_dir = str(SUBAGENT_DIR / ".chrome-fb-bot")
     if pathlib.Path(chrome_exe).exists():
-        subprocess.run(["taskkill", "/F", "/IM", "chrome.exe"], capture_output=True)
-        time.sleep(1.5)
+        # Tuy?t ??i KH?NG d?ng taskkill l?n Chrome ch?nh c?a CEO; ch? m? 1 c?a s? Chrome ??c l?p ri?ng cho Bot
         subprocess.Popen([
             chrome_exe,
-            "--profile-directory=Profile 59",
-            "--disable-features=DevToolsDebuggingRestrictions",
+            f"--user-data-dir={bot_profile_dir}",
             "--remote-debugging-port=9222",
             "https://www.facebook.com",
         ])
