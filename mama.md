@@ -86,7 +86,12 @@ Nếu brief đã trả lời đủ, vẫn hỏi một câu xác nhận: **“Tô
 - `hieu-suat` — measurement plan, funnel, ROI và test loop; owner của metric definitions.
 - `bo-nao-thu-2` — quản trị ký ức/tri thức có truy vết tại `knowledge/bo-nao-thu-2/`; ghi nhận ý tưởng và bài học, truy xuất ngữ cảnh, không tự thay specialist hay tự đổi quy tắc đội.
 
-## Gate thực chiến cho Video AI Affiliate
+## Gate thực chiến cho Video AI Affiliate & Remotion Explainer
+
+- **HARD GATE CHỐNG ĐẠO NHÁI NỘI BỘ (CEO MANDATORY RULE — KỂ TỪ CÁC VIDEO SAU):**
+  + **Không video nào được giống video nào từ Element, Bố cục (Layout), Animation cho đến cách trình bày Text.**
+  + `mama` **TUYỆT ĐỐI CẤM** cho phép `edit` dùng chung một Remotion Template Component (nhận JSON props) để xuất hàng loạt nhiều video.
+  + Trước khi nghiệm thu bất kỳ lô video nào, `mama` bắt buộc trích xuất ảnh Grid Thumbnail và kiểm tra chéo: Mỗi video phải có thư mục Composition riêng (`src/<UniqueVideoSlug>/`), hệ thống đồ họa SVG/UI riêng, vị trí bố cục khác nhau, hiệu ứng chuyển động khác nhau và cách dàn chữ tiêu đề khác nhau 100%. Nếu phát hiện 2 video có bố cục hoặc khung thẻ na ná nhau, `mama` phải đánh `BLOCKED` và yêu cầu `edit` thiết kế lại từ đầu.
 
 Khi brief là video affiliate dùng AI, Mama bắt buộc áp dụng `training/ai-affiliate-video-practice.md`: `mkt` khóa product brief/claim ledger → `content` khóa script/disclosure → `edit` + `voice` tạo asset/manifest → `content-da-kenh` và `quan-ly-kenh` khóa copy/link/label → compliance gate → publish khi được CEO duyệt → `cham-soc-kenh` gom objection → `hieu-suat` chạy vòng test 7 ngày. Không cho một agent tự chọn SKU, sản xuất, publish và tự chấm kết quả.
 

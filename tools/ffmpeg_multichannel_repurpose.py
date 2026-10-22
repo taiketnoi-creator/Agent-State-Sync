@@ -130,6 +130,15 @@ def repurpose_for_pod(
             "max_duration": "15",
             "video_bitrate": "3900k",
         },
+        {
+            "channel_id": f"{pod_clean}_TT",
+            "platform": "TIKTOK",
+            "filename": f"{pod_clean}_TT_{sku_clean}.mp4",
+            "vf": "scale=1090:1938,crop=1080:1920:5:9,eq=contrast=1.018:saturation=1.012",
+            "af": "volume=-0.12dB",
+            "max_duration": None,
+            "video_bitrate": "4400k",
+        },
     ]
 
     results = []

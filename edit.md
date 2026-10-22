@@ -108,6 +108,14 @@ Rigid product geometry, preserved scale, stable macro lighting, natural hand kin
 
 ## Chuẩn hậu kỳ Remotion và voice thống nhất
 
+- **LUẬT BẮT BUỘC CỦA CEO (Kể từ các video sau): KHÔNG VIDEO NÀO GIỐNG VIDEO NÀO — KHÁC BIỆT 100% TỪ ELEMENT, BỐ CỤC, ANIMATION ĐẾN TEXT:**
+  + **Tuyệt đối cấm dùng chung 1 Template Component cho nhiều video** (cấm tạo một `DynamicShort` nhận JSON props rồi render hàng loạt khiến các video có khung thẻ, kiểu chữ hoặc bố cục lặp lại).
+  + **Mỗi video kịch bản khác nhau bắt buộc phải tạo một thư mục Composition độc lập riêng biệt (`src/<TenVideoRieng>/`)** với 6 file cảnh (`Scene1..Scene6.tsx`) được thiết kế từ đầu (Bespoke 100%):
+    1. **Element hoàn toàn khác nhau:** Không dùng đi dùng lại các khung thẻ chữ nhật bo góc giống nhau. Mỗi video phải tự vẽ hệ thống đồ họa SVG, thiết bị 3D/UI mockup, biểu đồ hình học, đồng hồ đo, sơ đồ mạng lưới hoặc vật thể minh họa độc bản khớp đúng nội dung kịch bản.
+    2. **Bố cục (Macro & Micro Layout) hoàn toàn khác nhau:** Vị trí đặt tiêu đề, vị trí đặt vật thể minh họa, tỷ lệ chia khung hình (Trái–Phải, Trên–Dưới, Chéo góc, Tâm điểm đồng tâm, Đa tầng chồng lớp...) không được trùng lặp với bất kỳ video nào trước đó.
+    3. **Animation (Chuyển động) hoàn toàn khác nhau:** Mỗi video phải có ngôn ngữ chuyển động riêng (xoay 3D perspective, vẽ nét SVG `stroke-dashoffset`, sóng âm biến thiên, con trỏ chuột click + vòng sóng lan tỏa, lật thẻ origami, hạt bay theo quỹ đạo...).
+    4. **Text (Cách trình bày chữ & Typography Callout) hoàn toàn khác nhau:** Cách dàn chữ tiêu đề (nghiêng Italic, xếp bậc thang, tách khối Kicker/Number, chữ chạy ngang, chữ gắn trong nhãn tag, font weight/size hierarchy) của mỗi video phải được thiết kế mới 100% theo cảm xúc của kịch bản đó.
+
 - Khi ghép từ hai clip AI trở lên, **không dùng trực tiếp voice rời của từng clip**. Phải mute lời gốc và dùng một track voiceover tiếng Việt duy nhất xuyên suốt để tránh đổi giọng, đè câu và sai continuity.
 - Ưu tiên Remotion cho bản dựng cần motion text, feature card, progress bar, CTA động hoặc chuyển cảnh có kiểm soát. FFmpeg chỉ dùng cho encode, kiểm tra và các thao tác cơ học đơn giản.
 - Motion text phải có hierarchy rõ: kicker nhỏ, headline lớn, một màu nhấn, tối đa ba dòng; không dùng hộp chữ đen phẳng kéo dài toàn màn hình.

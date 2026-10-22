@@ -37,12 +37,15 @@ Mọi video dựng bằng `templates/remotion-cuongit-template` **BẮT BUỘC t
 
 ---
 
-### Quy tắc 3: CẤM Lặp Lại Bố Cục Cũ — Bắt Buộc Sáng Tạo Visual & Motion Độc Bản Theo Từng Nội Dung (`Dynamic Visual Storytelling & Anti-Clone Gate`)
-1. **PHÂN TÁCH RÕ "NHẬN DIỆN CỐ ĐỊNH" VÀ "BỐ CỤC SÁNG TẠO":**
-   - **Phần cố định (Brand Shell — Giữ nguyên 100%):** Nền xanh `BG-video-motion.jpg` + 2 quầng sáng Neon, mã màu tiêu đề `#87ff00`, chất liệu kính mờ `bg-white/[0.08] border-white/30 backdrop-blur-md`, `BrandHeader`, `SubtitleBox` 1 dòng trượt từ dưới lên, BGM & SFX.
-   - **Phần BẮT BUỘC SÁNG TẠO MỚI ở mỗi video (Scene Layout, Graphic Elements & Animation Choreography):**
-     - **TUYỆT ĐỐI CẤM** copy-paste nguyên xi bố cục 6 cảnh của video trước (như 3 ô ngang giống hệt nhau, 3 thanh phần trăm giống hệt nhau, 3 thẻ bước xếp chồng giống hệt nhau) rồi chỉ thay chữ/icon!
-     - Mỗi phân cảnh phải được thiết kế **Visual Metaphor (Ẩn dụ thị giác) & Chuyển động riêng biệt** bám sát đúng nội dung câu thoại của cảnh đó.
+### Quy tắc 3: CẤM Lặp Lại Bố Cục & Element — Bắt Buộc 100% Độc Bản Toàn Diện Cho Từng Video (`Zero-Clone Bespoke Architecture — Hard Gate Bắt Buộc`)
+1. **LUẬT CỨNG TỪ CEO (2026-10-22): KHÔNG VIDEO NÀO ĐƯỢC GIỐNG VIDEO NÀO TỪ ELEMENT, BỐ CỤC, ANIMATION ĐẾN TEXT!**
+   - **Phần cố định duy nhất (`Brand Shell`):** Nền xanh `BG-video-motion.jpg` + 2 quầng sáng Neon, mã màu điểm nhấn `#87ff00`, chất liệu kính trong suốt (không khung đen), `BrandHeader`, `SubtitleBox` 1 dòng ở đáy (`bottom-56`), BGM & SFX, giọng Vbee `-3dB`.
+   - **TUYỆT ĐỐI CẤM dùng chung 1 Component/Template tham số hóa (`Dynamic Template` nhận JSON props) cho nhiều video khác nhau!**
+   - **BẮT BUỘC mỗi video mới phải được `edit` code thành 1 thư mục Composition độc lập (`src/<TenVideoRieng>/` gồm `Scene1.tsx .. Scene6.tsx`)** với:
+     + **100% Khác Biệt Về Element Đồ Họa (`Bespoke Graphic Elements`):** Mỗi video phải tự vẽ SVG / UI / 3D / Biểu đồ / Mockup hoàn toàn mới theo đúng câu chuyện của kịch bản đó (không tái sử dụng lại khối thẻ hay hình vẽ của bất kỳ video nào trước đó).
+     + **100% Khác Biệt Về Cách Bố Cục (`Varied Macro & Micro Layouts`):** Thay đổi vị trí đặt tiêu đề (trên / dưới / lệch trái / lệch phải / lồng trong đồ họa), thay đổi cấu trúc không gian (bất đối xứng, tròn đồng tâm, phân tầng tam giác, trục thời gian ngang, khung thiết bị dọc, sơ đồ cây, v.v.).
+     + **100% Khác Biệt Về Chuyển Động (`Unique Animation Choreography`):** Mỗi video và mỗi phân cảnh phải có quỹ đạo chuyển động riêng (quay kim đồng hồ, quét tia laser, lật 3D perspective, con trỏ chuột di chuyển & click sóng âm, hạt dữ liệu chạy dọc đường cong Bezier, v.v.).
+     + **100% Khác Biệt Về Trình Bày Text (`Typography & Callout Hierarchy`):** Cách trình bày chữ, nhãn badge, con số thống kê phải biến hóa theo đúng thiết kế của video đó.
 2. **Kho 10+ Khuôn Mẫu Thị Giác Sáng Tạo (`Creative Visual Archetypes`) để `edit` biến hóa linh hoạt:**
    - **Bản đồ & Mạng lưới (Orbital Map / Node Constellation):** Vòng quỹ đạo xoay 360°, các điểm nút (Nodes) nối bằng tia laser SVG (`strokeDashoffset` chạy liên tục), sóng định vị tỏa tròn.
    - **Lưới Bento Đa Chiều (`2x2 Bento Grid` / `Asymmetric Masonry`):** Chia 4 ô vuông hoặc 1 ô lớn + 2 ô nhỏ bất đối xứng; cảnh đầu zoom/sáng ô 1–2, cảnh sau chuyển tâm điểm sang ô 3–4.

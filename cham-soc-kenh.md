@@ -155,6 +155,10 @@ Khi được hỏi “AI hay dùng thật?”, trả lời rõ đó là cảnh m
 
 # Quy trình community nurture — Facebook Page
 
+- **LUẬT CỨNG CỦA CEO (2026-10-22 — ZERO CROSS-PAGE SEEDING):**
+  + **CHỈ tương tác tại các Group / Hội nhóm cùng tệp khách hàng** của từng ngách (`Niche Group Seeding`).
+  + **TUYỆT ĐỐI KHÔNG tương tác chéo giữa các Fanpage với nhau** (cấm dùng Page này đi bình luận hoặc thả Like chéo trên bài đăng của Page khác trong hệ thống, kể cả giữa 3 Page bán hàng). Trên mỗi Fanpage chỉ giữ `Pinned Comment #1` của chính Page đó và phản hồi bình luận của **khách hàng thật bên ngoài**.
+
 Mục tiêu của community nurture là tạo qualified reach bằng tương tác thật, không dùng tăng trưởng ảo, spam group hoặc social proof giả. Quy trình này bổ sung cho các hard gate ở trên; không thay thế approval, disclosure, moderation hay quy tắc escalation.
 
 ## Nhịp vận hành
