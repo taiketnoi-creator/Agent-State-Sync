@@ -152,7 +152,7 @@ SEED_PLAN = [
         "post_id": "1407231352464711_122111499567502096",
         "title": "Hội Deadline — SKU #5: Giá đỡ Laptop hợp kim nhôm xoay 360°",
         "host_key": "HOI_DEADLINE",
-        "seeder_key": "AI_PLAYERS",
+        "seeder_key": "PHONG_TRO",
         "seed_msg": "Dân code với làm việc 10 tiếng/ngày nhìn quả trục xoay cơ khí 360 độ này ưng mắt thật. Để MacBook 16 inch hay laptop gaming nặng tầm 2.2kg lên gõ phím có bị rung bản lề không shop?",
         "reply_msg": "Đầm và cứng cáp cực kỳ luôn bác ơi! Thân giá đỡ đúc từ hợp kim nhôm Anodized dày dặn với khớp đôi chịu tải tới 8-10kg, đỡ laptop 16-17 inch hoàn toàn vững chãi. Lúc họp nhóm xoay 360 độ kêu tách tách cơ khí nghe rất đã tai. Bác xem chi tiết và lấy mã giảm giá ngay tại bình luận ghim đầu tiên (#1) nhé! 💻🔥",
     },
