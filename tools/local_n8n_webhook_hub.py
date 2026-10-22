@@ -25,10 +25,15 @@ def process_video_publish(body: dict) -> tuple[int, dict]:
 
     job_id = body.get("job_id", "auto")
     product_id = body.get("product_id", 1)
+    pod_id = str(body.get("pod_id", "POD-01")).strip().upper()
+    pod_code = pod_id.lower().replace("-", "")
+    sku_code = str(body.get("sku_code", f"sku{product_id}")).lower()
     raw_url = str(body.get("aff_url", "")).strip()
     sep = "&" if "?" in raw_url else "?"
-    fb_utm = f"{raw_url}{sep}utm_source=fb_reels&utm_medium=pinned_comment&utm_campaign=job_{job_id}" if raw_url else ""
-    yt_utm = f"{raw_url}{sep}utm_source=yt_shorts&utm_medium=description&utm_campaign=job_{job_id}" if raw_url else ""
+    fb_utm = f"{raw_url}{sep}utm_source=fb_reels&utm_medium=pinned_comment&utm_campaign=job_{job_id}&sub_id=fb_{pod_code}_pin_{sku_code}" if raw_url else ""
+    ig_utm = f"{raw_url}{sep}utm_source=ig_reels&utm_medium=auto_dm&utm_campaign=job_{job_id}&sub_id=ig_{pod_code}_dm_{sku_code}" if raw_url else ""
+    th_utm = f"{raw_url}{sep}utm_source=threads&utm_medium=self_reply1&utm_campaign=job_{job_id}&sub_id=th_{pod_code}_rep1_{sku_code}" if raw_url else ""
+    yt_utm = f"{raw_url}{sep}utm_source=yt_shorts&utm_medium=related_video&utm_campaign=job_{job_id}&sub_id=yt_{pod_code}_rel_{sku_code}" if raw_url else ""
 
     raw_caption = str(body.get("caption") or body.get("title") or "Đồ tiện ích thông minh đáng thử")
     clean_caption = re.sub(r"https?://\S+", "", raw_caption).strip()
@@ -39,9 +44,15 @@ def process_video_publish(body: dict) -> tuple[int, dict]:
         else "🔥 Link sản phẩm đang cập nhật ở bình luận đầu tiên nha!"
     )
 
+    ig_caption = f"{clean_caption}\n\n💬 Comment chữ 'LINK' bên dưới mình gửi thẳng link vào hộp thư (DM) trong 3s, hoặc bấm vào Bio đầu kênh nhé! #reelsvn #{sku_code}"
+    ig_dm_payload = f"[AUTO-DM KEYWORD: LINK] Gửi bạn link chính hãng nha: {ig_utm}"
+
+    th_root_post = f"{clean_caption}\n\nĐã test kỹ, mình để chỗ mua uy tín ở ngay bình luận đầu tiên bên dưới cho ai cần nhé 👇"
+    th_self_reply = f"[SELF-REPLY #1] Chỗ mình săn được giá hời đây nha: {th_utm} (#affiliate)"
+
     base_title = str(body.get("title") or "Món đồ tiện ích cứu cánh mỗi ngày")[:35].strip()
     yt_title = f"{base_title} #Shorts #TienIch #Review"
-    yt_desc = f"{clean_caption}\n\n👉 Chi tiết món này tui để ở phần Mô tả video và Link bio đầu kênh nhé: {yt_utm}".strip()
+    yt_desc = f"{clean_caption}\n\n👉 Chi tiết món này tui để ở Video liên quan và Link bio đầu kênh nhé: {yt_utm}".strip()
 
     slot = "20:00" if str(body.get("schedule_slot")) == "20:00" else "11:45"
     approval_gate = str(body.get("approval_status") or "DRAFT_ONLY")
@@ -50,17 +61,36 @@ def process_video_publish(body: dict) -> tuple[int, dict]:
     result = {
         "status": "READY_FOR_PUBLISH_QUEUE",
         "job_id": job_id,
+        "pod_id": pod_id,
         "product_id": product_id,
         "video_path": video_path,
         "schedule_slot": slot,
         "approval_gate": approval_gate,
         "channels": {
             "facebook_reels": {
+                "channel_id": f"{pod_id.replace('-', '')}_FB",
+                "schedule_slot": slot,
                 "caption_no_link": fb_caption,
                 "pinned_comment_with_link": fb_pinned,
                 "tracked_aff_url": fb_utm
             },
+            "instagram_reels": {
+                "channel_id": f"{pod_id.replace('-', '')}_IG",
+                "schedule_slot": "12:15" if slot == "11:45" else "20:30",
+                "caption_no_link": ig_caption,
+                "auto_dm_payload": ig_dm_payload,
+                "tracked_aff_url": ig_utm
+            },
+            "threads": {
+                "channel_id": f"{pod_id.replace('-', '')}_TH",
+                "schedule_slot": "08:30" if slot == "11:45" else "21:30",
+                "root_post_no_link": th_root_post,
+                "self_reply_1_with_link": th_self_reply,
+                "tracked_aff_url": th_utm
+            },
             "youtube_shorts": {
+                "channel_id": f"{pod_id.replace('-', '')}_YT",
+                "schedule_slot": "12:00" if slot == "11:45" else "19:30",
                 "title_under_60_chars": yt_title,
                 "title_length": len(yt_title),
                 "description": yt_desc,

@@ -4,6 +4,21 @@
 
 ---
 
+## [1.7.0] — 2026-10-22: Hệ Thống Quản Trị Đa Kênh 16 -> 100 Kênh (channel_matrix_manager.py) & Chống Quét Trùng Lặp Video (fmpeg_multichannel_repurpose.py)
+
+### 1. Nâng Cấp SQLite ff_system.db & Trình Quản Lý Ma Trận 100 Kênh (	ools/channel_matrix_manager.py)
+- **Mở rộng Database ff_system.db:** Thêm 3 bảng rand_pods (25 Cụm thương hiệu), channels (100 kênh định danh POD01_FB..POD25_YT cho 4 nền tảng: FB_REELS, IG_REELS, THREADS, YT_SHORTS), và multi_channel_posts (hàng đợi xuất bản đa kênh).
+- **Tích hợp Content Firewall tự động:** Chặn cứng lỗi gắn nhầm link bán hàng gia dụng Shopee vào nhánh Khóa học/Cộng đồng (POD-04: AI Players) và ngược lại.
+- **Tự động hóa Link & Copy 4 Nền tảng (--generate-pack):** Sinh tức thì Caption không link + Pinned Comment (FB), Auto-DM Keyword LINK (IG), Self-Reply #1 (Threads) và Title < 60 ký tự + Related Video (YT Shorts) gắn sẵn mã Sub_ID chuẩn.
+
+### 2. Công Cụ FFmpeg Biến Thiên Hash & Metadata Chống Reused Content (	ools/ffmpeg_multichannel_repurpose.py)
+- Tự động biến đổi 1 Video Master (.mp4) thành 4 phiên bản độc lập cho FB_REELS, IG_REELS, YT_SHORTS, và THREADS (15s) với mã MD5 Hash, EXIF metadata (-map_metadata -1) và vi chỉnh khung hình/âm thanh khác biệt 100%.
+
+### 3. Nâng Cấp Webhook n8n Đa Kênh (	ools/local_n8n_webhook_hub.py)
+- Mở rộng cổng /webhook/aff-video-publish xuất đồng thời 4 cấu hình kênh (acebook_reels, instagram_reels, 	hreads, youtube_shorts) theo pod_id.
+
+---
+
 ## [1.6.0] — 2026-10-21: Hệ Thống Tự Động Hóa Link & Đối Soát Shopee Affiliate Cá Nhân (`shopee_link_manager.py`) & Cẩm Nang Đa Kênh 2026
 
 ### 1. Công Cụ Tự Động Lấy Link, Quản Lý Kho SKU & Đối Soát Chuyển Đổi Shopee Affiliate (`tools/shopee_link_manager.py`)

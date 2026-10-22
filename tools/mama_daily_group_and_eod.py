@@ -105,6 +105,14 @@ NICHE_META = [
 
 
 def get_ws_url() -> str:
+    import urllib.request
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.5) as resp:
+            info = json.loads(resp.read().decode("utf-8", errors="ignore"))
+            if info.get("webSocketDebuggerUrl"):
+                return info["webSocketDebuggerUrl"]
+    except Exception:
+        pass
     port_file = pathlib.Path.home() / "AppData/Local/Google/Chrome/User Data/DevToolsActivePort"
     if port_file.exists():
         lines = port_file.read_text(encoding="utf-8", errors="ignore").strip().splitlines()
