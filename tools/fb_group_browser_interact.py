@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 fb_group_browser_interact.py — Công cụ Mở Trình Duyệt & Tương Tác Thực Chiến Trên Các Hội Nhóm Facebook (4 Ngách).
-1. Khởi tạo bảng điều khiển tương tác nhanh `campaigns/2026-10-21/group_seeding_cockpit.html`
+1. Khởi tạo bảng điều khiển tương tác nhanh `campaigns/2026-10-22/group_seeding_cockpit.html`
    (Tự động nạp sẵn 12 bình luận Ca Tối + 4 Bài Trojan Horse Group Seeding + 7 Link bài mới đăng hôm nay).
 2. Mở trực tiếp trình duyệt Google Chrome đang đăng nhập Facebook của CEO vào thẳng luồng thảo luận mới nhất
    của các Hội nhóm mục tiêu để tương tác thật ngay lập tức.
@@ -18,7 +18,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 SUBAGENT_DIR = pathlib.Path(__file__).resolve().parent.parent
-COCKPIT_PATH = SUBAGENT_DIR / "campaigns" / "2026-10-21" / "group_seeding_cockpit.html"
+COCKPIT_PATH = SUBAGENT_DIR / "campaigns" / "2026-10-22" / "group_seeding_cockpit.html"
 
 GROUPS_DATA = [
     {
@@ -123,7 +123,7 @@ def build_html() -> str:
 </style>
 </head>
 <body>
-  <h1>🚀 MAMA — TRẠM TƯƠNG TÁC THẬT 60 HỘI NHÓM FACEBOOK (CA TỐI 21/10/2026)</h1>
+  <h1>🚀 MAMA — TRẠM TƯƠNG TÁC THẬT 60 HỘI NHÓM FACEBOOK (CA SÁNG 22/10/2026)</h1>
   <div class="sub">
     Bấm <b>"📋 Copy Bình Luận &amp; Mở Bài Thảo Luận Group"</b>: Hệ thống tự động Copy sẵn nội dung vào Clipboard và mở thẳng tab bài viết đang thảo luận sôi nổi trên Facebook Group để dán (Ctrl+V) ngay trong 2 giây!
   </div>
