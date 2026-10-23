@@ -55,12 +55,19 @@ $tasks = @(
 
 foreach ($t in $tasks) {
     $action = New-ScheduledTaskAction -Execute $pyExe -Argument "`"$engineScript`" --mode $($t.Mode)" -WorkingDirectory $subagentDir
-    $trigger = New-ScheduledTaskTrigger -Daily -At $t.Time
+    if ($t.Mode -eq "boot-or-9am") {
+        $trigger = @(
+            (New-ScheduledTaskTrigger -Daily -At $t.Time),
+            (New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME)
+        )
+    } else {
+        $trigger = New-ScheduledTaskTrigger -Daily -At $t.Time
+    }
     Register-ScheduledTask -TaskName $t.Name -Action $action -Trigger $trigger -Settings $settings -Description $t.Desc -Force | Out-Null
     Write-Host "✅ Đã đăng ký Task: $($t.Name) (Mốc: $($t.Time) | StartWhenAvailable: True)" -ForegroundColor Green
 }
 
-# Tạo thêm Startup Script chạy ngầm ngay giây đầu tiên khi mở máy (Windows Startup Folder)
+# Tạo thêm Startup Script chạy ngầm ngay giây đầu tiên khi mở máy (Windows Startup Folder — mã hóa Unicode UTF-16LE cho WScript)
 $startupDir = [Environment]::GetFolderPath("Startup")
 $vbsPath = Join-Path $startupDir "AgentJavis_AutoBoot_OnStartup.vbs"
 $vbsContent = @"
@@ -68,5 +75,5 @@ Set WshShell = CreateObject("WScript.Shell")
 WshShell.CurrentDirectory = "$subagentDir"
 WshShell.Run """$pyExe"" ""$engineScript"" --mode boot-or-9am", 0, False
 "@
-Set-Content -Path $vbsPath -Value $vbsContent -Encoding UTF8
+Set-Content -Path $vbsPath -Value $vbsContent -Encoding Unicode
 Write-Host "✅ Đã cài đặt Auto-Boot chạy ngầm ngay khi bật máy tại: $vbsPath" -ForegroundColor Cyan

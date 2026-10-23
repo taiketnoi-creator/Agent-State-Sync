@@ -566,13 +566,17 @@ def main():
         return
 
     if args.send:
-        if not allowed_chat_id:
-            print("❌ Chưa có TELEGRAM_CHAT_ID (Sếp cần nhắn /start vào @thanh79bot trên Telegram trước).")
+        target_chat = args.send if args.send.lstrip("-").isdigit() else allowed_chat_id
+        msg_body = args.text if args.text else args.send
+        if not target_chat:
+            print("❌ Chưa có TELEGRAM_CHAT_ID (Sếp cần nhắn /start vào Bot trên Telegram trước).")
             sys.exit(1)
         if args.photo:
-            res = tg_send_photo(token, allowed_chat_id, args.photo, caption=args.send)
+            res = tg_send_photo(token, target_chat, args.photo, caption=msg_body)
+            if len(msg_body) > 1000:
+                tg_send_message(token, target_chat, msg_body)
         else:
-            res = tg_send_message(token, allowed_chat_id, args.send)
+            res = tg_send_message(token, target_chat, msg_body)
         print(json.dumps({"status": "SENT", "telegram_ok": res.get("ok")}, ensure_ascii=False))
         return
 

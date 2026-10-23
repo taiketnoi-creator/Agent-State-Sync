@@ -244,10 +244,12 @@ def check_telegram_connection() -> str:
     env_vars = parse_env_file(fb_env_path)
     tg_token = os.environ.get("TELEGRAM_BOT_TOKEN") or env_vars.get("TELEGRAM_BOT_TOKEN", "")
     tg_chat = os.environ.get("TELEGRAM_CHAT_ID") or env_vars.get("TELEGRAM_CHAT_ID", "")
+    bot_user = env_vars.get("TELEGRAM_BOT_USERNAME", "") or "@thanh79bot"
+    bot_name = env_vars.get("TELEGRAM_BOT_NAME", "") or "Subagent Javis bot"
     if not tg_token:
         return "❌ Chưa cấu hình `TELEGRAM_BOT_TOKEN`"
-    chat_info = f" | Đã khóa CEO ID: `{tg_chat}`" if tg_chat else " | ⏳ Chờ Sếp nhắn `/start` vào `@thanh79bot`"
-    return f"✅ ĐÃ KẾT NỐI (`@thanh79bot` — Subagent Javis bot{chat_info})"
+    chat_info = f" | Đã khóa CEO ID: `{tg_chat}`" if tg_chat else f" | ⏳ Chờ Sếp nhắn `/start` vào `{bot_user}`"
+    return f"✅ ĐÃ KẾT NỐI (`{bot_user}` — {bot_name}{chat_info})"
 
 
 def check_n8n_connection() -> str:
@@ -355,6 +357,32 @@ def ensure_chrome_remote_debugging() -> str:
     return "✅ ĐÃ BẬT SẴN (`user-enabled=True` — Tự động nối cổng khi Chrome mở)"
 
 
+def ensure_daily_auto_scheduler_booted() -> str:
+    import datetime as dt
+
+    today_str = dt.datetime.now().strftime("%Y-%m-%d")
+    state_file = SUBAGENT_DIR / "campaigns" / "daily-reports" / today_str / "auto_scheduled_sales_state.json"
+    engine_script = SUBAGENT_DIR / "tools" / "mama_auto_scheduler_engine.py"
+
+    if state_file.exists():
+        return f"✅ ĐANG CHẠY NGẦM (`{today_str}` đã nạp lịch 4 Page + 6 mốc Task `09:00..21:30`)"
+
+    if engine_script.exists():
+        try:
+            creationflags = 0x08000000
+            subprocess.Popen(
+                [sys.executable, str(engine_script), "--mode", "boot-or-9am"],
+                cwd=str(SUBAGENT_DIR),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=creationflags if os.name == "nt" else 0,
+            )
+            return f"🚀 ĐÃ TỰ KÍCH HOẠT NGẦM (Đang nạp lịch 4 Page ngày `{today_str}` + 6 mốc Task `09:00..21:30`)"
+        except Exception as e:
+            return f"⚠️ Lỗi kích hoạt ngầm: `{e}`"
+    return "⚠️ Chưa tìm thấy `mama_auto_scheduler_engine.py`"
+
+
 def build_markdown_report(auto_pull: bool = False) -> str:
     git_status = check_git_sync(auto_pull=auto_pull)
     prog = parse_goal_progress()
@@ -364,6 +392,7 @@ def build_markdown_report(auto_pull: bool = False) -> str:
     db_status = check_sqlite_db()
     media_status = check_local_media_tools()
     chrome_status = ensure_chrome_remote_debugging()
+    scheduler_status = ensure_daily_auto_scheduler_booted()
 
     bar_len = 20
     filled = int(round((prog["percent"] / 100.0) * bar_len))
@@ -386,8 +415,9 @@ def build_markdown_report(auto_pull: bool = False) -> str:
    | Hệ Thống / Phần Mềm | Trạng Thái Kết Nối Thực Tế |
    | :--- | :--- |
    | **Facebook Page (`facebook-page` MCP)** | {fb_status} |
+   | **Lịch Chạy Ngầm 4 Page (`Auto-Scheduler`)** | {scheduler_status} |
    | **Chrome Browser (`/browser` DevTools)** | {chrome_status} |
-   | **Telegram Remote (`@thanh79bot`)** | {tg_status} |
+   | **Telegram Remote (`Telegram Bot`)** | {tg_status} |
    | **n8n Automation (`localhost:5678`)** | {n8n_status} |
    | **SQLite Database (`aff-n8n-sqlite`)** | {db_status} |
    | **GitHub Sync (`Agent-State-Sync`)** | {git_status} |

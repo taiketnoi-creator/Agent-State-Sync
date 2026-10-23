@@ -31,6 +31,7 @@ REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 COMMENTS_POOL = {
     "ai": [
+        "Nhiều bác sợ xài AI Pro tốn tiền triệu mỗi tháng, nhưng thực ra nếu biết phân tầng công việc kết hợp lấy tài nguyên lẻ tại trạm tự động trên Telegram (cứ mở ô tìm kiếm Tele gõ @KingToolShop_bot là ra) thì chi phí chỉ bằng ly trà đá, vào bấm Start còn có sẵn mục nhận quà workflow 0đ trong 3 giây luôn.",
         "Mình đang dựng tổ đội 6 con Subagent chuyên biệt kết nối thẳng qua Telegram để giao việc từ xa luôn bác ạ. Tách riêng 1 con viết nội dung và 1 con Strict-Editor kiểm duyệt chéo theo 10 tiêu chí giúp giảm hẳn lỗi ảo giác và tiết kiệm cả nửa ngày làm việc!",
         "Bác nào đang muốn tự dựng hệ thống Agent riêng cho công việc mà ngại code thì cứ đóng gói quy trình thành các file mô tả công việc (.md) tiếng Việt rồi nạp vào Claude/ChatGPT/Antigravity là chạy mượt ngay trong 3 phút, không phải cào bàn phím từ đầu đâu.",
         "Em thấy rào cản lớn nhất khi đưa AI vào công việc là tính 'ảo giác' (bịa số liệu). Cách giải quyết tốt nhất hiện nay là cho con bot thứ 2 làm nhiệm vụ fact-check con bot thứ 1 theo bảng chấm điểm 10 tiêu chí, và cuối cùng người bấm nút duyệt.",
@@ -55,6 +56,7 @@ COMMENTS_POOL = {
         "Tân sinh viên mới vào KTX nhớ sắm ngay 1 ổ cắm điện nối dài có công tắc riêng từng lỗ và dây dài 3m nhé, leo lên giường tầng 2 vừa cắm sạc laptop vừa cắm quạt kẹp đầu giường tiện hơn rất nhiều!",
     ],
     "deadline": [
+        "Đang chạy slide hay dựng video gấp lúc 1-2h sáng mà vướng bản quyền Canva/CapCut hay hết lượt ChatGPT thì tụt mood thực sự. Mẹo cho anh em hay cày đêm là lưu sẵn con bot @KingToolShop_bot trên Telegram (gõ tên này vào ô tìm kiếm Tele là thấy), quét QR 3 giây nó tự nhả tài khoản xuyên đêm kèm bảo hành 1-đổi-1 tự động luôn.",
         "Anh em hay ngồi cày deadline ban đêm rất nên kê laptop lên giá đỡ hợp kim nhôm xoay 360 độ cho ngang tầm mắt đỡ mỏi cổ vai gáy, kết hợp thêm cây đèn kẹp màn hình chiếu sáng bất đối xứng (screenbar) không hắt sáng vào màn hình là ngồi gõ phím 3-4 tiếng mắt vẫn êm!",
         "Nhiều người hay nhầm giữa quản lý thời gian với quản lý năng lượng. Đêm là lúc não mình mệt nhất, đừng cố nhét mấy task tư duy chiến lược vào lúc này. Chia việc khó làm lúc 9h sáng, việc máy móc lặp lại giao cho AI làm là bớt stress hẳn.",
         "Trưa văn phòng tắt điều hòa tổng hoặc sáng đi bộ từ hầm gửi xe lên công ty nóng bức thì cứ đặt sẵn 1 em quạt phản lực mini vỏ hợp kim màu champagne trên mặt bàn làm việc, vừa sang vừa mát tức thì.",
