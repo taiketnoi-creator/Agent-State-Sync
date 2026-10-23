@@ -102,3 +102,10 @@
   - 📱 *Copy & Mở Video Dọc / Reels (9:16)*
   Tự động sao chép kịch bản bình luận chuyên sâu phù hợp vào Clipboard và mở đúng luồng tương tác trên trình duyệt.
 - [x] **Bộ nhớ thứ 2 & Tri thức:** Ghi nhận bài học về App-Bound Encryption (`v20`) trên Chrome 127+ và quy chuẩn bảo vệ phiên trình duyệt của CEO vào hệ thống.
+
+
+- **[DONE] [2026-10-23 23:25] Khóa Cứng Quy Tắc CEO: 3 Page Bán Hàng Chỉ Đăng Ảnh 1:1 Kèm Link Shopee Affiliate — Đóng Băng Tuyệt Đối Video Bán Hàng Cho Đến Khi Training Đạt Chuẩn:**
+  + Tiếp thu và thực thi nghiêm ngặt chỉ đạo của CEO: 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`) **chưa phát hành video bán hàng**, hiện tại **100% chỉ đăng Ảnh Vuông 1:1** (`Editorial Macro & 3-Detail Grid` nền xám ấm studio #F8F8F6) vào 2 khung giờ vàng `11:45` và `20:00` kèm link Shopee Affiliate ở Pinned Comment #1.
+  + Đóng băng toàn bộ nội dung video bán hàng; tuyệt đối cấm xuất bản hoặc lên lịch bất kỳ video nào lên 3 Page bán hàng cho đến khi Video AI Bán hàng được training đạt chuẩn Vàng và được CEO nghiệm thu phê duyệt chính thức.
+  + Page duy nhất được phép đăng Video là `AI Players - Người chơi hệ AI` (Video Remotion Explainer/Tech Short chia sẻ kiến thức dẫn phễu Zalo).
+  + Đã ban hành [MEM-20261023-sales-pages-freeze-video-image-only-rule.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/knowledge/bo-nao-thu-2/memories/MEM-20261023-sales-pages-freeze-video-image-only-rule.md), cập nhật [INDEX.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/knowledge/bo-nao-thu-2/INDEX.md), [quan-ly-kenh.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/quan-ly-kenh.md) và khóa chặt hệ thống tự động hóa.
