@@ -253,6 +253,13 @@ def ensure_daily_sales_posts_scheduled(pages: dict) -> list:
         tok = p_obj["access_token"]
         pname = p_obj["name"]
 
+        existing_sched_ts = []
+        try:
+            sp_list = graph_get(f"{sid}/scheduled_posts", tok, {"fields": "id,scheduled_publish_time", "limit": 20}).get("data", [])
+            existing_sched_ts = [int(sp.get("scheduled_publish_time", 0)) for sp in sp_list]
+        except Exception:
+            pass
+
         for item in DAILY_SALES_QUEUE.get(sid, []):
             slot = item["slot"]  # "11:45" or "20:00"
             key = f"{sid}_{today_str}_{slot}"
@@ -262,6 +269,9 @@ def ensure_daily_sales_posts_scheduled(pages: dict) -> list:
             h, m = [int(x) for x in slot.split(":")]
             target_dt = dt.datetime(now_vn.year, now_vn.month, now_vn.day, h, m, 0, tzinfo=TZ_VN)
             sched_ts = int(target_dt.timestamp())
+            if any(abs(ts - sched_ts) < 1800 for ts in existing_sched_ts):
+                done_state[key] = {"mode": "ALREADY_ON_GRAPH", "slot": slot, "timestamp": now_vn.isoformat()}
+                continue
 
             img_path = item["image"]
             if not img_path.exists():
