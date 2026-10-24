@@ -139,35 +139,6 @@ def get_ws_url() -> str:
     import subprocess
     import urllib.request
 
-    # 1. Check if port 9222/json/version responds directly (e.g. office machine Chrome 139)
-    try:
-        with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.0) as resp:
-            info = json.loads(resp.read().decode("utf-8", errors="ignore"))
-            if info.get("webSocketDebuggerUrl"):
-                return info["webSocketDebuggerUrl"]
-    except Exception:
-        pass
-
-    # 2. Ensure Chrome Profile 1 is open with a browser window so DevToolsActivePort is active
-    chrome_exe = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-    if pathlib.Path(chrome_exe).exists():
-        subprocess.Popen([chrome_exe, "--profile-directory=Profile 1", "https://www.facebook.com"])
-        time.sleep(3.2)
-
-    port_file = pathlib.Path.home() / "AppData/Local/Google/Chrome/User Data/DevToolsActivePort"
-    if port_file.exists():
-        lines = port_file.read_text(encoding="utf-8", errors="ignore").strip().splitlines()
-        if len(lines) >= 2:
-            try:
-                with socket.create_connection(("127.0.0.1", int(lines[0].strip())), timeout=1.5):
-                    return f"ws://127.0.0.1:{lines[0].strip()}{lines[1].strip()}"
-            except Exception:
-                pass
-
-    return "ws://127.0.0.1:9222/devtools/browser/9cab8ce5-72db-4557-b425-7932842973c6"
-    import subprocess
-    import urllib.request
-
     def _fetch_ws() -> str:
         try:
             with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.5) as resp:
@@ -182,13 +153,12 @@ def get_ws_url() -> str:
     if ws:
         return ws
 
-    import socket
     port_file = pathlib.Path.home() / "AppData/Local/Google/Chrome/User Data/DevToolsActivePort"
     if port_file.exists():
         lines = port_file.read_text(encoding="utf-8", errors="ignore").strip().splitlines()
         if len(lines) >= 2:
             try:
-                with socket.create_connection(("127.0.0.1", int(lines[0].strip())), timeout=1.0):
+                with socket.create_connection(("127.0.0.1", int(lines[0].strip())), timeout=1.5):
                     return f"ws://127.0.0.1:{lines[0].strip()}{lines[1].strip()}"
             except Exception:
                 pass
@@ -196,7 +166,6 @@ def get_ws_url() -> str:
     chrome_exe = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
     bot_profile_dir = str(SUBAGENT_DIR / ".chrome-fb-bot")
     if pathlib.Path(chrome_exe).exists():
-        # Tuy?t ??i KH?NG d?ng taskkill l?n Chrome ch?nh c?a CEO; ch? m? 1 c?a s? Chrome ??c l?p ri?ng cho Bot
         subprocess.Popen([
             chrome_exe,
             f"--user-data-dir={bot_profile_dir}",
@@ -417,7 +386,10 @@ def main():
 
     today_str = dt.datetime.now().strftime("%Y-%m-%d")
     out_dir = REPORTS_DIR / today_str
-    summary = run_shift_interactions(args.shift, args.urls_per_niche, args.cmts_per_url, out_dir)
+    try:
+        summary = run_shift_interactions(args.shift, args.urls_per_niche, args.cmts_per_url, out_dir)
+    except Exception as e:
+        summary = {"shift": args.shift, "total_likes": 0, "total_comments": 0, "total_shares": 0, "total_groups_joined": 0, "details": [], "screenshots": [], "error": str(e)}
 
     log_file = out_dir / f"shift{args.shift}_result.json"
     log_file.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
