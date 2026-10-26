@@ -1,0 +1,252 @@
+{
+  "id": "v10",
+  "slug": "10-automated-9am-office-report",
+  "schedule_vn": "2026-10-25 16:30",
+  "keyword": "BAOCAO",
+  "title": "Tự Động Hóa Báo Cáo Mỗi Sáng: Để AI Tự Quét Số Liệu Và Đề Xuất Lúc 9 Giờ",
+  "caption": "Mỗi sáng đến văn phòng bạn vẫn mất 45 phút mở từng trang Fanpage, từng bảng số liệu để tổng hợp báo cáo ngày?\n\nHãy để Trạm Báo Cáo Tự Động 09h00 Sáng & 21h00 Tối làm thay bạn: Tự động quét Graph API của toàn bộ hệ thống kênh, đối chiếu mục tiêu KPI ngày, tự dọn rác ổ cứng và gửi sẵn 3 Đề xuất hành động vào Telegram!\n\nComment \"BAOCAO\" hoặc lấy script tự động ở bình luận đầu tiên nhé!\n#AIPlayers #OfficeAutomation #DailyReport #Subagent #Productivity",
+  "outro_badge": "COMMENT NGAY: BAOCAO",
+  "outro_sub": "Nhận Bộ Script Báo Cáo Tự Động 9h Sáng Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "terminal",
+      "badge": "THÓI QUEN LÀM MẤT 1 GIỜ MỖI SÁNG",
+      "headline": "ĐỪNG MỞ TỪNG TRANG WEB\nĐỂ ĐẾM SỐ LIỆU BẰNG TAY!",
+      "subheadline": "Tự động hóa khâu tổng hợp báo cáo để bắt đầu ngày mới bằng việc ra quyết định",
+      "text": "Mỗi buổi sáng thức dậy, bạn có đang mất cả tiếng đồng hồ mở từng trang mạng xã hội để kiểm tra xem hôm qua đăng được mấy bài, có bao nhiêu lượt thích và bình luận mới không?",
+      "phrases": [
+        "Mỗi buổi sáng thức dậy,",
+        "bạn có đang mất cả tiếng đồng hồ",
+        "mở từng trang mạng xã hội",
+        "để kiểm tra xem hôm qua",
+        "đăng được mấy bài,",
+        "có bao nhiêu lượt thích",
+        "và bình luận mới không?"
+      ],
+      "highlightKeyword": "kiểm tra",
+      "highlightWords": [
+        "buổi sáng",
+        "tiếng đồng hồ",
+        "mạng xã hội",
+        "kiểm tra",
+        "mấy bài",
+        "bình luận"
+      ],
+      "terminal": {
+        "file": "mama_daily_9am.py",
+        "leftTag": "CRON 09:00 AM & 21:00 PM",
+        "lines": [
+          "fetch_all_pages_metrics()",
+          "compare_kpi(target=20)",
+          "send_telegram_report() ✅"
+        ],
+        "metricNum": 100,
+        "metricSuffix": "% TỰ ĐỘNG",
+        "metricLabel": "GỬI BÁO CÁO ĐÚNG GIỜ MỖI NGÀY",
+        "rightBadge": "DECISION READY",
+        "rightTag": "3 ĐỀ XUẤT SẴN",
+        "rightTitle": "Chỉ Cần Đọc & Chọn Phương Án",
+        "rightBottomLeft": "THỜI GIAN ĐỌC",
+        "rightBottomRight": "30 GIÂY ⚡"
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v10/scene1.mp3",
+      "durationSec": 7.63,
+      "durationInFrames": 244
+    },
+    {
+      "visualType": "bento",
+      "badge": "4 CHỈ SỐ QUÉT TỰ ĐỘNG QUA API",
+      "headline": "SỐ BÀI ĐĂNG • KHO HẸN GIỜ\nTƯƠNG TÁC • LINK BÌNH LUẬN",
+      "subheadline": "Bức tranh toàn cảnh hệ thống kênh được trình bày gọn trong một bảng duy nhất",
+      "text": "Đúng chín giờ sáng và chín giờ tối, công cụ tự động kết nối vào hệ thống để kiểm tra bốn chỉ số: Tiến độ đủ hai mươi bài mỗi ngày chưa, kho hẹn giờ còn mấy bài, lượng bình luận của khách và độ chuẩn của link ghim.",
+      "phrases": [
+        "Đúng chín giờ sáng và chín giờ tối,",
+        "công cụ tự động kiểm tra bốn chỉ số:",
+        "Tiến độ đủ hai mươi bài chưa,",
+        "kho hẹn giờ còn mấy bài,",
+        "lượng bình luận của khách",
+        "và độ chuẩn của link ghim."
+      ],
+      "highlightKeyword": "bốn chỉ số",
+      "highlightWords": [
+        "chín giờ sáng",
+        "tự động",
+        "bốn chỉ số",
+        "hai mươi bài",
+        "kho hẹn giờ",
+        "link ghim"
+      ],
+      "bento": {
+        "c1Tag": "KPI 01",
+        "c1Title": "Tiến Độ Xuất Bản",
+        "c1Desc": "Đối chiếu thực tế vs 20 bài/ngày",
+        "c2Tag": "KPI 02",
+        "c2Title": "Kho Bài Hẹn Giờ",
+        "c2Desc": "Cảnh báo ngay khi kho sắp cạn",
+        "c2Badge": "QUEUE CHECK",
+        "c3Title": "03. Lọc Bình Luận",
+        "c3Desc": "Tách riêng cmt khách & cmt Page",
+        "c3Tag": "KPI 03",
+        "c4Title": "04. Kiểm Tra Link",
+        "c4Desc": "Đảm bảo 100% bài có Pinned Cmt",
+        "c4Tag": "KPI 04"
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v10/scene2.mp3",
+      "durationSec": 10.503,
+      "durationInFrames": 331
+    },
+    {
+      "visualType": "lidar",
+      "badge": "TỰ ĐỘNG DỌN KHO DỮ LIỆU 7 NGÀY",
+      "headline": "GIẢI PHÓNG Ổ CỨNG TỰ ĐỘNG\nMÀ KHÔNG MẤT TÀI LIỆU GỐC",
+      "subheadline": "Giữ máy tính luôn nhẹ nhàng dù sản xuất hàng trăm video mỗi tháng",
+      "text": "Đi kèm với báo cáo sáng là trạm dọn rác thông minh. Các file hình ảnh và video tạm đã quá bảy ngày sẽ được tự động xóa sạch, trong khi toàn bộ kịch bản và nhật ký vẫn được bảo toàn vĩnh viễn.",
+      "phrases": [
+        "Đi kèm với báo cáo sáng",
+        "là trạm dọn rác thông minh.",
+        "Các file hình ảnh và video tạm",
+        "đã quá bảy ngày",
+        "sẽ được tự động xóa sạch,",
+        "trong khi toàn bộ kịch bản",
+        "vẫn được bảo toàn vĩnh viễn."
+      ],
+      "highlightKeyword": "dọn rác",
+      "highlightWords": [
+        "báo cáo sáng",
+        "dọn rác",
+        "thông minh",
+        "bảy ngày",
+        "xóa sạch",
+        "bảo toàn"
+      ],
+      "lidar": {
+        "topLeft": "TRẠM DỌN KHO MEDIA > 7 NGÀY",
+        "topRight": "➔ GIỮ Ổ CỨNG LUÔN NHẸ & SẠCH ⚡",
+        "leftTitle": "CLEAN MEDIA",
+        "leftSub": "Xóa MP4/JPG tạm >7 ngày",
+        "leftMetricLabel": "Giải phóng",
+        "leftMetric": "AUTO",
+        "leftDesc": "Không bao giờ đầy ổ cứng local",
+        "radarTop": "STORAGE",
+        "radarBottom": "HEALTHY",
+        "rightTitle": "KEEP DOCS",
+        "rightSub": "Bảo toàn 100% file .MD",
+        "rightMetricLabel": "An toàn dữ liệu",
+        "rightMetric": "100%",
+        "rightDesc": "Giữ nguyên kịch bản & kho mẫu"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v10/scene3.mp3",
+      "durationSec": 9.119,
+      "durationInFrames": 289
+    },
+    {
+      "visualType": "orbital",
+      "badge": "KHÔNG CHỈ BÁO SỐ — MÀ ĐỀ XUẤT VIỆC",
+      "headline": "AI TỰ PHÂN TÍCH ĐIỂM NGHẼN\nĐƯA RA 3 HÀNH ĐỘNG CỤ THỂ",
+      "subheadline": "Biến số liệu khô khan thành kế hoạch hành động ngay trong ngày",
+      "text": "Một báo cáo tốt không chỉ liệt kê con số. Hệ thống sẽ tự động chỉ ra kênh nào đang thiếu bài hẹn giờ, bài nào đang có khách hỏi mua để đề xuất ba việc cần làm ngay trong ngày hôm đó.",
+      "phrases": [
+        "Một báo cáo tốt",
+        "không chỉ liệt kê con số.",
+        "Hệ thống sẽ tự động chỉ ra",
+        "kênh nào đang thiếu bài hẹn giờ,",
+        "bài nào đang có khách hỏi mua",
+        "để đề xuất ba việc cần làm ngay."
+      ],
+      "highlightKeyword": "đề xuất",
+      "highlightWords": [
+        "báo cáo tốt",
+        "con số",
+        "chỉ ra",
+        "hẹn giờ",
+        "hỏi mua",
+        "đề xuất"
+      ],
+      "orbital": {
+        "oldLabel": "Bảng Số Khô Khan",
+        "oldTag": "KHÓ ĐỌC ❌",
+        "telemetry": "ACTIONABLE REPORT: 3 ĐỀ XUẤT",
+        "coreTitle": "9H & 21H",
+        "nodes": [
+          "Đo Lường KPI",
+          "Phát Hiện Lỗ Hổng",
+          "Đề Xuất Chiến Thuật",
+          "Gửi Thẳng Telegram"
+        ]
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v10/scene4.mp3",
+      "durationSec": 8.466,
+      "durationInFrames": 269
+    },
+    {
+      "visualType": "reactor",
+      "badge": "PHONG CÁCH LÀM VIỆC CỦA LÃNH ĐẠO SỐ",
+      "headline": "MỞ ĐIỆN THOẠI LÚC 9 GIỜ\nNẮM TRỌN TOÀN BỘ HỆ THỐNG",
+      "subheadline": "Tiết kiệm 30 giờ làm việc thủ công mỗi tháng cho chủ doanh nghiệp",
+      "text": "Khi khâu kiểm tra và báo cáo được tự động hóa hoàn toàn, mỗi buổi sáng của bạn sẽ bắt đầu bằng sự chủ động tuyệt đối: Nhìn bảng tổng kết trên điện thoại và ra lệnh triển khai chỉ bằng một tin nhắn.",
+      "phrases": [
+        "Khi khâu kiểm tra và báo cáo",
+        "được tự động hóa hoàn toàn,",
+        "mỗi buổi sáng của bạn",
+        "sẽ bắt đầu bằng sự chủ động:",
+        "Nhìn bảng tổng kết trên điện thoại",
+        "và ra lệnh triển khai",
+        "chỉ bằng một tin nhắn."
+      ],
+      "highlightKeyword": "chủ động",
+      "highlightWords": [
+        "kiểm tra",
+        "báo cáo",
+        "tự động hóa",
+        "buổi sáng",
+        "chủ động",
+        "một tin nhắn"
+      ],
+      "reactor": {
+        "helixTitle": "QUẢN TRỊ TỰ ĐỘNG",
+        "compTitle": "Thời Gian Tổng Hợp Báo Cáo Ngày",
+        "oldLabel": "Nhân sự mở từng trang đếm:",
+        "oldValue": "Mất 45 – 60 Phút/Sáng",
+        "newLeft": "BOT BÁO CÁO TỰ ĐỘNG:",
+        "newRight": "GỬI TELEGRAM TRONG 3 GIÂY ⚡",
+        "gridTitle": "3 Kênh Nhận Báo Cáo Đồng Bộ",
+        "nodes": [
+          "Telegram Cá Nhân",
+          "File Markdown",
+          "GitHub Sync"
+        ]
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v10/scene5.mp3",
+      "durationSec": 8.544,
+      "durationInFrames": 272
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận từ khóa Báo Cáo bên dưới để nhận ngay bộ mã nguồn báo cáo tự động này nhé!",
+      "phrases": [
+        "Bình luận từ khóa Báo Cáo bên dưới",
+        "để nhận ngay bộ mã nguồn",
+        "báo cáo tự động này nhé!"
+      ],
+      "highlightKeyword": "Báo Cáo",
+      "highlightWords": [
+        "bình luận",
+        "Báo Cáo",
+        "mã nguồn",
+        "tự động"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v10/scene6.mp3",
+      "durationSec": 3.868,
+      "durationInFrames": 157
+    }
+  ],
+  "totalFrames": 1562,
+  "totalSeconds": 52.07,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: BAOCAO]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

@@ -86,7 +86,7 @@ def sync_bidirectional():
     sync_tree_by_ext("knowledge", (".md", ".json"))
     sync_tree_by_ext(os.path.join(".agents", "skills"), (".md", ".py", ".json"))
     sync_tree_by_ext("tools", (".py", ".bat", ".ps1"))
-    sync_tree_by_ext("campaigns", (".md", ".csv"))
+    sync_tree_by_ext("campaigns", (".md", ".csv", ".json"))
 
 
 def main():

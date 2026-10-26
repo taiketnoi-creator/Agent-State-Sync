@@ -1,0 +1,252 @@
+{
+  "id": "v09",
+  "slug": "09-smart-model-tiering-pro-vs-flash",
+  "schedule_vn": "2026-10-25 11:45",
+  "keyword": "TOIUU",
+  "title": "Chiến Thuật Phân Tầng Model: Khi Nào Dùng Bản Pro, Khi Nào Dùng Bản Flash?",
+  "caption": "Sai lầm khiến nhiều đội nhóm hết sạch hạn mức (Quota) mô hình AI cao cấp chỉ sau 2 giờ làm việc là dùng chung 1 model hạng nặng cho mọi việc lặt vặt!\n\nBí quyết Phân Tầng Model Tự Động (Smart Model Tiering): Giữ model hạng nặng (Pro/Gemini 4) cho 4 vị trí Sáng tạo & Duyệt Gate, và chuyển 6 vị trí Hậu cần sang model siêu tốc (Flash)!\n\nComment \"TOIUU\" hoặc tải bảng phân tầng 10 Agent ở bình luận đầu tiên nhé!\n#AIPlayers #ModelTiering #TokenOptimization #Subagent #AIWorkflow",
+  "outro_badge": "COMMENT NGAY: TOIUU",
+  "outro_sub": "Nhận Bảng Phân Tầng Model Cho 10 Subagent Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "bento",
+      "badge": "NGHỊCH LÝ DÙNG DAO MỔ TRÂU",
+      "headline": "DÙNG MODEL HẠNG NẶNG\nCHO VIỆC NHỎ LÀ TỰ SÁT!",
+      "subheadline": "Cạn sạch hạn mức sử dụng chỉ sau vài giờ vì không biết phân tầng",
+      "text": "Tại sao bạn vừa làm việc được hai tiếng đã bị báo hết hạn mức mô hình AI cao cấp? Bởi vì bạn đang lấy mô hình thông minh nhất ra để làm cả những việc hậu cần đơn giản.",
+      "phrases": [
+        "Tại sao bạn vừa làm việc được hai tiếng",
+        "đã bị báo hết hạn mức",
+        "mô hình AI cao cấp?",
+        "Bởi vì bạn đang lấy mô hình",
+        "thông minh nhất",
+        "ra làm những việc hậu cần đơn giản."
+      ],
+      "highlightKeyword": "hạn mức",
+      "highlightWords": [
+        "hai tiếng",
+        "hạn mức",
+        "cao cấp",
+        "thông minh",
+        "hậu cần",
+        "đơn giản"
+      ],
+      "bento": {
+        "c1Tag": "TẦNG 01 (PRO)",
+        "c1Title": "Sáng Tạo & Chiến Lược",
+        "c1Desc": "Tổng quản Mama, Mkt, Content, Edit",
+        "c2Tag": "TẦNG 02 (FLASH)",
+        "c2Title": "Hậu Cần & Vận Hành",
+        "c2Desc": "Voice, Đa kênh, Lịch đăng, Chăm kênh",
+        "c2Badge": "TIẾT KIỆM 70%",
+        "c3Title": "03. Gộp Lệnh Lô",
+        "c3Desc": "Chạy song song 3 Agent cùng lúc",
+        "c3Tag": "BATCH RUN",
+        "c4Title": "04. Tốc Độ Gấp 4",
+        "c4Desc": "Phản hồi hậu cần trong vài giây",
+        "c4Tag": "FAST SPEED"
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v09/scene1.mp3",
+      "durationSec": 7.943,
+      "durationInFrames": 254
+    },
+    {
+      "visualType": "orbital",
+      "badge": "KIẾN TRÚC PHÂN TẦNG 4 - 6",
+      "headline": "4 VỊ TRÍ DÙNG BẢN PRO\n6 VỊ TRÍ CHẠY BẢN FLASH",
+      "subheadline": "Giữ trọn chất lượng sáng tạo đỉnh cao mà vẫn dư dả hạn mức cả ngày",
+      "text": "Nguyên tắc vàng trong quản trị đội ngũ mười Subagent là phân tầng bốn sáu: Chỉ giữ bốn vị trí sáng tạo cốt lõi dùng bản Pro, còn sáu vị trí vận hành chuyển toàn bộ sang bản Flash.",
+      "phrases": [
+        "Nguyên tắc vàng trong quản trị",
+        "đội ngũ mười Subagent",
+        "là phân tầng bốn sáu:",
+        "Chỉ giữ bốn vị trí sáng tạo cốt lõi",
+        "dùng bản Pro,",
+        "còn sáu vị trí vận hành",
+        "chuyển toàn bộ sang bản Flash."
+      ],
+      "highlightKeyword": "phân tầng",
+      "highlightWords": [
+        "nguyên tắc vàng",
+        "Subagent",
+        "phân tầng",
+        "sáng tạo",
+        "bản Pro",
+        "bản Flash"
+      ],
+      "orbital": {
+        "oldLabel": "10 Agent Dùng Pro",
+        "oldTag": "CẠN QUOTA ⚠️",
+        "telemetry": "SMART TIERING: 4 PRO + 6 FLASH",
+        "coreTitle": "TIER 4:6",
+        "nodes": [
+          "Mama & Mkt (Pro)",
+          "Content & Edit (Pro)",
+          "Voice & Kênh (Flash)",
+          "Bộ Não & Đo Lường"
+        ]
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v09/scene2.mp3",
+      "durationSec": 8.57,
+      "durationInFrames": 273
+    },
+    {
+      "visualType": "terminal",
+      "badge": "KỸ THUẬT GỘP LỆNH SONG SONG",
+      "headline": "GỌI 3 SUBAGENT HẬU CẦN\nTRONG 1 LƯỢT DUY NHẤT!",
+      "subheadline": "Giảm 66% số vòng lặp gọi mô hình chính nhờ chạy song song theo lô",
+      "text": "Ngay sau khi có kịch bản gốc, thay vì gọi từng nhân sự một, Tổng quản sẽ kích hoạt song song cả ba Subagent gồm Âm thanh, Đa kênh và Chăm sóc khách hàng trong đúng một lượt gọi.",
+      "phrases": [
+        "Ngay sau khi có kịch bản gốc,",
+        "thay vì gọi từng nhân sự một,",
+        "Tổng quản sẽ kích hoạt song song",
+        "cả ba Subagent:",
+        "Âm thanh, Đa kênh và Chăm sóc kênh",
+        "trong đúng một lượt gọi."
+      ],
+      "highlightKeyword": "song song",
+      "highlightWords": [
+        "kịch bản gốc",
+        "nhân sự",
+        "song song",
+        "Subagent",
+        "Đa kênh",
+        "một lượt gọi"
+      ],
+      "terminal": {
+        "file": "batch-invoke.ts",
+        "leftTag": "PARALLEL EXECUTION",
+        "lines": [
+          "invokeBatch([",
+          "  'voice', 'content-da-kenh',",
+          "  'cham-soc-kenh' ]) // 1 TURN"
+        ],
+        "metricNum": 3,
+        "metricSuffix": "X NHANH HƠN",
+        "metricLabel": "CHẠY SONG SONG TRONG 1 LƯỢT",
+        "rightBadge": "QUOTA SAVER",
+        "rightTag": "TỐI ƯU LƯỢT GỌI",
+        "rightTitle": "Giảm Tối Đa Số Lượt Turn Chính",
+        "rightBottomLeft": "ĐIỂM RUBRIC",
+        "rightBottomRight": "9.48/10 ✅"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v09/scene3.mp3",
+      "durationSec": 8.466,
+      "durationInFrames": 269
+    },
+    {
+      "visualType": "lidar",
+      "badge": "ĐẢM BẢO CHẤT LƯỢNG ĐẦU RA",
+      "headline": "TIẾT KIỆM 70% HẠN MỨC\nNHƯNG ĐIỂM SỐ VẪN 9.5/10",
+      "subheadline": "Vì sao bản Flash vẫn hoàn thành xuất sắc các công việc hậu cần?",
+      "text": "Nhờ có sẵn bộ quy tắc cứng và bảng mẫu chuẩn trong từng file hướng dẫn, các mô hình bản Flash vẫn xử lý công việc hậu cần nhanh gấp ba lần mà chất lượng vẫn đạt trên chín phẩy năm.",
+      "phrases": [
+        "Nhờ có sẵn bộ quy tắc cứng",
+        "và bảng mẫu chuẩn,",
+        "các mô hình bản Flash",
+        "vẫn xử lý công việc hậu cần",
+        "nhanh gấp ba lần",
+        "mà chất lượng vẫn đạt",
+        "trên chín phẩy năm."
+      ],
+      "highlightKeyword": "bản Flash",
+      "highlightWords": [
+        "quy tắc cứng",
+        "mẫu chuẩn",
+        "bản Flash",
+        "hậu cần",
+        "nhanh gấp ba",
+        "chất lượng"
+      ],
+      "lidar": {
+        "topLeft": "ĐỐI CHIẾU HIỆU NĂNG HỆ THỐNG",
+        "topRight": "➔ NHANH GẤP 3 & TIẾT KIỆM 70% ⚡",
+        "leftTitle": "CREATIVE TIER",
+        "leftSub": "Giữ nguyên độ sâu",
+        "leftMetricLabel": "Điểm Hook & Visual",
+        "leftMetric": "9.6/10",
+        "leftDesc": "Không giảm chất lượng ý tưởng",
+        "radarTop": "BALANCED",
+        "radarBottom": "OPTIMAL",
+        "rightTitle": "OPS TIER",
+        "rightSub": "Tốc độ ánh sáng",
+        "rightMetricLabel": "Điểm Hậu cần",
+        "rightMetric": "9.4/10",
+        "rightDesc": "Hoàn tất lịch đăng & bình luận"
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v09/scene4.mp3",
+      "durationSec": 7.734,
+      "durationInFrames": 248
+    },
+    {
+      "visualType": "reactor",
+      "badge": "VẬN HÀNH LIÊN TỤC CẢ NGÀY",
+      "headline": "CHẠY MƯỢT 5 CHIẾN DỊCH/NGÀY\nKHÔNG BAO GIỜ ĐỨT QUOTA",
+      "subheadline": "Bài học bắt buộc cho mọi chủ doanh nghiệp muốn ứng dụng AI quy mô lớn",
+      "text": "Phân bổ đúng người đúng việc chính là nghệ thuật quản trị nhân sự số. Bạn vừa có những tác phẩm sáng tạo xuất sắc, vừa duy trì được guồng máy vận hành bền bỉ suốt hai tư trên bảy.",
+      "phrases": [
+        "Phân bổ đúng người đúng việc",
+        "chính là nghệ thuật",
+        "quản trị nhân sự số.",
+        "Bạn vừa có tác phẩm xuất sắc,",
+        "vừa duy trì được guồng máy",
+        "vận hành bền bỉ",
+        "suốt hai tư trên bảy."
+      ],
+      "highlightKeyword": "nhân sự số",
+      "highlightWords": [
+        "đúng người",
+        "đúng việc",
+        "nghệ thuật",
+        "nhân sự số",
+        "xuất sắc",
+        "bền bỉ"
+      ],
+      "reactor": {
+        "helixTitle": "QUẢN TRỊ QUOTA THÔNG MINH",
+        "compTitle": "Số Chiến Dịch Chạy Được Mỗi Ngày",
+        "oldLabel": "Dùng 1 model cho tất cả:",
+        "oldValue": "Tối Đa 1 – 2 Chiến Dịch",
+        "newLeft": "PHÂN TẦNG PRO + FLASH:",
+        "newRight": "5 – 8 CHIẾN DỊCH/NGÀY ⚡",
+        "gridTitle": "3 Nguyên Tắc Phân Tầng",
+        "nodes": [
+          "Sáng Tạo Dùng Pro",
+          "Hậu Cần Dùng Flash",
+          "Gộp Lệnh Theo Lô"
+        ]
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v09/scene5.mp3",
+      "durationSec": 8.178,
+      "durationInFrames": 261
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận từ khóa Tối Ưu bên dưới để nhận ngay sơ đồ phân tầng mười Subagent nhé!",
+      "phrases": [
+        "Bình luận từ khóa Tối Ưu bên dưới",
+        "để nhận ngay sơ đồ",
+        "phân tầng mười Subagent nhé!"
+      ],
+      "highlightKeyword": "Tối Ưu",
+      "highlightWords": [
+        "bình luận",
+        "Tối Ưu",
+        "sơ đồ",
+        "phân tầng"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v09/scene6.mp3",
+      "durationSec": 3.999,
+      "durationInFrames": 160
+    }
+  ],
+  "totalFrames": 1465,
+  "totalSeconds": 48.83,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: TOIUU]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

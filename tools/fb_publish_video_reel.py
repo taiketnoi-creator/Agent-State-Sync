@@ -272,6 +272,18 @@ def main() -> int:
         print("❌ Chưa có thông tin xác thực Page.")
         return 1
 
+    # LUẬT #3 CEO: Đóng băng tuyệt đối Video trên 3 Page Bán Hàng
+    if str(page_id) != "1022527194267367":
+        print(f"🛑 CHẶN CỨNG [LUẬT #3 CEO]: Page '{page_name}' ({page_id}) thuộc cụm Bán Hàng đang đóng băng Video! Chỉ Page AI Players được đăng Reel.")
+        return 1
+
+    # CỔNG KHÓA CỨNG ZERO-REPOST GATE: Chặn đăng lại video cũ (20/10..26/10) hoặc video test bảng trắng
+    from zero_repost_gate import verify_fresh_content, record_published_content
+    is_fresh, reason = verify_fresh_content(str(page_id), video_path, caption or args.title)
+    if not is_fresh:
+        print(f"🛑 {reason}")
+        return 1
+
     # Ưu tiên gọi API Reels chính thức (`/{page_id}/video_reels`), nếu lỗi thì fallback sang `/{page_id}/videos`
     res = upload_via_reels_api(page_id, page_token, video_path, args.title, caption, schedule_ts)
     if "error" in res:
@@ -283,6 +295,7 @@ def main() -> int:
 
     video_id = res.get("video_id", "")
     post_id = res.get("post_id", video_id)
+    record_published_content(str(page_id), video_path, caption or args.title, str(post_id))
     cmt_res = {}
     if first_comment and not schedule_ts:
         cmt_res = post_comment_with_retry([video_id, post_id, f"{page_id}_{video_id}"], page_token, first_comment)

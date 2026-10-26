@@ -27,7 +27,7 @@ if ($RemoteUrl -ne "") {
 if ($Mode -eq 'start') {
     $hasOrigin = (git remote) -contains "origin"
     if ($hasOrigin) {
-        git pull --rebase origin main
+        git pull --rebase --autostash origin main
     }
     & $py "$PSScriptRoot\generate_snapshot.py"
     Write-Output "=== SYNCED LATEST PROJECT HISTORY ==="

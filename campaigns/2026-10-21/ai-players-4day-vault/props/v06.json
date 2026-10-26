@@ -1,0 +1,251 @@
+{
+  "id": "v06",
+  "slug": "06-ai-video-pipeline-5-minutes",
+  "schedule_vn": "2026-10-24 11:45",
+  "keyword": "VIDEOAI",
+  "title": "Giải Phẫu Dây Chuyền Làm Video AI Tự Động: Hoàn Tất Trong 5 Phút",
+  "caption": "Làm sao để sản xuất đều đặn hàng chục Video ngắn chuẩn 9:16 mỗi tuần mà không cần ngồi cắt ghép thủ công trên CapCut hàng giờ liền?\n\nKhám phá dây chuyền 5 bước tự động hóa: Từ Kịch bản khóa định mức 4.5 từ/giây -> Giọng đọc Vbee Studio -3dB -> Render đồ họa chuyển động bằng code Remotion & FFmpeg chỉ trong 75 giây!\n\nComment \"VIDEOAI\" hoặc lấy quy trình chi tiết ở bình luận đầu tiên nhé!\n#AIPlayers #AIVideo #Remotion #FFmpeg #VideoAutomation",
+  "outro_badge": "COMMENT NGAY: VIDEOAI",
+  "outro_sub": "Nhận Quy Trình Dựng Video AI Tự Động Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "reactor",
+      "badge": "CUỘC CÁCH MẠNG SẢN XUẤT VIDEO",
+      "headline": "DỰNG VIDEO BẰNG CODE\nNHANH GẤP 10 LẦN KÉO THẢ",
+      "subheadline": "Tạm biệt cảnh ngồi căn chỉnh từng dòng phụ đề thủ công suốt hàng giờ!",
+      "text": "Nếu bạn vẫn mất ba tiếng đồng hồ ngồi kéo thả từng dòng chữ và cắt ghép âm thanh cho một video ngắn bốn mươi lăm giây, thì đây là lúc chuyển sang dây chuyền dựng video tự động bằng code.",
+      "phrases": [
+        "Nếu bạn vẫn mất ba tiếng đồng hồ",
+        "ngồi kéo thả từng dòng chữ",
+        "cho một video ngắn bốn mươi lăm giây,",
+        "thì đây là lúc chuyển sang",
+        "dây chuyền dựng video tự động",
+        "bằng code."
+      ],
+      "highlightKeyword": "tự động",
+      "highlightWords": [
+        "ba tiếng",
+        "kéo thả",
+        "video ngắn",
+        "dây chuyền",
+        "tự động",
+        "bằng code"
+      ],
+      "reactor": {
+        "helixTitle": "REMOTION + FFMPEG",
+        "compTitle": "Thời Gian Sản Xuất 1 Video 45s",
+        "oldLabel": "Kéo thả thủ công:",
+        "oldValue": "Mất 2 – 3 Giờ/Video",
+        "newLeft": "DÂY CHUYỀN TỰ ĐỘNG:",
+        "newRight": "CHỈ 5 PHÚT HOÀN TẤT ⚡",
+        "gridTitle": "3 Động Cơ Sản Xuất Cốt Lõi",
+        "nodes": [
+          "Vbee Studio TTS",
+          "Remotion 4.0",
+          "FFmpeg Render"
+        ]
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v06/scene1.mp3",
+      "durationSec": 8.152,
+      "durationInFrames": 260
+    },
+    {
+      "visualType": "bento",
+      "badge": "CÔNG THỨC KHỚP KHUNG HÌNH 1 VÒNG",
+      "headline": "KHÓA ĐỊNH MỨC 4.5 TỪ/GIÂY\nKHỚP ÂM THANH TUYỆT ĐỐI",
+      "subheadline": "Tính toán số từ chuẩn xác giúp video đạt đúng thời lượng ngay lần đầu",
+      "text": "Bí quyết đầu tiên là khóa định mức bốn phẩy năm từ trên mỗi giây. Một video bốn mươi lăm giây chỉ cần đúng hai trăm từ chia đều cho sáu phân cảnh là khớp nhịp âm thanh ngay lập tức.",
+      "phrases": [
+        "Bí quyết đầu tiên là khóa định mức",
+        "bốn phẩy năm từ trên mỗi giây.",
+        "Một video bốn mươi lăm giây",
+        "chỉ cần đúng hai trăm từ",
+        "chia đều cho sáu phân cảnh",
+        "là khớp nhịp âm thanh ngay lập tức."
+      ],
+      "highlightKeyword": "định mức",
+      "highlightWords": [
+        "bí quyết",
+        "định mức",
+        "bốn phẩy năm",
+        "hai trăm từ",
+        "sáu phân cảnh",
+        "khớp nhịp"
+      ],
+      "bento": {
+        "c1Tag": "BƯỚC 01",
+        "c1Title": "Kịch Bản Chuẩn Từ",
+        "c1Desc": "Khóa 4.5 từ/giây theo thời lượng",
+        "c2Tag": "BƯỚC 02",
+        "c2Title": "Giọng Vbee -3dB",
+        "c2Desc": "Tự động chuẩn hóa âm lượng Studio",
+        "c2Badge": "-3dB EQ",
+        "c3Title": "03. Đo FFprobe",
+        "c3Desc": "Lấy chính xác từng mili-giây",
+        "c3Tag": "BƯỚC 03",
+        "c4Title": "04. Sub 1 Dòng",
+        "c4Desc": "Trượt nguyên cụm không cắt từ",
+        "c4Tag": "BƯỚC 04"
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v06/scene2.mp3",
+      "durationSec": 7.787,
+      "durationInFrames": 249
+    },
+    {
+      "visualType": "terminal",
+      "badge": "ĐỒNG BỘ KHUNG HÌNH BẰNG FFPROBE",
+      "headline": "ĐO TỪNG MILI-GIÂY ÂM THANH\nKHÔNG BAO GIỜ LỆCH HÌNH",
+      "subheadline": "Code tự động đọc độ dài file MP3 để co giãn thời lượng từng cảnh",
+      "text": "Sau khi tạo giọng đọc cho sáu phân cảnh, công cụ sẽ tự động đo độ dài thực tế của từng file âm thanh đến từng mili-giây, rồi truyền thẳng số khung hình vào bộ dựng hình.",
+      "phrases": [
+        "Sau khi tạo giọng đọc",
+        "cho sáu phân cảnh,",
+        "công cụ sẽ tự động đo độ dài thực tế",
+        "của từng file âm thanh",
+        "đến từng mili-giây,",
+        "rồi truyền thẳng số khung hình",
+        "vào bộ dựng hình."
+      ],
+      "highlightKeyword": "tự động đo",
+      "highlightWords": [
+        "giọng đọc",
+        "sáu phân cảnh",
+        "tự động đo",
+        "âm thanh",
+        "khung hình",
+        "dựng hình"
+      ],
+      "terminal": {
+        "file": "audio-sync.ts",
+        "leftTag": "FRAME-ACCURATE SYNC",
+        "lines": [
+          "ffprobe('scene1..6.mp3')",
+          "frames = ceil(sec * 30) + 14",
+          "sync: 100% LOCKED"
+        ],
+        "metricNum": 30,
+        "metricSuffix": " FPS",
+        "metricLabel": "KHỚP HÌNH & TIẾNG TỪNG FRAME",
+        "rightBadge": "STUDIO MASTERING",
+        "rightTag": "ÂM THANH CHUẨN",
+        "rightTitle": "Voice -3dB & Nhạc Nền -18dB",
+        "rightBottomLeft": "ĐỘ LỆCH AUDIO",
+        "rightBottomRight": "0.00s ✅"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v06/scene3.mp3",
+      "durationSec": 7.787,
+      "durationInFrames": 249
+    },
+    {
+      "visualType": "orbital",
+      "badge": "5 QUY TẮC VÀNG THỊ GIÁC",
+      "headline": "THẺ KÍNH TRONG SUỐT\nVÀ MOTION LIÊN TỤC 6 CẢNH",
+      "subheadline": "Giữ trọn nhận diện thương hiệu cao cấp trên từng khung hình dọc 9:16",
+      "text": "Toàn bộ hiệu ứng thẻ kính mờ, chữ tiêu đề xanh neon, âm thanh chuyển cảnh và phụ đề một dòng trượt mượt mà đều được lập trình sẵn để giữ chất lượng đồng nhất một trăm phần trăm.",
+      "phrases": [
+        "Toàn bộ hiệu ứng thẻ kính mờ,",
+        "chữ tiêu đề xanh neon,",
+        "âm thanh chuyển cảnh",
+        "và phụ đề một dòng trượt mượt mà",
+        "đều được lập trình sẵn",
+        "để giữ chất lượng đồng nhất",
+        "một trăm phần trăm."
+      ],
+      "highlightKeyword": "đồng nhất",
+      "highlightWords": [
+        "thẻ kính mờ",
+        "xanh neon",
+        "chuyển cảnh",
+        "phụ đề",
+        "lập trình sẵn",
+        "đồng nhất"
+      ],
+      "orbital": {
+        "oldLabel": "Video Đơn Điệu",
+        "oldTag": "DỄ LƯỚT QUA ❌",
+        "telemetry": "CHUẨN VÀNG: 5 GOLDEN RULES",
+        "coreTitle": "9:16 HD",
+        "nodes": [
+          "Tiêu Đề #87FF00",
+          "Kính Mờ Trong Suốt",
+          "Motion 6 Cảnh",
+          "Sub 1 Dòng Mượt"
+        ]
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v06/scene4.mp3",
+      "durationSec": 7.76,
+      "durationInFrames": 248
+    },
+    {
+      "visualType": "lidar",
+      "badge": "TỐI ƯU TỐC ĐỘ RENDER CRF 23",
+      "headline": "XUẤT FILE MP4 TRONG 75 GIÂY\nDUNG LƯỢNG NHẸ CHỈ 12MB",
+      "subheadline": "Sẵn sàng đẩy thẳng lên kho hẹn giờ tự động của Facebook Reels",
+      "text": "Nhờ tối ưu bộ mã hóa hình ảnh, một video Full H-D sắc nét chỉ nặng hơn mười mê-ga-bai và xuất file xong trong hơn một phút, sẵn sàng lên lịch đăng tự động cả tuần.",
+      "phrases": [
+        "Nhờ tối ưu bộ mã hóa hình ảnh,",
+        "một video Full H-D sắc nét",
+        "chỉ nặng hơn mười mê-ga-bai",
+        "và xuất file xong trong hơn một phút,",
+        "sẵn sàng lên lịch đăng tự động",
+        "cả tuần."
+      ],
+      "highlightKeyword": "tự động",
+      "highlightWords": [
+        "tối ưu",
+        "sắc nét",
+        "một phút",
+        "lên lịch",
+        "tự động",
+        "cả tuần"
+      ],
+      "lidar": {
+        "topLeft": "RENDER ENGINE TỐC ĐỘ CAO",
+        "topRight": "➔ XUẤT MP4 CHỈ TRONG 75 GIÂY ⚡",
+        "leftTitle": "LIGHTWEIGHT",
+        "leftSub": "Nén thông minh CRF 23",
+        "leftMetricLabel": "Dung lượng",
+        "leftMetric": "~12MB",
+        "leftDesc": "Upload lên Facebook siêu tốc",
+        "radarTop": "BATCH RENDER",
+        "radarBottom": "1080P",
+        "rightTitle": "AUTO SCHEDULE",
+        "rightSub": "Đẩy thẳng Graph API",
+        "rightMetricLabel": "Kho dự trữ",
+        "rightMetric": "12 VIDEO",
+        "rightDesc": "Tự đăng đúng giờ vàng mỗi ngày"
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v06/scene5.mp3",
+      "durationSec": 8.074,
+      "durationInFrames": 258
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận từ khóa bên dưới để nhận trọn bộ khuôn mẫu dựng video tự động này nhé!",
+      "phrases": [
+        "Bình luận từ khóa bên dưới",
+        "để nhận trọn bộ khuôn mẫu",
+        "dựng video tự động này nhé!"
+      ],
+      "highlightKeyword": "khuôn mẫu",
+      "highlightWords": [
+        "bình luận",
+        "trọn bộ",
+        "khuôn mẫu",
+        "tự động"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v06/scene6.mp3",
+      "durationSec": 3.894,
+      "durationInFrames": 157
+    }
+  ],
+  "totalFrames": 1421,
+  "totalSeconds": 47.37,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: VIDEOAI]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

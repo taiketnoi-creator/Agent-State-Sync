@@ -66,7 +66,7 @@ def check_git_sync(auto_pull: bool = False) -> str:
             if repo.exists():
                 try:
                     subprocess.Popen(
-                        ["git", "-C", str(repo), "pull", "--rebase", "origin", "main"],
+                        ["git", "-C", str(repo), "pull", "--rebase", "--autostash", "origin", "main"],
                         stdin=subprocess.DEVNULL,
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,

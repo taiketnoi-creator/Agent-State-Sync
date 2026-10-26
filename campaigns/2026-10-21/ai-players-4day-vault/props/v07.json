@@ -1,0 +1,252 @@
+{
+  "id": "v07",
+  "slug": "07-second-brain-memory-system",
+  "schedule_vn": "2026-10-24 16:30",
+  "keyword": "BONAO",
+  "title": "Tại Sao AI Cứ Quên Việc Hôm Qua? Cách Xây Bộ Não Thứ Hai Lưu Trữ Vĩnh Viễn",
+  "caption": "Mỗi lần mở phiên chat mới là AI lại quên sạch những bài học, quy tắc thương hiệu và quyết định bạn đã chốt hôm qua?\n\nĐó là vì bạn chưa trang bị cho đội AI một \"Bộ Não Thứ Hai\" (Second Brain): Tự động đóng gói mọi bài học xương máu thành thẻ nhớ (Memory Card) kèm chỉ mục INDEX.md và đồng bộ GitHub đa máy!\n\nComment \"BONAO\" hoặc tải cấu trúc Bộ não thứ 2 ở bình luận đầu tiên nhé!\n#AIPlayers #SecondBrain #AIMemory #Subagent #KnowledgeBase",
+  "outro_badge": "COMMENT NGAY: BONAO",
+  "outro_sub": "Nhận Cấu Trúc Bộ Não Thứ 2 Cho AI Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "lidar",
+      "badge": "CĂN BỆNH MẤT TRÍ NHỚ NGẮN HẠN",
+      "headline": "MỞ PHIÊN CHAT MỚI\nLÀ AI QUÊN SẠCH HÔM QUA!",
+      "subheadline": "Mất hàng giờ dạy lại từ đầu mỗi ngày vì thiếu kho lưu trữ ký ức",
+      "text": "Bạn có thấy mệt mỏi khi hôm qua vừa dạy AI sửa xong một lỗi, nhưng sáng nay mở cuộc trò chuyện mới nó lại mắc đúng lỗi đó? Đó là vì AI mặc định không có ký ức dài hạn.",
+      "phrases": [
+        "Bạn có thấy mệt mỏi",
+        "khi hôm qua vừa dạy AI sửa xong một lỗi,",
+        "nhưng sáng nay mở cuộc trò chuyện mới",
+        "nó lại mắc đúng lỗi đó?",
+        "Đó là vì AI mặc định",
+        "không có ký ức dài hạn."
+      ],
+      "highlightKeyword": "ký ức",
+      "highlightWords": [
+        "mệt mỏi",
+        "sửa xong",
+        "trò chuyện mới",
+        "đúng lỗi đó",
+        "ký ức",
+        "dài hạn"
+      ],
+      "lidar": {
+        "topLeft": "MỖI PHIÊN CHAT LÀ MỘT TỜ GIẤY TRẮNG",
+        "topRight": "➔ MẤT SẠCH BÀI HỌC CŨ ⚠️",
+        "leftTitle": "SESSION RESET",
+        "leftSub": "Quên quy chuẩn cũ",
+        "leftMetricLabel": "Lặp lại lỗi",
+        "leftMetric": "80%",
+        "leftDesc": "Phải nhắc đi nhắc lại mỗi ngày",
+        "radarTop": "MEMORY LOSS",
+        "radarBottom": "DETECTED",
+        "rightTitle": "MULTI-PC GAP",
+        "rightSub": "Lệch pha giữa các máy",
+        "rightMetricLabel": "Đứt mạch việc",
+        "rightMetric": "100%",
+        "rightDesc": "Đổi máy tính là mất hết ngữ cảnh"
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v07/scene1.mp3",
+      "durationSec": 8.544,
+      "durationInFrames": 272
+    },
+    {
+      "visualType": "orbital",
+      "badge": "KIẾN TRÚC BỘ NÃO THỨ HAI",
+      "headline": "MỖI BÀI HỌC XƯƠNG MÁU\nLƯU THÀNH 1 THẺ KÝ ỨC",
+      "subheadline": "Subagent Bộ Não Thứ Hai chuyên trách ghi chép và cập nhật chỉ mục",
+      "text": "Giải pháp của chúng tôi là cử riêng một Subagent mang tên Bộ Não Thứ Hai. Mỗi khi bạn chốt một quy tắc mới, nó lập tức ghi vào thẻ ký ức và cập nhật bảng chỉ mục trung tâm.",
+      "phrases": [
+        "Giải pháp của chúng tôi",
+        "là cử riêng một Subagent",
+        "mang tên Bộ Não Thứ Hai.",
+        "Mỗi khi bạn chốt một quy tắc mới,",
+        "nó lập tức ghi vào thẻ ký ức",
+        "và cập nhật bảng chỉ mục trung tâm."
+      ],
+      "highlightKeyword": "Bộ Não Thứ Hai",
+      "highlightWords": [
+        "giải pháp",
+        "Subagent",
+        "Bộ Não Thứ Hai",
+        "quy tắc mới",
+        "thẻ ký ức",
+        "chỉ mục"
+      ],
+      "orbital": {
+        "oldLabel": "Trí Nhớ Tạm",
+        "oldTag": "TỰ XÓA ❌",
+        "telemetry": "SECOND BRAIN: MEMORY VAULT",
+        "coreTitle": "INDEX.MD",
+        "nodes": [
+          "Luật Thương Hiệu",
+          "Kịch Bản Mẫu",
+          "Bài Học Thực Chiến",
+          "Lịch Sử Bàn Giao"
+        ]
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v07/scene2.mp3",
+      "durationSec": 8.44,
+      "durationInFrames": 269
+    },
+    {
+      "visualType": "terminal",
+      "badge": "CHỈ NẠP ĐÚNG THẺ CẦN DÙNG",
+      "headline": "ĐỌC BẢNG CHỈ MỤC 20 DÒNG\nTHAY VÌ ĐỌC CẢ KHO TÀI LIỆU",
+      "subheadline": "Tra cứu siêu tốc đúng bài học liên quan mà không làm tốn bộ nhớ",
+      "text": "Khi bắt đầu việc mới, Tổng quản AI chỉ cần lướt bảng chỉ mục hai mươi dòng để biết thẻ ký ức nào cần đọc. Nhờ vậy, AI nhớ được hàng trăm bài học mà không hề tốn token.",
+      "phrases": [
+        "Khi bắt đầu việc mới,",
+        "Tổng quản AI chỉ cần lướt",
+        "bảng chỉ mục hai mươi dòng",
+        "để biết thẻ ký ức nào cần đọc.",
+        "Nhờ vậy, AI nhớ được",
+        "hàng trăm bài học",
+        "mà không hề tốn token."
+      ],
+      "highlightKeyword": "bảng chỉ mục",
+      "highlightWords": [
+        "việc mới",
+        "bảng chỉ mục",
+        "hai mươi dòng",
+        "thẻ ký ức",
+        "hàng trăm",
+        "bài học"
+      ],
+      "terminal": {
+        "file": "INDEX.md",
+        "leftTag": "SMART MEMORY LOOKUP",
+        "lines": [
+          "MEM-01: Brand Golden Rules",
+          "MEM-02: Video SLL Playbook",
+          "MEM-03: Course Funnel Map"
+        ],
+        "metricNum": 100,
+        "metricSuffix": "% KÝ ỨC",
+        "metricLabel": "KHÔNG BAO GIỜ LẶP LẠI LỖI CŨ",
+        "rightBadge": "SELECTIVE LOAD",
+        "rightTag": "TIẾT KIỆM RAM",
+        "rightTitle": "Chỉ Nạp Đúng File Cần Thiết",
+        "rightBottomLeft": "DUNG LƯỢNG",
+        "rightBottomRight": "SIÊU NHẸ ✅"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v07/scene3.mp3",
+      "durationSec": 9.04,
+      "durationInFrames": 287
+    },
+    {
+      "visualType": "bento",
+      "badge": "ĐỒNG BỘ ĐA MÁY QUA GITHUB",
+      "headline": "LÀM Ở NHÀ HAY CÔNG TY\nAI ĐỀU HIỂU NGAY TỨC THÌ",
+      "subheadline": "Tự động đồng bộ lịch sử bàn giao siêu nhẹ giữa mọi máy tính",
+      "text": "Hơn thế nữa, toàn bộ kho ký ức văn bản siêu nhẹ này được tự động đồng bộ qua GitHub. Bạn làm việc ở công ty xong, tối về mở máy ở nhà là AI tiếp tục mạch việc ngay lập tức.",
+      "phrases": [
+        "Hơn thế nữa, toàn bộ kho ký ức",
+        "văn bản siêu nhẹ này",
+        "được tự động đồng bộ qua GitHub.",
+        "Bạn làm việc ở công ty xong,",
+        "tối về mở máy ở nhà",
+        "là AI tiếp tục mạch việc",
+        "ngay lập tức."
+      ],
+      "highlightKeyword": "đồng bộ",
+      "highlightWords": [
+        "kho ký ức",
+        "siêu nhẹ",
+        "đồng bộ",
+        "GitHub",
+        "công ty",
+        "mạch việc"
+      ],
+      "bento": {
+        "c1Tag": "FILE 01",
+        "c1Title": "Bản Đồ Dự Án",
+        "c1Desc": "Cấu trúc tổng quan toàn hệ thống",
+        "c2Tag": "FILE 02",
+        "c2Title": "Lịch Sử Bàn Giao",
+        "c2Desc": "Ghi rõ việc đã xong & việc chờ làm",
+        "c2Badge": "AUTO-SYNC",
+        "c3Title": "03. Kho Thẻ Nhớ",
+        "c3Desc": "Các bài học đã nghiệm thu",
+        "c3Tag": "FILE 03",
+        "c4Title": "04. Không Nặng Máy",
+        "c4Desc": "Chỉ đồng bộ file .md siêu nhẹ",
+        "c4Tag": "FILE 04"
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v07/scene4.mp3",
+      "durationSec": 8.988,
+      "durationInFrames": 285
+    },
+    {
+      "visualType": "reactor",
+      "badge": "CÀNG DÙNG LÂU AI CÀNG KHÔN",
+      "headline": "TÍCH LŨY LÃI KÉP TRI THỨC\nSAU MỖI CHIẾN DỊCH THỰC CHIẾN",
+      "subheadline": "Biến hệ thống AI thành người cộng sự hiểu rõ doanh nghiệp bạn nhất",
+      "text": "Với Bộ Não Thứ Hai, hệ thống AI của bạn không đứng yên mà thông minh lên từng ngày. Mỗi chiến dịch đi qua lại bồi đắp thêm một lớp kinh nghiệm quý giá không đối thủ nào sao chép được.",
+      "phrases": [
+        "Với Bộ Não Thứ Hai,",
+        "hệ thống AI của bạn",
+        "thông minh lên từng ngày.",
+        "Mỗi chiến dịch đi qua",
+        "lại bồi đắp thêm",
+        "một lớp kinh nghiệm quý giá",
+        "không đối thủ nào sao chép được."
+      ],
+      "highlightKeyword": "thông minh",
+      "highlightWords": [
+        "Bộ Não Thứ Hai",
+        "thông minh",
+        "từng ngày",
+        "bồi đắp",
+        "kinh nghiệm",
+        "sao chép"
+      ],
+      "reactor": {
+        "helixTitle": "LÃI KÉP TRI THỨC",
+        "compTitle": "Thời Gian Bàn Giao Khi Đổi Máy",
+        "oldLabel": "Copy file thủ công:",
+        "oldValue": "Mất 30 Phút & Dễ Lỗi",
+        "newLeft": "ĐỒNG BỘ BỘ NÃO THỨ 2:",
+        "newRight": "TỰ ĐỘNG 100% TRONG 2 GIÂY ⚡",
+        "gridTitle": "3 Trạng Thái Thẻ Ký Ức",
+        "nodes": [
+          "Tạm Thời",
+          "Đã Kiểm Chứng",
+          "Chuẩn Vàng"
+        ]
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v07/scene5.mp3",
+      "durationSec": 8.074,
+      "durationInFrames": 258
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận từ khóa bên dưới để nhận trọn bộ khung Bộ Não Thứ Hai cho AI của bạn nhé!",
+      "phrases": [
+        "Bình luận từ khóa bên dưới",
+        "để nhận trọn bộ khung",
+        "Bộ Não Thứ Hai cho AI nhé!"
+      ],
+      "highlightKeyword": "Bộ Não",
+      "highlightWords": [
+        "bình luận",
+        "trọn bộ",
+        "Bộ Não",
+        "Thứ Hai"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v07/scene6.mp3",
+      "durationSec": 3.999,
+      "durationInFrames": 160
+    }
+  ],
+  "totalFrames": 1531,
+  "totalSeconds": 51.03,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: BONAO]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

@@ -1,0 +1,250 @@
+{
+  "id": "v01",
+  "slug": "01-subagent-team-vs-single-chat",
+  "schedule_vn": "2026-10-22 16:30",
+  "keyword": "SUBAGENT",
+  "title": "Tại Sao 1 Khung Chat AI Hay Loạn, Còn Đội 6 Subagent Chạy Mượt Gấp 10 Lần?",
+  "caption": "Tại sao bạn nhồi 10 việc vào cùng 1 khung chat AI thì nó quên trước quên sau, nhưng tách thành đội 6 Subagent chuyên biệt thì hiệu suất tăng gấp 10 lần?\n\nBí mật nằm ở nguyên tắc Tường Lửa Ngữ Cảnh (Context Firewall): Mỗi nhân sự AI chỉ giữ đúng 1 vai trò độc lập — từ Nghiên cứu, Viết kịch bản, Dựng hình cho tới Thanh tra chấm điểm 10 tiêu chí.\n\nComment từ khóa \"SUBAGENT\" hoặc lấy trọn bộ 6 file cấu hình ở bình luận đầu tiên nhé!\n#AIPlayers #Subagent #MultiAgent #TuDongHoa #AIWorkflow",
+  "outro_badge": "COMMENT NGAY: SUBAGENT",
+  "outro_sub": "Nhận Trọn Bộ 6 Subagent Đóng Hộp Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "orbital",
+      "badge": "SAI LẦM KHI DÙNG AI NĂM 2026",
+      "headline": "NHỒI 10 VIỆC VÀO 1 CHAT\nKHIẾN AI QUÊN SẠCH",
+      "subheadline": "Một khung chat ôm đồm quá nhiều việc sẽ làm tràn bộ nhớ ngữ cảnh!",
+      "text": "Tại sao bạn giao một việc thì AI làm rất tốt, nhưng nhồi mười việc vào cùng một khung chat thì nó bắt đầu quên trước quên sau và làm sai quy trình?",
+      "phrases": [
+        "Tại sao bạn giao một việc",
+        "thì AI làm rất tốt,",
+        "nhưng nhồi mười việc",
+        "vào cùng một khung chat",
+        "thì nó bắt đầu quên trước quên sau",
+        "và làm sai quy trình?"
+      ],
+      "highlightKeyword": "khung chat",
+      "highlightWords": [
+        "một việc",
+        "mười việc",
+        "khung chat",
+        "quên trước",
+        "sai quy trình"
+      ],
+      "orbital": {
+        "oldLabel": "1 Chat Ôm Đồ",
+        "oldTag": "QUÁ TẢI ⚠️",
+        "telemetry": "KIẾN TRÚC: MULTI-AGENT 6 VAI",
+        "coreTitle": "MAMA",
+        "nodes": [
+          "01. Nghiên Cứu",
+          "02. Kịch Bản",
+          "03. Dựng Hình",
+          "04. Kiểm Duyệt"
+        ]
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v01/scene1.mp3",
+      "durationSec": 6.507,
+      "durationInFrames": 211
+    },
+    {
+      "visualType": "bento",
+      "badge": "NGUYÊN LÝ TƯỜNG LỬA NGỮ CẢNH",
+      "headline": "CHIA NHỎ ĐỘI HÌNH:\nMỖI AGENT MỘT CHUYÊN MÔN",
+      "subheadline": "Tách biệt hoàn toàn bộ nhớ giúp từng Agent đạt độ chính xác tối đa",
+      "text": "Đó là lúc bạn cần kiến trúc Đội ngũ Subagent. Thay vì bắt một trợ lý làm tất cả, hãy tách thành bốn chuyên gia độc lập: Nghiên cứu thị trường, Viết kịch bản, Thiết kế thị giác và Kiểm duyệt chất lượng.",
+      "phrases": [
+        "Đó là lúc bạn cần kiến trúc",
+        "Đội ngũ Subagent.",
+        "Thay vì bắt một trợ lý làm tất cả,",
+        "hãy tách thành bốn chuyên gia độc lập:",
+        "Nghiên cứu thị trường, Viết kịch bản,",
+        "Thiết kế thị giác",
+        "và Kiểm duyệt chất lượng."
+      ],
+      "highlightKeyword": "Subagent",
+      "highlightWords": [
+        "kiến trúc",
+        "Subagent",
+        "chuyên gia",
+        "độc lập",
+        "kịch bản",
+        "kiểm duyệt"
+      ],
+      "bento": {
+        "c1Tag": "AGENT 01",
+        "c1Title": "Săn Nghiên Cứu",
+        "c1Desc": "Lọc dữ liệu & xu hướng thật",
+        "c2Tag": "AGENT 02",
+        "c2Title": "Viết Kịch Bản",
+        "c2Desc": "Tối ưu Hook 3 giây đầu tiên",
+        "c2Badge": "10/10 HOOK",
+        "c3Title": "03. Thiết Kế Visual",
+        "c3Desc": "Dựng Storyboard & Motion",
+        "c3Tag": "AGENT 03",
+        "c4Title": "04. Thanh Tra Gate",
+        "c4Desc": "Chấm điểm 10 tiêu chí",
+        "c4Tag": "AGENT 04"
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v01/scene2.mp3",
+      "durationSec": 10.791,
+      "durationInFrames": 339
+    },
+    {
+      "visualType": "terminal",
+      "badge": "CƠ CHẾ BÀN GIAO TỰ ĐỘNG",
+      "headline": "CHỈ NHẬN BÁO CÁO GỌN\nTIẾT KIỆM 85% TOKEN",
+      "subheadline": "Tổng quản Mama điều phối qua file chuẩn mà không làm rác bộ nhớ",
+      "text": "Mỗi Subagent tự làm việc trong phiên riêng biệt và chỉ gửi báo cáo tóm tắt mười dòng về cho Tổng quản điều phối. Cách này giúp tiết kiệm tám mươi lăm phần trăm chi phí token mỗi ngày.",
+      "phrases": [
+        "Mỗi Subagent tự làm việc",
+        "trong phiên riêng biệt",
+        "và chỉ gửi báo cáo tóm tắt",
+        "mười dòng về cho Tổng quản điều phối.",
+        "Cách này giúp tiết kiệm",
+        "tám mươi lăm phần trăm",
+        "chi phí token mỗi ngày."
+      ],
+      "highlightKeyword": "tiết kiệm",
+      "highlightWords": [
+        "riêng biệt",
+        "báo cáo",
+        "tóm tắt",
+        "điều phối",
+        "tiết kiệm",
+        "chi phí"
+      ],
+      "terminal": {
+        "file": "mama-router.ts",
+        "leftTag": "ĐIỀU PHỐI VIÊN",
+        "lines": [
+          "spawnSubagent('mkt')",
+          "spawnSubagent('content')",
+          "handoff: CLEAN 10 LINES"
+        ],
+        "metricNum": 85,
+        "metricSuffix": "% TOKEN",
+        "metricLabel": "TIẾT KIỆM CHI PHÍ API",
+        "rightBadge": "CONTEXT FIREWALL",
+        "rightTag": "BỘ NHỚ SẠCH",
+        "rightTitle": "Không Tràn Ngữ Cảnh",
+        "rightBottomLeft": "ĐỘ ỔN ĐỊNH",
+        "rightBottomRight": "99.8% ✅"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v01/scene3.mp3",
+      "durationSec": 8.048,
+      "durationInFrames": 257
+    },
+    {
+      "visualType": "lidar",
+      "badge": "CHỐT CHẶN KIỂM DUYỆT CHÉO",
+      "headline": "CÓ NGƯỜI LÀM RIÊNG\nCÓ NGƯỜI SOI LỖI RIÊNG",
+      "subheadline": "Không một sản phẩm lỗi nào lọt qua cổng kiểm duyệt tự động",
+      "text": "Điểm mạnh nhất của mô hình này là cơ chế kiểm duyệt chéo. Khi Subagent viết bài xong, Subagent thanh tra sẽ soi từng câu chữ theo bảng mười tiêu chí trước khi trình lên cho bạn duyệt.",
+      "phrases": [
+        "Điểm mạnh nhất của mô hình này",
+        "là cơ chế kiểm duyệt chéo.",
+        "Khi Subagent viết bài xong,",
+        "Subagent thanh tra sẽ soi từng câu chữ",
+        "theo bảng mười tiêu chí",
+        "trước khi trình lên cho bạn duyệt."
+      ],
+      "highlightKeyword": "kiểm duyệt",
+      "highlightWords": [
+        "mạnh nhất",
+        "kiểm duyệt",
+        "thanh tra",
+        "từng câu chữ",
+        "mười tiêu chí"
+      ],
+      "lidar": {
+        "topLeft": "AGENT SẢN XUẤT NỘI DUNG",
+        "topRight": "➔ QUA CỔNG THANH TRA 10 ĐIỂM ⚡",
+        "leftTitle": "WRITER",
+        "leftSub": "Sáng tạo bản nháp",
+        "leftMetricLabel": "Tốc độ viết",
+        "leftMetric": "95%",
+        "leftDesc": "Tập trung 100% vào ý tưởng",
+        "radarTop": "QUALITY GATE",
+        "radarBottom": "PASSED",
+        "rightTitle": "AUDITOR",
+        "rightSub": "Soi lỗi độc lập",
+        "rightMetricLabel": "Chuẩn Rubric",
+        "rightMetric": "9.5/10",
+        "rightDesc": "Chặn đứng mọi lỗi sai số liệu"
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v01/scene4.mp3",
+      "durationSec": 8.858,
+      "durationInFrames": 281
+    },
+    {
+      "visualType": "reactor",
+      "badge": "ĐÒN BẨY HIỆU SUẤT THỰC CHIẾN",
+      "headline": "TỪ 4 GIỜ LÀM THỦ CÔNG\nXUỐNG CÒN 15 PHÚT",
+      "subheadline": "Giải phóng hoàn toàn thời gian để bạn tập trung vào quyết định lớn",
+      "text": "Nhờ dây chuyền sáu Subagent phối hợp nhịp nhàng, khối lượng công việc vốn tốn bốn tiếng mỗi ngày giờ được hoàn tất chỉ trong mười lăm phút với chất lượng đồng nhất tuyệt đối.",
+      "phrases": [
+        "Nhờ dây chuyền sáu Subagent",
+        "phối hợp nhịp nhàng,",
+        "khối lượng công việc",
+        "vốn tốn bốn tiếng mỗi ngày",
+        "giờ được hoàn tất",
+        "chỉ trong mười lăm phút",
+        "với chất lượng đồng nhất tuyệt đối."
+      ],
+      "highlightKeyword": "mười lăm phút",
+      "highlightWords": [
+        "dây chuyền",
+        "Subagent",
+        "bốn tiếng",
+        "hoàn tất",
+        "mười lăm phút",
+        "đồng nhất"
+      ],
+      "reactor": {
+        "helixTitle": "ĐỒNG BỘ 6 AGENT",
+        "compTitle": "Thời Gian Hoàn Thành Chiến Dịch",
+        "oldLabel": "1 người tự gõ prompt:",
+        "oldValue": "Mất 4 – 5 Giờ/Ngày",
+        "newLeft": "ĐỘI 6 SUBAGENT:",
+        "newRight": "CHỈ 15 PHÚT ⚡",
+        "gridTitle": "3 Tầng Nhân Sự Số Cốt Lõi",
+        "nodes": [
+          "Tầng Chiến Lược",
+          "Tầng Sản Xuất",
+          "Tầng Kiểm Duyệt"
+        ]
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v01/scene5.mp3",
+      "durationSec": 6.977,
+      "durationInFrames": 225
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận ngay từ khóa bên dưới để nhận trọn bộ sáu Subagent đóng hộp nhé!",
+      "phrases": [
+        "Bình luận ngay từ khóa bên dưới",
+        "để nhận trọn bộ",
+        "sáu Subagent đóng hộp nhé!"
+      ],
+      "highlightKeyword": "Subagent",
+      "highlightWords": [
+        "bình luận",
+        "từ khóa",
+        "trọn bộ",
+        "Subagent"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v01/scene6.mp3",
+      "durationSec": 3.685,
+      "durationInFrames": 151
+    }
+  ],
+  "totalFrames": 1464,
+  "totalSeconds": 48.8,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: SUBAGENT]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

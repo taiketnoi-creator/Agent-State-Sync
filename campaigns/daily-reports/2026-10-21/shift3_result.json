@@ -1,0 +1,77 @@
+{
+  "shift": 3,
+  "total_likes": 19,
+  "total_comments": 15,
+  "total_groups_joined": 7,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 4,
+      "comments": 3,
+      "groups_joined": 2,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_1_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_2_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_2_2.png"
+      ]
+    },
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
+      "likes": 4,
+      "comments": 4,
+      "groups_joined": 2,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_1_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_1_2.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_2_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_2_2.png"
+      ]
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
+      "likes": 6,
+      "comments": 4,
+      "groups_joined": 2,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_1_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_1_2.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_2_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_2_2.png"
+      ]
+    },
+    {
+      "slug": "deadline",
+      "name": "Hội Deadline - Dân Văn Phòng & Desk Setup",
+      "likes": 5,
+      "comments": 4,
+      "groups_joined": 1,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_1_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_1_2.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_2_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_2_2.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_2_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ai_2_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_1_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_2_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_phongtro_2_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_1_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_2_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_ktx_2_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_1_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_2_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\highvol_deadline_2_2.png"
+  ],
+  "grid_photo": "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-21\\shift3_highvol_grid_8.jpg"
+}

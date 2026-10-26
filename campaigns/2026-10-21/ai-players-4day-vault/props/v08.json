@@ -1,0 +1,250 @@
+{
+  "id": "v08",
+  "slug": "08-browser-computer-use-automation",
+  "schedule_vn": "2026-10-24 20:00",
+  "keyword": "CHROME",
+  "title": "AI Tự Cầm Chuột Điều Khiển Trình Duyệt Chrome: Từ Hỏi Đáp Sang Thực Chiến",
+  "caption": "Khoảnh khắc bạn nhìn thấy AI tự kết nối vào trình duyệt Chrome đang mở, tự lướt đọc các bài thảo luận trong Hội nhóm và thả từng bình luận chia sẻ giá trị — bạn sẽ hiểu kỷ nguyên AI Hỏi Đáp đã khép lại!\n\nKết hợp Chrome Remote Debugging + Playwright CDP giúp AI thao tác trực tiếp trên phiên đăng nhập thật một cách tự nhiên và an toàn.\n\nComment \"CHROME\" hoặc lấy hướng dẫn kết nối ở bình luận đầu tiên nhé!\n#AIPlayers #ComputerUse #ChromeCDP #Playwright #AIAutomation",
+  "outro_badge": "COMMENT NGAY: CHROME",
+  "outro_sub": "Nhận Hướng Dẫn Kết Nối AI Điều Khiển Chrome Ở Bình Luận Đầu!",
+  "scenes": [
+    {
+      "visualType": "orbital",
+      "badge": "BƯỚC TIẾN COMPUTER USE 2026",
+      "headline": "AI TỰ MỞ TRÌNH DUYỆT\nTỰ BẤM CHUỘT LÀM VIỆC THẬT",
+      "subheadline": "Không chỉ dừng ở tư vấn lời nói, AI đã có đôi tay thao tác trên màn hình!",
+      "text": "Trước đây AI chỉ biết ngồi trong khung chat chỉ bảo bạn bấm nút này nút kia. Nhưng hôm nay, AI đã có thể trực tiếp kết nối vào trình duyệt Chrome và tự tay thao tác thay bạn.",
+      "phrases": [
+        "Trước đây AI chỉ biết ngồi trong khung chat",
+        "chỉ bảo bạn bấm nút này nút kia.",
+        "Nhưng hôm nay,",
+        "AI đã có thể trực tiếp kết nối",
+        "vào trình duyệt Chrome",
+        "và tự tay thao tác thay bạn."
+      ],
+      "highlightKeyword": "trình duyệt",
+      "highlightWords": [
+        "khung chat",
+        "trực tiếp",
+        "kết nối",
+        "trình duyệt",
+        "tự tay",
+        "thao tác"
+      ],
+      "orbital": {
+        "oldLabel": "Chỉ Biết Nói",
+        "oldTag": "THỤ ĐỘNG ❌",
+        "telemetry": "CHROME CDP: ĐIỀU KHIỂN TRỰC TIẾP",
+        "coreTitle": "CHROME AI",
+        "nodes": [
+          "Mở Tab Tìm Kiếm",
+          "Đọc Ngữ Cảnh Bài",
+          "Thả Tương Tác",
+          "Chụp Ảnh Báo Cáo"
+        ]
+      },
+      "id": "scene1",
+      "audioFile": "audio/vault/v08/scene1.mp3",
+      "durationSec": 8.309,
+      "durationInFrames": 265
+    },
+    {
+      "visualType": "terminal",
+      "badge": "KẾT NỐI PHIÊN ĐĂNG NHẬP THẬT",
+      "headline": "KHÔNG CẦN ĐĂNG NHẬP LẠI\nKHÔNG SỢ BỊ KHÓA TÀI KHOẢN",
+      "subheadline": "Điều khiển trực tiếp cửa sổ Chrome bạn đang dùng qua cổng Debug nội bộ",
+      "text": "Điểm khác biệt lớn nhất của giao thức C-D-P là AI kết nối thẳng vào trình duyệt Chrome mà bạn đang mở sẵn. Không cần tạo trình duyệt ảo mới nên tuyệt đối an toàn cho tài khoản.",
+      "phrases": [
+        "Điểm khác biệt lớn nhất",
+        "của giao thức C-D-P",
+        "là AI kết nối thẳng vào",
+        "trình duyệt Chrome bạn đang mở sẵn.",
+        "Không cần tạo trình duyệt ảo mới",
+        "nên tuyệt đối an toàn",
+        "cho tài khoản."
+      ],
+      "highlightKeyword": "an toàn",
+      "highlightWords": [
+        "khác biệt",
+        "kết nối thẳng",
+        "trình duyệt",
+        "mở sẵn",
+        "tuyệt đối",
+        "an toàn"
+      ],
+      "terminal": {
+        "file": "cdp-connect.py",
+        "leftTag": "REMOTE DEBUGGING 9222",
+        "lines": [
+          "connect_over_cdp('127.0.0.1:9222')",
+          "context = browser.contexts[0]",
+          "session: AUTHENTICATED ✅"
+        ],
+        "metricNum": 100,
+        "metricSuffix": "% THẬT",
+        "metricLabel": "DÙNG CHÍNH TRÌNH DUYỆT CỦA BẠN",
+        "rightBadge": "ZERO CHECKPOINT",
+        "rightTag": "AN TOÀN CAO",
+        "rightTitle": "Giữ Nguyên Cookie & Phiên Thật",
+        "rightBottomLeft": "RỦI RO KHÓA",
+        "rightBottomRight": "0.0% ✅"
+      },
+      "id": "scene2",
+      "audioFile": "audio/vault/v08/scene2.mp3",
+      "durationSec": 7.578,
+      "durationInFrames": 243
+    },
+    {
+      "visualType": "lidar",
+      "badge": "TƯƠNG TÁC CỘNG ĐỒNG 3 CA/NGÀY",
+      "headline": "TỰ ĐI THẢO LUẬN HỘI NHÓM\nCHIA SẺ GIÁ TRỊ 0% LINK RÁC",
+      "subheadline": "Xây dựng uy tín thương hiệu tự nhiên trong 60 hội nhóm khách hàng tiềm năng",
+      "text": "Mỗi ngày ba ca trưa, chiều và tối, AI tự động lướt qua các hội nhóm cùng tệp, thả lượt thích và viết những bình luận chia sẻ mẹo hữu ích hoàn toàn không chứa link rác.",
+      "phrases": [
+        "Mỗi ngày ba ca trưa, chiều và tối,",
+        "AI tự động lướt qua",
+        "các hội nhóm cùng tệp,",
+        "thả lượt thích và viết bình luận",
+        "chia sẻ mẹo hữu ích",
+        "hoàn toàn không chứa link rác."
+      ],
+      "highlightKeyword": "hội nhóm",
+      "highlightWords": [
+        "ba ca",
+        "tự động",
+        "hội nhóm",
+        "lượt thích",
+        "bình luận",
+        "hữu ích"
+      ],
+      "lidar": {
+        "topLeft": "LỊCH TƯƠNG TÁC 3 CA: 12H - 17H30 - 21H",
+        "topRight": "➔ 72 BÌNH LUẬN CHẤT LƯỢNG/NGÀY ⚡",
+        "leftTitle": "AUTO-LIKE",
+        "leftSub": "Phá băng tự nhiên",
+        "leftMetricLabel": "Lượt thích/ngày",
+        "leftMetric": "144+",
+        "leftDesc": "Tăng độ nhận diện thương hiệu",
+        "radarTop": "COMMUNITY",
+        "radarBottom": "ACTIVE",
+        "rightTitle": "VALUE CMT",
+        "rightSub": "0% Link Spam",
+        "rightMetricLabel": "Bình luận/ngày",
+        "rightMetric": "72 CMT",
+        "rightDesc": "Thu hút khách tự bấm vào xem kênh"
+      },
+      "id": "scene3",
+      "audioFile": "audio/vault/v08/scene3.mp3",
+      "durationSec": 7.969,
+      "durationInFrames": 255
+    },
+    {
+      "visualType": "bento",
+      "badge": "CHỤP ẢNH NGHIỆM THU TỰ ĐỘNG",
+      "headline": "LÀM XONG TỰ CHỤP MÀN HÌNH\nGHÉP LƯỚI 8 ẢNH GỬI VỀ SẾP",
+      "subheadline": "Kiểm chứng kết quả bằng hình ảnh trực quan ngay trên điện thoại",
+      "text": "Mỗi khi đăng xong một bình luận trên nhóm, AI tự động chụp lại màn hình bằng chứng, dùng FFmpeg ghép thành bức ảnh tám ô sắc nét và gửi thẳng về Telegram cho bạn kiểm tra.",
+      "phrases": [
+        "Mỗi khi đăng xong một bình luận,",
+        "AI tự động chụp lại",
+        "màn hình bằng chứng,",
+        "ghép thành bức ảnh tám ô sắc nét",
+        "và gửi thẳng về Telegram",
+        "cho bạn kiểm tra."
+      ],
+      "highlightKeyword": "bằng chứng",
+      "highlightWords": [
+        "bình luận",
+        "chụp lại",
+        "bằng chứng",
+        "tám ô",
+        "sắc nét",
+        "kiểm tra"
+      ],
+      "bento": {
+        "c1Tag": "NGÁCH 01",
+        "c1Title": "Cộng Đồng AI VN",
+        "c1Desc": "Thảo luận kiến trúc Subagent",
+        "c2Tag": "NGÁCH 02",
+        "c2Title": "Decor Phòng Trọ",
+        "c2Desc": "Chia sẻ mẹo tối ưu không gian",
+        "c2Badge": "LIVE PROOF",
+        "c3Title": "03. Sinh Viên KTX",
+        "c3Desc": "Mẹo đồ dùng giường tầng tiện lợi",
+        "c3Tag": "NGÁCH 03",
+        "c4Title": "04. Góc Làm Việc",
+        "c4Desc": "Tư vấn công thái học văn phòng",
+        "c4Tag": "NGÁCH 04"
+      },
+      "id": "scene4",
+      "audioFile": "audio/vault/v08/scene4.mp3",
+      "durationSec": 8.205,
+      "durationInFrames": 262
+    },
+    {
+      "visualType": "reactor",
+      "badge": "KÉO TRAFFIC TỰ NHIÊN 0 ĐỒNG",
+      "headline": "BIẾN TƯƠNG TÁC CHÂN THẬT\nTHÀNH LUỒNG KHÁCH VỀ KÊNH",
+      "subheadline": "Cách bền vững nhất để nuôi lớn các Fanpage mới lập từ con số không",
+      "text": "Thay vì tốn tiền chạy quảng cáo ngay từ đầu, việc có một nhân sự số chăm chỉ đi giao lưu cộng đồng mỗi ngày sẽ mang về nguồn khán giả chất lượng và hoàn toàn miễn phí.",
+      "phrases": [
+        "Thay vì tốn tiền chạy quảng cáo,",
+        "việc có một nhân sự số",
+        "chăm chỉ đi giao lưu cộng đồng",
+        "mỗi ngày",
+        "sẽ mang về nguồn khán giả chất lượng",
+        "và hoàn toàn miễn phí."
+      ],
+      "highlightKeyword": "nhân sự số",
+      "highlightWords": [
+        "quảng cáo",
+        "nhân sự số",
+        "giao lưu",
+        "cộng đồng",
+        "chất lượng",
+        "miễn phí"
+      ],
+      "reactor": {
+        "helixTitle": "ORGANIC TRAFFIC ENGINE",
+        "compTitle": "Thời Gian Đi Tương Tác 60 Nhóm",
+        "oldLabel": "Nhân viên ngồi gõ tay:",
+        "oldValue": "Mất 3 Giờ/Ngày",
+        "newLeft": "AI ĐIỀU KHIỂN CHROME:",
+        "newRight": "TỰ CHẠY 3 CA MỖI NGÀY ⚡",
+        "gridTitle": "3 Nguyên Tắc An Toàn Tuyệt Đối",
+        "nodes": [
+          "0% Link Ngoài",
+          "Giãn Cách Nhịp",
+          "Nội Dung Đa Dạng"
+        ]
+      },
+      "id": "scene5",
+      "audioFile": "audio/vault/v08/scene5.mp3",
+      "durationSec": 6.951,
+      "durationInFrames": 224
+    },
+    {
+      "visualType": "outro",
+      "text": "Bình luận ngay chữ Chrome bên dưới để nhận bộ công cụ kết nối trình duyệt tự động nhé!",
+      "phrases": [
+        "Bình luận ngay chữ Chrome bên dưới",
+        "để nhận bộ công cụ",
+        "kết nối trình duyệt tự động nhé!"
+      ],
+      "highlightKeyword": "trình duyệt",
+      "highlightWords": [
+        "bình luận",
+        "công cụ",
+        "kết nối",
+        "trình duyệt"
+      ],
+      "id": "scene6",
+      "audioFile": "audio/vault/v08/scene6.mp3",
+      "durationSec": 3.79,
+      "durationInFrames": 154
+    }
+  ],
+  "totalFrames": 1403,
+  "totalSeconds": 46.77,
+  "pinned_comment": "🎁 [TÀI LIỆU & KHO TEMPLATE MIỄN PHÍ — MÃ: CHROME]\n👉 Tham gia ngay Nhóm Zalo Cộng Đồng VIP \"AI Players — Thực Chiến Subagent\" để lấy trọn bộ File .MD, Sơ đồ Kiến trúc & Bộ 30 Quà tặng đóng hộp:\n🔗 Link vào nhóm ngay: https://zalo.me/g/etllok798\n🔑 Mã duyệt tự động (Passcode): AIPLAYERS2026\n\n💡 Anh em vào nhóm bấm lên Tin nhắn ghim trên cùng là tải về máy dùng được ngay trong 3 phút nhé!"
+}

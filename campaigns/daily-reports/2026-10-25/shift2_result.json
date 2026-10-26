@@ -1,0 +1,56 @@
+{
+  "shift": 2,
+  "total_likes": 2,
+  "total_comments": 3,
+  "total_shares": 0,
+  "total_groups_joined": 1,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 2,
+      "comments": 1,
+      "shares": 0,
+      "groups_joined": 1,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_ai_1_1.png"
+      ]
+    },
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
+      "likes": 0,
+      "comments": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_phongtro_1_1.png"
+      ]
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "groups_joined": 0,
+      "screenshots": []
+    },
+    {
+      "slug": "deadline",
+      "name": "Hội Deadline - Dân Văn Phòng & Desk Setup",
+      "likes": 0,
+      "comments": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_deadline_1_1.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_ai_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_phongtro_1_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-25\\highvol_deadline_1_1.png"
+  ]
+}
