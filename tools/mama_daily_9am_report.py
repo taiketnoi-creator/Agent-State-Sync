@@ -77,12 +77,21 @@ FOUR_PAGES_CONFIG = [
 def check_bot_status() -> str:
     try:
         req = urllib.request.Request("http://127.0.0.1:9222/json/version")
-        with urllib.request.urlopen(req, timeout=1.0) as resp:
+        with urllib.request.urlopen(req, timeout=1.5) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             browser = data.get("Browser", "Chrome")
-            return f"🟢 **ĐANG ONLINE** (`{browser}` trên cổng `9222` — Sẵn sàng tự động chạy ca 12:00 & 17:30)"
+            return f"🟢 **ĐANG ONLINE 100% TỰ ĐỘNG** (`{browser}` trên cổng `9222` — Sẵn sàng tự động chạy 3 ca 12:00, 17:30 & 20:30)"
     except Exception:
-        return "🟡 **CHƯA MỞ PORT 9222** (Nhấp đúp `Mo_Chrome_Bot_Facebook.bat` ngoài Desktop để bot chạy tự động, hoặc dùng Cockpit tương tác 1-Click)"
+        try:
+            from start_bot_chrome import ensure_bot_chrome_online, get_cdp_version_info
+            ws = ensure_bot_chrome_online(timeout_sec=10.0)
+            if ws:
+                info = get_cdp_version_info(timeout=1.5)
+                browser = info.get("Browser", "Chrome")
+                return f"🟢 **ĐANG ONLINE (Tự động bật ngầm 100%)** (`{browser}` trên cổng `9222` — Sẵn sàng chạy 3 ca 12:00, 17:30 & 20:30)"
+        except Exception:
+            pass
+        return "🔴 **CẢNH BÁO: KHÔNG THỂ TỰ BẬT CỔNG 9222** (Đã gửi cảnh báo tức thời về Telegram CEO)"
 
 
 def load_pages_vault() -> dict:

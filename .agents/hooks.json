@@ -1,11 +1,21 @@
 {
+  "workspace-context-loader": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python \"D:\\Phiên bản Ai agent\\Subagent\\tools\\mama_boot_check.py\" --hook",
+        "timeout": 15
+      }
+    ]
+  },
   "auto-sync-after-turn": {
     "enabled": true,
     "Stop": [
       {
         "type": "command",
-        "command": "\"C:\\Users\\guicci\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\python.exe\" \"D:\\Phiên bản Ai agent\\Agent-State-Sync\\on_stop_sync.py\"",
-        "timeout": 5
+        "command": "python \"D:\\Phiên bản Ai agent\\Agent-State-Sync\\on_stop_sync.py\"",
+        "timeout": 10
       }
     ]
   }

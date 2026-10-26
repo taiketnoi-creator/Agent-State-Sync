@@ -65,6 +65,7 @@ COMMENTS_POOL = {
 NICHE_META = [
     {
         "slug": "ai",
+        "fanpage_name": "AI Players - Người chơi hệ AI",
         "name": "AI Players - Cộng đồng AI & Automation",
         "feeds": [
             {
@@ -86,6 +87,7 @@ NICHE_META = [
     },
     {
         "slug": "phongtro",
+        "fanpage_name": "Phòng Trọ Hết Cứu",
         "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
         "feeds": [
             {
@@ -107,6 +109,7 @@ NICHE_META = [
     },
     {
         "slug": "ktx",
+        "fanpage_name": "Ký Túc Xá Có Biến",
         "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
         "feeds": [
             {
@@ -128,6 +131,7 @@ NICHE_META = [
     },
     {
         "slug": "deadline",
+        "fanpage_name": "Hội Deadline",
         "name": "Hội Deadline - Dân Văn Phòng & Desk Setup",
         "feeds": [
             {
@@ -321,7 +325,8 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
 
 def get_ws_url() -> str:
     """
-    CHỈ kết nối vào trình duyệt Bot độc lập (`.chrome-fb-bot`) tại cổng 9222.
+    Kết nối vào trình duyệt Bot độc lập (`.chrome-fb-bot`) tại cổng 9222.
+    Nếu cổng 9222 chưa bật, TỰ ĐỘNG KHỞI ĐỘNG NGẦM 100% (không bắt CEO mở file .bat).
     TUYỆT ĐỐI KHÔNG đọc DevToolsActivePort hay đụng vào Chrome chính của CEO.
     """
     def _fetch_ws() -> str:
@@ -334,7 +339,89 @@ def get_ws_url() -> str:
             pass
         return ""
 
+    ws = _fetch_ws()
+    if ws:
+        return ws
+
+    try:
+        from start_bot_chrome import ensure_bot_chrome_online
+        ws = ensure_bot_chrome_online(timeout_sec=12.0)
+        if ws:
+            return ws
+    except Exception:
+        pass
+
     return _fetch_ws()
+
+
+def ensure_fanpage_active(pg, target_page_name: str) -> bool:
+    """
+    TƯỜNG LỬA CẤM TUYỆT ĐỐI TRANG CÁ NHÂN (ZERO PERSONAL PROFILE TOUCH):
+    Bắt buộc chuyển trình duyệt sang đúng Fanpage mục tiêu trước khi đi tương tác.
+    Nếu đang ở Trang cá nhân (Thành Tài) mà không chuyển sang Fanpage được -> DỪNG NGAY LẬP TỨC (return False).
+    """
+    try:
+        pg.goto("https://www.facebook.com/", timeout=25000)
+        time.sleep(2.5)
+
+        # Đóng mọi popup chat Messenger nếu có
+        close_btns = pg.locator('[aria-label="Đóng đoạn chat"], [aria-label="Close chat"]')
+        for i in range(close_btns.count()):
+            try:
+                close_btns.nth(i).click(timeout=600)
+            except Exception:
+                pass
+
+        acct_btn = pg.locator('[aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"], [aria-label="Your profile"], [aria-label="Account"]').first
+        if acct_btn.count() == 0:
+            return False
+
+        acct_btn.click(timeout=3000)
+        time.sleep(1.5)
+        dialog = pg.locator('div[role="dialog"]').last
+
+        # Kiểm tra dòng đầu tiên trong menu Tài khoản đã là Fanpage mục tiêu chưa
+        d_lines = [ln.strip() for ln in dialog.inner_text(timeout=2000).splitlines() if ln.strip()]
+        current_name = d_lines[0] if d_lines else ""
+        if target_page_name.lower() in current_name.lower() and "thành tài" not in current_name.lower():
+            pg.keyboard.press("Escape")
+            time.sleep(0.5)
+            return True
+
+        # Thử nút chuyển nhanh "Chuyển sang <target_page_name>"
+        quick_switch = dialog.locator(f'div[role="button"][aria-label="Chuyển sang {target_page_name}"]').first
+        if quick_switch.count() > 0 and quick_switch.is_visible(timeout=1200):
+            quick_switch.click(timeout=3000)
+            time.sleep(5.0)
+        else:
+            see_all = dialog.locator('div[role="button"][aria-label="Xem tất cả trang cá nhân"], div[role="button"]:has-text("Xem tất cả trang cá nhân")').first
+            if see_all.count() > 0 and see_all.is_visible(timeout=1500):
+                see_all.click(timeout=2000)
+                time.sleep(1.8)
+
+            target_btn = dialog.locator(f'div[role="button"][aria-label^="{target_page_name}"]').first
+            if target_btn.count() > 0 and target_btn.is_visible(timeout=2000):
+                target_btn.click(timeout=3000)
+                time.sleep(5.0)
+            else:
+                pg.keyboard.press("Escape")
+                return False
+
+        # Xác minh lại lần cuối sau khi chuyển: dòng đầu tiên BẮT BUỘC là Fanpage mục tiêu và CẤM là Thành Tài
+        acct_btn = pg.locator('[aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"], [aria-label="Your profile"], [aria-label="Account"]').first
+        if acct_btn.count() > 0:
+            acct_btn.click(timeout=3000)
+            time.sleep(1.5)
+            dialog = pg.locator('div[role="dialog"]').last
+            d_lines = [ln.strip() for ln in dialog.inner_text(timeout=2000).splitlines() if ln.strip()]
+            active_name = d_lines[0] if d_lines else ""
+            pg.keyboard.press("Escape")
+            time.sleep(0.5)
+            if target_page_name.lower() in active_name.lower() and "thành tài" not in active_name.lower():
+                return True
+    except Exception:
+        pass
+    return False
 
 
 def accept_group_rules_if_present(pg) -> bool:
@@ -371,9 +458,10 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
     }
 
     if not ws_url:
-        summary["status"] = "SKIPPED_NO_ISOLATED_BOT_BROWSER_ON_9222"
+        summary["status"] = "ERROR_CANNOT_AUTOSTART_PORT_9222"
         return summary
 
+    summary["status"] = "OK"
     with sync_playwright() as p:
         browser = p.chromium.connect_over_cdp(ws_url, timeout=15000)
         ctx = browser.contexts[0]
@@ -381,9 +469,29 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
         non_chrome = [pg for pg in ctx.pages if not pg.url.startswith("chrome://")]
         pg = fb_pages[-1] if fb_pages else (non_chrome[-1] if non_chrome else ctx.new_page())
 
+        try:
+            if "facebook.com" not in pg.url:
+                pg.goto("https://www.facebook.com/", timeout=20000)
+                time.sleep(2.0)
+            has_login_input = pg.locator('input[name="email"], input[name="pass"]').count() > 0
+            is_checkpoint = "checkpoint" in pg.url.lower() or "two_step_verification" in pg.url.lower()
+            if has_login_input or is_checkpoint:
+                alert_shot = out_dir / f"shift{shift}_alert_approval_needed.png"
+                pg.screenshot(path=str(alert_shot))
+                summary["status"] = "CHECKPOINT_APPROVAL_NEEDED" if is_checkpoint else "LOGIN_APPROVAL_NEEDED"
+                summary["alert_photo"] = str(alert_shot)
+                return summary
+        except Exception:
+            pass
+
         for niche in NICHE_META:
             slug = niche["slug"]
+            fanpage_name = niche["fanpage_name"]
             pool = COMMENTS_POOL[slug]
+
+            # BẮT BUỘC CHUYỂN SANG ĐÚNG FANPAGE TRƯỚC KHI TƯƠNG TÁC (TUYỆT ĐỐI CẤM DÙNG TRANG CÁ NHÂN)
+            if not ensure_fanpage_active(pg, fanpage_name):
+                continue
             niche_likes = 0
             niche_cmts = 0
             niche_shares = 0
@@ -459,7 +567,7 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                         share_btn = pg.locator('[data-javis-share-rank="1"]').first
                         if share_btn.count() == 0:
                             share_btn = pg.locator(
-                                '[aria-label*="Chia sẻ"], [aria-label*="Gửi nội dung này"], div[role="button"]:has-text("Chia sẻ")'
+                                '[aria-label="Chia sẻ"], div[role="button"]:has-text("Chia sẻ")'
                             ).first
                         if share_btn.count() > 0:
                             share_btn.scroll_into_view_if_needed(timeout=1500)
@@ -500,9 +608,10 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                             c_btn.click(timeout=1800)
                             time.sleep(1.8)
 
+                            # CHỈ GÕ VÀO Ô BÌNH LUẬN CÓ NHÃN "dưới tên <Tên Fanpage>" — CẤM TUYỆT ĐỐI Ô CHAT MESSENGER HOẶC TRANG CÁ NHÂN
                             tb = pg.locator(
-                                'div[role="dialog"] div[contenteditable="true"][role="textbox"], div[contenteditable="true"][role="textbox"]'
-                            ).last
+                                f'div[contenteditable="true"][role="textbox"][aria-label*="dưới tên {fanpage_name}"]'
+                            ).first
                             if tb.is_visible(timeout=1800):
                                 tb.click(timeout=1600)
                                 time.sleep(0.25)
@@ -626,37 +735,49 @@ def main():
     log_file = out_dir / f"shift{args.shift}_result.json"
     log_file.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # Chỉ đẩy báo cáo Telegram khi thực sự có tương tác (>0) để không spam báo cáo +0
-    if (args.send_telegram or args.reply_task > 0) and (
-        summary.get("total_likes", 0) > 0 or summary.get("total_comments", 0) > 0
-    ):
-        shift_names = {
-            1: "CA 1 (12h00 TRƯA — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
-            2: "CA 2 (17h30 CHIỀU — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
-            3: "CA TĂNG CƯỜNG — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG (16:9) & VIDEO DỌC/REELS (9:16)",
-        }
-        lines = [
-            f"🚀 BÁO CÁO TƯƠNG TÁC HỘI NHÓM & VIDEO CÙNG TỆP — {shift_names.get(args.shift, 'HIGH-VOLUME')}",
-            f"⏰ Thời gian hoàn tất: {dt.datetime.now().strftime('%H:%M:%S %d/%m/%Y')}",
-            "🎯 Bộ lọc thông minh: Ưu tiên tuyệt đối Bài viết & Video MỚI + NHIỀU LIKE + NHIỀU COMMENT nhất trên Feed!",
-            "",
-            "🔥 Tổng kết đợt tương tác vừa chạy xong trên Chrome Bot độc lập:",
-            f"  • 👍 Lượt Thích (Likes) bài & video HOT: +{summary['total_likes']} lượt",
-            f"  • 🎬 Tương tác Video Cùng Tệp (Xem giữ chân + Like + Cmt): +{summary['total_videos_interacted']} Video "
-            f"(gồm {summary['horizontal_videos_interacted']} Video Ngang 16:9 & {summary['vertical_videos_interacted']} Video Dọc/Reels 9:16)",
-            f"  • 💬 Bình luận chuyên sâu trên Bài & Video TOP tương tác: +{summary['total_comments']} bình luận (0% link rác, 0% tương tác chéo Page)",
-            f"  • 🔄 Chia sẻ bài/video HOT cùng tệp (Shares): +{summary.get('total_shares', 0)} lượt chia sẻ",
-            f"  • 🤝 Gia nhập Hội nhóm mới (Auto-Join Group): +{summary['total_groups_joined']} Group cùng tệp",
+    shift_names = {
+        1: "CA 1 (12h00 TRƯA — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
+        2: "CA 2 (17h30 CHIỀU — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
+        3: "CA 3 (20h30 TỐI / TĂNG CƯỜNG — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG 16:9 & REELS 9:16)",
+    }
+    bridge = SUBAGENT_DIR / "tools" / "telegram_bridge.py"
+
+    if summary.get("total_likes", 0) > 0 or summary.get("total_comments", 0) > 0:
+        if args.send_telegram or args.reply_task > 0:
+            lines = [
+                f"🚀 BÁO CÁO TƯƠNG TÁC HỘI NHÓM & VIDEO CÙNG TỆP — {shift_names.get(args.shift, 'HIGH-VOLUME')}",
+                f"⏰ Thời gian hoàn tất: {dt.datetime.now().strftime('%H:%M:%S %d/%m/%Y')}",
+                "🎯 Bộ lọc thông minh: Ưu tiên tuyệt đối Bài viết & Video MỚI + NHIỀU LIKE + NHIỀU COMMENT nhất trên Feed!",
+                "",
+                "🔥 Tổng kết đợt tương tác vừa chạy xong trên Chrome Bot độc lập (100% Tự Động):",
+                f"  • 👍 Lượt Thích (Likes) bài & video HOT: +{summary['total_likes']} lượt",
+                f"  • 🎬 Tương tác Video Cùng Tệp (Xem giữ chân + Like + Cmt): +{summary['total_videos_interacted']} Video "
+                f"(gồm {summary['horizontal_videos_interacted']} Video Ngang 16:9 & {summary['vertical_videos_interacted']} Video Dọc/Reels 9:16)",
+                f"  • 💬 Bình luận chuyên sâu trên Bài & Video TOP tương tác: +{summary['total_comments']} bình luận (0% link rác, 0% tương tác chéo Page)",
+                f"  • 🔄 Chia sẻ bài/video HOT cùng tệp (Shares): +{summary.get('total_shares', 0)} lượt chia sẻ",
+                f"  • 🤝 Gia nhập Hội nhóm mới (Auto-Join Group): +{summary['total_groups_joined']} Group cùng tệp",
+            ]
+            msg_text = "\n".join(lines)
+            cmd = [sys.executable, str(bridge)]
+            if args.reply_task > 0:
+                cmd += ["--reply", str(args.reply_task), "--text", msg_text]
+            else:
+                cmd += ["--send", "8110826820", "--text", msg_text]
+            if summary.get("grid_photo"):
+                cmd += ["--photo", summary["grid_photo"]]
+            subprocess.run(cmd, check=False)
+    else:
+        status_code = summary.get("status", "ZERO_INTERACTION")
+        alert_lines = [
+            f"🚨 [CẢNH BÁO TỨC THỜI TỪ MAMA] — {shift_names.get(args.shift, 'CA TƯƠNG TÁC')}",
+            f"⏰ Thời điểm phát hiện: {dt.datetime.now().strftime('%H:%M:%S %d/%m/%Y')}",
+            f"⚠️ Trạng thái cần xử lý/duyệt: {status_code}",
+            "👉 Hệ thống báo động ngay qua Telegram theo lệnh của CEO (không tự ý im lặng bỏ qua ca).",
         ]
-        msg_text = "\n".join(lines)
-        bridge = SUBAGENT_DIR / "tools" / "telegram_bridge.py"
-        cmd = [sys.executable, str(bridge)]
-        if args.reply_task > 0:
-            cmd += ["--reply", str(args.reply_task), "--text", msg_text]
-        else:
-            cmd += ["--send", "8110826820", "--text", msg_text]
-        if summary.get("grid_photo"):
-            cmd += ["--photo", summary["grid_photo"]]
+        alert_text = "\n".join(alert_lines)
+        cmd = [sys.executable, str(bridge), "--send", "8110826820", "--text", alert_text]
+        if summary.get("alert_photo"):
+            cmd += ["--photo", summary["alert_photo"]]
         subprocess.run(cmd, check=False)
 
     print(json.dumps(summary, ensure_ascii=False))

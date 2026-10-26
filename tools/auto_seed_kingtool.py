@@ -30,6 +30,7 @@ SEEDING_TARGETS = [
     {
         "niche": "AI & Công Nghệ (ChatGPT / Claude / AI Agent)",
         "slug": "ai",
+        "fanpage_name": "AI Players - Người chơi hệ AI",
         "search_url": "https://www.facebook.com/search/posts?q=AI%20Agent%20ChatGPT%20c%C3%B4ng%20vi%E1%BB%87c%20Vi%E1%BB%87t%20Nam",
         "image_path": IMG_DIR / "kingtoolshop-3d-tech-bright-v1.jpg",
         "comments": [
@@ -41,6 +42,7 @@ SEEDING_TARGETS = [
     {
         "niche": "Hội Cày Deadline (Canva / Đồ Họa / Văn Phòng / Sinh Viên)",
         "slug": "deadline",
+        "fanpage_name": "Hội Deadline",
         "search_url": "https://www.facebook.com/search/posts?q=setup%20g%C3%B3c%20l%C3%A0m%20vi%E1%BB%87c%20v%C4%83n%20ph%C3%B2ng%20desk%20setup",
         "image_path": IMG_DIR / "kingtoolshop-3d-tech-bright-v2.jpg",
         "comments": [
@@ -58,6 +60,14 @@ def check_cdp_status():
             data = json.loads(resp.read().decode())
             return True, data.get("Browser", "Chrome")
     except Exception:
+        try:
+            from start_bot_chrome import ensure_bot_chrome_online, get_cdp_version_info
+            ws = ensure_bot_chrome_online(timeout_sec=10.0)
+            if ws:
+                info = get_cdp_version_info(timeout=1.5)
+                return True, info.get("Browser", "Chrome")
+        except Exception:
+            pass
         return False, None
 
 def run_auto_seeding():
@@ -125,8 +135,16 @@ def run_auto_seeding():
 
             # Tìm ô bình luận
             comment_posted = False
+            # BẮT BUỘC KIỂM TRA TƯỜNG LỬA: CHỈ BÌNH LUẬN DƯỚI TÊN FANPAGE, CẤM TUYỆT ĐỐI TRANG CÁ NHÂN & MESSENGER
+            fanpage_name = target.get("fanpage_name", "AI Players - Người chơi hệ AI")
+            from mama_daily_group_and_eod import ensure_fanpage_active
+            if not ensure_fanpage_active(page, fanpage_name):
+                print(f"  🛑 [CHẶN AN TOÀN] Chưa chuyển sang Fanpage {fanpage_name}, bỏ qua tuyệt đối để bảo vệ Trang cá nhân CEO!")
+                continue
+            page.goto(search_url, timeout=30000)
+            time.sleep(4.0)
             try:
-                cmt_box = page.locator('div[role="textbox"][aria-label*="bình luận"], div[role="textbox"][aria-label*="comment"]')
+                cmt_box = page.locator(f'div[role="textbox"][aria-label*="dưới tên {fanpage_name}"]')
                 if cmt_box.count() > 0:
                     target_box = cmt_box.first
                     target_box.scroll_into_view_if_needed(timeout=2000)

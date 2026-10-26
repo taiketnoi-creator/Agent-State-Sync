@@ -71,8 +71,6 @@
 - `[DONE]` Nâng cấp `Agent-State-Sync/generate_snapshot.py` và `tools/mama_boot_check.py` tự động đồng bộ hai chiều toàn bộ thư mục `knowledge/bo-nao-thu-2/` và các file `.md` chiến dịch (`campaigns/2026-10-21/`) giữa máy nhà và máy công ty qua GitHub.
 - `[DONE]` Xây dựng công cụ tự động hóa Link & Đối soát Shopee Affiliate Cá Nhân (`tools/shopee_link_manager.py`), giải mã và khóa cứng mã **`SHOPEE_AFFILIATE_ID=17395830088`** từ link mẫu `https://s.shopee.vn/6q1eCGjYkW` vào `.env`, khởi tạo bảng `shopee_page_links` & `shopee_conversions` trong `aff_system.db`, xuất file Batch CSV chuẩn `custom_link`, và **tự động nâng cấp toàn bộ 6/6 Pinned Comment đang chạy thực tế trên 3 Fanpage Bán Hàng (`Ký Túc Xá Có Biến`, `Hội Deadline`, `Phòng Trọ Hết Cứu`)** sang link `s.shopee.vn/an_redir` gắn đủ 5 tầng `Sub_ID`.
 - `[DONE]` Nghiên cứu chuyên sâu & đóng gói **Cẩm nang Đa kênh AI Affiliate 2026 (Facebook Reels + YouTube Shorts/Shopping + Threads)** (`campaigns/2026-10-21/multi-channel-ai-affiliate-research/01..02` & `MEM-20261021-multi-channel-ai-affiliate-playbook.md`): Giải phẫu 6 AI Video Archetypes chuyển đổi cao nhất trên FB Reels (kèm ma trận tỷ trọng riêng cho 3 Page bán hàng), 3 cầu nối lấy Click trên YouTube Shorts (`Related Video`, `Bio 14 Links`, `YouTube Shopping x Shopee`), và 5 cấu trúc bài Threads nổ đơn qua `Self-Reply #1`.
-- `[OPEN]` **(Việc làm tiếp tại máy công ty ngày mai — Nhánh 1 Page `AI Players`):** Sản xuất & đóng gói Món Quà số 1 từ kho 30 Lead Magnets (`Gói Subagent Đóng Hộp + Hook 3s / Văn Phòng`), cài đặt Nhóm Zalo Cộng Đồng Bảo Mật và lên bài mở màn thu phễu trên Page `AI Players - Người chơi hệ AI` + 4 bài Group Seeding.
-- `[OPEN]` **(Việc làm tiếp tại máy công ty ngày mai — Nhánh 2 Video AI Bán Hàng SLL):** Kết nối tài khoản Google Veo (qua lệnh `/browser` mở `labs.google/fx/vi/tools/flow` hoặc cấp `GEMINI_API_KEY` vào `.env`) để chạy `tools/veo_step4_auto.py` sinh 8 clip chuyển động Veo 3 thực tế cho chiến dịch Quạt cầm tay iMI.
 
 - **[DONE] [2026-10-22 09:14] T??ng t?c ch?o 4 Page & Seeding H?i nh?m 4 ng?ch (Ca S?ng 22/10 ? M?y v?n ph?ng `guicci`):** ?? ph?n h?i 100% b?nh lu?n kh?ch h?ng th?t (`Th?nh T?i`) + b?m 12 lu?ng th?o lu?n 2 chi?u tr?n 4 Page (`50/50` b?i ??t `185 Likes`, `143 Comments`); ??ng th?i n?ng c?p `mama_daily_group_and_eod.py` t? ??ng m? Chrome 139 (`Profile 59` + `--disable-features=DevToolsDebuggingRestrictions --remote-debugging-port=9222`), ho?n t?t t? ??ng **33 Likes + 24 B?nh lu?n th?c chi?n + 11 Group m?i xin gia nh?p** k?m 24 ?nh nghi?m thu g?i th?ng v? Telegram.
 
@@ -112,21 +110,22 @@
 
 ---
 
-## Phiên Làm Việc: 2026-10-26 — Khắc Phục Sự Cố Page AI Players, Tăng Cường 3 Khung Giờ Tương Tác & Khởi Tạo Trọn Bộ Kho Nội Dung 1 Tuần (42 Bài Ảnh 1:1 + 21 Video Reels)
+## Phiên Làm Việc: 2026-10-26 — Khắc Phục Sự Cố Page AI Players, Khóa Tường Lửa Bảo Vệ Trang Cá Nhân, Nâng Cấp Bộ Nhớ Bền Vững & Sản Xuất Kho 1 Tuần (42 Bài Ảnh 1:1 + 21 Video Reels)
 
 ### 1. Tóm Tắt Quyết Định & Chỉ Đạo Nóng Của CEO
-- **Thu hồi bài đăng test sai lệch trên Page AI:** Phát hiện video vẽ tay bảng trắng test (`openrouter_mindmap_explainer.mp4`) bị đăng nhầm lên Page AI lúc 11:45 (lệch Brand Guidelines Remotion `#87ff00` kính trong suốt). CEO chỉ đạo gỡ bỏ khẩn cấp ngay lập tức.
-- **Chuẩn hóa nội dung Page AI:** Page AI phải đăng đủ bài ảnh vuông 1:1 theo chuẩn Cobalt-Lime và tăng số lượng video reel lên **1 ngày 3 video reel** (11:45, 16:30, 20:00).
-- **Khởi tạo Kho nội dung 1 tuần trọn gói:** Yêu cầu sản xuất và lên lịch toàn bộ kho nội dung 7 ngày gồm **42 Bài Ảnh Vuông 1:1** độc bản (luân phiên 6 layout archetypes) và **21 Video Reels** Remotion chuẩn Vàng.
-- **Tăng cường tương tác hội nhóm:** Nâng từ 2 khung giờ lên **3 khung giờ/ngày** (`12:00`, `17:30`, `20:30`).
-- **Tối ưu tốc độ báo cáo của Mama:** Tích hợp bộ nhớ đệm TTL 5 phút và ThreadPool đa luồng để phản hồi tức thì (dưới 1s).
+- **Thu hồi bài đăng test sai lệch trên Page AI:** Phát hiện video vẽ tay bảng trắng test (`openrouter_mindmap_explainer.mp4`) bị đăng nhầm lên Page AI lúc 11:45 (lệch Brand Guidelines Remotion `#87ff00` kính trong suốt). Đã gỡ bỏ khẩn cấp ngay lập tức.
+- **Cấm đăng lại bài cũ & Cấm tạo ảnh Pillow 2D vô hồn:** Toàn bộ ảnh Page AI phải tuân thủ nghiêm ngặt chuẩn **Cobalt–Lime 3D High-Tech Glassmorphism & Octane Render** (`MEM-20261020-ai-players-image-style-guide.md`, luân phiên 6 layout archetypes độc bản). Đã xóa sạch toàn bộ 36 bài ảnh Pillow 2D xấu trên Meta.
+- **Định mức xuất bản Page AI:** Đăng đủ **6 bài ảnh vuông 1:1/ngày** + **3 Video Reels Remotion chuẩn Vàng/ngày** (`11:45`, `16:30`, `20:00`). Sản xuất trọn bộ kho 1 tuần (**42 Ảnh 1:1 + 21 Video Reels**) và lên lịch tự động.
+- **Tăng cường tương tác hội nhóm lên 3 ca/ngày (`12:00`, `17:30`, `20:30`) & Khóa Tường Lửa 3 Lớp Bảo Vệ Trang Cá Nhân:** Nghiêm cấm động vào trang cá nhân `Thành Tài` hoặc cửa sổ Messenger cá nhân; bắt buộc chuyển sang đúng 1 trong 4 Fanpage trước khi tương tác và chỉ gõ vào ô `Bình luận dưới tên <Tên Fanpage>`.
+- **Khắc phục triệt để lỗi mất trí nhớ giữa các phiên chat:** Đưa toàn bộ 8 Luật Cứng & Sổ tay nhiệm vụ đang làm dở (`IN_PROGRESS` / `OPEN`) vào `.agents/GEMINI.md`, nâng cấp `mama_boot_check.py` xuất `systemMessage` bền vững dưới `1.2s` và đồng bộ `.agents/GEMINI.md` + `hooks.json` qua GitHub.
 
 ### 2. Các Hạng Mục Đã Hoàn Thành (`DONE`)
-- [x] **Xử lý sự cố nóng:** Gọi trực tiếp Meta Graph API xóa vĩnh viễn video đăng nhầm (`Post ID: 1022527194267367_122133373323248983`), reset cache hàng đợi, xóa 2 bài hẹn giờ trùng lặp cũ trên Meta.
-- [x] **Hoàn tất 100% mục tiêu hôm nay (26/10) trên Page AI:** Đã đăng LIVE bài ảnh vuông #1 (`1022527194267367_122133384717248983`) kèm Pinned Comment #1 (`REPO`), đồng thời lên lịch hẹn giờ thành công toàn bộ 7 bài còn lại của ngày (5 ảnh + 2 reels Remotion) trên Meta Graph API.
-- [x] **Nâng cấp Động cơ Tương tác 3 ca/ngày (`mama_auto_scheduler_engine.py` & Windows Task Scheduler):** Đã bổ sung ca 3 lúc `20:30`, đăng ký task `AgentJavis_2030_Shift3GroupAndReport`, kích hoạt đủ 7 tasks chạy ngầm tự động hàng ngày.
-- [x] **Đóng gói Kho 1 Tuần (42 Bài Ảnh + 21 Video Reels) tại `campaigns/2026-10-26/ai-players-weekly-vault/`:**
-  - `images/`: Đã kết xuất và lưu trữ vật lý đủ **42/42 bài ảnh vuông 1:1** (1080x1080) chuẩn Cobalt-Lime, 6 layout archetypes độc bản.
-  - `captions/`: Đã biên soạn đủ **126 tệp văn bản** (63 caption + 63 pinned comment dẫn phễu Zalo qua từ khóa).
-  - `videos/`: Đã sẵn sàng video MP4 cho các mốc phát sóng và cấu hình render Remotion chuẩn Vàng.
-- [x] **Hàng đợi Meta Graph API:** Đã nạp thành công liên tiếp 16+ bài lên Meta Graph API phủ kín toàn bộ hôm nay (26/10) và ngày mai (27/10).
+- [x] **Xử lý sự cố nóng trên Meta Graph API:** Đã xóa vĩnh viễn video bảng trắng đăng nhầm (`1022527194267367_122133373323248983`) và dọn sạch 100% 36 bài ảnh Pillow 2D lỗi khỏi hàng đợi hẹn giờ.
+- [x] **Nâng cấp Động cơ Tương tác 3 ca/ngày (`12:00`, `17:30`, `20:30`) + Khóa Cứng Tường Lửa 3 Lớp Bảo Vệ Trang Cá Nhân (`mama_daily_group_and_eod.py` & `auto_seed_kingtool.py`):** Tự động khởi chạy trình duyệt Bot riêng `.chrome-fb-bot` cổng `9222` (không bắt CEO mở `.bat`), tự động chuyển sang Fanpage (`ensure_fanpage_active()`), đóng mọi popup Messenger và chỉ bình luận dưới tên Fanpage.
+- [x] **Khắc phục triệt để cơ chế Bộ Nhớ Đa Phiên (`tools/mama_boot_check.py`, `.agents/GEMINI.md`, `.agents/hooks.json`, `on_stop_sync.py`, `generate_snapshot.py`):** Chuyển Hook `SessionStart` sang `systemMessage` chạy đa luồng `< 1.2s`, sửa lỗi SSL Graph API, tự động trích xuất đúng `transcript.jsonl` của Antigravity và đồng bộ `.agents/GEMINI.md` qua Git.
+
+### 3. Các Hạng Mục Đang Thực Thi & Chờ Hoàn Tất (`IN_PROGRESS` / `OPEN` — Cấm Bỏ Dở)
+- `[IN_PROGRESS]` **(Ưu tiên #1 — Kho 1 Tuần Page `AI Players`):** (1) **Nhánh Ảnh (`42 Ảnh 1:1`):** ⏸️ Đang tạm dừng (`HOLD`) chờ CEO sửa & chốt phong cách tạo ảnh mới cho Page `AI Players` (chỉ đạo lúc `15:10 26/10`); (2) **Nhánh Video Reels (`21 Video Reels Remotion chuẩn Vàng` — 3 Reels/ngày lúc `11:45`, `16:30`, `20:00`):** Gỡ bỏ video trùng lặp giữa tối `26/10 20:00` và tối `27/10 20:00` và nạp lịch tự động đủ 3 Video Reels/ngày lên Meta Graph API.
+- `[IN_PROGRESS]` **(Ưu tiên #2 — Tương tác Hội nhóm 3 Ca `12:00`, `17:30`, `20:30`):** Vận hành ca tương tác chiều `17:30` và tối `20:30` hôm nay trên 4 ngách dưới danh nghĩa 4 Fanpage (với tường lửa 3 lớp bảo vệ trang cá nhân `Thành Tài`) và gửi ảnh nghiệm thu về Telegram.
+- `[OPEN]` **(Ưu tiên #3 — Phễu Khóa học Subagent Page `AI Players`):** Sản xuất & đóng gói Món Quà số 1 từ kho 30 Lead Magnets (`Gói Subagent Đóng Hộp + Hook 3s / Văn Phòng`), cài đặt Nhóm Zalo Cộng Đồng Bảo Mật và lên bài thu phễu.
+- `[OPEN]` **(Ưu tiên #4 — Đào tạo Video AI Bán Hàng SLL):** Kết nối Google Veo 3 để hoàn thiện quy trình sản xuất Video AI Bán Hàng SLL đạt chuẩn Vàng trình CEO nghiệm thu (trong thời gian này 3 Page Bán Hàng giữ nguyên 100% chỉ đăng Ảnh vuông 1:1).

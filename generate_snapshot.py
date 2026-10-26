@@ -34,6 +34,8 @@ SYNC_FILES = [
     "cham-soc-kenh.md",
     "hieu-suat.md",
     "bo-nao-thu-2.md",
+    os.path.join(".agents", "GEMINI.md"),
+    os.path.join(".agents", "hooks.json"),
 ]
 
 
@@ -75,7 +77,7 @@ def sync_tree_by_ext(rel_root: str, exts=(".md",)):
 
 
 def sync_bidirectional():
-    """Keep lightweight state files, 10 Agent definitions, ALL training files, knowledge, skills, tools, and campaign .md docs mirrored."""
+    """Keep lightweight state files, 10 Agent definitions, .agents/GEMINI.md, hooks.json, ALL training files, knowledge, skills, tools, and campaign .md docs mirrored."""
     for fname in SYNC_FILES:
         p_sub = os.path.join(SUBAGENT_DIR, fname)
         p_sync = os.path.join(SYNC_DIR, fname)

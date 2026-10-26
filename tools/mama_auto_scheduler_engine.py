@@ -362,6 +362,13 @@ def main():
     today_str = now_vn.strftime("%Y-%m-%d")
     pages = load_vault()
 
+    # 0. Luôn tự động bật ngầm Chrome Bot độc lập tại cổng 9222 trước mọi ca
+    try:
+        from start_bot_chrome import ensure_bot_chrome_online
+        ensure_bot_chrome_online(timeout_sec=10.0)
+    except Exception:
+        pass
+
     # 1. Luôn đảm bảo đủ lịch đăng ngày hôm nay cho 3 Page Bán Hàng & kiểm tra Pinned Comment #1 trên cả 4 Page
     sched_actions = ensure_daily_sales_posts_scheduled(pages)
     pin_actions = ensure_all_live_posts_have_pinned_comment(pages)
