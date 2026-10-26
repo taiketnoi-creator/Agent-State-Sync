@@ -109,3 +109,24 @@
   + Đã ban hành [MEM-20261023-sales-pages-freeze-video-image-only-rule.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/knowledge/bo-nao-thu-2/memories/MEM-20261023-sales-pages-freeze-video-image-only-rule.md), cập nhật [INDEX.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/knowledge/bo-nao-thu-2/INDEX.md), [quan-ly-kenh.md](file:///f:/Ai%20Agent%20Setup/SubAgent/Subagent/quan-ly-kenh.md) và khóa chặt hệ thống tự động hóa.
 - `[DONE]` **[2026-10-24] Cài đặt & tích hợp 2 Skill dựng video mới theo yêu cầu CEO (`talking-head-editor` & `motion-explainer-studio`):** (1) **Thể loại Talking Head (`.agents/skills/talking-head-editor/`):** Tích hợp `@remotion/captions` (`templates/remotion-cuongit-template/src/TalkingHeadShort/`) và CLI `talking_head_cli.py` hỗ trợ cả Remotion & HyperFrames (định vị người nói chính giữa màn hình, đồng bộ `.srt`/`.json` chạy chữ Karaoke từng từ và chèn B-Roll theo `timestamps` không lệch khung hình); (2) **Thể loại Motion Explainer (`.agents/skills/motion-explainer-studio/`):** Cài đặt **Motion Canvas (`@motion-canvas/core` & `@motion-canvas/2d` v3.17.2 tại `templates/motion-canvas-template/`)** cho chuyển động bo góc/camera tracking và **Manim (`manim==0.22.0` tại `manim_explainer_cli.py`)** tự động vẽ & biến đổi hình khối 3D, ma trận, đồ thị hàm số không cần keyframe thủ công.
 - `[DONE]` **[2026-10-24] Thiết kế bộ đôi Banner 3D Shopee Sale Key Visual cho `@KingToolShop_bot` (Khắc phục 100% lỗi chữ AI méo/ảo giác):** (1) Tách biệt hoàn toàn nền 3D Studio & Typography để triệt tiêu lỗi AI hallucination; sử dụng nền 3D sạch (podium, đồng xu vàng, chip AI, tia sét tốc độ) không chứa chữ; (2) Render Typography 3D Extruded đa tầng (16 tầng bóng đổ, dải màu kim loại vàng/cam Shopee, viền sáng specular, font thương mại Kanit 900 chuẩn tiếng Việt 100%); (3) Tích hợp Dock chân thẻ kính Frosted Glass chứa `@KingToolShop_bot` tích xanh, mã QR quét thẳng và cam kết cấp acc trong 3s; (4) Lưu hoàn chỉnh tại `campaigns/2026-10-23/kingtoolshop-telegram-funnel/images/` sẵn sàng cho việc seeding group.
+
+---
+
+## Phiên Làm Việc: 2026-10-26 — Khắc Phục Sự Cố Page AI Players, Tăng Cường 3 Khung Giờ Tương Tác & Khởi Tạo Trọn Bộ Kho Nội Dung 1 Tuần (42 Bài Ảnh 1:1 + 21 Video Reels)
+
+### 1. Tóm Tắt Quyết Định & Chỉ Đạo Nóng Của CEO
+- **Thu hồi bài đăng test sai lệch trên Page AI:** Phát hiện video vẽ tay bảng trắng test (`openrouter_mindmap_explainer.mp4`) bị đăng nhầm lên Page AI lúc 11:45 (lệch Brand Guidelines Remotion `#87ff00` kính trong suốt). CEO chỉ đạo gỡ bỏ khẩn cấp ngay lập tức.
+- **Chuẩn hóa nội dung Page AI:** Page AI phải đăng đủ bài ảnh vuông 1:1 theo chuẩn Cobalt-Lime và tăng số lượng video reel lên **1 ngày 3 video reel** (11:45, 16:30, 20:00).
+- **Khởi tạo Kho nội dung 1 tuần trọn gói:** Yêu cầu sản xuất và lên lịch toàn bộ kho nội dung 7 ngày gồm **42 Bài Ảnh Vuông 1:1** độc bản (luân phiên 6 layout archetypes) và **21 Video Reels** Remotion chuẩn Vàng.
+- **Tăng cường tương tác hội nhóm:** Nâng từ 2 khung giờ lên **3 khung giờ/ngày** (`12:00`, `17:30`, `20:30`).
+- **Tối ưu tốc độ báo cáo của Mama:** Tích hợp bộ nhớ đệm TTL 5 phút và ThreadPool đa luồng để phản hồi tức thì (dưới 1s).
+
+### 2. Các Hạng Mục Đã Hoàn Thành (`DONE`)
+- [x] **Xử lý sự cố nóng:** Gọi trực tiếp Meta Graph API xóa vĩnh viễn video đăng nhầm (`Post ID: 1022527194267367_122133373323248983`), reset cache hàng đợi, xóa 2 bài hẹn giờ trùng lặp cũ trên Meta.
+- [x] **Hoàn tất 100% mục tiêu hôm nay (26/10) trên Page AI:** Đã đăng LIVE bài ảnh vuông #1 (`1022527194267367_122133384717248983`) kèm Pinned Comment #1 (`REPO`), đồng thời lên lịch hẹn giờ thành công toàn bộ 7 bài còn lại của ngày (5 ảnh + 2 reels Remotion) trên Meta Graph API.
+- [x] **Nâng cấp Động cơ Tương tác 3 ca/ngày (`mama_auto_scheduler_engine.py` & Windows Task Scheduler):** Đã bổ sung ca 3 lúc `20:30`, đăng ký task `AgentJavis_2030_Shift3GroupAndReport`, kích hoạt đủ 7 tasks chạy ngầm tự động hàng ngày.
+- [x] **Đóng gói Kho 1 Tuần (42 Bài Ảnh + 21 Video Reels) tại `campaigns/2026-10-26/ai-players-weekly-vault/`:**
+  - `images/`: Đã kết xuất và lưu trữ vật lý đủ **42/42 bài ảnh vuông 1:1** (1080x1080) chuẩn Cobalt-Lime, 6 layout archetypes độc bản.
+  - `captions/`: Đã biên soạn đủ **126 tệp văn bản** (63 caption + 63 pinned comment dẫn phễu Zalo qua từ khóa).
+  - `videos/`: Đã sẵn sàng video MP4 cho các mốc phát sóng và cấu hình render Remotion chuẩn Vàng.
+- [x] **Hàng đợi Meta Graph API:** Đã nạp thành công liên tiếp 16+ bài lên Meta Graph API phủ kín toàn bộ hôm nay (26/10) và ngày mai (27/10).
