@@ -27,6 +27,8 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -48,24 +50,24 @@ FOUR_PAGES_CONFIG = [
         "id": "1442323328956326",
         "name": "Phòng Trọ Hết Cứu",
         "role": "Page Bán Hàng Affiliate #1",
-        "daily_target_posts": 4,
-        "daily_target_desc": "2 Reels + 2 Ảnh Vuông 1:1 (Editorial Macro Grid)",
+        "daily_target_posts": 2,
+        "daily_target_desc": "2 Ảnh Vuông 1:1 (Editorial Macro Grid) lúc 11:45 và 20:00 (Đóng băng video)",
         "kpi_focus": "Click link Shopee ở Bình luận đầu (#1) — Đồ gia dụng phòng trọ",
     },
     {
         "id": "1421270697727753",
         "name": "Ký Túc Xá Có Biến",
         "role": "Page Bán Hàng Affiliate #2",
-        "daily_target_posts": 4,
-        "daily_target_desc": "2 Reels + 2 Ảnh Vuông 1:1 (Editorial Macro Grid)",
+        "daily_target_posts": 2,
+        "daily_target_desc": "2 Ảnh Vuông 1:1 (Editorial Macro Grid) lúc 11:45 và 20:00 (Đóng băng video)",
         "kpi_focus": "Click link Shopee ở Bình luận đầu (#1) — Đồ sinh viên KTX",
     },
     {
         "id": "1407231352464711",
         "name": "Hội Deadline",
         "role": "Page Bán Hàng Affiliate #3",
-        "daily_target_posts": 4,
-        "daily_target_desc": "2 Reels + 2 Ảnh Vuông 1:1 (Editorial Macro Grid)",
+        "daily_target_posts": 2,
+        "daily_target_desc": "2 Ảnh Vuông 1:1 (Editorial Macro Grid) lúc 11:45 và 20:00 (Đóng băng video)",
         "kpi_focus": "Click link Shopee ở Bình luận đầu (#1) — Đồ bàn làm việc/dân văn phòng",
     },
 ]
@@ -226,36 +228,67 @@ def fetch_page_metrics(page_cfg: dict, token: str, now_utc: dt.datetime) -> dict
     return metrics
 
 
-def generate_9am_report() -> str:
+def generate_9am_report(force: bool = False) -> str:
     now_local = dt.datetime.now(dt.timezone(dt.timedelta(hours=7)))
     now_utc = dt.datetime.now(dt.timezone.utc)
     today_str = now_local.strftime("%Y-%m-%d")
     time_str = now_local.strftime("%H:%M:%S ngày %d/%m/%Y")
 
-    # Chạy dọn kho 7 ngày trước khi tổng hợp báo cáo
-    cleanup_info = "Đã bật tự động dọn kho > 7 ngày"
-    try:
-        sys.path.insert(0, str(SUBAGENT_DIR / "tools"))
-        import cleanup_old_media
-        clean_res = cleanup_old_media.run_cleanup(days=7, dry_run=False)
-        if clean_res["deleted_files_count"] > 0:
-            cleanup_info = (
-                f"✅ Đã tự động xóa **{clean_res['deleted_files_count']} file** quá hạn 7 ngày "
-                f"(Giải phóng **{clean_res['freed_human']}** | Kho `campaigns/` còn: `{clean_res['remaining_campaigns_human']}`)"
-            )
-        else:
-            cleanup_info = (
-                f"✅ Không có file quá hạn 7 ngày cần xóa "
-                f"(Dung lượng kho `campaigns/` hiện tại: `{clean_res['remaining_campaigns_human']}`)"
-            )
-    except Exception as e:
-        cleanup_info = f"⚠️ Lỗi kiểm tra dọn kho: `{e}`"
+    # Chạy dọn kho 7 ngày định kỳ (tránh quét ổ đĩa liên tục gây chậm báo cáo)
+    cleanup_info = "Tự động dọn kho 7 ngày định kỳ"
+    last_clean_file = REPORTS_DIR / ".last_cleanup_timestamp"
+    now_ts = time.time()
+    should_run_clean = True
+    if last_clean_file.exists():
+        try:
+            if now_ts - float(last_clean_file.read_text(encoding="utf-8").strip()) < 86400:
+                should_run_clean = False
+                cleanup_info = "✅ Kho media đã dọn sạch trong vòng 24h qua"
+        except Exception:
+            pass
 
+    if should_run_clean:
+        try:
+            sys.path.insert(0, str(SUBAGENT_DIR / "tools"))
+            import cleanup_old_media
+            clean_res = cleanup_old_media.run_cleanup(days=7, dry_run=False)
+            last_clean_file.write_text(str(now_ts), encoding="utf-8")
+            if clean_res["deleted_files_count"] > 0:
+                cleanup_info = (
+                    f"✅ Đã tự động xóa **{clean_res['deleted_files_count']} file** quá hạn 7 ngày "
+                    f"(Giải phóng **{clean_res['freed_human']}** | Kho `campaigns/` còn: `{clean_res['remaining_campaigns_human']}`)"
+                )
+            else:
+                cleanup_info = (
+                    f"✅ Không có file quá hạn 7 ngày cần xóa "
+                    f"(Dung lượng kho `campaigns/` hiện tại: `{clean_res['remaining_campaigns_human']}`)"
+                )
+        except Exception as e:
+            cleanup_info = f"⚠️ Lỗi kiểm tra dọn kho: `{e}`" 
     vault = load_pages_vault()
-    page_results = []
-    for cfg in FOUR_PAGES_CONFIG:
-        tok = vault.get(cfg["id"], {}).get("access_token", "")
-        page_results.append(fetch_page_metrics(cfg, tok, now_utc))
+    cache_file = REPORTS_DIR / ".metrics_cache.json"
+    page_results = None
+
+    if not force and cache_file.exists():
+        try:
+            cdata = json.loads(cache_file.read_text(encoding="utf-8"))
+            if now_ts - cdata.get("timestamp", 0) < 300:  # 5 phút cache
+                page_results = cdata.get("page_results")
+        except Exception:
+            pass
+
+    if not page_results:
+        def _fetch_single(cfg):
+            tok = vault.get(cfg["id"], {}).get("access_token", "")
+            return fetch_page_metrics(cfg, tok, now_utc)
+
+        with ThreadPoolExecutor(max_workers=len(FOUR_PAGES_CONFIG)) as executor:
+            page_results = list(executor.map(_fetch_single, FOUR_PAGES_CONFIG))
+
+        try:
+            cache_file.write_text(json.dumps({"timestamp": now_ts, "page_results": page_results}, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception:
+            pass
 
     total_target_24h = sum(p["daily_target_posts"] for p in page_results)
     total_posted_24h = sum(p["posts_24h"] for p in page_results)
@@ -325,7 +358,7 @@ def generate_9am_report() -> str:
         )
 
     recommendations.append(
-        "🎬 **Đề xuất #3 (Bổ Sung Video Reels Bán Hàng Để Ăn Đề Xuất Tự Nhiên):** Tiếp tục kết hợp bài ảnh vuông `1:1` (`Editorial Macro & 3-Detail Grid`) với **Reels bán hàng ngắn 15–30s** cho 3 Page Bán Hàng để mở rộng phân phối tự nhiên tới người lạ chưa Follow."
+        "🔒 **Đề xuất #3 (Khóa Cứng Quy Tắc CEO — 3 Page Bán Hàng Chỉ Đăng Ảnh 1:1):** Tiếp tục đăng đúng 100% Ảnh vuông `1:1` (`Editorial Macro & 3-Detail Grid`) kèm link Shopee Affiliate tại 2 khung giờ vàng `11:45` và `20:00`. Đóng băng toàn bộ video bán hàng cho đến khi training đạt chuẩn Vàng."
     )
 
     progress_md = "\n".join(f"- {pt}" for pt in progress_points)
@@ -338,7 +371,7 @@ def generate_9am_report() -> str:
 
 #### 1. 🎯 Bảng Đối Chiếu Mục Tiêu Đề Ra vs. Kết Quả Thực Tế (24 Giờ Qua)
 
-- **Mục tiêu tổng toàn hệ thống (4 Page):** `20 bài/ngày` (`8 bài` trên Page AI + `4 bài/page` trên 3 Page Bán Hàng) + `100% bài gắn Pinned Comment #1`.
+- **Mục tiêu tổng toàn hệ thống (4 Page):** `14 bài/ngày` (`8 bài` trên Page AI + `2 bài/page` Ảnh 1:1 trên 3 Page Bán Hàng) + `100% bài gắn Pinned Comment #1`.
 - **Kết quả xuất bản 24h qua:** **`{total_posted_24h} / {total_target_24h} bài`** (Đạt **`{kpi_pct}%`** khối lượng mục tiêu ngày) + **`{total_scheduled} bài`** đã nằm sẵn trong kho hẹn giờ tự động.
 
 | Fanpage | Followers | Tiến Độ Đăng 24h (Thực Tế / Mục Tiêu) | Kho Hẹn Giờ (`Scheduled`) | Tương Tác Thực Tế (`Like` / `Cmt Khách`) | Đạt Chuẩn `Pinned Cmt #1` |
@@ -375,9 +408,10 @@ def main():
     parser = argparse.ArgumentParser(description="Mama 9:00 AM Daily 4-Page Report Generator")
     parser.add_argument("--quiet", action="store_true", help="Write report files without printing to stdout")
     parser.add_argument("--no-telegram", action="store_true", help="Skip auto-sending report to Telegram")
+    parser.add_argument("--force", action="store_true", help="Force live refresh from Facebook Graph API bypass cache")
     args = parser.parse_args()
 
-    report_md = generate_9am_report()
+    report_md = generate_9am_report(force=args.force)
     if not args.quiet:
         print(report_md)
 
