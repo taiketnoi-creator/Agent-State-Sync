@@ -410,9 +410,10 @@ def generate_9am_report(force: bool = False) -> str:
 ---
 
 #### 5. 👥 Tình Hình Tương Tác Hội Nhóm & Seeding Cộng Đồng (4 Ngách)
-- **Lịch 2 Ca Tương Tác Cố Định Trong Ngày:**
+- **Lịch 3 Ca Tương Tác Cố Định Trong Ngày (Chỉ Đạo Nâng Cấp Của CEO):**
   - 🍱 **Ca 1 (Ca Trưa `12:00`):** Lọc bài mới đăng & nhiều like/cmt nhất feed + xem video 2.5-3.5s rồi mới Like & Bình luận vào 4 ngách (AI, Phòng trọ, KTX, Dân văn phòng).
   - 🌇 **Ca 2 (Ca Chiều `17:30`):** Chăm sóc phản hồi bình luận bài 16:30 của Page AI Players & quét tương tác mở rộng nhóm vòng 2.
+  - 🌙 **Ca 3 (Ca Tối `20:30`):** Giờ vàng cao điểm giải trí buổi tối, tương tác sâu các bài thảo luận & Video HOT sau khi bài tối 20:00 lên sóng.
 - **Trạng Thái Trình Duyệt Bot Facebook (Zero-Taskkill Bảo Vệ Chrome CEO):** {bot_status}
 - **Lũy Kế Seeding Hội Nhóm Toàn Hệ Thống:**
   - **11 Groups Mục Tiêu** đã tham gia thành công (+ tự động tích đồng ý quy tắc nhóm).

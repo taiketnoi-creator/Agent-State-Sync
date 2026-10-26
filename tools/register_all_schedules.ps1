@@ -46,6 +46,12 @@ $tasks = @(
         Desc = "Mốc 20:00 Tối: Nghiệm thu bài đăng giờ vàng tối trên 4 Page, gắn Pinned Comment #1 & tương tác nội bộ cụm 3 Page bán hàng"
     },
     @{
+        Name = "AgentJavis_2030_Shift3GroupAndReport"
+        Time = "20:30"
+        Mode = "shift3-2030"
+        Desc = "Mốc 20:30 Tối: Tương tác Hội nhóm 4 ngách Ca 3 (Giờ Vàng Buổi Tối) & gửi Báo cáo Nghiệm thu Ca Tối"
+    },
+    @{
         Name = "AgentJavis_2130_EODSummaryReport"
         Time = "21:30"
         Mode = "eod-2130"

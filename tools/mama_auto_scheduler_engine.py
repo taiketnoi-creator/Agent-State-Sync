@@ -353,7 +353,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--mode",
-        choices=["boot-or-9am", "midday-1145", "shift1-1200", "shift2-1730", "evening-2000", "eod-2130"],
+        choices=["boot-or-9am", "midday-1145", "shift1-1200", "shift2-1730", "evening-2000", "shift3-2030", "eod-2130"],
         default="boot-or-9am",
     )
     args = parser.parse_args()
@@ -378,6 +378,9 @@ def main():
 
     if args.mode == "shift2-1730":
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "2", "--send-telegram"])
+
+    if args.mode == "shift3-2030":
+        subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "3", "--send-telegram"])
 
     # 3. Ghi nhận báo cáo mốc giờ ra file & gửi Telegram
     out_dir = REPORTS_DIR / today_str
