@@ -1,9 +1,9 @@
 # Bản Chụp Trạng Thái Tự Động (Lightweight State Snapshot)
 
-- **Cập nhật lần cuối:** `2026-10-27 00:22:57`
-- **Máy thực hiện:** `Admin-PC`
+- **Cập nhật lần cuối:** `2026-10-27 01:09:23`
+- **Máy thực hiện:** `Admin-PC` (`f:\Ai Agent Setup\SubAgent\Subagent`)
 
-## 1. Các Thư Mục Chiến Dịch Hiện Có (`D:\Phiên bản Ai agent\Subagent\campaigns`)
+## 1. Các Thư Mục Chiến Dịch Hiện Có (`Subagent/campaigns`)
 - `2026-10-10`
 - `2026-10-12`
 - `2026-10-13`
@@ -13,6 +13,7 @@
 - `2026-10-21`
 - `2026-10-22`
 - `2026-10-23`
+- `2026-10-26`
 - `daily-reports`
 - `shopee-links`
 

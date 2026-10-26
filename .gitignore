@@ -1,6 +1,4 @@
-# Chặn tuyệt đối các file database, media, thư viện nặng và thông tin bảo mật
-# Repo này CHỈ lưu file Markdown (.md) cấu trúc, lịch sử công việc/trò chuyện, changelog và script đồng bộ nhẹ.
-
+# Chặn tuyệt đối các file database, video/audio nặng, thư viện nặng và thông tin bảo mật
 *.db
 *.sqlite
 *.sqlite3
@@ -25,7 +23,26 @@ venv/
 __pycache__/
 out/
 output/
-assets/
+assets/audio/
+assets/video-slide/*.jpg
+
+# Cho phép đồng bộ 100% kho ảnh mẫu quy chuẩn (Style Guides & Test Samples) giữa Máy Công Ty và Máy Nhà
+!assets/ai-players-image-styles/
+!assets/ai-players-image-styles/*.jpg
+!assets/ai-players-image-styles/*.jpeg
+!assets/ai-players-image-styles/*.png
+!assets/ai-players-image-styles/*.webp
+!assets/ai-players-image-styles/*.md
+!assets/sales-pages-image-styles/
+!assets/sales-pages-image-styles/*.jpg
+!assets/sales-pages-image-styles/*.jpeg
+!assets/sales-pages-image-styles/*.png
+!assets/sales-pages-image-styles/*.webp
+!assets/sales-pages-image-styles/*.md
+!campaigns/**/test_samples/
+!campaigns/**/test_samples/*.jpg
+!campaigns/**/test_samples/*.jpeg
+!campaigns/**/test_samples/*.png
 
 .env
 .env.*

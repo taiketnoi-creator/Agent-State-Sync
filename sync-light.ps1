@@ -6,12 +6,25 @@ param(
 )
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Continue'
 Set-Location $PSScriptRoot
 
-$py = "C:\Users\guicci\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\python.exe"
-if (-not (Test-Path $py)) {
-    $py = "python"
+$pyCandidates = @(
+    "python",
+    "C:\Users\Admin\AppData\Local\Programs\Python\Python312\python.exe",
+    "C:\Users\guicci\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\python.exe"
+)
+$py = "python"
+foreach ($cand in $pyCandidates) {
+    if ($cand -eq "python") {
+        if (Get-Command python -ErrorAction SilentlyContinue) {
+            $py = "python"
+            break
+        }
+    } elseif (Test-Path $cand) {
+        $py = $cand
+        break
+    }
 }
 
 if ($RemoteUrl -ne "") {
@@ -24,36 +37,48 @@ if ($RemoteUrl -ne "") {
     Write-Output "Configured GitHub remote origin: $RemoteUrl"
 }
 
+$hasOrigin = (git remote) -contains "origin"
+
 if ($Mode -eq 'start') {
-    $hasOrigin = (git remote) -contains "origin"
     if ($hasOrigin) {
         git pull --rebase --autostash origin main
     }
-    & $py "$PSScriptRoot\generate_snapshot.py"
-    Write-Output "=== SYNCED LATEST PROJECT HISTORY ==="
-    Write-Output "Read PROJECT-BLUEPRINT.md and WORK-HISTORY.md to continue immediately."
+    & $py "$PSScriptRoot\generate_snapshot.py" --direction pull
+    Write-Output "=== SYNCED LATEST PROJECT HISTORY (GIT -> SUBAGENT) ==="
     exit 0
 }
-
-& $py "$PSScriptRoot\generate_snapshot.py"
 
 if ($Mode -eq 'snapshot') {
+    & $py "$PSScriptRoot\generate_snapshot.py" --direction auto
     exit 0
 }
 
+# Mode = finish:
+# 1. Push workspace changes from Subagent -> Agent-State-Sync
+& $py "$PSScriptRoot\generate_snapshot.py" --direction push
+
+# 2. Commit local changes first so rebase is clean
 git add -A
 git diff --cached --quiet
-if ($LASTEXITCODE -eq 0) {
-    Write-Output "No new changes to commit."
-} else {
+if ($LASTEXITCODE -ne 0) {
     git commit -m $Message
     Write-Output "Committed work history: $Message"
+} else {
+    Write-Output "No new local changes to commit before pull."
 }
 
-$hasOrigin = (git remote) -contains "origin"
+# 3. Pull --rebase from remote to integrate any commits from the other PC
 if ($hasOrigin) {
+    git pull --rebase --autostash origin main
+    # Mirror any newly pulled remote files back to Subagent
+    & $py "$PSScriptRoot\generate_snapshot.py" --direction pull
+    git add -A
+    git diff --cached --quiet
+    if ($LASTEXITCODE -ne 0) {
+        git commit -m "$Message (merged)"
+    }
     git push -u origin main
     Write-Output "Pushed lightweight history to GitHub successfully!"
 } else {
-    Write-Output "No GitHub remote URL set yet. Run: .\sync-light.ps1 -Mode finish -RemoteUrl 'https://github.com/<user>/<new-repo>.git'"
+    Write-Output "No GitHub remote URL set yet."
 }

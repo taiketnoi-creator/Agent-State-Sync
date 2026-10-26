@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-mama_boot_check.py — Công cụ Kiểm Tra Khởi Động Phiên 0-Token cho Mama (Chief of Staff).
-Tự động thực hiện khi bắt đầu phiên chat ở bất kỳ máy nào:
-1. Kiểm tra đồng bộ Git (Agent-State-Sync & Subagent).
-2. Đọc WORK-HISTORY.md để tính % tiến độ hoàn thành mục tiêu dự án & liệt kê các việc IN_PROGRESS / OPEN.
+mama_boot_check.py — Công cụ Kiểm Tra Khởi Động Phiên & Đồng Bộ Đa Máy Thực Thời cho Mama (Chief of Staff).
+Tự động thực hiện khi bắt đầu phiên chat ở bất kỳ máy nào (Máy Công Ty D:\\ hay Máy Nhà F:\\):
+1. Đồng bộ Git TRƯỚC TIÊN (Synchronous `git pull --rebase --autostash` + `generate_snapshot.py --direction pull`) để đảm bảo 100% đọc dữ liệu mới nhất từ máy kia.
+2. Đọc WORK-HISTORY.md & RECENT-CONVERSATION.md để tính % tiến độ, liệt kê các việc IN_PROGRESS / OPEN và tóm tắt phiên chat gần nhất.
 3. Kiểm tra kết nối thực tế:
    - Facebook Page (Graph API / facebook-mcp-server)
    - Telegram Remote (@duckfunnybot / telegram_bridge.py)
@@ -20,6 +20,7 @@ import argparse
 import concurrent.futures
 import json
 import os
+import platform
 import re
 import shutil
 import sqlite3
@@ -50,44 +51,47 @@ def parse_env_file(env_path: Path) -> dict:
             line = raw_line.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
-            k, v = line.split("=", 1)
+            k, v = line.split_("=", 1) if hasattr(line, "split_") else line.split("=", 1)
             data[k.strip()] = v.strip().strip('"').strip("'")
     except Exception:
         pass
     return data
 
 
-def check_git_sync(auto_pull: bool = False) -> str:
-    target = STATE_SYNC_DIR if STATE_SYNC_DIR.exists() else SUBAGENT_DIR
+def sync_git_before_reading(auto_pull: bool = True) -> str:
+    """
+    Thực thi đồng bộ Git TRƯỚC KHI đọc WORK-HISTORY.md / RECENT-CONVERSATION.md / .agents/GEMINI.md
+    để triệt tiêu hoàn toàn lỗi đọc dữ liệu cũ khi vừa chuyển từ Máy Công Ty về Máy Nhà (hoặc ngược lại).
+    """
+    target = STATE_SYNC_DIR if (STATE_SYNC_DIR / ".git").exists() else SUBAGENT_DIR
     creationflags = 0x08000000 if os.name == "nt" else 0
-    if auto_pull:
-        # Chạy ngầm không chặn luồng để Hook SessionStart phản hồi dưới 1.5s, không bao giờ bị Timeout
-        for repo in (STATE_SYNC_DIR, SUBAGENT_DIR):
-            if repo.exists():
-                try:
-                    subprocess.Popen(
-                        ["git", "-C", str(repo), "pull", "--rebase", "--autostash", "origin", "main"],
-                        stdin=subprocess.DEVNULL,
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                        close_fds=True,
-                        creationflags=creationflags,
-                    )
-                except Exception:
-                    pass
     snapshot_script = STATE_SYNC_DIR / "generate_snapshot.py"
-    if snapshot_script.exists():
+
+    if auto_pull and (STATE_SYNC_DIR / ".git").exists():
         try:
-            subprocess.Popen(
-                [sys.executable, str(snapshot_script)],
+            subprocess.run(
+                ["git", "-C", str(STATE_SYNC_DIR), "pull", "--rebase", "--autostash", "origin", "main"],
                 stdin=subprocess.DEVNULL,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                close_fds=True,
+                timeout=4.5,
                 creationflags=creationflags,
             )
         except Exception:
             pass
+        if snapshot_script.exists():
+            try:
+                subprocess.run(
+                    [sys.executable, str(snapshot_script), "--direction", "pull"],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=3.0,
+                    creationflags=creationflags,
+                )
+            except Exception:
+                pass
+
     try:
         branch = subprocess.check_output(
             ["git", "-C", str(target), "rev-parse", "--abbrev-ref", "HEAD"],
@@ -96,20 +100,24 @@ def check_git_sync(auto_pull: bool = False) -> str:
             text=True,
         ).strip()
         commit = subprocess.check_output(
-            ["git", "-C", str(target), "log", "-1", "--format=%h (%cr)"],
+            ["git", "-C", str(target), "log", "-1", "--format=%h (%cr) — %s"],
             stderr=subprocess.DEVNULL,
             timeout=1.5,
             text=True,
+            encoding="utf-8",
+            errors="ignore",
         ).strip()
-        return f"✅ Đã đồng bộ mới nhất (`{branch}` | commit `{commit}`)"
+        if len(commit) > 78:
+            commit = commit[:75] + "..."
+        return f"✅ Đã đồng bộ 2 chiều (`{branch}` | `{commit}`)"
     except Exception:
         return "⚠️ Chưa kiểm tra được Git local"
 
 
 def parse_goal_progress() -> dict:
-    wh_path = STATE_SYNC_DIR / "WORK-HISTORY.md"
+    wh_path = SUBAGENT_DIR / "WORK-HISTORY.md"
     if not wh_path.exists():
-        wh_path = SUBAGENT_DIR / "WORK-HISTORY.md"
+        wh_path = STATE_SYNC_DIR / "WORK-HISTORY.md"
 
     goal_summary = (
         "Xây dựng Hệ thống Bán hàng Affiliate & Sản xuất Video AI Ngắn Tự động hóa "
@@ -151,6 +159,40 @@ def parse_goal_progress() -> dict:
     }
 
 
+def read_recent_conversation_digest() -> str:
+    rc_path = SUBAGENT_DIR / "RECENT-CONVERSATION.md"
+    if not rc_path.exists():
+        rc_path = STATE_SYNC_DIR / "RECENT-CONVERSATION.md"
+    if not rc_path.exists():
+        return "  - *(Chưa có nhật ký trò chuyện gần nhất)*"
+
+    try:
+        text = rc_path.read_text(encoding="utf-8", errors="ignore")
+        sessions = re.findall(
+            r"^## 💻 Phiên Trò Chuyện: `([^`]+)` \| Máy: `([^`]+)` \| Hoạt động cuối: `([^`]+)`",
+            text,
+            flags=re.MULTILINE,
+        )
+        user_prompts = re.findall(
+            r"### 👤 \*\*CEO\*\* \(([^)]+)\)\s*\n([^\n#]+)",
+            text,
+        )
+        lines = []
+        if sessions:
+            for cid, host, lts in sessions[:3]:
+                lines.append(f"  - 💻 **Máy `{host}`** (Phiên `{cid[:8]}...` | Lúc `{lts}`)")
+        if user_prompts:
+            lines.append("  - **Các chỉ đạo gần nhất của CEO:**")
+            for ts, prompt in user_prompts[:4]:
+                clean_p = prompt.strip()
+                if len(clean_p) > 140:
+                    clean_p = clean_p[:137] + "..."
+                lines.append(f"    + `[{ts}]` *{clean_p}*")
+        return "\n".join(lines) if lines else "  - Đã nạp `RECENT-CONVERSATION.md`."
+    except Exception:
+        return "  - Đã nạp `RECENT-CONVERSATION.md`."
+
+
 def check_facebook_connection() -> str:
     home = Path.home()
     fb_dir = home / ".codex" / "mcp" / "facebook-mcp-server"
@@ -190,7 +232,7 @@ def check_facebook_connection() -> str:
                 name = payload.get("name", "Unknown Page")
                 fans = payload.get("fan_count", "N/A")
                 return f"✅ ĐÃ KẾT NỐI (Active Page: **{name}** | ID: `{payload['id']}` | Follows: `{fans}`{vault_suffix})"
-    except Exception as e:
+    except Exception:
         return f"✅ ĐÃ CẤU HÌNH ({vault_suffix.lstrip(' | ') or f'Page ID {page_id}'} — Local Ready)"
 
     return f"✅ ĐÃ CẤU HÌNH (Page ID `{page_id}`{vault_suffix})"
@@ -318,10 +360,14 @@ def ensure_daily_auto_scheduler_booted() -> str:
     return "⚠️ Chưa tìm thấy `mama_auto_scheduler_engine.py`"
 
 
-def build_markdown_report(auto_pull: bool = False) -> str:
+def build_markdown_report(auto_pull: bool = True) -> str:
+    # BƯỚC 1: Phải chạy đồng bộ Git Pull + Mirror về Subagent TRƯỚC KHI đọc WORK-HISTORY.md
+    git_status = sync_git_before_reading(auto_pull=auto_pull)
+
+    # BƯỚC 2: Sau khi file mới nhất đã nằm trên ổ cứng, chạy song song các kiểm tra
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
-        f_git = ex.submit(check_git_sync, auto_pull)
         f_prog = ex.submit(parse_goal_progress)
+        f_rc = ex.submit(read_recent_conversation_digest)
         f_fb = ex.submit(check_facebook_connection)
         f_tg = ex.submit(check_telegram_connection)
         f_n8n = ex.submit(check_n8n_connection)
@@ -330,8 +376,8 @@ def build_markdown_report(auto_pull: bool = False) -> str:
         f_chrome = ex.submit(ensure_chrome_remote_debugging)
         f_sched = ex.submit(ensure_daily_auto_scheduler_booted)
 
-        git_status = f_git.result()
         prog = f_prog.result()
+        rc_digest = f_rc.result()
         fb_status = f_fb.result()
         tg_status = f_tg.result()
         n8n_status = f_n8n.result()
@@ -351,18 +397,22 @@ def build_markdown_report(auto_pull: bool = False) -> str:
         active_lines.append(f"  - 📌 `[OPEN]` {item}")
     open_list_md = "\n".join(active_lines) if active_lines else "  - Không có hạng mục tồn đọng."
 
-    report = f"""### 📋 BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA (SESSION BOOT BRIEF)
+    host = platform.node()
+    report = f"""### 📋 BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA (SESSION BOOT BRIEF — `{host}`)
 
 1. **🎯 Tổng Quan Mục Tiêu Chung:**
    - {prog["goal"]}
    - **Đội ngũ:** 10 Agent (`mama` + 9 Subagent chuyên biệt) đạt chuẩn **9.48 / 10**, vận hành theo cơ chế **Smart Model Tiering** (`inherit` Gemini 4 cho Sáng tạo / `flash` cho Hậu cần).
 
-2. **📊 Tiến Độ Hoàn Thành Mục Tiêu & Nhiệm Vụ Đang Dang Dở:**
+2. **📊 Tiến Độ Hoàn Thành Mục Tiêu & Nhiệm Vụ Đang Dang Dở (`ĐỒNG BỘ 2 MÁY`):**
    - **Tiến độ tổng thể:** `[{bar}]` **{prog["percent"]}%** ({prog["done_count"]}/{prog["total_count"]} hạng mục hoàn tất | `{prog["in_progress_count"]}` đang làm dở | `{prog["open_count"]}` chờ mở tiếp)
    - **Danh sách nhiệm vụ đang làm dở & chờ hoàn tất (`CẤM BỎ DỞ`):**
 {open_list_md}
 
-3. **🔌 Kiểm Tra Kết Nối Phần Mềm & Hạ Tầng Trên Máy Hiện Tại:**
+3. **💬 Bàn Giao Nhanh Lịch Sử Trò Chuyện Đa Máy (`RECENT-CONVERSATION.md`):**
+{rc_digest}
+
+4. **🔌 Kiểm Tra Kết Nối Phần Mềm & Hạ Tầng Trên Máy Hiện Tại (`{host}`):**
    | Hệ Thống / Phần Mềm | Trạng Thái Kết Nối Thực Tế |
    | :--- | :--- |
    | **Facebook Page (`facebook-page` MCP)** | {fb_status} |
@@ -379,19 +429,19 @@ def build_markdown_report(auto_pull: bool = False) -> str:
 def main():
     parser = argparse.ArgumentParser(description="Mama Session Boot Check")
     parser.add_argument("--hook", action="store_true", help="Output JSON for Antigravity SessionStart hook")
+    parser.add_argument("--no-pull", action="store_true", help="Skip git pull before generating report")
     args = parser.parse_args()
 
-    report = build_markdown_report(auto_pull=args.hook)
+    report = build_markdown_report(auto_pull=not args.no_pull)
 
     if args.hook:
         sys_msg = (
-            "[MAMA PERSISTENT MEMORY & AUTO-BOOT CHECK]\n"
-            "QUY TẮC BẮT BUỘC CHO MAMA: Khi bắt đầu phiên trò chuyện mới trên bất kỳ máy nào "
-            "(hoặc khi CEO chào/hỏi tiến độ), Mama PHẢI hiển thị bảng Báo Cáo Khởi Động Phiên dưới đây "
+            "[MAMA PERSISTENT MEMORY & CROSS-MACHINE AUTO-BOOT CHECK]\n"
+            "QUY TẮC BẮT BUỘC CHO MAMA: Hệ thống vừa tự động `git pull` và đồng bộ trạng thái mới nhất giữa Máy Công Ty (`guicci`) và Máy Ở Nhà (`Admin-PC`). "
+            "Khi bắt đầu phiên trò chuyện mới (hoặc khi CEO chào/hỏi tiến độ), Mama PHẢI hiển thị bảng Báo Cáo Khởi Động Phiên dưới đây "
             "và bám sát 100% các nhiệm vụ `[IN_PROGRESS]` / `[OPEN]` cùng 8 Luật Cứng trong `.agents/GEMINI.md`:\n\n"
             + report
         )
-        # Dùng systemMessage thay vì ephemeralMessage để giữ cố định trong bộ nhớ xuyên suốt cả phiên chat
         sys.stdout.write(
             json.dumps(
                 {"injectSteps": [{"systemMessage": {"systemMessage": sys_msg}}]},

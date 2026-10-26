@@ -4,7 +4,7 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "python \"D:\\Phiên bản Ai agent\\Subagent\\tools\\mama_boot_check.py\" --hook",
+        "command": "python -c \"import os,sys,runpy; p='../tools/mama_boot_check.py' if os.path.exists('../tools/mama_boot_check.py') else 'tools/mama_boot_check.py'; sys.argv=[p,'--hook']; runpy.run_path(p,run_name='__main__')\"",
         "timeout": 15
       }
     ]
@@ -14,7 +14,7 @@
     "Stop": [
       {
         "type": "command",
-        "command": "python \"D:\\Phiên bản Ai agent\\Agent-State-Sync\\on_stop_sync.py\"",
+        "command": "python -c \"import os,sys,runpy; p='../tools/on_stop_sync_bridge.py' if os.path.exists('../tools/on_stop_sync_bridge.py') else 'tools/on_stop_sync_bridge.py'; sys.argv=[p]; runpy.run_path(p,run_name='__main__')\"",
         "timeout": 10
       }
     ]
