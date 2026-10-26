@@ -54,11 +54,10 @@ Khi làm việc trong Workspace `D:\Phiên bản Ai agent\Subagent`, **Main Agen
 
 1. **LUẬT #1 — Định Mức & Quy Chuẩn Ảnh Bài Đăng Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
    - **Mục tiêu xuất bản:** **9 bài/ngày** = **6 bài Ảnh vuông `1:1` (`1080×1080`)** (`08:30`, `10:15`, `13:30`, `15:15`, `18:15`, `21:15`) + **3 Video Reels Remotion** (`11:45`, `16:30`, `20:00`), 100% có `Pinned Comment #1` dẫn phễu.
-   - ⚠️ **TRẠNG THÁI CẬP NHẬT LÚC `2026-10-26 15:10` (CHỈ ĐẠO TRỰC TIẾP TỪ CEO):**
-     + **CEO đang cho sửa lại phong cách tạo ảnh mới cho Page `AI Players`.**
-     + **TẠM DỪNG (`HOLD`) việc tự động sinh ảnh & lên lịch bài ảnh mới lên Page `AI Players`** cho đến khi CEO bàn giao/nghiệm thu phong cách ảnh mới.
-     + **CẤM TUYỆT ĐỐI** dùng code Python `Pillow` (`draw.rectangle`) vẽ hộp 2D đen phẳng lì vô hồn!
-     + **CẤM TUYỆT ĐỐI** lấy lại bài/ảnh cũ đã đăng những ngày trước để đăng lặp lại lên Page!
+   - **Phong cách Ảnh Chuẩn Mới (`Downloads\vid` Cyber-Grid Carbon–Lime–Pink — Khóa chiều `2026-10-26`):**
+     + Theo [quy-chuan-anh-bai-dang-ai-players.md](file:///D:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/quy-chuan-anh-bai-dang-ai-players.md) và [render_vid_style_card.py](file:///D:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/tools/render_vid_style_card.py): Nền **Đen Carbon caro chìm (`#07080a` + `#111317` checkered grid)**, hệ màu **Electric Neon Lime (`#CCFF00`) + Cyber Hot Pink (`#FF2A6D`) + Trắng (`#FFFFFF`)**, nhãn nghiêng hồng đính sao `✦`, tiêu đề đóng ngoặc `[ ... ]`, luân phiên **5 Kiến trúc Layout (`Template 1: Hero Showcase`, `Template 2: 4-Item Curriculum Breakdown`, `Template 3: 2x2 Feature Matrix`, `Template 4: Offer / Lead Magnet Card`, `Template 5: Urgency / Sold Out Slots`)** kết xuất 100% qua Headless Chrome (`1080×1080` Zero-Cutoff).
+     + **CẤM TUYỆT ĐỐI** dùng code Python `Pillow` (`draw.rectangle`) vẽ hộp 2D đen phẳng lì vô hồn hoặc dùng lại phong cách Cobalt-Blue cũ!
+     + **CẤM TUYỆT ĐỐI** lấy lại bài/ảnh cũ đã đăng những ngày trước để đăng lặp lại lên Page (`Zero-Repost Gate`)!
 
 2. **LUẬT #2 — Quy Chuẩn Video Reel Page `AI Players` (5 Quy Tắc Vàng Remotion & Chống Đạo Nhái Nội Bộ):**
    - Theo [MEM-20261020-remotion-brandkit-golden-rules.md](file:///D:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/bo-nao-thu-2/memories/MEM-20261020-remotion-brandkit-golden-rules.md) & [quy-chuan-remotion-cuongit-template.md](file:///D:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/quy-chuan-remotion-cuongit-template.md):

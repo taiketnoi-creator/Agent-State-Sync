@@ -1,28 +1,30 @@
 ---
 id: MEM-20261020-ai-players-image-style-guide
-title: "Quy chuẩn Thiết Kế 3D High-Tech Đa Bố Cục & Linh Hoạt Nền Tối/Sáng (3D Glassmorphism & Volumetric Tech — Hệ Màu Cobalt–Lime–White) cho Page AI Players"
+title: "Quy chuẩn Thiết Kế Ảnh Bài Đăng Page AI Players Theo Phong Cách Cyber-Grid Carbon–Lime–Pink (Downloads\\vid Style — 5 Templates Render Qua Headless Chrome)"
 type: decision
 status: VALIDATED
 confidence: high
-source: "CEO nghiệm thu & khóa chuẩn 3D High-Tech linh hoạt BG Tối/Sáng — 2026-10-21"
+source: "CEO huấn luyện & phê duyệt bộ mẫu Downloads\\vid (ref_1 -> ref_8) chiều 2026-10-26"
 created_at: 2026-10-20
-updated_at: 2026-10-21
+updated_at: 2026-10-26
 owner: bo-nao-thu-2
-tags: [ai-players, image-style, cobalt-lime, 3d-high-tech, glassmorphism, octane-render, dark-light-bg, anti-clone, edit]
-scope: "Áp dụng bắt buộc cho toàn bộ ảnh bài đăng, Infographic, Lead Magnet và chuỗi 3 bài GitHub AI Trending/ngày trên Page AI Players - Người chơi hệ AI."
+tags: [ai-players, image-style, vid-style, carbon-lime-pink, headless-chrome, render-vid-style-card, anti-clone, edit]
+scope: "Áp dụng bắt buộc 100% cho toàn bộ ảnh bài đăng vuông 1:1 (1080x1080) trên Page AI Players - Người chơi hệ AI."
 ---
 
-## Nội dung quyết định đã xác thực (Nghiệm thu chuẩn Vàng 2026-10-21)
+## Nội dung quyết định đã xác thực (Cập nhật chuẩn `Downloads\vid` chiều 2026-10-26)
 
-CEO chính thức nghiệm thu và khóa quy chuẩn hình ảnh cho Page `AI Players - Người chơi hệ AI`:
-1. **Thẩm mỹ cốt lõi (`3D High-Tech Gu Công Nghệ`):** 100% ảnh phải đạt chuẩn **3D High-Tech & Glassmorphism** (Octane Render / Cinema4D / Apple M-Series & Vision Pro Keynote): có chiều sâu không gian 3D thật, vật liệu kính Acrylic/Pha lê khúc xạ ánh sáng dày dặn, kim loại nhám, tia cáp quang laser Xanh Chuối (`#87FF00`) và chữ 3D nổi khối. Tuyệt đối không làm phẳng 2D thô cứng.
-2. **Linh hoạt luân phiên Nền Tối & Nền Sáng (`Flexible Dark / Light 3D Studio BG`):**
-   - **Mode 1 — `Dark Cyber-Cobalt 3D Studio` (Nền Tối Công Nghệ ~60% bài):** Nền không gian Xanh Dương Cobalt sâu (`#03144A` $\rightarrow$ `#0A36BA`) có ánh sáng volumetric & bokeh; chữ Trắng tinh + Xanh Chuối phát sáng; vật thể kính pha lê phát quang.
-   - **Mode 2 — `Bright Pearl-Ice 3D Lab` (Nền Sáng Studio ~40% bài):** Nền phòng Lab 3D Trắng Ngọc Trai / Bạc Ánh Xanh Băng (`#EEF4FF` $\rightarrow$ `#FFFFFF`) có sàn phản chiếu mềm kiểu Apple Keynote; vật thể 3D bằng **Kính Sapphire Xanh Cobalt Đậm (`#062584`) & Nhôm Bạc Anodized** kết hợp lõi phát sáng **Xanh Chuối (`#87FF00`)**; chữ tiêu đề **Xanh Cobalt Đậm (`#041859`)** nổi khối 3D sắc nét.
-3. **Đa dạng hóa 6 Kiến Trúc Không Gian 3D (`6 Distinct 3D High-Tech Scenes` — Cấm trùng lặp khuôn):**
-   - **3D Tech #1 (`Isometric 3D AI Quantum Core & Floating Holograms`):** Góc nghiêng Isometric 35° nhìn vào khối vi xử lý lượng tử `MAMA AI CORE` phóng tia laser Xanh Chuối nâng đỡ 3 màn hình kính Hologram đa tầng; chữ 3D căn trái.
-   - **3D Tech #2 (`3D Curved Ultrawide Cockpit & Pop-Out UI Modules`):** Màn hình kính cong 3D xoay góc nghiêng; các tấm thẻ quy trình tự động hóa và con trỏ 3D trồi hẳn ra ngoài mặt kính kèm sóng xung kích ánh sáng.
-   - **3D Tech #3 (`Cinematic 3D Dual-World VS Split`):** Lăng kính kim cương `VS` chia 2 thế giới 3D: Khối server cũ chập điện/rối dây cáp (*Cách cũ: 1 khung chat*) đối đầu **Ma trận Tinh thể Lục giác 3D** gồm 4 quả cầu AI (*Hệ Subagent*).
-   - **3D Tech #4 (`Apple M4 Style 3D Translucent Acrylic Bento Vaults`):** 4 Buồng kính Acrylic/Sapphire 3D dày có cạnh phát sáng xếp lệch tầng bất đối xứng, bên trong mỗi buồng chứa mô hình Hologram 3D riêng biệt.
-   - **3D Tech #5 (`Deep-Perspective 3D S-Curve Optical Highway`):** Đường ống dẫn ánh sáng quang học 3D uốn lượn chữ S hút sâu vào không gian, kết nối 4 Trạm Pod Kính 3D chiếu biểu tượng Hologram.
-   - **3D Tech #6 (`3D Crystalline Sonic Sculpture & Extruded Glass Type`):** Thiết bị phần cứng 3D (như Micro Studio 3D) đặt giữa dải sóng âm pha lê 3D uốn lượn + cụm chữ 3D phát sáng (`CHỈ 5 GIÂY`).
+CEO đã huấn luyện và chuyển đổi 100% phong cách ảnh bài đăng của Page `AI Players - Người chơi hệ AI` sang chuẩn **`Downloads\vid` (`ref_1` $\rightarrow$ `ref_8`)**, kết xuất trực tiếp bằng Headless Chrome HTML/CSS/SVG Engine tại `tools/render_vid_style_card.py` và `tools/generate_weekly_vid_vault.py`:
+
+1. **Hệ màu & Chất liệu (`Cyber-Grid Carbon • Neon Lime • Hot Pink • Crisp White`):**
+   - **Nền chính (`Background`):** Đen Carbon sâu (`#07080a`) phủ lưới caro chìm (`#111317` checkered grid `72×72px`) + quầng sáng trung tâm.
+   - **Bảng màu chủ đạo:** Xanh Chuối Điện Tử (`#CCFF00`), Hồng Neon (`#FF2A6D`), Trắng Tinh (`#FFFFFF`) và Đen Tuyền (`#000000`).
+   - **Typography & Badge:** Font `Montserrat 800/900` + `Chakra Petch 900` + `Inter`; nhãn nghiêng màu hồng `#FF2A6D` (`skewX(-14deg)`) đính sao `✦`; tiêu đề đóng ngoặc vuông `[ ... ]` phối 3 màu Chuối–Trắng–Hồng; logo hoa thị 8 hướng `#CCFF00` và con trỏ chuột vector `↖`.
+2. **5 Kiến Trúc Bố Cục Chuẩn `Downloads\vid` Luân Phiên (`5 Master Templates`):**
+   - **Template #1 (`Hero Showcase — Tool Lime Card + Neon Grid Tunnel`):** Thẻ lớn `#CCFF00` kèm Icon App 3D bóng kính ở trên + Đường hầm lưới phối cảnh 3D Neon chứa tên Model phát sáng ở dưới.
+   - **Template #2 (`Curriculum 4-Item Breakdown`):** Bảng 4 hàng kẻ chỉ mảnh `#CCFF00` với cột số thứ tự khổng lồ `01–04` màu `#CCFF00` bên trái và nội dung có từ khóa highlight màu hồng `#FF2A6D` bên phải.
+   - **Template #3 (`2×2 Feature Matrix & Asterisk Branding`):** Tiêu đề đóng ngoặc vuông `[ ... ]` + Ma trận `2×2` gồm 4 ô Pill viền mảnh chứa Icon `#CCFF00` + Footer gắn Logo Hoa thị 8 hướng.
+   - **Template #4 (`Offer / Lead Magnet Card`):** Khung thẻ có dải đỉnh `#CCFF00`, 4 ngàm góc hồng `Corner Brackets`, 3 ô thẻ thông số ngang và nút CTA lớn `#CCFF00` kèm con trỏ chuột.
+   - **Template #5 (`Urgency / Sold Out Slots`):** Tiêu đề lớn phát sáng trắng + các thanh tiến độ (`Progress Bars` màu hồng `#FF2A6D`) + nút Pill hồng trung tâm + thẻ ưu đãi viền `#CCFF00` ở đáy.
+3. **Lệnh cấm tuyệt đối:**
+   - Cấm dùng `Pillow` (`draw.rectangle`) vẽ hộp 2D thô cứng; cấm dùng lại phong cách nền xanh Cobalt cũ; cấm cắt mất viền dưới ảnh (`Zero-Cutoff 1080×1080`).
