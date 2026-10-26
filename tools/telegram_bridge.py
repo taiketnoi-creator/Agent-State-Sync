@@ -340,7 +340,7 @@ def listen_loop(wake_on_task: bool = True, max_seconds: int = 3600) -> int:
     offset = int(get_state(conn, "last_update_id", "0") or "0")
     start_ts = time.time()
 
-    while (time.time() - start_ts) < max_seconds:
+    while (max_seconds <= 0) or ((time.time() - start_ts) < max_seconds):
         try:
             resp = tg_api(
                 token,
@@ -504,7 +504,7 @@ def main():
     parser.add_argument("--daemon", action="store_true", help="Run continuous background listener without exiting")
     parser.add_argument("--check-inbox", action="store_true", help="List all PENDING Telegram tasks")
     parser.add_argument("--reply", type=int, help="Reply to a specific task_id and mark it DONE")
-    parser.add_argument("--send", type=str, help="Send a proactive message to CEO's Telegram")
+    parser.add_argument("--send", nargs="?", const="DEFAULT", help="Send a proactive message to CEO's Telegram")
     parser.add_argument("--text", type=str, help="Message text to send with --reply")
     parser.add_argument("--photo", type=str, help="Optional image file path to attach")
     args = parser.parse_args()
@@ -581,7 +581,7 @@ def main():
         return
 
     if args.listen_and_wake:
-        sys.exit(listen_loop(wake_on_task=True, max_seconds=7200))
+        sys.exit(listen_loop(wake_on_task=True, max_seconds=0))
 
     if args.daemon:
         while True:

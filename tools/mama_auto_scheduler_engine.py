@@ -47,7 +47,7 @@ DAILY_SALES_QUEUE = {
     "1442323328956326": [  # Phòng Trọ Hết Cứu
         {
             "slot": "11:45",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-phongtro-1145-style02.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-phongtro-1145-style02.jpg",
             "caption": (
                 "Phòng trọ 15m² lúc nào cũng vương tóc rụng trên nệm với bụi mịn ở khe cửa sổ lùa mà cầm chổi quét thì bụi bay mù mịt?\n\n"
                 "Đổi sang chiếc Máy hút bụi cầm tay không dây mini đầu hút dẹt 2-trong-1 này chỉ mất đúng 2 phút lướt nhẹ là sạch bong từ chăn ga, bàn làm việc tới gầm giường!\n"
@@ -64,7 +64,7 @@ DAILY_SALES_QUEUE = {
         },
         {
             "slot": "20:00",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-phongtro-2030-style01.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-phongtro-2030-style01.jpg",
             "caption": (
                 "Đi làm đi học về muộn lúc 7h tối bụng đói meo, ngại nhất là khoản ngồi thái từng củ cà rốt, khoai tây mất cả nửa tiếng đồng hồ?\n\n"
                 "Trợ thủ đắc lực cho góc bếp trọ nhỏ: Bộ cắt gọt rau củ đa năng 6 lưỡi inox 304 kèm rổ xoay thoát nước thông minh!\n"
@@ -83,7 +83,7 @@ DAILY_SALES_QUEUE = {
     "1421270697727753": [  # Ký Túc Xá Có Biến
         {
             "slot": "11:45",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-ktx-1145-style02.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-ktx-1145-style02.jpg",
             "caption": (
                 "Nằm giường tầng 2 ký túc xá kéo rèm kín mít: Mở rèm ra thì mất riêng tư, mà đóng rèm lại thì bí hơi nóng hầm hập không ngủ trưa nổi?\n\n"
                 "Giải pháp chuẩn bài cho dân KTX: Quạt tích điện mini ngàm kẹp Silicon xoay 360 độ!\n"
@@ -100,7 +100,7 @@ DAILY_SALES_QUEUE = {
         },
         {
             "slot": "20:00",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-ktx-2100-style01.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-ktx-2100-style01.jpg",
             "caption": (
                 "Mỗi sinh viên ở KTX chỉ được phát đúng 1 ô tủ sắt rộng 40cm: Nhét đúng 1 cái chăn bông với mấy chiếc áo khoác là hết sạch chỗ để quần áo mặc hàng ngày?\n\n"
                 "Bí kíp hack diện tích tủ đồ gấp 4 lần: Bộ túi nén hút chân không PA+PE kèm bơm tay mini!\n"
@@ -119,7 +119,7 @@ DAILY_SALES_QUEUE = {
     "1407231352464711": [  # Hội Deadline
         {
             "slot": "11:45",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-deadline-1145-style02.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-deadline-1145-style02.jpg",
             "caption": (
                 "Ngồi gõ báo cáo có 3 tiếng buổi sáng mà cái cổ cúi gập xuống nhìn màn hình laptop đau nhức mỏi nhừ cả hai bả vai?\n\n"
                 "Nâng cấp ngay góc làm việc chuẩn công thái học với Giá đỡ Laptop hợp kim nhôm xoay 360 độ:\n"
@@ -136,7 +136,7 @@ DAILY_SALES_QUEUE = {
         },
         {
             "slot": "20:00",
-            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-deadline-2000-style01.png",
+            "image": SUBAGENT_DIR / "campaigns/2026-10-20/today-launch/images/sales-deadline-2000-style01.jpg",
             "caption": (
                 "Tắt đèn trần làm việc ban đêm để đỡ phiền người nhà thì màn hình chói gắt mỏi mắt, mà bật đèn bàn thường thì ánh sáng chiếu thẳng vào màn hình gây lóa?\n\n"
                 "Bí quyết cày deadline đêm êm dịu cho đôi mắt: Đèn LED kẹp màn hình (Screenbar) chiếu sáng bất đối xứng!\n"
@@ -275,7 +275,12 @@ def ensure_daily_sales_posts_scheduled(pages: dict) -> list:
 
             img_path = item["image"]
             if not img_path.exists():
-                continue
+                alt = img_path.with_suffix(".jpg" if img_path.suffix == ".png" else ".png")
+                if alt.exists():
+                    img_path = alt
+                else:
+                    actions_log.append(f"?? [{pname}] Khung {slot} thi?u file ?nh: {img_path.name}")
+                    continue
 
             res = upload_photo_or_schedule(sid, tok, img_path, item["caption"], sched_ts)
             post_id = res.get("post_id") or res.get("id")
