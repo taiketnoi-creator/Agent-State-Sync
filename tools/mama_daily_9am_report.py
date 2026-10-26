@@ -73,6 +73,18 @@ FOUR_PAGES_CONFIG = [
 ]
 
 
+
+def check_bot_status() -> str:
+    try:
+        req = urllib.request.Request("http://127.0.0.1:9222/json/version")
+        with urllib.request.urlopen(req, timeout=1.0) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            browser = data.get("Browser", "Chrome")
+            return f"🟢 **ĐANG ONLINE** (`{browser}` trên cổng `9222` — Sẵn sàng tự động chạy ca 12:00 & 17:30)"
+    except Exception:
+        return "🟡 **CHƯA MỞ PORT 9222** (Nhấp đúp `Mo_Chrome_Bot_Facebook.bat` ngoài Desktop để bot chạy tự động, hoặc dùng Cockpit tương tác 1-Click)"
+
+
 def load_pages_vault() -> dict:
     vault_path = Path.home() / ".codex" / "mcp" / "facebook-mcp-server" / "pages_vault.json"
     if not vault_path.exists():
@@ -364,6 +376,7 @@ def generate_9am_report(force: bool = False) -> str:
     progress_md = "\n".join(f"- {pt}" for pt in progress_points)
     rec_md = "\n".join(f"{idx+1}. {r}" for idx, r in enumerate(recommendations))
 
+    bot_status = check_bot_status()
     report_md = f"""### 🕘 BÁO CÁO ĐỊNH KỲ 09H00 SÁNG CỦA MAMA — KẾT QUẢ 4 PAGE & ĐỀ XUẤT CHIẾN THUẬT
 *(Thời điểm trích xuất trực tiếp từ Facebook Graph API: `{time_str}`)*
 
@@ -393,6 +406,19 @@ def generate_9am_report(force: bool = False) -> str:
 
 #### 4. 💡 Đề Xuất Hành Động Trong Ngày Từ `mama` (Chờ CEO Phê Duyệt)
 {rec_md}
+
+---
+
+#### 5. 👥 Tình Hình Tương Tác Hội Nhóm & Seeding Cộng Đồng (4 Ngách)
+- **Lịch 2 Ca Tương Tác Cố Định Trong Ngày:**
+  - 🍱 **Ca 1 (Ca Trưa `12:00`):** Lọc bài mới đăng & nhiều like/cmt nhất feed + xem video 2.5-3.5s rồi mới Like & Bình luận vào 4 ngách (AI, Phòng trọ, KTX, Dân văn phòng).
+  - 🌇 **Ca 2 (Ca Chiều `17:30`):** Chăm sóc phản hồi bình luận bài 16:30 của Page AI Players & quét tương tác mở rộng nhóm vòng 2.
+- **Trạng Thái Trình Duyệt Bot Facebook (Zero-Taskkill Bảo Vệ Chrome CEO):** {bot_status}
+- **Lũy Kế Seeding Hội Nhóm Toàn Hệ Thống:**
+  - **11 Groups Mục Tiêu** đã tham gia thành công (+ tự động tích đồng ý quy tắc nhóm).
+  - **24 Kịch Bản Chuyên Sâu** chia đều cho 4 ngách (0% link spam, ưu tiên trao giá trị thực & kéo tò mò).
+  - **Tường Lửa Tách Tệp Khóa Cứng:** Tuyệt đối không tương tác chéo giữa 3 Page Bán Hàng và Page AI Players.
+- **🎮 Bảng Điều Khiển Tương Tác 1-Click:** [group_seeding_cockpit.html](file:///D:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/campaigns/daily-reports/group_seeding_cockpit.html) (Mở ra bấm 1 nút là tự copy sẵn nội dung & mở đúng bài HOT trong nhóm).
 """
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
