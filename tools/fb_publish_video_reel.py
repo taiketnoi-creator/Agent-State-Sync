@@ -277,12 +277,38 @@ def main() -> int:
         print(f"🛑 CHẶN CỨNG [LUẬT #3 CEO]: Page '{page_name}' ({page_id}) thuộc cụm Bán Hàng đang đóng băng Video! Chỉ Page AI Players được đăng Reel.")
         return 1
 
-    # CỔNG KHÓA CỨNG ZERO-REPOST GATE: Chặn đăng lại video cũ (20/10..26/10) hoặc video test bảng trắng
+    # CỔNG KHÓA CỨNG ZERO-REPOST GATE: Chặn đăng lại video cũ (20/10..26/10), video test bảng trắng, hoặc video đã có trên Graph API
     from zero_repost_gate import verify_fresh_content, record_published_content
-    is_fresh, reason = verify_fresh_content(str(page_id), video_path, caption or args.title)
+    is_fresh, reason = verify_fresh_content(str(page_id), video_path, caption, args.title)
     if not is_fresh:
         print(f"🛑 {reason}")
         return 1
+
+    # Chặn đặt lịch trùng khung giờ Reel trên Meta Graph API (khoảng cách < 30 phút)
+    if schedule_ts:
+        try:
+            check_url = (
+                f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/videos"
+                f"?fields=id,title,scheduled_publish_time,status&limit=25&access_token={urllib.parse.quote(page_token)}"
+            )
+            with urllib.request.urlopen(check_url, timeout=12.0) as r_chk:
+                v_items = json.loads(r_chk.read().decode("utf-8", errors="ignore")).get("data", [])
+                for v_it in v_items:
+                    exist_ts = int(v_it.get("scheduled_publish_time") or 0)
+                    pub_phase = (v_it.get("status") or {}).get("publishing_phase") or {}
+                    if not exist_ts and pub_phase.get("publish_time"):
+                        try:
+                            dt_p = datetime.datetime.strptime(pub_phase["publish_time"], "%Y-%m-%dT%H:%M:%S%z")
+                            exist_ts = int(dt_p.timestamp())
+                        except Exception:
+                            pass
+                    if exist_ts and abs(exist_ts - schedule_ts) < 1800:
+                        print(
+                            f"🛑 CHẶN CỨNG [Duplicate Reel Slot]: Khung giờ {args.schedule_time} đã có Video/Reel (id={v_it.get('id')}, title='{v_it.get('title')}')!"
+                        )
+                        return 1
+        except Exception:
+            pass
 
     # Ưu tiên gọi API Reels chính thức (`/{page_id}/video_reels`), nếu lỗi thì fallback sang `/{page_id}/videos`
     res = upload_via_reels_api(page_id, page_token, video_path, args.title, caption, schedule_ts)

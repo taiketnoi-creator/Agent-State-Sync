@@ -128,10 +128,60 @@ def save_registry(data: dict) -> None:
     REGISTRY_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: str) -> tuple[bool, str]:
+def check_live_graph_duplicate(page_id: str, caption: str, title: str = "") -> tuple[bool, str]:
     """
-    Kiểm tra xem media_path và caption có phải nội dung MỚI 100% hay không.
-    Trả về (True, "OK") nếu hợp lệ; trả về (False, "Lý do chặn") nếu phát hiện bài/ảnh/video cũ!
+    Kiểm tra trực tiếp theo thời gian thực trên Meta Graph API (published_posts, scheduled_posts, videos, video_reels)
+    xem tiêu đề hoặc nội dung mở đầu đã tồn tại trên Page chưa (chống trùng lặp tuyệt đối kể cả khi 2 máy chưa kịp git pull).
+    """
+    if not VAULT_PATH.exists():
+        return True, "OK"
+    fp_cap = normalize_caption_fingerprint(caption)
+    fp_title = normalize_caption_fingerprint(title)
+    if len(fp_cap) < 12 and len(fp_title) < 12:
+        return True, "OK"
+
+    try:
+        vault = json.loads(VAULT_PATH.read_text(encoding="utf-8", errors="ignore"))
+        pages = {str(p["id"]): p for p in vault.get("pages", [])}
+        if str(page_id) not in pages:
+            return True, "OK"
+        tok = pages[str(page_id)]["access_token"]
+        ctx = ssl._create_unverified_context()
+
+        endpoints = [
+            ("scheduled_posts", "message"),
+            ("published_posts", "message"),
+            ("videos", "title,description"),
+        ]
+        for ep, fields in endpoints:
+            url = (
+                f"https://graph.facebook.com/v22.0/{page_id}/{ep}"
+                f"?fields=id,{fields},created_time,scheduled_publish_time&limit=35&access_token={urllib.parse.quote(tok)}"
+            )
+            try:
+                with urllib.request.urlopen(url, context=ctx, timeout=10) as resp:
+                    items = json.loads(resp.read().decode("utf-8", errors="ignore")).get("data", [])
+                    for item in items:
+                        for f in fields.split(","):
+                            val = item.get(f, "") or ""
+                            fp_remote = normalize_caption_fingerprint(val)
+                            if fp_remote and len(fp_remote) >= 12:
+                                if (fp_cap and fp_remote == fp_cap) or (fp_title and fp_remote == fp_title):
+                                    return (
+                                        False,
+                                        f"CHẶN CỨNG [Live Graph API Duplicate]: Nội dung '{fp_remote[:45]}...' đã tồn tại trên Page ({ep} id={item.get('id')})!",
+                                    )
+            except Exception:
+                pass
+    except Exception:
+        pass
+    return True, "OK"
+
+
+def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: str, title: str = "") -> tuple[bool, str]:
+    """
+    Kiểm tra xem media_path và caption có phải nội dung MỚI 100% hay không (kết hợp sổ Local + kiểm tra trực tuyến Meta Graph API).
+    Trả về (True, "OK") nếu hợp lệ; trả về (False, "Lý do chặn") nếu phát hiện bài/ảnh/video cũ hoặc trùng lặp!
     """
     reg = load_registry()
     if media_path:
@@ -144,11 +194,17 @@ def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: s
                 prev_info = reg["published_sha256"][sha]
                 return False, f"CHẶN CỨNG [Zero-Repost]: Mã băm SHA256 của file '{p.name}' trùng khớp với file đã đăng ({prev_info})!"
 
-    fp = normalize_caption_fingerprint(caption)
-    if fp and len(fp) >= 12:
-        if fp in reg.get("published_caption_fingerprints", {}):
-            prev_post = reg["published_caption_fingerprints"][fp]
-            return False, f"CHẶN CỨNG [Zero-Repost]: Nội dung mở đầu '{fp[:45]}...' trùng với bài đã đăng ({prev_post})!"
+    for text_check in (caption, title):
+        fp = normalize_caption_fingerprint(text_check)
+        if fp and len(fp) >= 12:
+            if fp in reg.get("published_caption_fingerprints", {}):
+                prev_post = reg["published_caption_fingerprints"][fp]
+                return False, f"CHẶN CỨNG [Zero-Repost]: Nội dung mở đầu '{fp[:45]}...' trùng với bài đã đăng ({prev_post})!"
+
+    # Kiểm tra trực tiếp trên Meta Graph API để chống lên lịch trùng lặp giữa 2 lần chạy hoặc 2 máy
+    is_live_ok, live_reason = check_live_graph_duplicate(str(page_id), caption, title)
+    if not is_live_ok:
+        return False, live_reason
 
     return True, "OK"
 
