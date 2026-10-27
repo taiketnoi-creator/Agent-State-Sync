@@ -164,7 +164,20 @@ def update_recent_conversation(payload: dict):
 
 
 def run_git_sync_worker():
-    """Thực thi đồng bộ Git thuần Python (miễn nhiễm 100% với lỗi PowerShell NativeCommandError khi Git ghi ra stderr)."""
+    """Thực thi đồng bộ Git thuần Python (miễn nhiễm 100% với lỗi PowerShell NativeCommandError và chống đụng độ .git/index.lock)."""
+    import time
+
+    lock_path = os.path.join(SYNC_DIR, ".git_sync_lock.json")
+    now_ts = time.time()
+    try:
+        if os.path.exists(lock_path):
+            ldata = json.loads(Path(lock_path).read_text(encoding="utf-8", errors="ignore"))
+            if now_ts - float(ldata.get("ts", 0)) < 15.0:
+                return
+        Path(lock_path).write_text(json.dumps({"ts": now_ts}), encoding="utf-8")
+    except Exception:
+        pass
+
     host = platform.node()
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     snapshot_py = os.path.join(SYNC_DIR, "generate_snapshot.py")
@@ -264,8 +277,20 @@ def main():
 
     payload = {}
     try:
-        update_recent_conversation(payload)
-        trigger_background_git_sync()
+        if not sys.stdin.isatty():
+            raw_in = sys.stdin.read().strip()
+            if raw_in:
+                payload = json.loads(raw_in)
+    except Exception:
+        payload = {}
+
+    # Chỉ chạy đồng bộ Git khi phiên thực sự đã hoàn tất (fullyIdle != False)
+    # nhằm tránh đụng độ .git/index.lock khi Mama đang chờ Subagent hoặc Background Task chạy song song.
+    is_fully_idle = payload.get("fullyIdle", True)
+    try:
+        if is_fully_idle:
+            update_recent_conversation(payload)
+            trigger_background_git_sync()
     except Exception:
         pass
 

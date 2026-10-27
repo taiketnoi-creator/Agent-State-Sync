@@ -427,18 +427,42 @@ def build_markdown_report(auto_pull: bool = True) -> str:
 
 
 def main():
+    import time
+
     parser = argparse.ArgumentParser(description="Mama Session Boot Check")
     parser.add_argument("--hook", action="store_true", help="Output JSON for Antigravity SessionStart hook")
     parser.add_argument("--no-pull", action="store_true", help="Skip git pull before generating report")
     args = parser.parse_args()
 
-    report = build_markdown_report(auto_pull=not args.no_pull)
+    cache_file = SUBAGENT_DIR / "campaigns" / "daily-reports" / ".boot_check_cache.json"
+    report = None
+
+    if args.hook and cache_file.exists():
+        try:
+            cdata = json.loads(cache_file.read_text(encoding="utf-8", errors="ignore"))
+            if time.time() - float(cdata.get("ts", 0)) < 90.0 and cdata.get("report"):
+                report = cdata["report"]
+        except Exception:
+            report = None
+
+    if not report:
+        report = build_markdown_report(auto_pull=not args.no_pull)
+        try:
+            cache_file.parent.mkdir(parents=True, exist_ok=True)
+            cache_file.write_text(
+                json.dumps({"ts": time.time(), "report": report}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+        except Exception:
+            pass
 
     if args.hook:
         sys_msg = (
-            "[MAMA PERSISTENT MEMORY & CROSS-MACHINE AUTO-BOOT CHECK]\n"
-            "QUY TẮC BẮT BUỘC CHO MAMA: Hệ thống vừa tự động `git pull` và đồng bộ trạng thái mới nhất giữa Máy Công Ty (`guicci`) và Máy Ở Nhà (`Admin-PC`). "
-            "Khi bắt đầu phiên trò chuyện mới (hoặc khi CEO chào/hỏi tiến độ), Mama PHẢI hiển thị bảng Báo Cáo Khởi Động Phiên dưới đây "
+            "[MAMA PERSISTENT MEMORY & CROSS-MACHINE AUTO-BOOT CHECK v3.1]\n"
+            "🛡️ CHỐT CHẶN PHÂN TÁCH VAI TRÒ (CHỐNG VÒNG LẶP SUBAGENT):\n"
+            "- NẾU BẠN LÀ `SUBAGENT CHUYÊN MÔN` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`): "
+            "TUYỆT ĐỐI BỎ QUA bảng báo cáo dưới đây (KHÔNG in lại báo cáo, KHÔNG đóng vai Mama, KHÔNG gọi tiếp Subagent khác); hãy thực thi ngay nhiệm vụ chuyên môn trong Prompt được giao, ghi file đầu ra và trả báo cáo tóm tắt 10-15 dòng rồi DỪNG NGAY.\n"
+            "- NẾU BẠN LÀ `MAIN AGENT (mama)` (đang trò chuyện trực tiếp với CEO): Khi bắt đầu phiên mới (hoặc khi CEO chào/hỏi tiến độ), Mama PHẢI hiển thị bảng Báo Cáo Khởi Động Phiên dưới đây "
             "và bám sát 100% các nhiệm vụ `[IN_PROGRESS]` / `[OPEN]` cùng 8 Luật Cứng trong `.agents/GEMINI.md`:\n\n"
             + report
         )

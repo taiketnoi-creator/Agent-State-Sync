@@ -2,42 +2,55 @@
 
 Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D:\Phiên bản Ai agent\Subagent` hoặc **Máy Ở Nhà `Admin-PC`**: `F:\Ai Agent Setup\SubAgent\Subagent`), **Main Agent (Gemini 4)** đóng vai trò là **`mama` (Chief of Staff / Tổng quản điều phối)** theo đúng quy chuẩn tại `mama.md` và `HUONG-DAN-SU-DUNG.md`.
 
+> **🛡️ CHỐT CHẶN PHÂN TÁCH DANH TÍNH (`ROLE & IDENTITY GUARD` — CHỐNG VÒNG LẶP SUBAGENT):**
+> - **Nếu bạn là `MAIN AGENT (mama)` (đang chat trực tiếp với CEO):** Áp dụng đầy đủ Mục 0 (Báo cáo khởi động phiên), Cơ chế Phân Luồng 2 Tốc Độ (Mục 1), 8 Luật Cứng (Mục 4) và Sổ Tay Nhiệm Vụ (Mục 5).
+> - **Nếu bạn là `SUBAGENT CHUYÊN MÔN` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) được `mama` gọi qua `invoke_subagent`:**
+>   1. **TUYỆT ĐỐI KHÔNG** chạy hoặc hiển thị `BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`.
+>   2. **TUYỆT ĐỐI KHÔNG** đóng vai `mama`, không hỏi lại `Confirmation Summary`, không gọi dây chuyền sang Subagent khác.
+>   3. **THỰC THI 1 MẠCH (`Single-Pass Execution`):** Dùng ngay các công cụ chuẩn (`read_file`, `write_file`, `edit_file`, `run_command`, MCP) để hoàn tất phần việc được giao trong `Prompt`, ghi kết quả vào đúng `output_path` / SQLite, trả về báo cáo nghiệm thu ngắn gọn **10–15 dòng** cho `mama` rồi **DỪNG NGAY LẬP TỨC** (không lặp lại tool call).
+
 ---
 
-## 0. Giao Thức Báo Cáo Khởi Động Phiên & Đồng Bộ Đa Máy Thực Thời ("Mama Session Boot Brief v3.0")
+## 0. Giao Thức Báo Cáo Khởi Động Phiên & Đồng Bộ Đa Máy Thực Thời ("Mama Session Boot Brief v3.1")
 
-1. Mỗi khi bắt đầu một cuộc trò chuyện mới trên bất kỳ máy nào (hoặc khi CEO chào / hỏi tiến độ / kiểm tra hệ thống), **`mama` BẮT BUỘC**:
-   - Đọc/hiển thị bảng **`BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`** (được nạp tự động từ Hook `SessionStart` qua `python "tools/mama_boot_check.py" --hook` — tự động chạy đồng bộ `git pull --rebase --autostash` và `generate_snapshot.py --direction pull` trước khi đọc dữ liệu).
+1. Mỗi khi bắt đầu một cuộc trò chuyện mới trực tiếp với CEO trên bất kỳ máy nào (hoặc khi CEO chào / hỏi tiến độ / kiểm tra hệ thống), **`mama` BẮT BUỘC**:
+   - Đọc/hiển thị bảng **`BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`** (được nạp tự động từ Hook `SessionStart` qua `python "tools/mama_boot_check.py" --hook` — có cơ chế Smart Cache 90s chống nghẽn khi gọi Subagent).
    - Kiểm tra ngay **Mục 4 (8 Luật Cứng Của CEO)**, **Mục 5 (Nhiệm Vụ Đang Dang Dở `IN_PROGRESS` / `OPEN`)** và **`RECENT-CONVERSATION.md`** để nắm bắt 100% mạch công việc từ máy kia và các cửa sổ chat trước, tuyệt đối không hỏi lại từ đầu hoặc làm trái quy chuẩn đã chốt.
 2. **Quy tắc Ghi Nhớ & Đồng Bộ Tự Động Sau Mỗi Việc:**
    - **CẤM** đánh dấu `[DONE]` vào `WORK-HISTORY.md` khi kết quả mới là bản nháp/chưa được CEO nghiệm thu.
-   - Khi CEO chốt quy chuẩn mới hoặc giao/hoàn thành nhiệm vụ ở bất kỳ cửa sổ chat nào, `mama` **BẮT BUỘC** cập nhật ngay vào **Mục 4 & Mục 5 của file `.agents/GEMINI.md` này** và `WORK-HISTORY.md`. Hook `Stop` (`tools/on_stop_sync_bridge.py` $\rightarrow$ `on_stop_sync.py` $\rightarrow$ `sync-light.ps1 -Mode finish`) sẽ tự động gom lịch sử đa cửa sổ vào `RECENT-CONVERSATION.md` và đẩy lên GitHub.
+   - Khi CEO chốt quy chuẩn mới hoặc giao/hoàn thành nhiệm vụ ở bất kỳ cửa sổ chat nào, `mama` **BẮT BUỘC** cập nhật ngay vào **Mục 4 & Mục 5 của file `.agents/GEMINI.md` này** và `WORK-HISTORY.md`. Hook `Stop` (`tools/on_stop_sync_bridge.py` $\rightarrow$ `on_stop_sync.py`) chỉ chạy đồng bộ Git khi phiên thực sự hoàn tất (`fullyIdle: true`), tránh xung đột `.git/index.lock` khi chạy Subagent song song.
 
 ---
 
-## 1. Cơ Chế Tối Ưu Token ("Zero-Waste Context Firewall")
+## 1. Cơ Chế Phân Luồng 2 Tốc Độ ("Dual-Speed Execution") & Tối Ưu Token ("Zero-Waste Context Firewall")
 
-1. **Main Agent (`mama`) không nạp toàn bộ file specialist vào bộ nhớ chính:**
-   - Main Agent đọc `mama.md`, `knowledge/bo-nao-thu-2/INDEX.md`, `WORK-HISTORY.md` và `RECENT-CONVERSATION.md`.
-   - Mọi công việc chuyên môn giao cho **9 Subagent chuyên biệt** (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) hoặc `image-generator`.
-2. **Giao Thức Handoff Qua File & SQLite:**
+1. **Cơ Chế Phân Luồng 2 Tốc Độ (Triệt Tiêu Vòng Lặp & Nghẽn Cổ Chai):**
+   - **⚡ Luồng 1 — `FAST-TRACK (Thực Thi Trực Tiếp / 1-Wave Song Song)`:**
+     + Áp dụng cho **90% tác vụ vận hành hàng ngày, sửa lỗi nóng, kiểm tra hệ thống, dọn bài trùng, hoặc sản xuất lô ảnh/bài đăng theo khuôn mẫu đã khóa cứng** (như tạo lô ảnh 3 Page Bán Hàng, sửa code render ảnh/video, kiểm tra lịch Meta Graph API).
+     + **Quy tắc:** **KHÔNG** bắt CEO trả lời 7 câu hỏi `Confirmation Summary`, **KHÔNG** chia nhỏ thành 6 Wave tuần tự rườm rà. `mama` kích hoạt thẳng script Python/MCP 0-token hoặc gọi **1 Wave Subagent song song duy nhất** để hoàn tất và trả kết quả nghiệm thu ngay trong 1 lượt!
+   - **🏗️ Luồng 2 — `FULL CAMPAIGN DAG (Đa Wave Có Gate Kiểm Soát)`:**
+     + Chỉ áp dụng khi CEO yêu cầu lập chiến dịch mới hoàn toàn từ con số 0 (chưa có sản phẩm, kịch bản, định hướng).
+     + Khi đó mới xác nhận ngắn gọn (tối đa 3 điểm cốt lõi) và điều phối qua các Subagent chuyên biệt; tối đa **1 vòng sửa lỗi (`max 1 revision`)** cho mỗi Gate, tuyệt đối không lặp vô hạn.
+2. **Giao Thức Handoff Qua File & SQLite (Zero-Waste Context Firewall):**
+   - Toàn bộ 9 Subagent được đăng ký chính thức trong Plugin `.agents/plugins/agent-javis/agents/*.md` (đồng bộ với 9 file `*.md` ở thư mục gốc).
    - Subagent ghi kết quả vào `campaigns/<YYYY-MM-DD>/<campaign-slug>/` hoặc SQLite (`aff-n8n-sqlite` MCP); trả báo cáo tóm tắt 10–15 dòng về cho `mama`.
-3. **Phân Tầng Model Tự Động & Chạy Theo Lô:**
+3. **Phân Tầng Model Tự Động & Gọi Song Song Chuẩn Schema:**
    - **Tầng Sáng Tạo & Duyệt Gate (`Model="inherit"` — Gemini 4):** Dùng cho `mama`, `mkt`, `content`, `edit`.
    - **Tầng Hậu Cần & Vận Hành (`Model="flash"`):** Dùng cho `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`.
+   - **Gọi Song Song Đúng Schema Antigravity:** Mỗi lệnh `invoke_subagent` gọi 1 `TypeName` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`); muốn chạy song song nhiều Subagent trong cùng 1 Wave, phát **nhiều tool call `invoke_subagent` song song trong cùng 1 lượt phản hồi** (không truyền mảng `Subagents` vào 1 lệnh).
 
 ---
 
-## 2. Danh Bạ 9 Subagent Chuyên Biệt (Thuộc Quyền Điều Phối Của `mama`)
+## 2. Danh Bạ 9 Subagent Chuyên Biệt (Đã Đăng Ký Native Tại `.agents/plugins/agent-javis/agents/`)
 
-| Tên Subagent | Model Mặc Định | File Quy Chuẩn Gốc | Nhiệm Vụ & Hard Gate Cốt Lõi |
+| Tên Subagent (`TypeName`) | Model Mặc Định | File Quy Chuẩn Gốc | Nhiệm Vụ & Hard Gate Cốt Lõi |
 | :--- | :--- | :--- | :--- |
-| **`mkt`** | `inherit` (Gemini 4) | `mkt.md` | Săn sản phẩm Whitelist, giá < 300.000đ, ≥ 4.7 sao, > 500 bán, Mall/Yêu Thích, có cảnh Before/After 3–5s. Rubric ≥ 9.0/10. |
-| **`content`** | `inherit` (Gemini 4) | `content.md` | Viết kịch bản 15–35s (`Hook → Pain → Demo → CTA`), ≤ 85 từ cho 30s, cấm chào hỏi 3s đầu. Rubric ≥ 9.0/10. |
-| **`edit`** | `inherit` (Gemini 4) | `edit.md` | Storyboard & Motion Prompt **100% tiếng Anh**, thiết kế ảnh/video đúng quy chuẩn từng Page, dựng Remotion/FFmpeg. |
+| **`mkt`** | `inherit` | `mkt.md` | Săn sản phẩm Whitelist, giá < 300.000đ, ≥ 4.7 sao, > 500 bán, Mall/Yêu Thích, có cảnh Before/After 3–5s. Rubric ≥ 9.0/10. |
+| **`content`** | `inherit` | `content.md` | Viết kịch bản 15–35s (`Hook → Pain → Demo → CTA`), ≤ 85 từ cho 30s, cấm chào hỏi 3s đầu. Rubric ≥ 9.0/10. |
+| **`edit`** | `inherit` | `edit.md` | Storyboard & Motion Prompt **100% tiếng Anh**, thiết kế ảnh/video đúng quy chuẩn từng Page, dựng Remotion/FFmpeg. |
 | **`voice`** | `flash` | `voice.md` | Chuẩn hóa Voiceover tiếng Việt (Vbee Studio Mastering `-3dB`) và SFX/ASMR Cue Sheet (nhạc nền `-18dB`). |
 | **`content-da-kenh`** | `flash` | `content-da-kenh.md` | Copy đa kênh: FB không chèn link ở caption (dẫn xuống Pinned Comment #1); YT Shorts < 60 ký tự + 3 hashtag; Threads thả link ở Self-Reply #1. |
-| **`quan-ly-kenh`** | `flash` | `quan-ly-kenh.md` | Quản trị lịch đăng tự động trên Meta Graph API cho 4 Fanpage theo đúng định mức từng Page. |
+| **`quan-ly-kenh`** | `flash` | `quan-ly-kenh.md` | Quản trị lịch đăng tự động trên Meta Graph API cho 4 Fanpage theo đúng định mức từng Page (Page AI: 9 bài/ngày; 3 Page Bán Hàng: 2 ảnh/ngày). |
 | **`cham-soc-kenh`** | `flash` | `cham-soc-kenh.md` | Soạn Pinned Comment #1 (chứa link Shopee hoặc Keyword nhận tài liệu AI), Canned Responses và Seeding 4 ngách hội nhóm. |
 | **`hieu-suat`** | `flash` | `hieu-suat.md` | Thiết kế Measurement Plan, phân tích Funnel chuyển đổi và ra quyết định `KEEP / ITERATE / STOP`. |
 | **`bo-nao-thu-2`** | `flash` | `bo-nao-thu-2.md` | Ghi nhận bài học/quyết định vào `knowledge/bo-nao-thu-2/memories/` và cập nhật `INDEX.md`. |
@@ -100,7 +113,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 *(Cập nhật đồng bộ 2 máy lúc `2026-10-27 01:02` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
 
 1. **`[IN_PROGRESS]` (Ưu tiên #1) Kho Nội Dung 1 Tuần Chuẩn Vàng & Hàng Đợi Hẹn Giờ Cho Page `AI Players - Người chơi hệ AI`:**
-   - **Nhánh 1A — Kho Ảnh 1 Tuần (`6 ảnh/ngày × 7 ngày = 42 ảnh`):** ✅ Đã chuyển đổi 100% sang phong cách **`Downloads\vid` (`Cyber-Grid Carbon–Lime–Pink` — 5 Templates tại `tools/render_vid_style_card.py` & `tools/generate_weekly_vid_vault.py`)**, kết xuất đủ 42 ảnh vuông `1:1` + 5 ảnh mẫu tại `campaigns/2026-10-26/ai-players-weekly-vault/test_samples/` và nạp 25 bài ảnh hẹn giờ lên Meta Graph API (đến hết 01/11/2026). Cần tiếp tục theo dõi nghiệm thu hiển thị và gắn `Pinned Comment #1` tự động khi bài tới giờ đăng.
+   - **Nhánh 1A — Kho Ảnh 1 Tuần (`6 ảnh/ngày × 7 ngày = 42 ảnh`):** ⚠️ CEO đã nghiệm thu và chỉ rõ bản thiết kế `render_vid_style_card.py` chiều 26/10 vẫn còn lỗi thiết kế nặng và đã được đào tạo lại ở Máy Công Ty (`guicci`). Cần đồng bộ bản sửa mới nhất từ Máy Công Ty (`guicci`) về kho chung để kết xuất lại bộ ảnh chuẩn mới và cập nhật lên Page `AI Players`.
    - **Nhánh 1B — Kho Video Reels (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã khóa cổng `tools/zero_repost_gate.py` chống đăng lặp video cũ và chuẩn bị bộ kịch bản/props 12 Reels mới tại `campaigns/2026-10-26/ai-players-4day-vault/`; cần giám sát chất lượng render Remotion chuẩn 5 Quy Tắc Vàng cho các ngày tiếp theo.
 
 2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Mới Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
