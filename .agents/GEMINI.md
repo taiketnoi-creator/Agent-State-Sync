@@ -104,8 +104,10 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
    - **Nhánh 1B — Kho Video Reels (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã khóa cổng `tools/zero_repost_gate.py` chống đăng lặp video cũ và chuẩn bị bộ kịch bản/props 12 Reels mới tại `campaigns/2026-10-26/ai-players-4day-vault/`; cần giám sát chất lượng render Remotion chuẩn 5 Quy Tắc Vàng cho các ngày tiếp theo.
 
 2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Mới Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
-   - **Hiện trạng thực tế:** Đã xóa bỏ hoàn toàn `DAILY_SALES_QUEUE` tĩnh để chống đăng lặp bài cũ (`commit 94af12b`). Hàng đợi `scheduled_posts` của 3 Page Bán Hàng hiện đang `0 bài`.
-   - **Việc cần hoàn tất dứt điểm:** Săn SKU Whitelist mới và kết xuất lô ảnh vuông `1:1` mới chuẩn `Editorial Macro & 3-Detail Grid` + link Shopee Affiliate (`SHOPEE_AFFILIATE_ID=17395830088`) nạp vào hàng đợi `11:45` và `20:00` cho 3 Page Bán Hàng.
+   - **Hiện trạng thực tế (`2026-10-27 23:05`):**
+     + Đã quét xóa vĩnh viễn **48 bài đăng lặp lại** (từ `22/10` đến `27/10`) trên cả 3 Page Bán Hàng và tích hợp bộ quét tự động `purge_duplicate_published_posts()` + tự động `git pull` đầu ca vào `tools/mama_auto_scheduler_engine.py`.
+     + Đã sản xuất và xuất bản/lên lịch **9 SKU mới 100%** (chuẩn `Editorial Macro & 3-Detail Grid` `1080×1080` + Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088` tại `campaigns/2026-10-27/sales-daily-vault/`): **3 bài đã đăng LIVE tối 27/10** + **6 bài đã hẹn giờ cho khung `11:45` & `20:00` ngày 28/10**.
+   - **Việc cần làm tiếp theo:** Tiếp tục sản xuất cuốn chiếu các lô SKU mới cho các ngày `29/10 – 02/11`.
 
 3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành Ổn Định 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`) Với Tường Lửa 3 Lớp Bảo Vệ Trang Cá Nhân:**
    - Đảm bảo cả 3 ca tương tác hàng ngày chạy tự động 100% qua `.chrome-fb-bot` cổng `9222` dưới danh nghĩa 4 Fanpage (`ensure_fanpage_active()`) và gửi báo cáo nghiệm thu về Telegram.

@@ -244,6 +244,65 @@ def ensure_daily_sales_posts_scheduled(pages: dict) -> list:
     return actions_log
 
 
+def purge_duplicate_published_posts(pages: dict) -> list:
+    """
+    Quét trực tiếp 30 bài published_posts gần nhất trên cả 4 Fanpage.
+    Nếu phát hiện bất kỳ bài viết nào có câu mở đầu trùng lặp với bài đã đăng trước đó trên cùng Page
+    (do máy khác chưa git pull hoặc chạy lặp), tự động gọi DELETE xóa ngay bản trùng lặp!
+    """
+    from zero_repost_gate import normalize_caption_fingerprint
+
+    deleted_log = []
+    for pid, p_obj in pages.items():
+        if pid not in ([AI_ID] + SALES_IDS):
+            continue
+        tok = p_obj["access_token"]
+        pname = p_obj["name"]
+        try:
+            feed = graph_get(
+                f"{pid}/published_posts",
+                tok,
+                {"fields": "id,message,created_time,attachments{target}", "limit": 35},
+            ).get("data", [])
+            # Sắp xếp từ cũ nhất -> mới nhất để giữ lại bài gốc đầu tiên và xóa các bản bị đăng lặp về sau
+            feed_sorted = sorted(feed, key=lambda x: x.get("created_time", ""))
+            seen_fp = {}
+            for post in feed_sorted:
+                post_id = post["id"]
+                msg = post.get("message") or ""
+                fp = normalize_caption_fingerprint(msg)
+                att = (post.get("attachments") or {}).get("data", [{}])[0]
+                target_id = (att.get("target") or {}).get("id")
+
+                if not fp and not target_id:
+                    del_candidates = [post_id]
+                elif fp and len(fp) >= 12 and fp in seen_fp:
+                    del_candidates = [target_id, post_id] if target_id else [post_id]
+                else:
+                    if fp and len(fp) >= 12:
+                        seen_fp[fp] = post_id
+                    continue
+
+                for did in del_candidates:
+                    if not did:
+                        continue
+                    try:
+                        req = urllib.request.Request(
+                            f"https://graph.facebook.com/v22.0/{did}?access_token={urllib.parse.quote(tok)}",
+                            method="DELETE",
+                        )
+                        with urllib.request.urlopen(req, context=SSL_CTX, timeout=12):
+                            deleted_log.append(
+                                f"🧹 Đã tự động xóa bài đăng trùng lặp trên [{pname}]: {post_id} (target={did} | '{fp[:40]}...')"
+                            )
+                            break
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+    return deleted_log
+
+
 def ensure_all_live_posts_have_pinned_comment(pages: dict) -> list:
     """
     Quét 5 bài LIVE mới nhất trên cả 4 Page; nếu bài nào vừa nhảy từ Scheduled -> LIVE mà chưa có bình luận của Page,
@@ -295,17 +354,40 @@ def main():
 
     now_vn = dt.datetime.now(TZ_VN)
     today_str = now_vn.strftime("%Y-%m-%d")
+
+    # 0A. Tự động đồng bộ Git (Agent-State-Sync -> Subagent) trước mọi ca chạy ngầm để chống chạy code cũ trên Máy Công Ty / Máy Nhà
+    state_sync_dir = SUBAGENT_DIR.parent / "Agent-State-Sync"
+    if (state_sync_dir / ".git").exists():
+        try:
+            subprocess.run(
+                ["git", "-C", str(state_sync_dir), "pull", "--rebase", "--autostash", "origin", "main"],
+                timeout=8,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            snap_py = state_sync_dir / "generate_snapshot.py"
+            if snap_py.exists():
+                subprocess.run(
+                    [sys.executable, str(snap_py), "--direction", "pull"],
+                    timeout=5,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+        except Exception:
+            pass
+
     pages = load_vault()
 
-    # 0. Luôn tự động bật ngầm Chrome Bot độc lập tại cổng 9222 trước mọi ca
+    # 0B. Luôn tự động bật ngầm Chrome Bot độc lập tại cổng 9222 trước mọi ca
     try:
         from start_bot_chrome import ensure_bot_chrome_online
         ensure_bot_chrome_online(timeout_sec=10.0)
     except Exception:
         pass
 
-    # 1. Kiểm tra lịch đăng ngày hôm nay (có khóa Zero-Repost Gate) & gắn Pinned Comment #1 trên cả 4 Page
-    sched_actions = ensure_daily_sales_posts_scheduled(pages)
+    # 1. Quét xóa bài trùng lặp trên cả 4 Page + Kiểm tra lịch đăng ngày hôm nay (Zero-Repost Gate) + gắn Pinned Comment #1
+    dup_actions = purge_duplicate_published_posts(pages)
+    sched_actions = list(dup_actions) + ensure_daily_sales_posts_scheduled(pages)
     pin_actions = ensure_all_live_posts_have_pinned_comment(pages)
 
     # 2. Thực thi tác vụ theo từng mốc giờ

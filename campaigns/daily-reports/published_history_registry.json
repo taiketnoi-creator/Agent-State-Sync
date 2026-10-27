@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-27 22:41:03",
+  "updated_at": "2026-10-27 23:07:41",
   "banned_filenames": [
     "sales-phongtro-1145-style02.jpg",
     "sales-phongtro-1145-style02.png",
@@ -133,7 +133,16 @@
     "d5_ovl2_flop.png",
     "d5_ovl3_win1.png",
     "d5_ovl4_win2.png",
-    "d5_ovl5_menu_cta.png"
+    "d5_ovl5_menu_cta.png",
+    "phongtro_01_cay_lau_nha_tu_vat.jpg",
+    "phongtro_02_ke_gia_vi_xoay_360.jpg",
+    "ktx_01_o_cam_thap_da_nang.jpg",
+    "ktx_02_ban_hoc_gap_gon_ktx.jpg",
+    "deadline_01_chuot_cong_thai_hoc.jpg",
+    "deadline_02_dem_tua_lung_memory_foam.jpg",
+    "phongtro_03_noi_lau_dien_mini.jpg",
+    "ktx_03_gio_dung_do_giat_canvas.jpg",
+    "deadline_03_binh_giu_nhiet_inox316.jpg"
   ],
   "published_sha256": {
     "951eced28fac51ede457cb253475602836e5da4ef09ffb249202e7a5bde1a6e4": "legacy_campaign:2026-10-20/ai-agent-vs-chatbot-45s.mp4",
@@ -290,7 +299,16 @@
     "514f383e32367a0d0e695b46da9864a4f664320fb5fefb79b54623f3ecd0467e": "legacy_campaign:2026-10-22/d5_ovl2_flop.png",
     "72da193c8d388a002b876bf7fe4f6e373446d459aaec694e70ecd654b0e587ca": "legacy_campaign:2026-10-22/d5_ovl3_win1.png",
     "28712e40db84d80d68d5ddf143dee1ffec9f653e865e81a83bbb4cd43d35cf80": "legacy_campaign:2026-10-22/d5_ovl4_win2.png",
-    "abf840ced8036da4756bc0e64be70959d097300ecfb8fa84336387823043961b": "legacy_campaign:2026-10-22/d5_ovl5_menu_cta.png"
+    "abf840ced8036da4756bc0e64be70959d097300ecfb8fa84336387823043961b": "legacy_campaign:2026-10-22/d5_ovl5_menu_cta.png",
+    "6c62941d8a2820848008004b2ccdf09545c4573ba89671236c38398aa920fed1": "phongtro_01_cay_lau_nha_tu_vat.jpg | page=1442323328956326 | post=1442323328956326_122107544169514839 | 2026-10-27 23:02:29",
+    "d02dcd09e9f65ee531812a2ea9f6283053ed4758355a0a93b1874fe408e9ac42": "phongtro_02_ke_gia_vi_xoay_360.jpg | page=1442323328956326 | post=122107544295514839 | 2026-10-27 23:02:43",
+    "3e812ab453b26fe9e8e1015ae8119ca5711a11728cb4115b502f2de9d685feff": "ktx_01_o_cam_thap_da_nang.jpg | page=1421270697727753 | post=1421270697727753_122111035323511096 | 2026-10-27 23:02:57",
+    "1ad2fb988129ed0e816dc95cd97d5a1cc91824879fc92a3cc6a3bebf02e38abc": "ktx_02_ban_hoc_gap_gon_ktx.jpg | page=1421270697727753 | post=122111035665511096 | 2026-10-27 23:03:10",
+    "df5032655b24b988d5406a4eb55b7e4c643324f6216d46cbd26cc366ec3ce345": "deadline_01_chuot_cong_thai_hoc.jpg | page=1407231352464711 | post=1407231352464711_122114576679502096 | 2026-10-27 23:03:30",
+    "5bdd3d34450b1f462ac9e708e4d3219d6b08dd80c5fb1e3bf95e1bbd0d0815e7": "deadline_02_dem_tua_lung_memory_foam.jpg | page=1407231352464711 | post=122114576781502096 | 2026-10-27 23:03:44",
+    "85509d26bde02aba1b92994ed6b7621e43ff31f39ab45f6b2e3e90885d5255ad": "phongtro_03_noi_lau_dien_mini.jpg | page=1442323328956326 | post=122107545957514839 | 2026-10-27 23:04:53",
+    "bac28392f1437da7f20f1387c015a0319ba556952176ace5ea865ea7ad8a4749": "ktx_03_gio_dung_do_giat_canvas.jpg | page=1421270697727753 | post=122111036565511096 | 2026-10-27 23:05:05",
+    "4772c298562946b361b6a344ccc3f24d8de76557b9e14083c556a99a3b3b3ce0": "deadline_03_binh_giu_nhiet_inox316.jpg | page=1407231352464711 | post=122114577555502096 | 2026-10-27 23:05:19"
   },
   "published_caption_fingerprints": {
     "bạn nên giao việc nào cho ai tự làm đầu tiên trong 4 việc trên": "page=1022527194267367 | id=1022527194267367_122133399219248983 | created=2026-10-26T14:45:01+0000",
@@ -376,6 +394,15 @@
     "truy vấn dữ liệu bằng tiếng việt tự nhiên bộ 20 prompt sql cho dân data": "page=1022527194267367 | id=1022527194267367_122133461955248983 | created=2026-10-27T08:15:01+0000",
     "cách đóng gói 1 chuyên gia ai thành 1 file md duy nhất": "page=1022527194267367 | id=1022527194267367_122133461805248983 | created=2026-10-27T06:30:01+0000",
     "khi nào nên dùng ollama local và khi nào nên gọi cloud api": "page=1022527194267367 | id=1022527194267367_122133461613248983 | created=2026-10-27T03:15:00+0000",
-    "claude 35 artifacts biến ý tưởng thành app web chạy được trong 30 giây": "page=1022527194267367 | id=1022527194267367_122133461421248983 | created=2026-10-27T01:58:42+0000"
+    "claude 35 artifacts biến ý tưởng thành app web chạy được trong 30 giây": "page=1022527194267367 | id=1022527194267367_122133461421248983 | created=2026-10-27T01:58:42+0000",
+    "phòng trọ 18m² ngại nhất là khoản cúi người vắt giẻ lau sàn bằng tay lúc tr": "page=1442323328956326 | post=1442323328956326_122107544169514839 | 2026-10-27 23:02:29",
+    "bàn bếp phòng trọ vốn chỉ rộng có 60cm mà bày đủ chai dầu ăn nước mắm lọ ti": "page=1442323328956326 | post=122107544295514839 | 2026-10-27 23:02:43",
+    "cảnh chung của anh em ở ktx cả phòng 68 người mà ổ điện âm tường nằm tít dư": "page=1421270697727753 | post=1421270697727753_122111035323511096 | 2026-10-27 23:02:57",
+    "đêm ôn thi ở ktx muốn leo lên giường tầng 2 ngồi làm tiểu luận cho ấm mà đặ": "page=1421270697727753 | post=122111035665511096 | 2026-10-27 23:03:10",
+    "dân văn phòng thiết kế hay kế toán ngồi làm việc với bảng tính excel suốt 8": "page=1407231352464711 | post=1407231352464711_122114576679502096 | 2026-10-27 23:03:30",
+    "ngồi ghế xoay văn phòng từ 8h sáng tới 6h chiều lúc đầu thì ngồi thẳng nhưn": "page=1407231352464711 | post=122114576781502096 | 2026-10-27 23:03:44",
+    "đi làm về phòng trọ lúc 8h tối vừa mệt vừa đói bật bếp gas mini thì sợ nóng": "page=1442323328956326 | post=122107545957514839 | 2026-10-27 23:04:53",
+    "ở ktx sợ nhất là cảnh quần áo bẩn thay ra vứt vương vãi trên đầu giường hoặ": "page=1421270697727753 | post=122111036565511096 | 2026-10-27 23:05:05",
+    "pha một ly cà phê đá hay trà nóng đặt trên bàn làm việc để tỉnh táo chạy de": "page=1407231352464711 | post=122114577555502096 | 2026-10-27 23:05:19"
   }
 }
