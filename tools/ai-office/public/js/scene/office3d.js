@@ -649,9 +649,9 @@ export class Office3D {
       deptColor,
     });
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: tagData.texture, transparent: true, depthTest: false }));
-    label.scale.set(0.32 * tagData.aspect, 0.32, 1);
+    label.scale.set(0.46 * tagData.aspect, 0.46, 1);
     label.userData.aspect = tagData.aspect;
-    label.userData.h = 0.32;
+    label.userData.h = 0.46;
     label.position.set(x, 1.92 + y - 0.5, z);
     label.renderOrder = 10;
     label.visible = true; // Luôn hiển thị thẻ tên + trạng thái + % trên đầu
@@ -712,7 +712,7 @@ export class Office3D {
 
   refreshAgentTag(v) {
     if (!v) return;
-    const sig = ${v.status}||||;
+    const sig = `${v.status}|${v.progressPct}|${v.activityText}|${v.queued}|${v.id === this.selectedId}`;
     if (v._tagSig === sig) return;
     v._tagSig = sig;
     const oldTex = v.label.material.map;
@@ -727,7 +727,7 @@ export class Office3D {
     v.label.material.map = tagData.texture;
     v.label.material.needsUpdate = true;
     v.label.userData.aspect = tagData.aspect;
-    v.label.userData.h = (v.status === 'working' || v.id === this.selectedId) ? 0.35 : 0.29;
+    v.label.userData.h = (v.status === 'working' || v.id === this.selectedId) ? 0.54 : 0.45;
     oldTex?.dispose?.();
   }
 
@@ -995,8 +995,8 @@ export class Office3D {
     }[kind] || { beam: '#10b981', orb: '#6ee7b7', ring: '#34d399' };
 
     if (topic) {
-      this.showBubble(fromId, 📨 , palette.beam, 4.2);
-      setTimeout(() => this.showBubble(toId, ⚡ Đã nhận: , palette.ring, 4.2), 650);
+      this.showBubble(fromId, `📨 ${topic}`, palette.beam, 4.2);
+      setTimeout(() => this.showBubble(toId, `⚡ Đã nhận: ${topic}`, palette.ring, 4.2), 650);
     }
 
     const mid = a.clone().lerp(b, 0.5);
@@ -1150,7 +1150,7 @@ export class Office3D {
       for (const sp of [v.label, v.bubble, v.alert]) {
         if (!sp || !sp.visible) continue;
         const d = this.camera.position.distanceTo(sp.position);
-        const h = Math.min(sp.userData.h, Math.max(0.14, d * 0.016 * (sp.userData.h / 0.32)));
+        const h = Math.min(sp.userData.h * 1.35, Math.max(0.28, d * 0.024 * (sp.userData.h / 0.45)));
         sp.scale.set(h * sp.userData.aspect, h, 1);
       }
     }

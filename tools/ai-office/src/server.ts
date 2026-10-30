@@ -249,7 +249,7 @@ server.on('error', (e: NodeJS.ErrnoException) => {
   console.error('[server]', e);
   process.exit(1);
 });
-server.listen(PORT, HOST, () => {
+server.listen(PORT, () => {
   console.log(`\n🏢 Văn phòng ảo 3D Agent-Javis: http://localhost:${PORT}`);
 });
 
