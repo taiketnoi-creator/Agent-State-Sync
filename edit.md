@@ -211,12 +211,15 @@ Theo chỉ đạo của CEO, edit chỉ tập trung sản xuất và tối ưu *
 
 Đây là format chính thứ hai của Edit, bên cạnh **Video Slide**. Đọc `training/video-ai-ban-hang.md` trước mọi Video AI Bán Hàng (LƯU Ý LUẬT #3 CỦA CEO: Hiện tại **ĐÓNG BĂNG TUYỆT ĐỐI** việc đăng video lên 3 Page Bán Hàng cho đến khi quy trình Video AI Bán Hàng được huấn luyện đạt chuẩn Vàng và CEO nghiệm thu mở băng).
 
-# Quy chuẩn thiết kế Ảnh Bài Đăng cho Page AI (`AI Players` — Phong cách `Downloads\vid` Cyber-Grid Carbon)
+# Quy chuẩn thiết kế Ảnh Bài Đăng cho Page AI (`AI Players` — Luật Cứng `Zero-Clone Bespoke Image Design`)
 
 Khi tạo ảnh bài đăng vuông `1:1` (`1080×1080`) cho Page `AI Players - Người chơi hệ AI` (6 bài ảnh/ngày), **BẮT BUỘC tuân thủ 100%** [MEM-20261020-ai-players-image-style-guide.md](file:///d:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/bo-nao-thu-2/memories/MEM-20261020-ai-players-image-style-guide.md) & [MEM-20261026-ai-players-vid-visual-style-lock.md](file:///d:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/bo-nao-thu-2/memories/MEM-20261026-ai-players-vid-visual-style-lock.md):
-- **Kết xuất 100% bằng Headless Chrome HTML/CSS/SVG Engine** tại `tools/render_vid_style_card.py` và `tools/generate_weekly_vid_vault.py` (CẤM dùng lại phong cách nền xanh Cobalt cũ và CẤM dùng `Pillow` `draw.rectangle` vẽ hộp 2D phẳng lì).
-- **Hệ màu & Chất liệu (`Cyber-Grid Carbon • Neon Lime • Hot Pink • Crisp White`):** Nền Đen Carbon sâu (`#07080a`) phủ lưới caro kỹ thuật chìm (`#111317` `72×72px`) + Xanh Chuối Điện Tử (`#CCFF00`) + Hồng Neon (`#FF2A6D`) + Trắng Tinh (`#FFFFFF`).
-- **Luân phiên 5 Master Templates:** (1) `Hero Showcase`, (2) `Curriculum 4-Item Breakdown`, (3) `2×2 Feature Matrix & Asterisk Logo`, (4) `Offer / Lead Magnet Card`, (5) `Urgency / Sold Out Slots`.
+- **LUẬT BẤT DI BẤT DỊCH CỦA CEO (`KHÔNG THIẾT KẾ NÀO ĐƯỢC GIỐNG NHAU`):**
+  1. **XÓA BỎ VĨNH VIỄN việc "luân phiên 5 Master Templates"**: Nghiêm cấm dùng chung 1 hàm HTML/CSS template (như khung bảng `01-02-03-04`, khung 4 ô `MODULE + CORE`, khung `Hộp Vàng Trái + Đường Hầm Dưới`, hay khung `100% MIỄN PHÍ + Nút Vàng`) lặp đi lặp lại giữa các bài đăng!
+  2. **Mỗi bài ảnh (`1080×1080`) PHẢI có Kiến Trúc Bố Cục (`Macro Spatial Layout`), Hệ Màu Nhấn (`Color Palette & Background Atmosphere`), Kiểu Typography Header và Sơ Đồ Đồ Họa (`Bespoke SVG Infographic`) ĐỘC BẢN 100% (`1 Bài = 1 Hàm Thiết Kế Riêng`):**
+     - Không 2 bài nào được có cùng cấu trúc chia ô, cùng vị trí hộp màu hoặc cùng bảng màu chủ đạo liên tiếp.
+     - Phối màu đa dạng theo chủ đề bài viết (Cyber Lime & Obsidian, Electric Cyan & Deep Navy, Neon Magenta & Violet, Solar Amber & Carbon, Emerald Matrix & Dark Slate, Crimson Laser & Titanium...).
+  3. **Bắt buộc kiểm định qua Cổng Khóa Cứng `verify_zero_clone_images()` (`python tools/zero_repost_gate.py --check-zero-clone-images`):** Quét lưới không gian `8×8` (64 vùng) của toàn bộ ảnh trước khi xuất bản; nếu bất kỳ 2 ảnh nào có độ tương đồng bố cục không gian/màu sắc `> 58%`, hệ thống chặn cứng ngay lập tức!
 
 # Quy chuẩn thiết kế Ảnh Bài Đăng cho 3 Page Bán Hàng Affiliate (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`)
 

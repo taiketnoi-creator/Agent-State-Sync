@@ -3,7 +3,7 @@
 Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D:\Phiên bản Ai agent\Subagent` hoặc **Máy Ở Nhà `Admin-PC`**: `F:\Ai Agent Setup\SubAgent\Subagent`), **Main Agent (Gemini 4)** đóng vai trò là **`mama` (Chief of Staff / Tổng quản điều phối)** theo đúng quy chuẩn tại `mama.md` và `HUONG-DAN-SU-DUNG.md`.
 
 > **🛡️ CHỐT CHẶN PHÂN TÁCH DANH TÍNH (`ROLE & IDENTITY GUARD` — CHỐNG VÒNG LẶP SUBAGENT):**
-> - **Nếu bạn là `MAIN AGENT (mama)` (đang chat trực tiếp với CEO):** Áp dụng đầy đủ Mục 0 (Báo cáo khởi động phiên), Cơ chế Phân Luồng 2 Tốc Độ (Mục 1), 8 Luật Cứng (Mục 4) và Sổ Tay Nhiệm Vụ (Mục 5).
+> - **Nếu bạn là `MAIN AGENT (mama)` (đang chat trực tiếp với CEO):** Áp dụng đầy đủ Mục 0 (Báo cáo khởi động phiên), Cơ chế Phân Luồng 2 Tốc Độ (Mục 1), 9 Luật Cứng (Mục 4) và Sổ Tay Nhiệm Vụ (Mục 5).
 > - **Nếu bạn là `SUBAGENT CHUYÊN MÔN` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) được `mama` gọi qua `invoke_subagent`:**
 >   1. **TUYỆT ĐỐI KHÔNG** chạy hoặc hiển thị `BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`.
 >   2. **TUYỆT ĐỐI KHÔNG** đóng vai `mama`, không hỏi lại `Confirmation Summary`, không gọi dây chuyền sang Subagent khác.
@@ -15,7 +15,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 1. Mỗi khi bắt đầu một cuộc trò chuyện mới trực tiếp với CEO trên bất kỳ máy nào (hoặc khi CEO chào / hỏi tiến độ / kiểm tra hệ thống), **`mama` BẮT BUỘC**:
    - Đọc/hiển thị bảng **`BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`** (được nạp tự động từ Hook `SessionStart` qua `python "tools/mama_boot_check.py" --hook` — có cơ chế Smart Cache 90s chống nghẽn khi gọi Subagent).
-   - Kiểm tra ngay **Mục 4 (8 Luật Cứng Của CEO)**, **Mục 5 (Nhiệm Vụ Đang Dang Dở `IN_PROGRESS` / `OPEN`)** và **`RECENT-CONVERSATION.md`** để nắm bắt 100% mạch công việc từ máy kia và các cửa sổ chat trước, tuyệt đối không hỏi lại từ đầu hoặc làm trái quy chuẩn đã chốt.
+   - Kiểm tra ngay **Mục 4 (9 Luật Cứng Của CEO)**, **Mục 5 (Nhiệm Vụ Đang Dang Dở `IN_PROGRESS` / `OPEN`)** và **`RECENT-CONVERSATION.md`** để nắm bắt 100% mạch công việc từ máy kia và các cửa sổ chat trước, tuyệt đối không hỏi lại từ đầu hoặc làm trái quy chuẩn đã chốt.
 2. **Quy tắc Ghi Nhớ & Đồng Bộ Tự Động Sau Mỗi Việc:**
    - **CẤM** đánh dấu `[DONE]` vào `WORK-HISTORY.md` khi kết quả mới là bản nháp/chưa được CEO nghiệm thu.
    - Khi CEO chốt quy chuẩn mới hoặc giao/hoàn thành nhiệm vụ ở bất kỳ cửa sổ chat nào, `mama` **BẮT BUỘC** cập nhật ngay vào **Mục 4 & Mục 5 của file `.agents/GEMINI.md` này** và `WORK-HISTORY.md`. Hook `Stop` (`tools/on_stop_sync_bridge.py` $\rightarrow$ `on_stop_sync.py`) chỉ chạy đồng bộ Git khi phiên thực sự hoàn tất (`fullyIdle: true`), tránh xung đột `.git/index.lock` khi chạy Subagent song song.
@@ -47,7 +47,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 | :--- | :--- | :--- | :--- |
 | **`mkt`** | `inherit` | `mkt.md` | Săn sản phẩm Whitelist, giá < 300.000đ, ≥ 4.7 sao, > 500 bán, Mall/Yêu Thích, có cảnh Before/After 3–5s. Rubric ≥ 9.0/10. |
 | **`content`** | `inherit` | `content.md` | Viết kịch bản 15–35s (`Hook → Pain → Demo → CTA`), ≤ 85 từ cho 30s, cấm chào hỏi 3s đầu. Rubric ≥ 9.0/10. |
-| **`edit`** | `inherit` | `edit.md` | Storyboard & Motion Prompt **100% tiếng Anh**, thiết kế ảnh/video đúng quy chuẩn từng Page, dựng Remotion/FFmpeg. |
+| **`edit`** | `inherit` | `edit.md` | Storyboard & Motion Prompt **100% tiếng Anh**, thiết kế ảnh/video độc bản `Zero-Clone` đúng quy chuẩn từng Page, dựng Remotion/FFmpeg. |
 | **`voice`** | `flash` | `voice.md` | Chuẩn hóa Voiceover tiếng Việt (Vbee Studio Mastering `-3dB`) và SFX/ASMR Cue Sheet (nhạc nền `-18dB`). |
 | **`content-da-kenh`** | `flash` | `content-da-kenh.md` | Copy đa kênh: FB không chèn link ở caption (dẫn xuống Pinned Comment #1); YT Shorts < 60 ký tự + 3 hashtag; Threads thả link ở Self-Reply #1. |
 | **`quan-ly-kenh`** | `flash` | `quan-ly-kenh.md` | Quản trị lịch đăng tự động trên Meta Graph API cho 4 Fanpage theo đúng định mức từng Page (Page AI: 9 bài/ngày; 3 Page Bán Hàng: 2 ảnh/ngày). |
@@ -67,19 +67,18 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ## 4. CHÍN (09) LUẬT CỨNG BẤT DI BẤT DỊCH CỦA CEO (CẤM LÀM SAI DƯỚI MỌI HÌNH THỨC)
 
-1. **LUẬT #1 — Định Mức & Quy Chuẩn Ảnh Bài Đăng Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
+1. **LUẬT #1 — Định Mức & Quy Chuẩn Ảnh Bài Đăng Độc Bản `Zero-Clone` Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
    - **Mục tiêu xuất bản:** **9 bài/ngày** = **6 bài Ảnh vuông `1:1` (`1080×1080`)** (`08:30`, `10:15`, `13:30`, `15:15`, `18:15`, `21:15`) + **3 Video Reels Remotion** (`11:45`, `16:30`, `20:00`), 100% có `Pinned Comment #1` dẫn phễu.
-   - **QUY CHUẨN PHONG CÁCH ẢNH MỚI ĐÃ CHỐT CHIỀU 26/10 (`Downloads\vid` Style — `Cyber-Grid Carbon • Neon Lime • Hot Pink • Crisp White`):**
-     + Theo `knowledge/bo-nao-thu-2/memories/MEM-20261020-ai-players-image-style-guide.md`, kết xuất 100% bằng Headless Chrome HTML/CSS/SVG Engine tại `tools/render_vid_style_card.py` và `tools/generate_weekly_vid_vault.py` (ảnh mẫu tại `campaigns/2026-10-26/ai-players-weekly-vault/test_samples/`).
-     + **Hệ màu & Chất liệu:** Nền Đen Carbon sâu (`#07080a`) phủ lưới caro chìm (`#111317` `72×72px`) + Xanh Chuối Điện Tử (`#CCFF00`) + Hồng Neon (`#FF2A6D`) + Trắng Tinh (`#FFFFFF`).
-     + **Luân phiên 5 Master Templates:** (1) `Hero Showcase` (Thẻ `#CCFF00` + Icon 3D + Đường hầm lưới 3D Neon), (2) `Curriculum 4-Item Breakdown` (Số `01–04` `#CCFF00` + từ khóa highlight hồng `#FF2A6D`), (3) `2×2 Feature Matrix & Asterisk Logo`, (4) `Offer / Lead Magnet Card` (4 ngàm góc hồng + 3 ô thông số + nút CTA `#CCFF00`), (5) `Urgency / Sold Out Slots` (Thanh tiến độ hồng `#FF2A6D` + đồng hồ CTA).
-     + **CẤM TUYỆT ĐỐI** dùng lại phong cách nền xanh Cobalt 3D cũ hoặc dùng code `Pillow` (`draw.rectangle`) vẽ hộp 2D phẳng lì!
-     + **CẤM TUYỆT ĐỐI** lấy lại bài/ảnh/video cũ đã đăng những ngày trước để đăng lặp lại lên Page (bắt buộc đi qua cổng chặn cứng `tools/zero_repost_gate.py`).
+   - **QUY CHUẨN THIẾT KẾ ẢNH ĐỘC BẢN `ZERO-CLONE` ĐÃ CHỐT SÁNG 30/10 (`Không Thiết Kế Nào Được Giống Nhau`):**
+     + Theo `knowledge/bo-nao-thu-2/memories/MEM-20261020-ai-players-image-style-guide.md` và `MEM-20261026-ai-players-vid-visual-style-lock.md`, kết xuất 100% bằng Headless Chrome HTML/CSS/SVG Engine tại `tools/build_bespoke_ai_players_images.py` & `tools/render_vid_style_card.py`.
+     + **BÃI BỎ VĨNH VIỄN "LUÂN PHIÊN 5 MASTER TEMPLATES"!** Nghiêm cấm lặp lại bất kỳ khung bố cục cố định nào giữa 2 bài ảnh!
+     + **1 Bài Ảnh = 1 Kiến Trúc Bố Cục Không Gian (`Spatial Layout`) + 1 Bảng Màu Nhấn & Ánh Sáng Nền (`Color Palette`) + 1 Đồ Họa SVG Độc Bản (`Custom SVG Diagram`)**: Mỗi bài bắt buộc có cấu trúc hình học riêng biệt (Cửa sổ OS + Tâm ngắm HUD, Đấu trường VS 2 cột dọc, Vòng Radar quỹ đạo tròn, Phễu lọc Laser 3 tầng, Chòm sao 6 nút Mindmap, 4 Đồng hồ công-tơ-mét, Trụ dọc + Cầu thang 3 bậc, Biểu đồ Thác nước ROI, Vòng Donut + 4 Công tắc gạt, 3 Tầng địa chất đào bình luận, Bục vinh quang Olympic 3 cột, Chia đôi Ngày/Đêm Autopilot...).
+     + **Cổng Khóa Cứng `verify_zero_clone_images()` (`tools/zero_repost_gate.py`):** Tự động chia lưới `8×8 = 64` vùng không gian để đo vector màu & độ sáng; nếu bất kỳ 2 ảnh nào có độ tương đồng bố cục/màu sắc `> 58%` $\rightarrow$ **CHẶN CỨNG NGAY LẬP TỨC (`sys.exit(1)`)**, bắt buộc kiểm tra bằng mắt trên `bespoke_12_images_qa_grid.jpg` trước khi đăng.
 
-2. **LUẬT #2 — Quy Chuẩn Video Reel Page `AI Players` (5 Quy Tắc Vàng Remotion & Chống Đạo Nhái Nội Bộ):**
+2. **LUẬT #2 — Quy Chuẩn Video Reel Độc Bản `Zero-Clone` Page `AI Players` (5 Quy Tắc Vàng Remotion & Chống Đạo Nhái Nội Bộ):**
    - Theo `knowledge/bo-nao-thu-2/memories/MEM-20261020-remotion-brandkit-golden-rules.md` & `knowledge/quy-chuan-remotion-cuongit-template.md`:
-     + Tiêu đề chính **`#87ff00`**, nền `brand-kit/bg/BG-video-motion.jpg` + BGM `1.The Violins.mp3` (`-18dB`) + SFX, **Khung thẻ kính trong suốt (`bg-white/[0.08] border-white/30 backdrop-blur-md`, cấm khung đen)**, **Motion minh họa liên tục ở cả 6 cảnh**, **Phụ đề 1 dòng (`whitespace-nowrap`) trượt nguyên cụm từ dưới lên không khung bao**, giọng đọc **Vbee Mạnh Dũng `-3dB`** (`4.5 từ/giây`).
-     + **Chống trùng lặp (`Zero-Clone` & `Zero-Repost Gate`):** Không video nào được giống video nào; cấm đăng trùng 1 video vào 2 mốc giờ khác nhau; **CẤM đăng video test bảng trắng (`whiteboard_mindmap`) hoặc video thử nghiệm chưa duyệt lên Page!**
+     + **1 Video = 1 Component `.tsx` Độc Bản (`21 Bespoke Reels` tại `remotion-studio/src/compositions/bespoke21/`)**: Cấm dùng chung 1 khuôn `AIPlayers6SceneReel` hay lặp lại bố cục 6 cảnh giống nhau!
+     + Bắt buộc đi qua cổng `verify_zero_clone_compositions()` (`tools/zero_repost_gate.py`), kiểm tra Contact Sheet 6 cảnh trước khi xuất bản; cấm đăng trùng 1 video vào 2 mốc giờ khác nhau; **CẤM đăng video test bảng trắng (`whiteboard_mindmap`) hoặc video thử nghiệm chưa duyệt lên Page!**
 
 3. **LUẬT #3 — Quy Chuẩn 3 Page Bán Hàng Affiliate (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
    - Theo `knowledge/bo-nao-thu-2/memories/MEM-20261023-sales-pages-freeze-video-image-only-rule.md` & `knowledge/quy-chuan-anh-bai-dang-page-ban-hang.md`:
@@ -94,9 +93,9 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 5. **LUẬT #5 — Tường Lửa Tách Tệp Giữa Page AI & Cụm 3 Page Bán Hàng (`Zero Cross-Page Contamination`):**
    - Theo `knowledge/bo-nao-thu-2/memories/MEM-20261022-audience-cluster-firewall-ai-vs-sales-pages.md`: Tuyệt đối không lấy 3 Page Bán Hàng sang bình luận trên Page `AI Players` và ngược lại.
 
-6. **LUẬT #6 — Lệnh Cấm `taskkill` Bảo Vệ Chrome CEO & Tự Động Hóa 100% Trình Duyệt Bot:**
+6. **LUẬT #6 — Lệnh Cấm `taskkill` Bảo Vệ Chrome CEO & Chạy Ngầm 100% + Đồng Bộ Cookie 2 Máy Cho Trình Duyệt Bot:**
    - **CẤM VĨNH VIỄN** lệnh `taskkill /F /IM chrome.exe` làm văng/đóng Chrome đang làm việc của CEO.
-   - Trình duyệt Bot Facebook chạy độc lập qua profile riêng `.chrome-fb-bot` trên cổng `9222` và tự động khởi chạy ngầm khi cần (`ensure_bot_chrome_running()`), **tuyệt đối không bao giờ bắt CEO mở file `.bat` bằng tay**.
+   - Trình duyệt Bot Facebook (`.chrome-fb-bot` cổng `9222` tại `tools/start_bot_chrome.py`) bắt buộc chạy ngầm 100% (`--headless=new` + `CREATE_NO_WINDOW`), tự động nạp/xuất Cookie mã hóa đa máy (`knowledge/fb_bot_session_vault.json`) giữa Máy Công Ty (`guicci`) và Máy Ở Nhà (`Admin-PC`), và **tự động đóng trình duyệt + lưu Cookie ngay khi kết thúc ca tương tác (`stop_bot_chrome()` trong khối `finally:`)**.
 
 7. **LUẬT #7 — Lịch Tự Động 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`):**
    - Tương tác đủ 4 ngách (`ai`, `phongtro`, `ktx`, `deadline`) dưới danh nghĩa 4 Fanpage tương ứng.
@@ -106,28 +105,25 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 8. **LUẬT #8 — Giao Thức Giải Quyết Vấn Đề & Báo Cáo Telegram Tức Thì (`knowledge/mama-problem-solving-rule.md`):**
    - Khi gặp bất kỳ lỗi/vướng mắc nào cần CEO duyệt, phải gửi thông báo ngay qua Telegram (`tools/telegram_bridge.py`) kèm nguyên nhân + phương án xử lý khả thi.
 
----
-
 9. **LUẬT #9 — Giao Thức Tự Động Xóa Sạch Tư Liệu & Code Cũ Ngay Khi Có Chuẩn Mới (`Purge-On-Upgrade Protocol`):**
    - Bất kỳ khi nào CEO chốt một quy chuẩn thiết kế/sản xuất mới (phong cách ảnh mới, kiến trúc video Zero-Clone mới, kịch bản mới), **`mama` và các Subagent BẮT BUỘC xóa vĩnh viễn (`unlink` / `shutil.rmtree` qua `tools/purge_legacy_superseded_assets.py`) toàn bộ tư liệu mẫu cũ, thư mục campaign cũ lỗi thời, composition demo cũ và script sinh hàng loạt kiểu cũ** trên cả Workspace `Subagent` lẫn kho Git đồng bộ `Agent-State-Sync`.
    - **Mục tiêu:** Triệt tiêu 100% nguy cơ bất kỳ Agent nào đọc nhầm hoặc tái sử dụng tư liệu/code cũ đã bị thay thế.
 
+---
+
 ## 5. SỔ TAY NHIỆM VỤ ĐANG THỰC THI & CHỜ HOÀN TẤT (`ACTIVE TASKS — CẤM BỎ DỞ`)
 
-*(Cập nhật đồng bộ 2 máy lúc `2026-10-27 01:02` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
+*(Cập nhật đồng bộ 2 máy lúc `2026-10-30 11:25` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
 
-1. **`[IN_PROGRESS]` (Ưu tiên #1) Kho Nội Dung 1 Tuần Chuẩn Vàng & Hàng Đợi Hẹn Giờ Cho Page `AI Players - Người chơi hệ AI`:**
-   - **Nhánh 1A — Kho Ảnh 1 Tuần (`6 ảnh/ngày × 7 ngày = 42 ảnh`):** ⚠️ CEO đã nghiệm thu và chỉ rõ bản thiết kế `render_vid_style_card.py` chiều 26/10 vẫn còn lỗi thiết kế nặng và đã được đào tạo lại ở Máy Công Ty (`guicci`). Cần đồng bộ bản sửa mới nhất từ Máy Công Ty (`guicci`) về kho chung để kết xuất lại bộ ảnh chuẩn mới và cập nhật lên Page `AI Players`.
-   - **Nhánh 1B — Kho Video Reels (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã khóa cổng `tools/zero_repost_gate.py` chống đăng lặp video cũ và chuẩn bị bộ kịch bản/props 12 Reels mới tại `campaigns/2026-10-26/ai-players-4day-vault/`; cần giám sát chất lượng render Remotion chuẩn 5 Quy Tắc Vàng cho các ngày tiếp theo.
+1. **`[IN_PROGRESS]` (Ưu tiên #1) Kho Nội Dung Độc Bản `Zero-Clone` & Hàng Đợi Hẹn Giờ Cho Page `AI Players - Người chơi hệ AI`:**
+   - **Nhánh 1A — Kho Ảnh Độc Bản `Zero-Clone` (`6 ảnh/ngày`):** Đã xóa sạch toàn bộ ảnh 5-template cũ trên Page & ổ cứng, khóa cổng `verify_zero_clone_images()` (`tools/zero_repost_gate.py`) và xuất bản/lên lịch **12 Ảnh Độc Bản 100%** (12 kiến trúc không gian & 12 bảng màu riêng tại `tools/build_bespoke_ai_players_images.py`) cho ngày `30/10` và `31/10`. Cần tiếp tục thiết kế cuốn chiếu các lô ảnh độc bản tiếp theo cho tháng 11.
+   - **Nhánh 1B — Kho Video Reels Độc Bản `Zero-Clone` (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã hoàn tất 21/21 Bespoke Video Reels (`remotion-studio/src/compositions/bespoke21/Reel01..Reel21.tsx`), qua cổng `verify_zero_clone_compositions()` và hẹn giờ đầy đủ đến hết `02/11/2026`.
 
 2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Mới Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
-   - **Hiện trạng thực tế (`2026-10-27 23:05`):**
-     + Đã quét xóa vĩnh viễn **48 bài đăng lặp lại** (từ `22/10` đến `27/10`) trên cả 3 Page Bán Hàng và tích hợp bộ quét tự động `purge_duplicate_published_posts()` + tự động `git pull` đầu ca vào `tools/mama_auto_scheduler_engine.py`.
-     + Đã sản xuất và xuất bản/lên lịch **9 SKU mới 100%** (chuẩn `Editorial Macro & 3-Detail Grid` `1080×1080` + Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088` tại `campaigns/2026-10-27/sales-daily-vault/`): **3 bài đã đăng LIVE tối 27/10** + **6 bài đã hẹn giờ cho khung `11:45` & `20:00` ngày 28/10**.
-   - **Việc cần làm tiếp theo:** Tiếp tục sản xuất cuốn chiếu các lô SKU mới cho các ngày `29/10 – 02/11`.
+   - Đang chạy đều đặn 2 bài/page/ngày (`11:45` & `20:00`, chuẩn `Editorial Macro & 3-Detail Grid` `1080×1080` + Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088`). Tiếp tục sản xuất cuốn chiếu các lô SKU mới cho đầu tháng 11.
 
-3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành Ổn Định 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`) Với Tường Lửa 3 Lớp Bảo Vệ Trang Cá Nhân:**
-   - Đảm bảo cả 3 ca tương tác hàng ngày chạy tự động 100% qua `.chrome-fb-bot` cổng `9222` dưới danh nghĩa 4 Fanpage (`ensure_fanpage_active()`) và gửi báo cáo nghiệm thu về Telegram.
+3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành Ổn Định 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`) Chạy Ngầm 100% + Đồng Bộ Cookie 2 Máy:**
+   - Đã nâng cấp `tools/start_bot_chrome.py` chạy ngầm 100% (`--headless=new` + `CREATE_NO_WINDOW`), tự động đóng trình duyệt ngay sau ca (`stop_bot_chrome()`) và đồng bộ Cookie mã hóa (`knowledge/fb_bot_session_vault.json`) giữa Máy Công Ty và Máy Ở Nhà.
 
 4. **`[OPEN]` (Ưu tiên #4 — Chiến lược Phễu Page `AI Players`):**
    - Đóng gói Món Quà số 1 từ kho 30 Lead Magnets (`Gói Subagent Đóng Hộp + Hook 3s / Văn Phòng`), cài đặt Nhóm Zalo Cộng Đồng Bảo Mật và lên bài thu phễu + 4 bài Group Seeding.

@@ -352,14 +352,113 @@ def verify_zero_clone_tsx(src_dir: Path | str | None = None) -> tuple[bool, str]
     return True, f"PASSED Zero-Clone Structural Gate ({len(reel_dirs)} compositions verified 100% unique across Scene1..Scene5)"
 
 
+def verify_zero_clone_images(image_dir: Path | str | None = None, max_similarity: float = 0.58) -> tuple[bool, str]:
+    """
+    Cổng Khóa Cứng Chống Thiết Kế Ảnh Na Ná Nhau (`LUẬT #1 — Zero-Clone Bespoke Image Gate`):
+    Chia mỗi ảnh `1080×1080` thành lưới `8×8` (64 phân vùng không gian) để đo:
+    1. Phân bố khối màu chủ đạo (Lime, Pink, Cyan, Amber, Emerald, Violet, White, Dark) ở từng phân vùng.
+    2. Phân bố mật độ tương phản / cạnh hình học (Structural Edge Density) ở từng phân vùng.
+    Nếu bất kỳ 2 ảnh nào có độ tương đồng bố cục không gian > `max_similarity` (ví dụ dùng chung khuôn Template 1..5),
+    lập tức CHẶN CỨNG và báo tên 2 file vi phạm!
+    """
+    from PIL import Image
+
+    if image_dir is None:
+        image_dir = SUBAGENT_DIR / "campaigns" / "2026-10-26" / "ai-players-weekly-vault" / "images"
+    img_path_dir = Path(image_dir)
+    if not img_path_dir.exists():
+        return False, f"Không tìm thấy thư mục ảnh: {img_path_dir}"
+
+    img_files = sorted(
+        [f for f in img_path_dir.iterdir() if f.is_file() and f.suffix.lower() in (".jpg", ".jpeg", ".png")]
+    )
+    if len(img_files) < 2:
+        return True, f"OK ({len(img_files)} image)"
+
+    def _classify_zone_signature(im: Image.Image) -> list[str]:
+        small = im.convert("RGB").resize((64, 64), Image.Resampling.BILINEAR)
+        px = small.load()
+        sig = []
+        # 8x8 zones, each zone is 8x8 pixels in the 64x64 thumbnail
+        for gy in range(8):
+            for gx in range(8):
+                r_sum = g_sum = b_sum = 0
+                bright_cnt = 0
+                for y in range(gy * 8, (gy + 1) * 8):
+                    for x in range(gx * 8, (gx + 1) * 8):
+                        r, g, b = px[x, y]
+                        r_sum += r
+                        g_sum += g
+                        b_sum += b
+                        if (r + g + b) > 380:
+                            bright_cnt += 1
+                r_avg, g_avg, b_avg = r_sum // 64, g_sum // 64, b_sum // 64
+                lum = (r_avg + g_avg + b_avg) // 3
+                if lum < 38:
+                    c_tag = "DARK"
+                elif g_avg > 170 and r_avg > 140 and b_avg < 90:
+                    c_tag = "LIME"
+                elif r_avg > 170 and b_avg > 70 and g_avg < 100:
+                    c_tag = "PINK"
+                elif b_avg > 160 and g_avg > 140 and r_avg < 90:
+                    c_tag = "CYAN"
+                elif r_avg > 180 and g_avg > 110 and b_avg < 70:
+                    c_tag = "AMBER"
+                elif g_avg > 150 and r_avg < 90 and b_avg < 120:
+                    c_tag = "EMERALD"
+                elif b_avg > 160 and r_avg > 110 and g_avg < 110:
+                    c_tag = "VIOLET"
+                elif lum > 175:
+                    c_tag = "WHITE"
+                else:
+                    c_tag = f"MID_{r_avg//64}_{g_avg//64}_{b_avg//64}"
+                b_bucket = "HI" if bright_cnt > 24 else ("MD" if bright_cnt > 6 else "LO")
+                sig.append(f"{c_tag}:{b_bucket}")
+        return sig
+
+    signatures: list[tuple[str, list[str]]] = []
+    for f in img_files:
+        with Image.open(f) as im:
+            signatures.append((f.name, _classify_zone_signature(im)))
+
+    for i in range(len(signatures)):
+        name_a, sig_a = signatures[i]
+        for j in range(i + 1, len(signatures)):
+            name_b, sig_b = signatures[j]
+            # Count matching non-DARK zones vs total active zones
+            active_zones = 0
+            matching_active = 0
+            for za, zb in zip(sig_a, sig_b):
+                if za == "DARK:LO" and zb == "DARK:LO":
+                    continue
+                active_zones += 1
+                if za == zb:
+                    matching_active += 1
+            sim = (matching_active / active_zones) if active_zones > 0 else 1.0
+            if sim > max_similarity:
+                return (
+                    False,
+                    f"CHẶN CỨNG [Zero-Clone Image Gate]: Ảnh `{name_a}` và `{name_b}` có bố cục không gian/màu sắc giống nhau tới {sim*100:.1f}% (vượt ngưỡng {max_similarity*100:.0f}%)! Cấm dùng chung khuôn thiết kế!",
+                )
+
+    return True, f"PASSED Zero-Clone Image Gate ({len(img_files)} ảnh độc bản 100%, không có 2 thiết kế nào giống nhau!)"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sync", action="store_true", help="Quét Graph API & kho cũ để khóa sổ Zero-Repost")
     parser.add_argument("--check-zero-clone", action="store_true", help="Kiểm tra cứng cấu trúc Zero-Clone của toàn bộ Reel Compositions")
+    parser.add_argument("--check-zero-clone-images", type=str, nargs="?", const="", help="Kiểm tra cứng Zero-Clone cho thư mục ảnh bài đăng")
     args = parser.parse_args()
 
     if args.check_zero_clone:
         ok, msg = verify_zero_clone_tsx()
+        print(("✅ " if ok else "❌ ") + msg)
+        sys.exit(0 if ok else 1)
+
+    if args.check_zero_clone_images is not None:
+        target_dir = args.check_zero_clone_images if args.check_zero_clone_images else None
+        ok, msg = verify_zero_clone_images(target_dir)
         print(("✅ " if ok else "❌ ") + msg)
         sys.exit(0 if ok else 1)
 
