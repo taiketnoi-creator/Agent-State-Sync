@@ -344,8 +344,9 @@ def get_ws_url() -> str:
         return ws
 
     try:
-        from start_bot_chrome import ensure_bot_chrome_online
-        ws = ensure_bot_chrome_online(timeout_sec=12.0)
+        from start_bot_chrome import ensure_bot_chrome_online, sync_bot_state_between_machines
+        sync_bot_state_between_machines(direction="pull")
+        ws = ensure_bot_chrome_online(timeout_sec=12.0, headless=True)
         if ws:
             return ws
     except Exception:
@@ -465,6 +466,13 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
     with sync_playwright() as p:
         browser = p.chromium.connect_over_cdp(ws_url, timeout=15000)
         ctx = browser.contexts[0]
+        try:
+            from start_bot_chrome import import_bot_session_vault
+            vault_cookies = import_bot_session_vault()
+            if vault_cookies:
+                ctx.add_cookies(vault_cookies)
+        except Exception:
+            pass
         fb_pages = [pg for pg in ctx.pages if "facebook.com" in pg.url]
         non_chrome = [pg for pg in ctx.pages if not pg.url.startswith("chrome://")]
         pg = fb_pages[-1] if fb_pages else (non_chrome[-1] if non_chrome else ctx.new_page())
@@ -480,6 +488,11 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                 pg.screenshot(path=str(alert_shot))
                 summary["status"] = "CHECKPOINT_APPROVAL_NEEDED" if is_checkpoint else "LOGIN_APPROVAL_NEEDED"
                 summary["alert_photo"] = str(alert_shot)
+                try:
+                    from start_bot_chrome import stop_bot_chrome
+                    summary["bot_chrome_auto_closed"] = stop_bot_chrome()
+                except Exception:
+                    pass
                 return summary
         except Exception:
             pass
@@ -666,6 +679,19 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                     "screenshots": niche_shots,
                 }
             )
+
+        try:
+            from start_bot_chrome import export_bot_session_vault
+            export_bot_session_vault(ctx.cookies("https://www.facebook.com"))
+        except Exception:
+            pass
+
+    try:
+        from start_bot_chrome import stop_bot_chrome, sync_bot_state_between_machines
+        summary["bot_chrome_auto_closed"] = stop_bot_chrome()
+        sync_bot_state_between_machines(direction="push")
+    except Exception:
+        pass
 
     shots = summary["screenshots"]
     if len(shots) >= 8:

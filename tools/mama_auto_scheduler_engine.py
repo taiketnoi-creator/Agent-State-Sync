@@ -379,11 +379,7 @@ def main():
     pages = load_vault()
 
     # 0B. Luôn tự động bật ngầm Chrome Bot độc lập tại cổng 9222 trước mọi ca
-    try:
-        from start_bot_chrome import ensure_bot_chrome_online
-        ensure_bot_chrome_online(timeout_sec=10.0)
-    except Exception:
-        pass
+    pass
 
     # 1. Quét xóa bài trùng lặp trên cả 4 Page + Kiểm tra lịch đăng ngày hôm nay (Zero-Repost Gate) + gắn Pinned Comment #1
     dup_actions = purge_duplicate_published_posts(pages)
@@ -393,9 +389,6 @@ def main():
     # 2. Thực thi tác vụ theo từng mốc giờ
     if args.mode in ("boot-or-9am", "eod-2130"):
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_9am_report.py"), "--quiet"])
-
-    if args.mode in ("midday-1145", "evening-2000"):
-        subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "fb_morning_2210_seeder.py")])
 
     if args.mode == "shift1-1200":
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "1", "--send-telegram"])
