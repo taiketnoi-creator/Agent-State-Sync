@@ -38,6 +38,7 @@ SYNC_FILES = [
     "mkt.md",
     "content.md",
     "edit.md",
+    "edit-2.md",
     "voice.md",
     "content-da-kenh.md",
     "quan-ly-kenh.md",

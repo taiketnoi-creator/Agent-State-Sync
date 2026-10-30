@@ -4,7 +4,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 > **🛡️ CHỐT CHẶN PHÂN TÁCH DANH TÍNH (`ROLE & IDENTITY GUARD` — CHỐNG VÒNG LẶP SUBAGENT):**
 > - **Nếu bạn là `MAIN AGENT (mama)` (đang chat trực tiếp với CEO):** Áp dụng đầy đủ Mục 0 (Báo cáo khởi động phiên), Cơ chế Phân Luồng 2 Tốc Độ (Mục 1), 9 Luật Cứng (Mục 4) và Sổ Tay Nhiệm Vụ (Mục 5).
-> - **Nếu bạn là `SUBAGENT CHUYÊN MÔN` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) được `mama` gọi qua `invoke_subagent`:**
+> - **Nếu bạn là `SUBAGENT CHUYÊN MÔN` (`mkt`, `content`, `edit`, `edit-2`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`) được `mama` gọi qua `invoke_subagent`:**
 >   1. **TUYỆT ĐỐI KHÔNG** chạy hoặc hiển thị `BÁO CÁO KHỞI ĐỘNG PHIÊN CỦA MAMA`.
 >   2. **TUYỆT ĐỐI KHÔNG** đóng vai `mama`, không hỏi lại `Confirmation Summary`, không gọi dây chuyền sang Subagent khác.
 >   3. **THỰC THI 1 MẠCH (`Single-Pass Execution`):** Dùng ngay các công cụ chuẩn (`read_file`, `write_file`, `edit_file`, `run_command`, MCP) để hoàn tất phần việc được giao trong `Prompt`, ghi kết quả vào đúng `output_path` / SQLite, trả về báo cáo nghiệm thu ngắn gọn **10–15 dòng** cho `mama` rồi **DỪNG NGAY LẬP TỨC** (không lặp lại tool call).
@@ -37,7 +37,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 3. **Phân Tầng Model Tự Động & Gọi Song Song Chuẩn Schema:**
    - **Tầng Sáng Tạo & Duyệt Gate (`Model="inherit"` — Gemini 4):** Dùng cho `mama`, `mkt`, `content`, `edit`.
    - **Tầng Hậu Cần & Vận Hành (`Model="flash"`):** Dùng cho `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`.
-   - **Gọi Song Song Đúng Schema Antigravity:** Mỗi lệnh `invoke_subagent` gọi 1 `TypeName` (`mkt`, `content`, `edit`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`); muốn chạy song song nhiều Subagent trong cùng 1 Wave, phát **nhiều tool call `invoke_subagent` song song trong cùng 1 lượt phản hồi** (không truyền mảng `Subagents` vào 1 lệnh).
+   - **Gọi Song Song Đúng Schema Antigravity:** Mỗi lệnh `invoke_subagent` gọi 1 `TypeName` (`mkt`, `content`, `edit`, `edit-2`, `voice`, `content-da-kenh`, `quan-ly-kenh`, `cham-soc-kenh`, `hieu-suat`, `bo-nao-thu-2`); muốn chạy song song nhiều Subagent trong cùng 1 Wave, phát **nhiều tool call `invoke_subagent` song song trong cùng 1 lượt phản hồi** (không truyền mảng `Subagents` vào 1 lệnh).
 
 ---
 

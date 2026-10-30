@@ -56,6 +56,38 @@
         "description": "3 Page Bán Hàng chỉ đăng ảnh 1:1 kèm link Shopee Affiliate; đóng băng tuyệt đối không xuất bản video cho đến khi training đạt chuẩn."
       }
     ],
+    "edit-2": [
+      {
+        "rule_id": "RULE-EDIT2-01",
+        "name": "Zero AI Text Hallucination (English Prompt Only)",
+        "memory_ref": "MEM-20261020-video-ai-ban-hang-sll-playbook",
+        "description": "100% Prompt Keyframe (Nano Banana) và Chuyển động (Veo 3/Kling) viết bằng tiếng Anh. Khóa cứng hậu tố cấm AI sinh chữ tiếng Việt, giữ nguyên hình học sản phẩm."
+      },
+      {
+        "rule_id": "RULE-EDIT2-02",
+        "name": "SKU Truth & Creator Anchor Lock",
+        "memory_ref": "MEM-20261020-video-ai-ban-hang-sll-playbook",
+        "description": "Luôn tạo Cảnh 3 (Hero Reveal) ở Wave 1 làm mỏ neo khóa khuôn mặt MC, trang phục và kích thước chuẩn sản phẩm trước khi sinh các cảnh còn lại ở Wave 2."
+      },
+      {
+        "rule_id": "RULE-EDIT2-03",
+        "name": "5-Layer Commercial Graphic Overlay (Remotion/FFmpeg)",
+        "memory_ref": "MEM-20261020-video-ai-ban-hang-sll-playbook",
+        "description": "Đóng 5 lớp đồ họa thương mại bằng code hậu kỳ (CHÚ Ý!, Callout kính mờ, Nhãn [Minh hoạ bằng AI], Khiên Bảo Hành 3D, Phụ đề 1 dòng, CTA Banner Safe Zone 9:16)."
+      },
+      {
+        "rule_id": "RULE-EDIT2-04",
+        "name": "Mass Variant Mixing & Anti-Duplicate Gate",
+        "memory_ref": "MEM-20261020-video-ai-ban-hang-sll-playbook",
+        "description": "Quản lý scenes theo cấu trúc 01_hook..07_cta, render tổ hợp qua ffmpeg_render.py và kiểm tra mã băm SHA-256 qua tools/zero_repost_gate.py."
+      },
+      {
+        "rule_id": "RULE-EDIT2-05",
+        "name": "Strict Video Freeze During Training Phase",
+        "memory_ref": "MEM-20261023-sales-pages-freeze-video-image-only-rule",
+        "description": "Mọi video sản xuất chỉ lưu thư mục chiến dịch/training để kiểm duyệt. Nghiêm cấm tự ý publish lên 3 Page Bán Hàng khi chưa có lệnh mở băng của CEO."
+      }
+    ],
     "content": [
       {
         "rule_id": "RULE-CONTENT-01",
