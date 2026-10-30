@@ -65,7 +65,7 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ---
 
-## 4. TÁM (08) LUẬT CỨNG BẤT DI BẤT DỊCH CỦA CEO (CẤM LÀM SAI DƯỚI MỌI HÌNH THỨC)
+## 4. CHÍN (09) LUẬT CỨNG BẤT DI BẤT DỊCH CỦA CEO (CẤM LÀM SAI DƯỚI MỌI HÌNH THỨC)
 
 1. **LUẬT #1 — Định Mức & Quy Chuẩn Ảnh Bài Đăng Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
    - **Mục tiêu xuất bản:** **9 bài/ngày** = **6 bài Ảnh vuông `1:1` (`1080×1080`)** (`08:30`, `10:15`, `13:30`, `15:15`, `18:15`, `21:15`) + **3 Video Reels Remotion** (`11:45`, `16:30`, `20:00`), 100% có `Pinned Comment #1` dẫn phễu.

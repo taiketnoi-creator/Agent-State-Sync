@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ai_photo_prompt50_261630",
+    "slot_vn": "2026-10-26 16:30",
+    "type": "photo",
+    "post_id": "122133373359248983",
+    "pinned_cmt": "🎁 TẶNG MIỄN PHÍ TRỌN BỘ 50 PROMPT THỰC CHIẾN 2026:\nBình luận \"PROMPT50\" bên dưới bài viết này, Mama sẽ gửi link tải trực tiếp trọn bộ tài liệu cho bạn ngay nhé! 👇"
+  },
+  {
+    "id": "ai_video_mcp_262000",
+    "slot_vn": "2026-10-26 20:00",
+    "type": "video",
+    "post_id": "122133373449248983",
+    "pinned_cmt": "📌 TRỌN BỘ HƯỚNG DẪN MCP TIẾNG VIỆT & TEMPLATE TỰ HÀNH:\nBình luận \"MCP\" bên dưới để nhận tài liệu giải phẫu MCP chi tiết kèm bộ khung cài đặt MCP Server cho máy tính nhé! 👇"
+  },
+  {
+    "id": "ai_photo_hethong_271145",
+    "slot_vn": "2026-10-27 11:45",
+    "type": "photo",
+    "post_id": "122133373569248983",
+    "pinned_cmt": "🎁 TẶNG SƠ ĐỒ KIẾN TRÚC SUBAGENT ĐÓNG HỘP 2026:\nBình luận \"HETHONG\" bên dưới, Mama sẽ gửi sơ đồ Mindmap chi tiết và hướng dẫn phân vai cho từng agent nhé! 👇"
+  },
+  {
+    "id": "ai_photo_browseruse_271630",
+    "slot_vn": "2026-10-27 16:30",
+    "type": "photo",
+    "post_id": "122133373641248983",
+    "pinned_cmt": "📌 LINK GITHUB REPO & BỘ CODE MẪU BROWSER-USE:\nBình luận \"REPO\" bên dưới để nhận link GitHub chính thức kèm file notebook chạy thử ngay trên máy nhé! 👇"
+  },
+  {
+    "id": "ai_video_hallucination_272000",
+    "slot_vn": "2026-10-27 20:00",
+    "type": "video",
+    "post_id": "122133373959248983",
+    "pinned_cmt": "📌 CẨM NANG TRIỆT TIÊU ẢO GIÁC AI & CODE MẪU VERIFICATION:\nBình luận \"BANDO\" bên dưới bài viết này để nhận cẩm nang kỹ thuật chi tiết nhé! 👇"
+  }
+]

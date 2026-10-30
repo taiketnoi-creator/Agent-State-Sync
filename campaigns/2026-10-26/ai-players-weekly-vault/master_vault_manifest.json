@@ -1,0 +1,844 @@
+{
+  "campaign_id": "CAMP-20261026-AI-PLAYERS-WEEKLY-VAULT",
+  "page_name": "AI Players - Người chơi hệ AI",
+  "page_id": "1022527194267367",
+  "total_days": 7,
+  "period": "2026-10-26 to 2026-11-01",
+  "kpi_target": "9 posts / day (3 Video Reels + 6 Square 1:1 Images)",
+  "total_reels": 21,
+  "total_images": 42,
+  "total_posts": 63,
+  "image_matrix": [
+    {
+      "day": 1,
+      "date": "2026-10-26",
+      "posts": [
+        {
+          "slot": "14:15",
+          "layout": 1,
+          "title": "Review GitHub Hot: Repo browser-use (55,000+ Stars)",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-02-github-browser-use.jpg",
+          "cta_kw": "REPO",
+          "status": "PUBLISHED_LIVE",
+          "post_id": "1022527194267367_122133384717248983",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img1_1415_repo.jpg",
+          "file_size_kb": 708.2,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img1_comment.txt"
+        },
+        {
+          "slot": "15:45",
+          "layout": 2,
+          "title": "So Sánh Thực Chiến: F5-TTS 0đ Local vs. Voice Tool $99/Tháng",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-03-github-f5-tts.jpg",
+          "cta_kw": "VOICE",
+          "status": "QUEUED",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img2_1545_voice.jpg",
+          "file_size_kb": 756.5,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img2_comment.txt"
+        },
+        {
+          "slot": "17:15",
+          "layout": 4,
+          "title": "Tặng Sổ Tay 50 Siêu Prompt Văn Phòng & Lập Trình Thực Chiến",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-01-lead-prompt50.jpg",
+          "cta_kw": "PROMPT50",
+          "status": "QUEUED",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img3_1715_prompt50.jpg",
+          "file_size_kb": 726.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img3_comment.txt"
+        },
+        {
+          "slot": "18:45",
+          "layout": 5,
+          "title": "Mở Rương Kho Báu: 30,000+ Stars Repo Awesome-LLM-Apps",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-04-github-awesome-llm.jpg",
+          "cta_kw": "KHOBAU",
+          "status": "QUEUED",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img4_1845_khobau.jpg",
+          "file_size_kb": 748.3,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img4_comment.txt"
+        },
+        {
+          "slot": "20:45",
+          "layout": 3,
+          "title": "Sơ Đồ Dây Chuyền Subagent 24/7 Tự Hành Thay Thế 1 Phòng Vận Hành",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-05-lead-hethong.jpg",
+          "cta_kw": "HETHONG",
+          "status": "QUEUED",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img5_2045_hethong.jpg",
+          "file_size_kb": 728.0,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img5_comment.txt"
+        },
+        {
+          "slot": "21:45",
+          "layout": 6,
+          "title": "Khảo Sát Tương Tác: 4 Việc Nên Giao Cho AI Tự Làm Ngay Hôm Nay",
+          "image_file": "campaigns/2026-10-20/today-launch/images/ai-square-06-4tasks-grid.jpg",
+          "cta_kw": "ABCD",
+          "status": "QUEUED",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day1_img6_2145_abcd.jpg",
+          "file_size_kb": 697.3,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_img6_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-10-27",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "Claude 3.5 Artifacts: Biến Ý Tưởng Thành App Chạy Được Trong 30 Giây",
+          "cta_kw": "ARTIFACTS",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img1_0830_artifacts.jpg",
+          "file_size_kb": 225.6,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img1_comment.txt",
+          "post_id": "122133386391248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "Local LLM vs Cloud API: Khi Nào Nên Chạy Ollama Trên Máy Riêng?",
+          "cta_kw": "OLLAMA",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img2_1015_ollama.jpg",
+          "file_size_kb": 221.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img2_comment.txt",
+          "post_id": "122133386439248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Bản Vẽ Quy Trình Đóng Gói Prompt Thành Subagent .MD Độc Lập",
+          "cta_kw": "SUBAGENT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img3_1330_subagent.jpg",
+          "file_size_kb": 221.2,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img3_comment.txt",
+          "post_id": "122133386493248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Bộ 20 Prompt Tối Ưu Hóa Truy Vấn SQL & Xử Lý Dữ Liệu Báo Cáo",
+          "cta_kw": "SQLAI",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img4_1515_sqlai.jpg",
+          "file_size_kb": 221.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img4_comment.txt",
+          "post_id": "122133386541248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Giải Phẫu Kiến Trúc DeepSeek-Coder: Đỉnh Cao Code Open-Source",
+          "cta_kw": "DEEPSEEK",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img5_1815_deepseek.jpg",
+          "file_size_kb": 221.6,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img5_comment.txt",
+          "post_id": "122133386589248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "Checklist 4 Bước Triển Khai n8n Webhook Không Cần Biết Viết Code",
+          "cta_kw": "N8NHUB",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day2_img6_2115_n8nhub.jpg",
+          "file_size_kb": 224.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_img6_comment.txt",
+          "post_id": "122133386637248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-10-28",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "Remotion 4.0: Biến Code React Thành Video Ngắn 9:16 Không Cần Mở Premiere",
+          "cta_kw": "REMOTION",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img1_0830_remotion.jpg",
+          "file_size_kb": 229.2,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img1_comment.txt",
+          "post_id": "122133387183248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "Giọng Đọc AI Miễn Phí (Edge-TTS) Đối Đầu Giọng Đọc Trả Phí Studio",
+          "cta_kw": "VOICETEST",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img2_1015_voicetest.jpg",
+          "file_size_kb": 224.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img2_comment.txt",
+          "post_id": "122133387237248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Kiến Trúc Phễu 3 Tầng: Bình Luận FB -> Auto-DM -> Nhóm Zalo Bảo Mật",
+          "cta_kw": "ZALOHUB",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img3_1330_zalohub.jpg",
+          "file_size_kb": 223.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img3_comment.txt",
+          "post_id": "122133387285248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Sổ Tay 30 Hook 3 Giây Đầu Giữ Chân Khán Giả Xem Video Ngắn Đạt 60%+",
+          "cta_kw": "HOOK3S",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img4_1515_hook3s.jpg",
+          "file_size_kb": 227.6,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img4_comment.txt",
+          "post_id": "122133387333248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Kho Vũ Khí MCP: Top 5 MCP Servers Không Thể Thiếu Cho Dân Tự Động Hóa",
+          "cta_kw": "MCPSERVER",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img5_1815_mcpserver.jpg",
+          "file_size_kb": 225.7,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img5_comment.txt",
+          "post_id": "122133387381248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "Bảng Chấm Điểm 10 Tiêu Chí Nghiệm Thu Kịch Bản Trước Khi Render",
+          "cta_kw": "RUBRIC10",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day3_img6_2115_rubric10.jpg",
+          "file_size_kb": 223.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_img6_comment.txt",
+          "post_id": "122133387429248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-10-29",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "Cursor & Windsurf: Kỷ Nguyên Lập Trình Với AI Agent Tự Sửa Đa File",
+          "cta_kw": "CURSOR",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img1_0830_cursor.jpg",
+          "file_size_kb": 223.3,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img1_comment.txt",
+          "post_id": "122133387669248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "Mô Hình AI Đắt Tiền vs Mô Hình Rẻ: Đoạn Nào Nên Dùng Gemini Flash?",
+          "cta_kw": "FLASHTEST",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img2_1015_flashtest.jpg",
+          "file_size_kb": 223.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img2_comment.txt",
+          "post_id": "122133387885248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Sơ Đồ Kết Nối SQLite Local Với AI Để Lưu Nhớ Bối Cảnh Vĩnh Viễn",
+          "cta_kw": "SQLITEAI",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img3_1330_sqliteai.jpg",
+          "file_size_kb": 222.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img3_comment.txt",
+          "post_id": "122133388017248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Tặng Bộ Template System Prompt Cho Trợ Lý Chief of Staff Điều Phối",
+          "cta_kw": "MAMAPROMPT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img4_1515_mamaprompt.jpg",
+          "file_size_kb": 224.9,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img4_comment.txt",
+          "post_id": "122133388077248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Giải Phẫu Cơ Chế Anti-Hallucination: 3 Lớp Khóa Chặt Dữ Liệu Bịa Đặt",
+          "cta_kw": "ANTIHALLU",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img5_1815_antihallu.jpg",
+          "file_size_kb": 222.3,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img5_comment.txt",
+          "post_id": "122133388203248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "Khảo Sát: Rào Cản Lớn Nhất Của Bạn Khi Tự Động Hóa Bằng AI Là Gì?",
+          "cta_kw": "RAOCAN",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day4_img6_2115_raocan.jpg",
+          "file_size_kb": 224.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_img6_comment.txt",
+          "post_id": "122133388401248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-10-30",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "Anthropic Computer Use: Khi AI Tự Di Chuột & Gõ Phím Thay Bạn",
+          "cta_kw": "COMPUSE",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img1_0830_compuse.jpg",
+          "file_size_kb": 219.9,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img1_comment.txt",
+          "post_id": "122133388599248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "Tự Động Hóa Bằng Code Thuần vs Dùng Nền Tảng No-Code: Chọn Đường Nào?",
+          "cta_kw": "CODEVSNO",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img2_1015_codevsno.jpg",
+          "file_size_kb": 230.2,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img2_comment.txt",
+          "post_id": "122133388743248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Bản Vẽ Hệ Thống Đồng Bộ Hai Chiều Giữa Máy Ở Nhà Và Máy Văn Phòng",
+          "cta_kw": "SYNCSYS",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img3_1330_syncsys.jpg",
+          "file_size_kb": 228.0,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img3_comment.txt",
+          "post_id": "122133388803248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Sổ Tay 15 Cấu Trúc JSON Schema Ép AI Xuất Đúng Định Dạng 100%",
+          "cta_kw": "JSONPROMPT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img4_1515_jsonprompt.jpg",
+          "file_size_kb": 221.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img4_comment.txt",
+          "post_id": "122133388863248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Kho Lưu Trữ Bài Học: Cách Xây Dựng Bộ Não Thứ 2 Cho Đội Ngũ AI",
+          "cta_kw": "BONAOTHU2",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img5_1815_bonaothu2.jpg",
+          "file_size_kb": 222.7,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img5_comment.txt",
+          "post_id": "122133389001248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "4 Chỉ Số Sống Còn Cần Đo Lường Khi Vận Hành Kênh Tự Động 2026",
+          "cta_kw": "4CHISO",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day5_img6_2115_4chiso.jpg",
+          "file_size_kb": 222.8,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_img6_comment.txt",
+          "post_id": "122133389217248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-10-31",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "FastHTML: Xây Giao Diện Web Đẹp Cho Ứng Dụng AI Bằng 100% Python",
+          "cta_kw": "FASTHTML",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img1_0830_fasthtml.jpg",
+          "file_size_kb": 226.4,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img1_comment.txt",
+          "post_id": "122133389283248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "Chi Phí Nhân Sự Truyền Thống vs Vận Hành Bằng Đội 10 Subagent",
+          "cta_kw": "ROIAI",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img2_1015_roiai.jpg",
+          "file_size_kb": 223.4,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img2_comment.txt",
+          "post_id": "122133389337248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Quy Trình Tự Động Dọn Dẹp Kho Dữ Liệu Rác Định Kỳ 7 Ngày 0-Token",
+          "cta_kw": "CLEANUP7D",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img3_1330_cleanup7d.jpg",
+          "file_size_kb": 224.4,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img3_comment.txt",
+          "post_id": "122133389385248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Tặng Bộ Prompt Săn Sản Phẩm & Phân Tích Đánh Giá Khách Hàng VoC",
+          "cta_kw": "PROMPTMKT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img4_1515_promptmkt.jpg",
+          "file_size_kb": 224.7,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img4_comment.txt",
+          "post_id": "122133389529248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Top 10 GitHub Trending Repos Về Multi-Agent Đáng Thử Nghiệm Nhất",
+          "cta_kw": "TOP10AGENTS",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img5_1815_top10agents.jpg",
+          "file_size_kb": 224.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img5_comment.txt",
+          "post_id": "122133389655248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "Khảo Sát: Cuối Tuần Bạn Dành Mấy Tiếng Để Tối Ưu Lại Quy Trình Làm Việc?",
+          "cta_kw": "CUOITUAN",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day6_img6_2115_cuoituan.jpg",
+          "file_size_kb": 228.4,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_img6_comment.txt",
+          "post_id": "122133389721248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "date": "2026-11-01",
+      "posts": [
+        {
+          "slot": "08:30",
+          "layout": 1,
+          "title": "Trạm Chỉ Huy Telegram Bot: Giao Việc & Nhận Báo Cáo Khi Đang Đi Cà Phê",
+          "cta_kw": "TELEBOT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img1_0830_telebot.jpg",
+          "file_size_kb": 225.6,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img1_comment.txt",
+          "post_id": "122133389853248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "10:15",
+          "layout": 2,
+          "title": "1 Trợ Lý Biết Tuốt (Generalist) vs 10 Chuyên Gia Tinh Gọn (Specialists)",
+          "cta_kw": "SPECIALIST",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img2_1015_specialist.jpg",
+          "file_size_kb": 223.2,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img2_comment.txt",
+          "post_id": "122133389991248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "13:30",
+          "layout": 3,
+          "title": "Sơ Đồ Phân Phối Đa Nền Tảng: Từ 1 Video Gốc Ra FB Reels, Shorts & Threads",
+          "cta_kw": "MULTICHAN",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img3_1330_multichan.jpg",
+          "file_size_kb": 228.1,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img3_comment.txt",
+          "post_id": "122133390273248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "15:15",
+          "layout": 4,
+          "title": "Trọn Bộ Hướng Dẫn Cài Đặt Môi Trường Windows Cho Đội Subagent Tự Hành",
+          "cta_kw": "CAIDATMAY",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img4_1515_caidatmay.jpg",
+          "file_size_kb": 229.3,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img4_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img4_comment.txt",
+          "post_id": "122133390327248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "18:15",
+          "layout": 5,
+          "title": "Tổng Kết Tuần: Bảng Đối Soát Số Liệu & Quyết Định Duy Trì Hay Tối Ưu",
+          "cta_kw": "EODREPORT",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img5_1815_eodreport.jpg",
+          "file_size_kb": 226.4,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img5_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img5_comment.txt",
+          "post_id": "122133390549248983",
+          "status": "SCHEDULED_ON_META"
+        },
+        {
+          "slot": "21:15",
+          "layout": 6,
+          "title": "Khảo Sát Mục Tiêu Tuần Tới: Bạn Sẽ Tự Động Hóa Khâu Nào Đầu Tiên?",
+          "cta_kw": "MUCTIEU",
+          "image_file_assembled": "campaigns/2026-10-26/ai-players-weekly-vault/images/day7_img6_2115_muctieu.jpg",
+          "file_size_kb": 224.6,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img6_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_img6_comment.txt",
+          "post_id": "122133390681248983",
+          "status": "SCHEDULED_ON_META"
+        }
+      ]
+    }
+  ],
+  "reels_matrix": [
+    {
+      "day": 1,
+      "date": "2026-10-26",
+      "reels": [
+        {
+          "slot": "15:00",
+          "id": "r01",
+          "title": "AI Agent Tự Hành Khác Gì Chatbot Thông Thường?",
+          "source": "templates/remotion-cuongit-template/src/AiHallucinationShort",
+          "file_ready": "campaigns/2026-10-20/ai-agent-vs-chatbot-45s/ai-agent-vs-chatbot-45s.mp4",
+          "cta_kw": "AGENT",
+          "video_vault_path": "templates/remotion-cuongit-template/src/templates/remotion-cuongit-template/src/AiHallucinationShort",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r02",
+          "title": "Bản Đồ 4 Trụ Cột AI Hiện Tại & Bước Ngoặt Robotics 2026",
+          "source": "templates/remotion-cuongit-template/src/AiHallucinationShort",
+          "file_ready": "campaigns/2026-10-20/ai-map-pillars-45s/ai-map-pillars-45s.mp4",
+          "cta_kw": "BANDO",
+          "video_vault_path": "templates/remotion-cuongit-template/src/templates/remotion-cuongit-template/src/AiHallucinationShort",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r03",
+          "title": "Model Context Protocol (MCP) Là Gì? Cổng USB-C Cho AI",
+          "source": "templates/remotion-cuongit-template/src/McpShort",
+          "file_ready": "campaigns/2026-10-20/mcp-ai-explainer-40s/mcp-ai-explainer-40s.mp4",
+          "cta_kw": "MCP",
+          "video_file_ready": "campaigns/2026-10-20/mcp-ai-explainer-40s/mcp-ai-explainer-40s.mp4",
+          "video_vault_path": "campaigns/2026-10-26/ai-players-weekly-vault/videos/day1_reel3_r03.mp4",
+          "file_size_mb": 8.23,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day1_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-10-27",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r04",
+          "title": "Tại Sao 1 Khung Chat AI Hay Loạn, Còn Đội 6 Subagent Chạy Mượt Gấp 10 Lần?",
+          "source": "tools/build_ai_players_4day_vault.py (v01)",
+          "cta_kw": "SUBAGENT",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v01)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r05",
+          "title": "Đừng Học Gõ Prompt Lẻ Tẻ Nữa! Hãy Đóng Gói Quy Trình Thành File .MD",
+          "source": "tools/build_ai_players_4day_vault.py (v02)",
+          "cta_kw": "PROMPTPACK",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v02)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r06",
+          "title": "Căn Bệnh Ảo Giác Của Trí Tuệ Nhân Tạo & Cách Khóa Chặt 3 Lớp",
+          "source": "templates/remotion-cuongit-template/src/AiHallucinationShort",
+          "file_ready": "campaigns/2026-10-20/ai-hallucination-45s/ai-hallucination-45s.mp4",
+          "cta_kw": "HALLUCINATION",
+          "video_file_ready": "campaigns/2026-10-20/ai-hallucination-45s/ai-hallucination-45s.mp4",
+          "video_vault_path": "campaigns/2026-10-26/ai-players-weekly-vault/videos/day2_reel3_r06.mp4",
+          "file_size_mb": 94.31,
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day2_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-10-28",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r07",
+          "title": "Kiến Trúc Zero-Token: Kết Hợp n8n Và SQLite Giảm 85% Chi Phí API",
+          "source": "tools/build_ai_players_4day_vault.py (v03)",
+          "cta_kw": "ZEROTOKEN",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v03)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r08",
+          "title": "Làm Sao Chặn Đứng Lỗi AI Bịa Số Liệu? Đặt Ngay Trạm Kiểm Duyệt 10 Tiêu Chí",
+          "source": "tools/build_ai_players_4day_vault.py (v04)",
+          "cta_kw": "KIEMDUYET",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v04)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r09",
+          "title": "Biến Telegram Thành Trạm Chỉ Huy AI Từ Xa: Đi Cà Phê Vẫn Điều Khiển Cả Hệ Thống",
+          "source": "tools/build_ai_players_4day_vault.py (v05)",
+          "cta_kw": "TELEGRAMAI",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v05)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day3_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-10-29",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r10",
+          "title": "Giải Phẫu Dây Chuyền Làm Video AI Tự Động Hoàn Tất Trong 5 Phút",
+          "source": "tools/build_ai_players_4day_vault.py (v06)",
+          "cta_kw": "AIVIDEO",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v06)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r11",
+          "title": "Tại Sao AI Cứ Quên Việc Hôm Qua? Cách Xây Bộ Não Thứ Hai Lưu Trữ Vĩnh Viễn",
+          "source": "tools/build_ai_players_4day_vault.py (v07)",
+          "cta_kw": "BONAOTHU2",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v07)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r12",
+          "title": "AI Tự Cầm Chuột Điều Khiển Trình Duyệt Chrome: Từ Hỏi Đáp Sang Thực Chiến",
+          "source": "tools/build_ai_players_4day_vault.py (v08)",
+          "cta_kw": "CHROMEAI",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v08)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day4_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-10-30",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r13",
+          "title": "Chiến Thuật Phân Tầng Model: Khi Nào Dùng Bản Pro, Khi Nào Dùng Bản Flash?",
+          "source": "tools/build_ai_players_4day_vault.py (v09)",
+          "cta_kw": "TIERING",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v09)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r14",
+          "title": "Tự Động Hóa Báo Cáo Mỗi Sáng: Để AI Tự Quét Số Liệu Và Đề Xuất Lúc 9 Giờ",
+          "source": "tools/build_ai_players_4day_vault.py (v10)",
+          "cta_kw": "AUTOREPORT",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v10)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r15",
+          "title": "Đòn Bẩy Nhân Sự Số 2026: Một Người Vận Hành Cả Phòng Marketing Bằng Subagent",
+          "source": "tools/build_ai_players_4day_vault.py (v11)",
+          "cta_kw": "DONBAYAI",
+          "video_vault_path": "templates/remotion-cuongit-template/src/tools/build_ai_players_4day_vault.py (v11)",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day5_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-10-31",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r16",
+          "title": "Bí Kíp Đóng Gói Prompt Thành Vũ Khí Thực Chiến Cho Freelancer & Creator",
+          "source": "curated_vault_r16",
+          "cta_kw": "PROMPTHUB",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r16",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r17",
+          "title": "Bảo Vệ Tài Khoản & Quota API: 3 Cách Cắt Giảm Chi Phí LLM Thông Minh",
+          "source": "curated_vault_r17",
+          "cta_kw": "CUTCOST",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r17",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r18",
+          "title": "Xây Dựng Phễu Thu Hút Khách Hàng Tự Động Từ Fanpage Vào Nhóm Zalo 0 Đồng",
+          "source": "curated_vault_r18",
+          "cta_kw": "PHEUZALO",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r18",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day6_reel3_comment.txt"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "date": "2026-11-01",
+      "reels": [
+        {
+          "slot": "11:45",
+          "id": "r19",
+          "title": "Quy Chuẩn Chống Trùng Lặp Nội Dung (Anti-Clone): Tạo Khác Biệt Khi Làm Video AI",
+          "source": "curated_vault_r19",
+          "cta_kw": "ANTICLONE",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r19",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel1_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel1_comment.txt"
+        },
+        {
+          "slot": "16:30",
+          "id": "r20",
+          "title": "Tại Sao Không Nên Làm Mọi Thứ Bằng Tay Khi AI Có Thể Làm Thay Bạn 80%?",
+          "source": "curated_vault_r20",
+          "cta_kw": "AUTOMATE",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r20",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel2_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel2_comment.txt"
+        },
+        {
+          "slot": "20:00",
+          "id": "r21",
+          "title": "Lộ Trình Nâng Cấp Kỹ Năng Kỹ Sư AI 4.0: Từ Người Hỏi Chatbot Đến Kiến Trúc Sư AI",
+          "source": "curated_vault_r21",
+          "cta_kw": "LORINHAI",
+          "video_vault_path": "templates/remotion-cuongit-template/src/curated_vault_r21",
+          "file_size_mb": "STANDBY_FOR_RENDER",
+          "caption_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel3_caption.txt",
+          "comment_file": "campaigns/2026-10-26/ai-players-weekly-vault/captions/day7_reel3_comment.txt"
+        }
+      ]
+    }
+  ],
+  "vault_assembled_at": "2026-10-26 14:25:00",
+  "total_images_ready": 42,
+  "total_reels_ready": 21
+}

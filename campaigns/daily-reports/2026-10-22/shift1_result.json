@@ -1,0 +1,41 @@
+{
+  "shift": 1,
+  "total_likes": 0,
+  "total_comments": 0,
+  "total_groups_joined": 0,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 0,
+      "comments": 0,
+      "groups_joined": 0,
+      "screenshots": []
+    },
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
+      "likes": 0,
+      "comments": 0,
+      "groups_joined": 0,
+      "screenshots": []
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
+      "likes": 0,
+      "comments": 0,
+      "groups_joined": 0,
+      "screenshots": []
+    },
+    {
+      "slug": "deadline",
+      "name": "Hội Deadline - Dân Văn Phòng & Desk Setup",
+      "likes": 0,
+      "comments": 0,
+      "groups_joined": 0,
+      "screenshots": []
+    }
+  ],
+  "screenshots": []
+}

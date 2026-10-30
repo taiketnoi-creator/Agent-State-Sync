@@ -1,0 +1,586 @@
+[
+  {
+    "id": "reel01",
+    "comp_id": "Reel01DeepResearch",
+    "schedule_vn": "2026-11-02 11:45",
+    "keyword": "DEEPRESEARCH",
+    "title": "Deep Research Agent: Cách AI Tự Đọc 200 Trang Web Và Viết Báo Cáo Chiến Lược Trong 3 Phút",
+    "visual_archetype": "Holographic Sonar & Concentric 360 Web Spider (Bố cục Đồng Tâm Tỏa Tròn + Lệch Trái)",
+    "caption": "Thay vì mở 50 tab trình duyệt đọc thủ công suốt cả buổi chiều, Deep Research Agent tự động tỏa đi quét 200 nguồn báo cáo quốc tế, đối chiếu số liệu chéo và xuất bản bản phân tích chiến lược chỉ trong 3 phút!\n\nBí quyết nằm ở cơ chế Lập Kế Hoạch Đa Bước (Iterative Query Planning) và Bộ Lọc Xác Thực Nguồn Tin.\n\nComment \"DEEPRESEARCH\" hoặc lấy mẫu thiết lập ở bình luận đầu tiên nhé!\n#AIPlayers #DeepResearch #TuDongHoa #NghienCuuThiTruong #AIAgent",
+    "scenes": [
+      {
+        "text": "Bạn từng mở năm mươi tab trình duyệt cùng lúc để tìm tài liệu nghiên cứu thị trường mà cuối cùng vẫn bỏ sót thông tin quan trọng? Đó là cách tìm kiếm thủ công đã lỗi thời.",
+        "phrases": [
+          "Bạn từng mở năm mươi tab trình duyệt",
+          "để tìm tài liệu nghiên cứu thị trường",
+          "mà cuối cùng vẫn bỏ sót",
+          "thông tin quan trọng?",
+          "Đó là cách tìm kiếm thủ công",
+          "đã lỗi thời."
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel01/scene1.mp3",
+        "durationSec": 7.381,
+        "durationInFrames": 238
+      },
+      {
+        "text": "Công nghệ tác nhân nghiên cứu chuyên sâu ra đời để giải quyết triệt để bài toán này. Thay vì chỉ trả lời dựa trên trí nhớ có sẵn, nó hoạt động như một nhà phân tích thực thụ.",
+        "phrases": [
+          "Công nghệ tác nhân nghiên cứu sâu",
+          "ra đời để giải quyết triệt để",
+          "bài toán này.",
+          "Thay vì chỉ trả lời theo trí nhớ,",
+          "nó hoạt động như một",
+          "nhà phân tích thực thụ."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel01/scene2.mp3",
+        "durationSec": 7.616,
+        "durationInFrames": 245
+      },
+      {
+        "text": "Bước một: Khi nhận một chủ đề khó, nó tự động chia nhỏ câu hỏi lớn thành mười nhánh tìm kiếm chuyên biệt và tỏa đi quét hàng trăm trang báo cáo uy tín cùng lúc.",
+        "phrases": [
+          "Bước một: Khi nhận chủ đề khó,",
+          "nó tự động chia nhỏ câu hỏi lớn",
+          "thành mười nhánh tìm kiếm chuyên biệt",
+          "và tỏa đi quét hàng trăm",
+          "trang báo cáo uy tín cùng lúc."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel01/scene3.mp3",
+        "durationSec": 7.119,
+        "durationInFrames": 230
+      },
+      {
+        "text": "Bước hai: Trong lúc đọc dữ liệu, nếu phát hiện một con số mâu thuẫn, nó tự biết mở thêm vòng truy vấn phụ để kiểm chứng chéo cho đến khi tìm ra nguồn gốc chính xác.",
+        "phrases": [
+          "Bước hai: Trong lúc đọc dữ liệu,",
+          "nếu phát hiện con số mâu thuẫn,",
+          "nó tự mở thêm vòng truy vấn phụ",
+          "để kiểm chứng chéo",
+          "cho đến khi tìm ra nguồn chính xác."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel01/scene4.mp3",
+        "durationSec": 7.616,
+        "durationInFrames": 245
+      },
+      {
+        "text": "Kết quả là chỉ sau ba phút, bạn nhận về một bản báo cáo dài mười trang có đầy đủ biểu đồ so sánh và đường dẫn trích dẫn rõ ràng tới từng bài viết gốc.",
+        "phrases": [
+          "Kết quả là chỉ sau ba phút,",
+          "bạn nhận về bản báo cáo mười trang",
+          "có đầy đủ biểu đồ so sánh",
+          "và đường dẫn trích dẫn rõ ràng",
+          "tới từng bài viết gốc."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel01/scene5.mp3",
+        "durationSec": 6.78,
+        "durationInFrames": 220
+      },
+      {
+        "text": "Bình luận ngay từ khóa bên dưới hoặc bấm vào đường dẫn ở bình luận đầu tiên để nhận trọn bộ câu lệnh kích hoạt trợ lý nghiên cứu chuyên sâu hoàn toàn miễn phí.",
+        "phrases": [
+          "Bình luận ngay từ khóa bên dưới",
+          "hoặc bấm vào đường dẫn",
+          "ở bình luận đầu tiên",
+          "để nhận bộ câu lệnh kích hoạt",
+          "trợ lý nghiên cứu sâu miễn phí!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel01/scene6.mp3",
+        "durationSec": 6.257,
+        "durationInFrames": 230
+      }
+    ],
+    "totalFrames": 1408,
+    "totalSeconds": 46.93
+  },
+  {
+    "id": "reel02",
+    "comp_id": "Reel02ZeroShotVoice",
+    "schedule_vn": "2026-11-02 16:30",
+    "keyword": "VOICECLONE",
+    "title": "Công Nghệ Zero-Shot Voice Cloning: Tại Sao Chỉ Cần 5 Giây Mẫu Là AI Tái Tạo Được Giọng Phòng Thu?",
+    "visual_archetype": "Acoustic Oscilloscope & Dual-Wave Spectrum (Bố cục Sóng Âm Tần 24 Cột EQ + Tiêu Đề Đáy)",
+    "caption": "Trước đây muốn nhân bản giọng đọc AI cần thu âm hàng chục giờ trong phòng cách âm. Nay với kiến trúc Zero-Shot Flow Matching, chỉ cần đúng 5 giây âm thanh mẫu là AI nắm bắt được toàn bộ âm sắc và nhịp lấy hơi!\n\nComment \"VOICECLONE\" hoặc xem hướng dẫn chi tiết tại bình luận đầu tiên nhé!\n#AIPlayers #VoiceAI #CongNgheAmThanh #LamVideoAI #SangTaoNoiDung",
+    "scenes": [
+      {
+        "text": "Tại sao trước đây muốn tạo một giọng đọc nhân tạo giống người thật phải thu âm ròng rã hàng chục tiếng đồng hồ, còn bây giờ chỉ cần đúng năm giây ghi âm mẫu là đủ?",
+        "phrases": [
+          "Tại sao trước đây muốn tạo",
+          "giọng đọc nhân tạo giống người thật",
+          "phải thu âm hàng chục tiếng đồng hồ,",
+          "còn bây giờ chỉ cần đúng năm giây",
+          "ghi âm mẫu là đủ?"
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel02/scene1.mp3",
+        "durationSec": 7.146,
+        "durationInFrames": 231
+      },
+      {
+        "text": "Đó là nhờ bước đột phá của thuật toán đối sánh dòng chảy âm thanh thế hệ mới. Nó không học thuộc lòng từng từ bạn nói, mà giải mã cấu trúc vật lý của dây thanh quản.",
+        "phrases": [
+          "Đó là nhờ bước đột phá",
+          "của thuật toán đối sánh dòng chảy âm thanh.",
+          "Nó không học thuộc lòng từng từ,",
+          "mà giải mã cấu trúc vật lý",
+          "của dây thanh quản."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel02/scene2.mp3",
+        "durationSec": 7.564,
+        "durationInFrames": 243
+      },
+      {
+        "text": "Trong năm giây ngắn ngủi đó, mô hình tách riêng ba lớp tín hiệu: Một là tần số trầm bổng đặc trưng; Hai là độ vang của khoang miệng; Và ba là thói quen ngắt nghỉ lấy hơi.",
+        "phrases": [
+          "Trong năm giây ngắn ngủi đó,",
+          "mô hình tách riêng ba lớp tín hiệu:",
+          "Một là tần số trầm bổng đặc trưng;",
+          "Hai là độ vang khoang miệng;",
+          "Và ba là nhịp ngắt nghỉ lấy hơi."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel02/scene3.mp3",
+        "durationSec": 8.034,
+        "durationInFrames": 258
+      },
+      {
+        "text": "Khi bạn đưa vào một văn bản mới hoàn toàn, trí tuệ nhân tạo sẽ tổng hợp sóng âm từ nhiễu trắng và uốn nắn từng âm tiết sao cho khớp tuyệt đối với vân giọng mẫu.",
+        "phrases": [
+          "Khi bạn đưa vào văn bản mới,",
+          "trí tuệ nhân tạo sẽ tổng hợp sóng âm",
+          "và uốn nắn từng âm tiết",
+          "sao cho khớp tuyệt đối",
+          "với vân giọng mẫu của bạn."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel02/scene4.mp3",
+        "durationSec": 7.093,
+        "durationInFrames": 229
+      },
+      {
+        "text": "Nhờ vậy, các nhà sáng tạo nội dung có thể sản xuất hàng chục video thuyết minh mỗi tuần với chất giọng truyền cảm, đồng nhất mà không sợ khàn tiếng hay tạp âm môi trường.",
+        "phrases": [
+          "Nhờ vậy, nhà sáng tạo nội dung",
+          "có thể sản xuất hàng chục video",
+          "với chất giọng truyền cảm, đồng nhất",
+          "mà không sợ khàn tiếng",
+          "hay tạp âm môi trường."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel02/scene5.mp3",
+        "durationSec": 7.407,
+        "durationInFrames": 239
+      },
+      {
+        "text": "Hãy để lại bình luận hoặc mở ngay bình luận ghim đầu tiên dưới video để nhận tài liệu thiết lập phòng thu giọng đọc nhân tạo chuẩn âm thanh truyền hình.",
+        "phrases": [
+          "Hãy để lại bình luận bên dưới",
+          "hoặc mở ngay bình luận ghim đầu tiên",
+          "để nhận tài liệu thiết lập",
+          "phòng thu giọng đọc nhân tạo",
+          "chuẩn âm thanh truyền hình!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel02/scene6.mp3",
+        "durationSec": 6.075,
+        "durationInFrames": 225
+      }
+    ],
+    "totalFrames": 1425,
+    "totalSeconds": 47.5
+  },
+  {
+    "id": "reel03",
+    "comp_id": "Reel03GraphRagMatrix",
+    "schedule_vn": "2026-11-02 20:00",
+    "keyword": "GRAPHRAG",
+    "title": "GraphRAG Là Gì? Bước Tiến Giúp AI Nối Hàng Nghìn Tài Liệu Rời Rạc Thành Bản Đồ Tri Thức",
+    "visual_archetype": "3D Constellation Knowledge Graph (Chòm Sao Tinh Thể Lục Giác & Xung Thần Kinh Chéo Góc)",
+    "caption": "Tìm kiếm Vector thông thường (Standard RAG) chỉ tìm được các đoạn văn rời rạc nên rất yếu khi phải trả lời câu hỏi tổng hợp toàn cục. GraphRAG khắc phục hoàn toàn điểm mù này bằng Bản Đồ Thực Thể & Mối Quan Hệ!\n\nComment \"GRAPHRAG\" hoặc lấy tài liệu kiến trúc tại bình luận đầu tiên nhé!\n#AIPlayers #GraphRAG #KnowledgeGraph #KienTrucAI #QuanTriTriThuc",
+    "scenes": [
+      {
+        "text": "Tại sao khi bạn nạp hàng trăm tài liệu nội bộ vào trí tuệ nhân tạo, nó trả lời câu hỏi chi tiết rất tốt nhưng lại bó tay trước những câu hỏi cần xâu chuỗi bức tranh tổng thể?",
+        "phrases": [
+          "Tại sao khi nạp hàng trăm tài liệu",
+          "vào trí tuệ nhân tạo,",
+          "nó trả lời câu hỏi lẻ rất tốt",
+          "nhưng lại bó tay khi cần xâu chuỗi",
+          "bức tranh tổng thể?"
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel03/scene1.mp3",
+        "durationSec": 7.433,
+        "durationInFrames": 239
+      },
+      {
+        "text": "Nguyên nhân là phương pháp tra cứu văn bản truyền thống chỉ cắt tài liệu thành từng mảnh nhỏ rời rạc như những mảnh ghép bị đổ tung trên bàn mà mất đi sợi dây liên kết.",
+        "phrases": [
+          "Nguyên nhân là cách tra cứu cũ",
+          "chỉ cắt tài liệu thành từng mảnh nhỏ",
+          "như những mảnh ghép đổ tung trên bàn",
+          "mà đánh mất đi",
+          "sợi dây liên kết giữa chúng."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel03/scene2.mp3",
+        "durationSec": 6.675,
+        "durationInFrames": 217
+      },
+      {
+        "text": "Đó là lúc đồ thị tri thức phát huy sức mạnh. Thay vì chỉ lưu câu chữ, nó trích xuất từng nhân vật, dự án, con số rồi vẽ thành một mạng lưới quan hệ chặt chẽ.",
+        "phrases": [
+          "Đó là lúc đồ thị tri thức",
+          "phát huy sức mạnh vượt trội.",
+          "Thay vì chỉ lưu câu chữ,",
+          "nó trích xuất từng dự án, con số",
+          "rồi vẽ thành mạng lưới quan hệ."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel03/scene3.mp3",
+        "durationSec": 7.877,
+        "durationInFrames": 253
+      },
+      {
+        "text": "Mỗi khi bạn đặt câu hỏi chiến lược, hệ thống sẽ đi dọc theo các nhánh cầu nối trong đồ thị để gom đủ nguyên nhân, diễn biến và hệ quả từ hàng chục file khác nhau.",
+        "phrases": [
+          "Mỗi khi bạn đặt câu hỏi chiến lược,",
+          "hệ thống đi dọc theo các nhánh cầu nối",
+          "để gom đủ nguyên nhân và hệ quả",
+          "từ hàng chục file tài liệu",
+          "khác nhau cùng lúc."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel03/scene4.mp3",
+        "durationSec": 7.198,
+        "durationInFrames": 232
+      },
+      {
+        "text": "Nhờ kiến trúc này, doanh nghiệp có thể biến hàng ngàn biên bản họp và báo cáo cũ thành một cố vấn thông thái hiểu rõ mọi ngóc ngách vận hành của công ty.",
+        "phrases": [
+          "Nhờ kiến trúc đồ thị tri thức,",
+          "doanh nghiệp biến hàng ngàn báo cáo cũ",
+          "thành một cố vấn thông thái",
+          "hiểu rõ mọi ngóc ngách vận hành",
+          "của toàn công ty."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel03/scene5.mp3",
+        "durationSec": 6.414,
+        "durationInFrames": 209
+      },
+      {
+        "text": "Bình luận từ khóa ngay bên dưới hoặc nhấn vào đường dẫn ở bình luận đầu tiên để tải sơ đồ triển khai đồ thị tri thức cho dữ liệu doanh nghiệp của bạn.",
+        "phrases": [
+          "Bình luận từ khóa ngay bên dưới",
+          "hoặc nhấn vào đường dẫn",
+          "ở bình luận đầu tiên",
+          "để tải sơ đồ triển khai",
+          "đồ thị tri thức miễn phí!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel03/scene6.mp3",
+        "durationSec": 5.97,
+        "durationInFrames": 222
+      }
+    ],
+    "totalFrames": 1372,
+    "totalSeconds": 45.73
+  },
+  {
+    "id": "reel04",
+    "comp_id": "Reel04StructuredJson",
+    "schedule_vn": "2026-10-27 11:45",
+    "keyword": "JSONSCHEMA",
+    "title": "Structured Outputs & JSON Schema: Khóa Chặt Đầu Ra AI Không Bao Giờ Lệch Định Dạng",
+    "visual_archetype": "Industrial Blueprint & Dual Pipeline Gate (Bố cục Khuôn Đúc Cơ Khí + Cổng Lọc Cấu Trúc)",
+    "caption": "Làm sao để nối AI vào phần mềm kế toán, CRM hay bảng tính mà không bao giờ bị lỗi sập hệ thống do AI trả lời thừa chữ? Câu trả lời là ép khuôn bằng Structured Outputs (JSON Schema)!\n\nComment \"JSONSCHEMA\" hoặc lấy bộ mẫu Schema tại bình luận đầu tiên nhé!\n#AIPlayers #StructuredOutputs #JSONSchema #LapTrinhAI #TuDongHoa",
+    "scenes": [
+      {
+        "text": "Nỗi ám ảnh lớn nhất khi kết nối trí tuệ nhân tạo vào phần mềm tự động là gì? Là bạn cần một bảng dữ liệu chuẩn, nhưng nó lại trả về đoạn văn dài dòng làm sập cả quy trình.",
+        "phrases": [
+          "Nỗi ám ảnh lớn nhất khi kết nối",
+          "trí tuệ nhân tạo vào phần mềm là gì?",
+          "Là bạn cần bảng dữ liệu chuẩn,",
+          "nhưng nó lại trả về văn bản dài dòng",
+          "làm sập cả quy trình."
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel04/scene1.mp3",
+        "durationSec": 8.269,
+        "durationInFrames": 265
+      },
+      {
+        "text": "Nếu chỉ dặn bằng lời trong câu lệnh là hãy trả lời đúng định dạng, xác suất bị lệch cấu trúc vẫn lên tới mười lăm phần trăm khi gặp các văn bản đầu vào phức tạp.",
+        "phrases": [
+          "Nếu chỉ dặn bằng lời trong câu lệnh",
+          "là hãy trả lời đúng định dạng,",
+          "xác suất bị lệch cấu trúc",
+          "vẫn lên tới mười lăm phần trăm",
+          "khi gặp dữ liệu phức tạp."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel04/scene2.mp3",
+        "durationSec": 6.597,
+        "durationInFrames": 214
+      },
+      {
+        "text": "Giải pháp chuẩn công nghiệp là khóa cứng bằng lược đồ cấu trúc dữ liệu ngay ở tầng sinh từ. Bạn định nghĩa trước tên từng trường thông tin, kiểu số liệu và các giá trị cho phép.",
+        "phrases": [
+          "Giải pháp chuẩn công nghiệp",
+          "là khóa cứng bằng lược đồ cấu trúc",
+          "ngay ở tầng sinh từ.",
+          "Bạn định nghĩa trước tên từng trường,",
+          "kiểu số liệu và giá trị cho phép."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel04/scene3.mp3",
+        "durationSec": 7.564,
+        "durationInFrames": 243
+      },
+      {
+        "text": "Ở mỗi bước tạo chữ, bất kỳ ký tự nào vi phạm khuôn mẫu đã khóa sẽ bị chặn đứng ngay lập tức. Mô hình bắt buộc phải điền đúng từng ô dữ liệu như một biểu mẫu ngân hàng.",
+        "phrases": [
+          "Ở mỗi bước tạo chữ,",
+          "ký tự nào vi phạm khuôn mẫu đã khóa",
+          "sẽ bị chặn đứng ngay lập tức.",
+          "Mô hình bắt buộc điền đúng từng ô",
+          "như biểu mẫu ngân hàng."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel04/scene4.mp3",
+        "durationSec": 7.746,
+        "durationInFrames": 249
+      },
+      {
+        "text": "Từ hóa đơn chụp bằng điện thoại, hợp đồng dài hay tin nhắn khách hàng, mọi thứ đều được bóc tách sạch sẽ thành dữ liệu chuẩn một trăm phần trăm để nạp thẳng vào hệ thống.",
+        "phrases": [
+          "Từ hóa đơn chụp bằng điện thoại",
+          "đến tin nhắn khách hàng bất kỳ,",
+          "mọi thứ đều được bóc tách sạch sẽ",
+          "thành dữ liệu chuẩn một trăm phần trăm",
+          "nạp thẳng vào hệ thống."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel04/scene5.mp3",
+        "durationSec": 7.146,
+        "durationInFrames": 231
+      },
+      {
+        "text": "Gõ ngay từ khóa xuống bình luận hoặc mở đường dẫn ở bình luận ghim đầu tiên để nhận mười mẫu lược đồ bóc tách dữ liệu thương mại điện tử dùng được ngay.",
+        "phrases": [
+          "Gõ ngay từ khóa xuống bình luận",
+          "hoặc mở bình luận ghim đầu tiên",
+          "để nhận mười mẫu lược đồ",
+          "bóc tách dữ liệu chuẩn xác",
+          "dùng được ngay hôm nay!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel04/scene6.mp3",
+        "durationSec": 6.179,
+        "durationInFrames": 228
+      }
+    ],
+    "totalFrames": 1430,
+    "totalSeconds": 47.67
+  },
+  {
+    "id": "reel05",
+    "comp_id": "Reel05VisionOcrParser",
+    "schedule_vn": "2026-10-27 16:30",
+    "keyword": "VISIONOCR",
+    "title": "Vision AI Thế Hệ Mới: Đọc Hiểu Bảng Biểu Phức Tập & Chữ Viết Tay Không Cần OCR Truyền Thống",
+    "visual_archetype": "Laser Grid Document Scanner & Bounding Box HUD (Khung Quét Tia Laser Dọc + Đa Ô Tọa Độ)",
+    "caption": "Công nghệ OCR truyền thống thường bị loạn thứ tự dòng khi gặp hóa đơn nhăn, bảng biểu gộp ô hoặc chữ viết tay. Vision Language Models (VLM) thế hệ mới nhìn hiểu bố cục trang giấy như mắt người!\n\nComment \"VISIONOCR\" hoặc lấy quy trình xử lý tài liệu tại bình luận đầu tiên nhé!\n#AIPlayers #VisionAI #XuLyTaiLieu #OCR #TuDongHoaVanPhong",
+    "scenes": [
+      {
+        "text": "Tại sao các phần mềm quét chữ truyền thống cứ gặp hóa đơn bị nhăn, bảng biểu gộp nhiều cột hoặc chữ viết tay nguệch ngoạc là đọc sai toàn bộ con số bên trong?",
+        "phrases": [
+          "Tại sao phần mềm quét chữ cũ",
+          "cứ gặp hóa đơn bị nhăn,",
+          "bảng biểu gộp nhiều cột",
+          "hoặc chữ viết tay nguệch ngoạc",
+          "là đọc sai toàn bộ con số?"
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel05/scene1.mp3",
+        "durationSec": 6.754,
+        "durationInFrames": 219
+      },
+      {
+        "text": "Bởi vì công nghệ cũ chỉ nhận diện từng chữ cái riêng lẻ từ trái sang phải mà không hề hiểu đường kẻ bảng hay mối liên hệ giữa tiêu đề cột và con số tổng cộng.",
+        "phrases": [
+          "Bởi vì công nghệ cũ",
+          "chỉ nhận diện từng chữ cái lẻ",
+          "mà không hiểu đường kẻ bảng",
+          "hay mối liên hệ giữa tiêu đề cột",
+          "và con số tổng cộng."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel05/scene2.mp3",
+        "durationSec": 6.545,
+        "durationInFrames": 213
+      },
+      {
+        "text": "Thế hệ mô hình thị giác ngôn ngữ mới đã thay đổi hoàn toàn cuộc chơi. Nó nhìn toàn bộ bức ảnh tài liệu dưới dạng không gian hai chiều giống hệt đôi mắt của một kế toán viên.",
+        "phrases": [
+          "Mô hình thị giác ngôn ngữ mới",
+          "đã thay đổi hoàn toàn cuộc chơi.",
+          "Nó nhìn bức ảnh tài liệu",
+          "dưới dạng không gian hai chiều",
+          "giống hệt mắt người kế toán."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel05/scene3.mp3",
+        "durationSec": 7.433,
+        "durationInFrames": 239
+      },
+      {
+        "text": "Dù tờ giấy bị chụp nghiêng, thiếu sáng hay có dấu mộc đỏ đè lên chữ, mô hình vẫn suy luận được ngữ cảnh để đối chiếu đơn giá nhân với số lượng xem có khớp thành tiền hay không.",
+        "phrases": [
+          "Dù tờ giấy bị chụp nghiêng",
+          "hay có dấu mộc đỏ đè lên chữ,",
+          "mô hình vẫn suy luận theo ngữ cảnh",
+          "để đối chiếu đơn giá nhân số lượng",
+          "xem có khớp thành tiền không."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel05/scene4.mp3",
+        "durationSec": 7.825,
+        "durationInFrames": 251
+      },
+      {
+        "text": "Nhờ đó, khâu nhập liệu chứng từ, phiếu xuất kho và biên nhận giao hàng vốn tốn hàng giờ gõ tay mỗi ngày nay được giải phóng hoàn toàn chỉ trong vài giây chụp ảnh.",
+        "phrases": [
+          "Nhờ đó, khâu nhập liệu chứng từ",
+          "và phiếu xuất kho hàng ngày",
+          "vốn tốn hàng giờ gõ tay",
+          "nay được giải phóng hoàn toàn",
+          "chỉ trong vài giây chụp ảnh."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel05/scene5.mp3",
+        "durationSec": 7.224,
+        "durationInFrames": 233
+      },
+      {
+        "text": "Bình luận từ khóa bên dưới hoặc bấm vào bình luận ghim đầu tiên để nhận bộ công cụ tự động đọc hóa đơn và xuất ra bảng tính hoàn toàn miễn phí.",
+        "phrases": [
+          "Bình luận từ khóa bên dưới",
+          "hoặc bấm vào bình luận đầu tiên",
+          "để nhận bộ công cụ tự động",
+          "đọc hóa đơn sang bảng tính",
+          "hoàn toàn miễn phí!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel05/scene6.mp3",
+        "durationSec": 6.048,
+        "durationInFrames": 224
+      }
+    ],
+    "totalFrames": 1379,
+    "totalSeconds": 45.97
+  },
+  {
+    "id": "reel06",
+    "comp_id": "Reel06PromptCaching",
+    "schedule_vn": "2026-10-27 20:00",
+    "keyword": "CACHE90",
+    "title": "Kỹ Thuật Context Caching: Giảm 90% Chi Phí & Tăng Gấp 4 Lần Tốc Độ Phản Hồi Khi Nạp Tài Liệu Dài",
+    "visual_archetype": "High-Speed Memory Vault & Thermal Speedometer (Đồng Hồ Gia Tốc Vòng Cung + Bộ Nhớ Đệm Băng Thông)",
+    "caption": "Mỗi lần hỏi đáp với bộ tài liệu quy chuẩn 100 trang, nếu gửi đi gửi lại toàn bộ văn bản từ đầu thì vừa tốn tiền vừa chậm! Kỹ thuật Context Caching giúp đóng băng phần gốc trong RAM tốc độ cao, giảm ngay 90% chi phí!\n\nComment \"CACHE90\" hoặc xem hướng dẫn cấu hình tại bình luận đầu tiên nhé!\n#AIPlayers #ContextCaching #ToiUuChiPhi #KienTrucAI #TangTocAI",
+    "scenes": [
+      {
+        "text": "Bạn có biết khi nạp một cuốn sổ tay quy trình dày một trăm trang vào trí tuệ nhân tạo, mỗi câu hỏi tiếp theo bạn đang phải trả tiền để máy đọc lại cuốn sách đó từ trang đầu tiên?",
+        "phrases": [
+          "Bạn có biết khi nạp sổ tay",
+          "dày một trăm trang vào AI,",
+          "mỗi câu hỏi tiếp theo",
+          "bạn đang phải trả tiền để máy",
+          "đọc lại từ trang đầu tiên?"
+        ],
+        "id": "scene1",
+        "audioFile": "audio/bespoke26/reel06/scene1.mp3",
+        "durationSec": 7.72,
+        "durationInFrames": 248
+      },
+      {
+        "text": "Cách gửi lặp đi lặp lại toàn bộ văn bản gốc ở từng lượt hội thoại không chỉ đốt sạch ngân sách rất nhanh mà còn khiến thời gian chờ câu trả lời kéo dài hàng chục giây.",
+        "phrases": [
+          "Cách gửi lặp lại văn bản gốc",
+          "ở từng lượt hội thoại",
+          "không chỉ đốt sạch ngân sách",
+          "mà còn khiến thời gian chờ đợi",
+          "kéo dài hàng chục giây."
+        ],
+        "id": "scene2",
+        "audioFile": "audio/bespoke26/reel06/scene2.mp3",
+        "durationSec": 7.067,
+        "durationInFrames": 229
+      },
+      {
+        "text": "Kỹ thuật bộ nhớ đệm ngữ cảnh giải quyết bài toán này cực kỳ thông minh. Ở lần gọi đầu tiên, toàn bộ cuốn tài liệu gốc được mã hóa thành ma trận toán học và ghim thẳng vào bộ nhớ tốc độ cao.",
+        "phrases": [
+          "Kỹ thuật bộ nhớ đệm ngữ cảnh",
+          "giải quyết bài toán này cực thông minh.",
+          "Toàn bộ cuốn tài liệu gốc",
+          "được mã hóa thành ma trận",
+          "và ghim vào bộ nhớ tốc độ cao."
+        ],
+        "id": "scene3",
+        "audioFile": "audio/bespoke26/reel06/scene3.mp3",
+        "durationSec": 8.582,
+        "durationInFrames": 274
+      },
+      {
+        "text": "Trong suốt các lượt hỏi đáp sau đó, hệ thống chỉ cần xử lý đúng câu hỏi mới của bạn dài vài chục chữ và nối trực tiếp vào khối tri thức đã được nạp sẵn.",
+        "phrases": [
+          "Trong các lượt hỏi đáp sau đó,",
+          "hệ thống chỉ xử lý câu hỏi mới",
+          "dài vài chục chữ của bạn",
+          "và nối trực tiếp vào khối tri thức",
+          "đã được nạp sẵn."
+        ],
+        "id": "scene4",
+        "audioFile": "audio/bespoke26/reel06/scene4.mp3",
+        "durationSec": 6.858,
+        "durationInFrames": 222
+      },
+      {
+        "text": "Hiệu quả mang lại thật sự ấn tượng: Thời gian phản hồi giảm từ mười hai giây xuống chỉ còn hai giây, đồng thời chi phí vận hành tiết kiệm tới chín mươi phần trăm.",
+        "phrases": [
+          "Hiệu quả mang lại thật ấn tượng:",
+          "Thời gian phản hồi giảm mạnh",
+          "từ mười hai giây xuống hai giây,",
+          "đồng thời chi phí vận hành",
+          "tiết kiệm tới chín mươi phần trăm."
+        ],
+        "id": "scene5",
+        "audioFile": "audio/bespoke26/reel06/scene5.mp3",
+        "durationSec": 7.944,
+        "durationInFrames": 255
+      },
+      {
+        "text": "Để lại bình luận bên dưới hoặc mở ngay bình luận ghim đầu tiên để lấy đoạn mã kích hoạt bộ nhớ đệm ngữ cảnh giúp hệ thống của bạn chạy nhanh gấp bốn lần.",
+        "phrases": [
+          "Để lại bình luận bên dưới",
+          "hoặc mở bình luận ghim đầu tiên",
+          "để lấy đoạn mã kích hoạt",
+          "bộ nhớ đệm ngữ cảnh",
+          "chạy nhanh gấp bốn lần!"
+        ],
+        "id": "scene6",
+        "audioFile": "audio/bespoke26/reel06/scene6.mp3",
+        "durationSec": 6.362,
+        "durationInFrames": 233
+      }
+    ],
+    "totalFrames": 1461,
+    "totalSeconds": 48.7
+  }
+]
