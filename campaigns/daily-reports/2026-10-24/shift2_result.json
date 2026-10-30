@@ -1,0 +1,14 @@
+{
+  "shift": 2,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS",
+  "total_likes": 0,
+  "total_comments": 0,
+  "total_shares": 0,
+  "total_groups_joined": 0,
+  "total_videos_interacted": 0,
+  "horizontal_videos_interacted": 0,
+  "vertical_videos_interacted": 0,
+  "details": [],
+  "screenshots": [],
+  "status": "SKIPPED_NO_ISOLATED_BOT_BROWSER_ON_9222"
+}

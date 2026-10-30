@@ -1,0 +1,67 @@
+{
+  "shift": 1,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS",
+  "total_likes": 7,
+  "total_comments": 4,
+  "total_shares": 3,
+  "total_groups_joined": 1,
+  "total_videos_interacted": 4,
+  "horizontal_videos_interacted": 2,
+  "vertical_videos_interacted": 2,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 7,
+      "comments": 4,
+      "shares": 3,
+      "groups_joined": 1,
+      "video_horizontal": 2,
+      "video_vertical": 2,
+      "videos_total": 4,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 18,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 227
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 2,
+          "comments": 1,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 209
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 1600,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 2850
+        }
+      ],
+      "screenshots": [
+        "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_horizontal_1.png",
+        "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_horizontal_2.png",
+        "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_vertical_1.png",
+        "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_vertical_2.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_horizontal_1.png",
+    "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_horizontal_2.png",
+    "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_vertical_1.png",
+    "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\highvol_ai_video_vertical_2.png"
+  ],
+  "status": "OK",
+  "grid_photo": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-10-27\\shift1_summary_grid.jpg"
+}

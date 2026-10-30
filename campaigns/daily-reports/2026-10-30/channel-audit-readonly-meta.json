@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-10-30T09:26:21.397683+07:00",
+  "request_method": "GET_ONLY",
+  "pages": [
+    {
+      "page_id": "1022527194267367",
+      "name": "AI Players - Người chơi hệ AI",
+      "edges": {
+        "scheduled_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        },
+        "published_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        }
+      }
+    },
+    {
+      "page_id": "1442323328956326",
+      "name": "Phòng Trọ Hết Cứu",
+      "edges": {
+        "scheduled_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        },
+        "published_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        }
+      }
+    },
+    {
+      "page_id": "1421270697727753",
+      "name": "Ký Túc Xá Có Biến",
+      "edges": {
+        "scheduled_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        },
+        "published_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        }
+      }
+    },
+    {
+      "page_id": "1407231352464711",
+      "name": "Hội Deadline",
+      "edges": {
+        "scheduled_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        },
+        "published_posts": {
+          "ok": false,
+          "error_type": "ConnectionError"
+        }
+      }
+    }
+  ]
+}
