@@ -315,6 +315,7 @@ def main():
     parser.add_argument("--visible", action="store_true", help="Mở cửa sổ hiển thị (chỉ dùng khi cần đăng nhập tay)")
     parser.add_argument("--stop", action="store_true", help="Tắt ngay Chrome Bot (.chrome-fb-bot) cổng 9222")
     parser.add_argument("--export-session", action="store_true", help="Trích xuất & mã hóa Cookie từ cổng 9222 vào Vault đồng bộ 2 máy")
+    parser.add_argument("--check-login", action="store_true", help="Kiểm tra trạng thái đăng nhập Facebook & 4 Fanpage rồi tự đóng")
     args = parser.parse_args()
 
     if args.stop:
@@ -333,17 +334,50 @@ def main():
     info = get_cdp_version_info(timeout=2.0)
     print(f"✅ KẾT NỐI THÀNH CÔNG! Browser: {info.get('Browser')} | WS: {ws_url}")
 
-    if args.export_session:
+    if args.export_session or args.check_login:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
             browser = p.chromium.connect_over_cdp(ws_url, timeout=8000)
             ctx = browser.contexts[0]
+            vc = import_bot_session_vault()
+            if vc:
+                ctx.add_cookies(vc)
+            pg = ctx.pages[0] if ctx.pages else ctx.new_page()
+            if args.check_login:
+                pg.goto("https://www.facebook.com/", timeout=22000)
+                time.sleep(3.0)
+                has_login = pg.locator('input[name="email"], input[name="pass"]').count() > 0
+                is_cp = "checkpoint" in pg.url.lower() or "two_step_verification" in pg.url.lower()
+                acct_btn = pg.locator('[aria-label="Tài khoản, trang cá nhân của bạn"], [aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"]').first
+                menu_lines = []
+                if acct_btn.count() > 0:
+                    acct_btn.click(timeout=3000)
+                    time.sleep(1.8)
+                    dialogs = pg.locator('div[role="dialog"]')
+                    for i in range(dialogs.count()):
+                        d = dialogs.nth(i)
+                        aria = d.get_attribute("aria-label") or ""
+                        if "thông báo" not in aria.lower():
+                            txt = d.inner_text(timeout=1500)
+                            if txt.strip():
+                                menu_lines = [ln.strip() for ln in txt.splitlines() if ln.strip()][:12]
+                                break
+                cookies = ctx.cookies("https://www.facebook.com")
+                cmap = {c["name"]: c["value"] for c in cookies if "facebook.com" in c.get("domain", "")}
+                print("🔎 KẾT QUẢ KIỂM TRA ĐĂNG NHẬP FACEBOOK:", json.dumps({
+                    "logged_in_ok": (not has_login and not is_cp and "c_user" in cmap),
+                    "has_login_form": has_login,
+                    "is_checkpoint": is_cp,
+                    "c_user": cmap.get("c_user", ""),
+                    "i_user_fanpage_profile": cmap.get("i_user", ""),
+                    "active_menu_lines": menu_lines,
+                }, ensure_ascii=False, indent=2))
             cookies = ctx.cookies("https://www.facebook.com")
             ok = export_bot_session_vault(cookies)
             print(f"🔐 Export Session Vault ({len(cookies)} cookies): {'THÀNH CÔNG' if ok else 'CHƯA ĐĂNG NHẬP'}")
         if headless_mode:
             stop_res = stop_bot_chrome()
-            print("🛑 Đã tự động đóng Chrome Bot sau khi export:", json.dumps(stop_res, ensure_ascii=False))
+            print("🛑 Đã tự động đóng Chrome Bot:", json.dumps(stop_res, ensure_ascii=False))
 
 
 if __name__ == "__main__":
