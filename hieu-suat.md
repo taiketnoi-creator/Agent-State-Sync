@@ -7,11 +7,6 @@ tools:
   - write_file
   - edit_file
   - run_command
-  - mcp:aff-n8n-sqlite:sqlite_query
-  - mcp:facebook-page:get_post_insights
-  - mcp:facebook-page:get_post_impressions
-  - mcp:facebook-page:get_post_clicks
-  - mcp:facebook-page:get_post_engaged_users
 model: flash
 ---
 

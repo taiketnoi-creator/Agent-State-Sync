@@ -7,12 +7,6 @@ tools:
   - write_file
   - edit_file
   - run_command
-  - mcp:facebook-page:get_post_comments
-  - mcp:facebook-page:reply_to_comment
-  - mcp:facebook-page:filter_negative_comments
-  - mcp:facebook-page:hide_comment
-  - mcp:facebook-page:bulk_hide_comments
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: flash
 ---
 

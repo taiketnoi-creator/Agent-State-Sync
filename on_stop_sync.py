@@ -290,6 +290,16 @@ def main():
     try:
         if is_fully_idle:
             update_recent_conversation(payload)
+            sb_gate = os.path.join(SUBAGENT_DIR, "tools", "second_brain_gatekeeper.py")
+            if os.path.exists(sb_gate):
+                subprocess.run(
+                    [sys.executable, sb_gate, "--watch-all-tabs"],
+                    cwd=SUBAGENT_DIR,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=5,
+                )
             trigger_background_git_sync()
     except Exception:
         pass

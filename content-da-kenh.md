@@ -8,8 +8,6 @@ tools:
   - edit_file
   - run_command
   - search_web
-  - mcp:aff-n8n-sqlite:n8n_trigger_webhook
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: flash
 ---
 

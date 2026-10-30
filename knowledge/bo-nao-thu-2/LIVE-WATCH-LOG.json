@@ -1,0 +1,25 @@
+{
+  "updated_at": "2026-10-30 22:30:46",
+  "last_machine": "Admin-PC",
+  "monitored_tabs_count": 3,
+  "captured_rule_directives": [
+    {
+      "id": "760f994ff932",
+      "machine": "Admin-PC",
+      "conversation_id": "98354522-4202-44ea-b91c-4429a942b641",
+      "timestamp": "2026-10-30 15:27:51",
+      "directive": "tôi sẽ cài đặt thêm cho bộ não thứ 2 nhiệm vụ, luôn theo dõi mọi tab công việc mọi cuộc trò chuyện đều dc bộ não thứ 2 theo dõi, điều gì nhắc nhở là bộ não thứ 2 cần nhỡ và nếu có thay đổi, chỉnh sửa hoặc thêm quy tắc gì trong quá trình vận hành thì bộ não thứ 2 sẽ cần ghi nhớ điều này, và mọi công việc sau này mama giao xuống đều phải trải qua bộ quy tắc mà bộ não thứ 2 đã ghi nhớ, bộ não thứ 2 giống như người kiểm duyệt cuối cùng xem các agent khác cần làm gì, được làm gì làm đã đúng chưa, vì các agent thường rất hay nhầm lẫn sử dụng nội dung bộ nhớ cũ để làm việc nên bộ não thứ 2 có nhiệm v",
+      "status": "LOCKED_IN_SECOND_BRAIN"
+    }
+  ],
+  "captured_reminders": [
+    {
+      "id": "7317195625b1",
+      "machine": "Admin-PC",
+      "conversation_id": "98354522-4202-44ea-b91c-4429a942b641",
+      "timestamp": "2026-10-30 15:01:05",
+      "reminder": "tôi có thông báo lịch nhắc nhở traning edit video bán hàng mà",
+      "status": "TRACKED_BY_SECOND_BRAIN"
+    }
+  ]
+}

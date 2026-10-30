@@ -8,8 +8,6 @@ tools:
   - edit_file
   - run_command
   - search_web
-  - mcp:aff-n8n-sqlite:aff_save_video_job
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: inherit
 ---
 

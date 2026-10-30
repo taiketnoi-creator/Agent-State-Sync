@@ -8,13 +8,6 @@ tools:
   - edit_file
   - run_command
   - search_web
-  - mcp:facebook-page:schedule_post
-  - mcp:facebook-page:post_to_facebook
-  - mcp:facebook-page:post_image_to_facebook
-  - mcp:facebook-page:get_scheduled_posts
-  - mcp:facebook-page:get_page_info
-  - mcp:aff-n8n-sqlite:n8n_trigger_webhook
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: flash
 ---
 

@@ -7,7 +7,6 @@ tools:
   - write_file
   - edit_file
   - run_command
-  - mcp:aff-n8n-sqlite:sqlite_query
 
 model: flash
 ---

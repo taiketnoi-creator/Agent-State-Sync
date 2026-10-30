@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Javis Active Rules & Stale Memories Manifest",
+  "description": "Bảng quy tắc sống và danh mục bộ nhớ cũ bị cấm tuyệt đối do Bộ não thứ 2 (bo-nao-thu-2) quản lý theo lệnh tối cao của CEO ngày 2026-10-30.",
+  "version": "1.0.0",
+  "updated_at": "2026-10-30T15:30:00Z",
+  "owner": "bo-nao-thu-2",
+  "gatekeeper_status": "ENFORCING",
+  "active_rules_by_agent": {
+    "all": [
+      {
+        "rule_id": "RULE-ALL-01",
+        "name": "Single-Pass & Autonomous Execution",
+        "description": "Thực thi trọn gói, độc lập theo đúng thẩm quyền, tự sửa lỗi, không hỏi những việc đã có dữ liệu hoặc đã được phân quyền."
+      },
+      {
+        "rule_id": "RULE-ALL-02",
+        "name": "Zero Leaks Security & Privacy",
+        "description": "Nghiêm cấm lưu trữ, in ra log hoặc phát tán API key, mật khẩu, access token, cookie hoặc dữ liệu định danh cá nhân (PII)."
+      },
+      {
+        "rule_id": "RULE-ALL-03",
+        "name": "Pre-Execution Gate & Final Compliance",
+        "description": "Mọi nhiệm vụ mama phân công đều phải đối chiếu bộ quy tắc của bo-nao-thu-2; kết quả chỉ được báo cáo lên CEO sau khi bo-nao-thu-2 kiểm duyệt."
+      }
+    ],
+    "edit": [
+      {
+        "rule_id": "RULE-EDIT-01",
+        "name": "Zero-Clone Bespoke Image Design (Page AI Players)",
+        "memory_ref": "MEM-20261020-ai-players-image-style-guide",
+        "description": "Khổ vuông 1:1 (1080x1080). Không thiết kế nào được giống thiết kế nào. Bắt buộc kiến trúc không gian độc bản, đổi theme màu chủ đạo, font offline local, qua cổng verify_zero_clone_images và QA Grid trước khi đăng."
+      },
+      {
+        "rule_id": "RULE-EDIT-02",
+        "name": "Minimal Pop-Bold Typography (3 Page Bán Hàng Affiliate)",
+        "memory_ref": "MEM-20261020-sales-pages-image-style-guide",
+        "description": "Khổ vuông 1:1 (1080x1080). Ít chữ tối đa, cấm nhồi nhét text rối mắt. Chỉ đúng 2 dòng tiêu đề chính cực dày ở góc trên trái (Dòng 1 Stroke Fill + Dòng 2 3D Pop-Color Pill Badge). 3 ô chi tiết đáy chỉ gắn 1 nhãn Pill 2-3 từ."
+      },
+      {
+        "rule_id": "RULE-EDIT-03",
+        "name": "Zero-Clone Bespoke Video Gate (Remotion)",
+        "memory_ref": "MEM-20261022-zero-clone-bespoke-video-rule",
+        "description": "Mỗi video là 1 Composition độc lập với cấu trúc JSX/SVG riêng. Cấm dùng DynamicShort chia dư idx % N. Bắt buộc kiểm tra qua verify_zero_clone_tsx và chụp remotion still QA Grid bằng mắt trước khi render MP4."
+      },
+      {
+        "rule_id": "RULE-EDIT-04",
+        "name": "Remotion Brand-Kit Golden Rules",
+        "memory_ref": "MEM-20261020-remotion-brandkit-golden-rules",
+        "description": "Màu chủ đạo #87ff00, kính trong suốt, motion liên tục, subtitle trượt 1 dòng không khung viền che màn hình."
+      },
+      {
+        "rule_id": "RULE-EDIT-05",
+        "name": "Sales Pages Video Freeze",
+        "memory_ref": "MEM-20261023-sales-pages-freeze-video-image-only-rule",
+        "description": "3 Page Bán Hàng chỉ đăng ảnh 1:1 kèm link Shopee Affiliate; đóng băng tuyệt đối không xuất bản video cho đến khi training đạt chuẩn."
+      }
+    ],
+    "content": [
+      {
+        "rule_id": "RULE-CONTENT-01",
+        "name": "Value-First Short Script Playbook",
+        "memory_ref": "MEM-20261012-short-video-script-playbook",
+        "description": "Hook trong 3 giây đầu, kịch bản giải quyết vấn đề thực tế, cấu trúc 3 act rõ ràng, câu thoại ngắn gọn chuẩn văn nói tự nhiên."
+      },
+      {
+        "rule_id": "RULE-CONTENT-02",
+        "name": "AI Players Comment Hook Playbook",
+        "memory_ref": "MEM-20261014-ai-page-comment-hook-playbook",
+        "description": "Lịch 2 bài/ngày, mở đầu bằng hook đánh trúng nỗi đau, điều hướng thảo luận và kêu gọi bình luận nhận quà/tài liệu giá trị cao."
+      },
+      {
+        "rule_id": "RULE-CONTENT-03",
+        "name": "Sales Pages Caption & Pinned Comment Strategy",
+        "memory_ref": "MEM-20261020-sales-pages-image-style-guide",
+        "description": "Cuối caption bắt buộc có 1 câu hỏi tương tác lựa chọn A/B ngắn gọn; hướng dẫn xem link Shopee chính hãng tại Pinned Comment #1."
+      }
+    ],
+    "mkt": [
+      {
+        "rule_id": "RULE-MKT-01",
+        "name": "Niche & SKU Research Methodology",
+        "memory_ref": "MEM-20261012-niche-product-research",
+        "description": "Nghiên cứu thị trường ngách có nhu cầu cao, chọn SKU có hoa hồng tốt, tỷ lệ chuyển đổi cao và nguồn hàng uy tín."
+      },
+      {
+        "rule_id": "RULE-MKT-02",
+        "name": "Audience Cluster Firewall (Zero Cross-Page Seeding)",
+        "memory_ref": "MEM-20261022-audience-cluster-firewall-ai-vs-sales-pages",
+        "description": "Chỉ seeding trong nhóm tệp khách hàng liên quan; cấm tuyệt đối tương tác chéo giữa Page AI Players và các Page Bán Hàng."
+      },
+      {
+        "rule_id": "RULE-MKT-03",
+        "name": "Subagent Course Funnel Strategy",
+        "memory_ref": "MEM-20261021-ai-players-subagent-course-funnel-strategy",
+        "description": "Vận hành phễu Hybrid 3 tầng, 30 lead magnets giá trị, phễu đào tạo thực chiến và gói VIP Coaching 10X."
+      }
+    ],
+    "voice": [
+      {
+        "rule_id": "RULE-VOICE-01",
+        "name": "Vbee Studio Mastering Standards",
+        "memory_ref": "MEM-20261020-video-ai-ban-hang-sll-playbook",
+        "description": "Voiceover chuẩn phòng thu, mastering mức -3dB, nhịp đọc liền mạch, tự động cắt khoảng lặng đầu/cuối clip, đồng bộ ngữ điệu Bắc/Nam theo tệp khán giả."
+      }
+    ],
+    "content-da-kenh": [
+      {
+        "rule_id": "RULE-DAKENH-01",
+        "name": "Multi-Channel AI Affiliate Matrix",
+        "memory_ref": "MEM-20261021-multi-channel-ai-affiliate-playbook",
+        "description": "Triển khai đa nền tảng FB Reels, YouTube Shorts, YouTube Shopping và Threads Self-Reply, gắn mã định danh Sub-ID theo dõi chuyển đổi."
+      },
+      {
+        "rule_id": "RULE-DAKENH-02",
+        "name": "Brand Pod Multi-Platform Scale",
+        "memory_ref": "MEM-20261022-brand-pod-100-channels-architecture",
+        "description": "Kiến trúc Brand Pod mở rộng mạng lưới kênh, thiết lập rào chắn nội dung bản quyền và Instagram Auto-DM."
+      }
+    ],
+    "quan-ly-kenh": [
+      {
+        "rule_id": "RULE-QLKENH-01",
+        "name": "Fixed Gold Posting Schedule",
+        "description": "Tuân thủ nghiêm ngặt khung giờ vàng đăng bài: Trưa 11h45, Tối 20h00 (hoặc 20h00-21h00 tùy kịch bản kênh)."
+      },
+      {
+        "rule_id": "RULE-QLKENH-02",
+        "name": "Page Network Pilot Phasing",
+        "memory_ref": "MEM-20261012-page-network-pilot",
+        "description": "Vận hành các Page theo đúng thứ tự ưu tiên và giai đoạn thử nghiệm đã được phê duyệt."
+      }
+    ],
+    "cham-soc-kenh": [
+      {
+        "rule_id": "RULE-CSKENH-01",
+        "name": "Organic Community Nurture",
+        "memory_ref": "MEM-20261013-facebook-page-community-nurture",
+        "description": "Chăm sóc tương tác tự nhiên, phản hồi bình luận nhanh chóng, ghim comment chứa link affiliate/lead magnet."
+      },
+      {
+        "rule_id": "RULE-CSKENH-02",
+        "name": "Strict Audience Firewall Enforcement",
+        "memory_ref": "MEM-20261022-audience-cluster-firewall-ai-vs-sales-pages",
+        "description": "Nghiêm cấm dùng tài khoản Page này đi comment dạo trên Page khác trong hệ thống để tránh xung đột thuật toán Facebook."
+      }
+    ],
+    "hieu-suat": [
+      {
+        "rule_id": "RULE-HIEUSUAT-01",
+        "name": "Automated Quality & Duplicate Guard",
+        "description": "Kiểm tra hash, AST, cấu trúc và thời lượng tệp trước khi đẩy lên nền tảng, đảm bảo không có nội dung trùng lặp hoặc vi phạm chính sách."
+      }
+    ]
+  },
+  "banned_stale_memories": [
+    {
+      "pattern_id": "BANNED-01",
+      "keyword": "5 Master Templates cũ trên Page AI Players",
+      "forbidden_elements": [
+        "Hero Showcase",
+        "4-Row Breakdown 01..04",
+        "2x2 Matrix + CORE",
+        "Offer Vault 100% Miễn Phí",
+        "Urgency Progress Bars",
+        "render_vid_style_card.py template looping"
+      ],
+      "reason": "CEO đã khóa cứng quy tắc Zero-Clone Bespoke Image Design ngày 2026-10-30: Không thiết kế nào được giống thiết kế nào.",
+      "replacement": "Tạo layout HTML/CSS độc bản per-post, bảng màu riêng, kiểm tra qua verify_zero_clone_images()."
+    },
+    {
+      "pattern_id": "BANNED-02",
+      "keyword": "Cobalt-Blue / Cyber Cobalt làm màu nền chung",
+      "forbidden_elements": [
+        "#0047AB",
+        "#0052CC",
+        "Đồng bộ nền xanh cobalt cho toàn bộ ảnh"
+      ],
+      "reason": "Gây đơn điệu, nhàm chán và lặp lại nhận diện hình ảnh giữa các bài đăng liên tiếp.",
+      "replacement": "Đa dạng hóa bảng màu khí quyển (Acid Lime, Electric Cyan, Neon Magenta, Solar Amber, Emerald Matrix, Crimson Laser)."
+    },
+    {
+      "pattern_id": "BANNED-03",
+      "keyword": "Ảnh mặt người thật / chân dung người thật trên Page AI Players",
+      "forbidden_elements": [
+        "Stock photo chân dung mặt người",
+        "Avatar nhân vật người thật cắt ghép lộ liễu"
+      ],
+      "reason": "Làm mất tính chất công nghệ tương lai, dễ dính bản quyền hình ảnh hoặc tạo cảm giác lừa dối.",
+      "replacement": "Sử dụng Cyber-Grid, Đồ họa vector SVG, Terminal IDE, Diagram, Mockup phần mềm hoặc nhân vật AI phong cách Tech/Cyberpunk trừu tượng."
+    },
+    {
+      "pattern_id": "BANNED-04",
+      "keyword": "Chữ dài rối mắt & Spec Pills trên 3 Page Bán Hàng Affiliate",
+      "forbidden_elements": [
+        "Spec pills dày đặc",
+        "Danh sách 01 - 02 - 03 dưới ảnh Macro",
+        "Nhãn #01/#02/#03",
+        "Mô tả 2 dòng dài dòng dưới 3 ô chi tiết đáy"
+      ],
+      "reason": "Vi phạm quy chuẩn Minimal Pop-Bold Typography đã khóa cứng ngày 2026-10-30: Rối mắt, che lấp sản phẩm.",
+      "replacement": "Chỉ 2 dòng tiêu đề chính cỡ đại góc trên trái (Be Vietnam Pro Black 900 + 3D Pop-Color Pill Badge), 3 ô chi tiết đáy chỉ gắn 1 pill 2-3 từ sát mép dưới."
+    },
+    {
+      "pattern_id": "BANNED-05",
+      "keyword": "Đăng video bán hàng lên 3 Page Bán Hàng khi đang đóng băng",
+      "forbidden_elements": [
+        "Render và publish video sản phẩm lên Phòng Trọ Hết Cứu",
+        "Publish video lên Ký Túc Xá Có Biến",
+        "Publish video lên Hội Deadline"
+      ],
+      "reason": "Lệnh cứng của CEO tại MEM-20261023: Đóng băng tuyệt đối không xuất bản video bán hàng cho đến khi hoàn thiện training.",
+      "replacement": "Chỉ đăng ảnh vuông 1:1 chuẩn Minimal Pop-Bold kèm link Shopee Affiliate."
+    },
+    {
+      "pattern_id": "BANNED-06",
+      "keyword": "Tự động mở Google Chrome hiển thị khi bật máy trạm",
+      "forbidden_elements": [
+        "Start-Process chrome.exe không có headless flag trong kịch bản tự động",
+        "Bật cửa sổ trình duyệt chiếm màn hình làm việc"
+      ],
+      "reason": "Gây cản trở thao tác của người dùng và tốn tài nguyên GPU/RAM trên máy trạm.",
+      "replacement": "Sử dụng chế độ Headless Chrome (--headless=new) cho mọi script render/crawling tự động."
+    },
+    {
+      "pattern_id": "BANNED-07",
+      "keyword": "Dùng trang cá nhân Thành Tài để seeding hoặc phát tán",
+      "forbidden_elements": [
+        "Tài khoản cá nhân Thành Tài tham gia bình luận dạo, spam link"
+      ],
+      "reason": "Vi phạm chính sách an toàn tài khoản và tách biệt thương hiệu.",
+      "replacement": "Sử dụng hệ thống tài khoản vệ tinh chuyên biệt hoặc kênh Page chính thức theo đúng phân quyền."
+    },
+    {
+      "pattern_id": "BANNED-08",
+      "keyword": "Bảng Markdown ngang trên tin nhắn Telegram",
+      "forbidden_elements": [
+        "Bảng bảng biểu Markdown nhiều cột rộng (| Col 1 | Col 2 | Col 3 | Col 4 |)"
+      ],
+      "reason": "Giao diện Telegram di động bị vỡ khung chữ, cuộn ngang khó đọc.",
+      "replacement": "Dùng định dạng danh sách gạch đầu dòng có icon hoặc cấu trúc dọc Card-style."
+    },
+    {
+      "pattern_id": "BANNED-09",
+      "keyword": "Chia dư vòng lặp idx % N trong dựng Video Remotion",
+      "forbidden_elements": [
+        "builders[idx % 3]",
+        "DynamicShort component dùng chung nhận mảng JSON",
+        "Dùng lại cùng 1 đường vẽ SVG/radar giữa các video"
+      ],
+      "reason": "Vi phạm MEM-20261022: Khiến các video bị na ná nhau, lặp lại bố cục.",
+      "replacement": "Mỗi video là 1 Composition độc lập với Layout và SVG độc bản 100%."
+    },
+    {
+      "pattern_id": "BANNED-10",
+      "keyword": "Tương tác chéo giữa Page AI Players và các Page Bán Hàng (Cross-Page Seeding)",
+      "forbidden_elements": [
+        "Dùng Page AI Players like/share/comment bài của Page Bán Hàng",
+        "Dùng Page Bán Hàng nhắc tên Page AI Players"
+      ],
+      "reason": "Vi phạm MEM-20261022: Làm nhiễu loạn tệp đối tượng khách hàng của thuật toán Meta Graph AI.",
+      "replacement": "Tuyệt đối cách ly tệp khách hàng theo mô hình Firewall."
+    },
+    {
+      "pattern_id": "BANNED-11",
+      "keyword": "Dùng AI vẽ chữ tiếng Việt trực tiếp lên sản phẩm hoặc End-Card",
+      "forbidden_elements": [
+        "Prompt AI sinh chữ tiếng Việt trên nút bấm hoặc màn hình cuối video"
+      ],
+      "reason": "Vi phạm MEM-20261020: AI vẽ chữ tiếng Việt thường bị sai chính tả, méo mó chữ gây mất uy tín.",
+      "replacement": "Toàn bộ chữ tiếng Việt, khiên bảo hành, CTA phải đóng dấu ở tầng hậu kỳ Remotion/FFmpeg."
+    }
+  ]
+}

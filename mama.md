@@ -10,8 +10,6 @@ tools:
   - edit_file
   - run_command
   - search_web
-  - mcp:aff-n8n-sqlite:system_dashboard_summary
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: inherit
 ---
 

@@ -9,8 +9,6 @@ tools:
   - run_command
   - search_web
   - read_url_content
-  - mcp:aff-n8n-sqlite:aff_upsert_product
-  - mcp:aff-n8n-sqlite:sqlite_query
 model: inherit
 ---
 
