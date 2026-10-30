@@ -9,7 +9,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 import { MAT, PALETTE, blobShadow, poolMaterial, rugMaterial } from './materials.js';
-import { floorTiles, skylinePanorama, floorLabel, pillLabel, ScreenBank } from './textures.js';
+import { floorTiles, skylinePanorama, floorLabel, pillLabel, agentOverheadTag, speechBubbleTag, ScreenBank } from './textures.js';
 import { rbox, mesh, rng, mergeStatic, disposeTree, roundedRectShape, markDynamic } from './util.js';
 import * as F from './furniture.js';
 import { Person } from './people.js';
@@ -209,7 +209,10 @@ export class Office3D {
       this.rebuild(departments, agents);
       this.layoutSig = sig;            // chỉ ghi nhận khi dựng thành công
     }
-    for (const a of agents) this.setStatus(a.id, a.status, true);
+    for (const a of agents) {
+      this.setStatus(a.id, a.status, true);
+      this.setAgentProgress(a.id, { pct: a.progressPct, activityText: a.activityText, queued: a.queued, status: a.status });
+    }
     this.refreshLights();
   }
 
@@ -304,7 +307,7 @@ export class Office3D {
         ws.screen.material = this.screens.material(style.screenTheme, agent ? agent.status : 'offline');
         if (agent) {
           const sx = x, sz = cz + row * 1.02;
-          this.addAgent(agent, { x: sx, y: 0.5, z: sz, facing: yaw, screen: ws.screen, theme: style.screenTheme, cluster, focus: new THREE.Vector3(x, 1.2, cz + row * 0.6) });
+          this.addAgent(agent, { x: sx, y: 0.5, z: sz, facing: yaw, screen: ws.screen, theme: style.screenTheme, cluster, deptColor: d.color, focus: new THREE.Vector3(x, 1.2, cz + row * 0.6) });
         }
       }
       // đồ trên vách giữa bàn
@@ -387,7 +390,7 @@ export class Office3D {
       const lap = F.laptop();
       this.addAgent(a, {
         x: s.x, y: s.seatH, z: s.z, facing: s.facing, screen: lap.screen, theme: style.screenTheme, cluster,
-        focus: new THREE.Vector3(s.x, 1.1, s.z), lapDevice: lap.group, variant: 'lounge', exit: s.exit,
+        focus: new THREE.Vector3(s.x, 1.1, s.z), lapDevice: lap.group, variant: 'lounge', exit: s.exit, deptColor: d.color,
       });
     });
     if (members.length === 0) { const lap = F.laptop(); lap.group.position.set(d.x - 0.2, 0.47, d.z + 0.2); lap.group.rotation.y = 0.4; lap.screen.material = this.screens.material(style.screenTheme, 'idle'); build.add(lap.group); }
@@ -619,13 +622,11 @@ export class Office3D {
   }
 
   // ---------------------------------------------------------------- nhân viên
-  addAgent(agent, { x, y, z, facing, screen, theme, cluster, focus, lapDevice, variant = 'desk', exit }) {
-    // ưu tiên nhân vật Mixamo có animation; không có thì dùng nhân vật dựng bằng code
+  addAgent(agent, { x, y, z, facing, screen, theme, cluster, focus, lapDevice, variant = 'desk', exit, deptColor = '#10b981' }) {
     const person = this.people.create(agent.id) ?? new Person(agent.id);
     person.variant = variant;
     person.place(x, y, z, facing);
     if (lapDevice && person instanceof Person) {
-      // laptop đặt trên đùi
       lapDevice.position.set(0, 0.1, -0.36);
       lapDevice.rotation.set(-0.1, 0, 0);
       person.root.add(lapDevice);
@@ -634,22 +635,45 @@ export class Office3D {
     this.dynamic.add(person.root);
     markDynamic(screen);
 
-    const ring = new THREE.Mesh(new THREE.RingGeometry(0.46, 0.53, 40).rotateX(-Math.PI / 2),
-      new THREE.MeshBasicMaterial({ color: '#ffd38a', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.46, 0.55, 40).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: '#ffd38a', transparent: true, opacity: 0.25, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
     ring.position.set(x, 0.03, z); ring.renderOrder = 4; ring.userData.noAO = true;
     this.dynamic.add(ring);
 
-    const { texture, aspect } = pillLabel(agent.name);
-    const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false }));
-    label.scale.set(0.34 * aspect, 0.34, 1); label.userData.aspect = aspect; label.userData.h = 0.34; label.position.set(x, 1.9 + y - 0.5, z); label.renderOrder = 10;
-    label.visible = false;
+    const tagData = agentOverheadTag(agent.name, {
+      status: agent.status ?? 'idle',
+      pct: agent.progressPct ?? 0,
+      activity: agent.activityText ?? 'Sẵn sàng',
+      queued: agent.queued ?? 0,
+      isSelected: agent.id === this.selectedId,
+      deptColor,
+    });
+    const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: tagData.texture, transparent: true, depthTest: false }));
+    label.scale.set(0.32 * tagData.aspect, 0.32, 1);
+    label.userData.aspect = tagData.aspect;
+    label.userData.h = 0.32;
+    label.position.set(x, 1.92 + y - 0.5, z);
+    label.renderOrder = 10;
+    label.visible = true; // Luôn hiển thị thẻ tên + trạng thái + % trên đầu
     this.dynamic.add(label);
+
+    // Bong bóng hội thoại khi trao đổi công việc
+    const bData = speechBubbleTag('Sẵn sàng', { accent: deptColor });
+    const bubble = new THREE.Sprite(new THREE.SpriteMaterial({ map: bData.texture, transparent: true, depthTest: false }));
+    bubble.scale.set(0.24 * bData.aspect, 0.24, 1);
+    bubble.userData.aspect = bData.aspect;
+    bubble.userData.h = 0.24;
+    bubble.position.set(x, 2.32 + y - 0.5, z);
+    bubble.renderOrder = 12;
+    bubble.visible = false;
+    this.dynamic.add(bubble);
+
     const al = pillLabel('!', { size: 56, color: '#1a1205', bg: '#ff9a4d', pad: 12 });
     const alert = new THREE.Sprite(new THREE.SpriteMaterial({ map: al.texture, transparent: true, depthTest: false }));
     alert.scale.set(0.34 * al.aspect, 0.34, 1); alert.userData.aspect = al.aspect; alert.userData.h = 0.34; alert.position.set(x, 2.3 + y - 0.5, z); alert.renderOrder = 11; alert.visible = false;
     this.dynamic.add(alert);
 
-    const hit = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.7, 1.3), new THREE.MeshBasicMaterial());
+    const hit = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.8, 1.35), new THREE.MeshBasicMaterial());
     hit.position.set(x, 0.85, z); hit.rotation.y = facing; hit.updateMatrixWorld(true);
     hit.userData.agentId = agent.id;
     this.hitboxes.push(hit);
@@ -657,16 +681,90 @@ export class Office3D {
     cluster.agents.push(agent.id);
     const home = { x, z, facing, seatH: y, variant, prop: null, exit: exit ?? behind(x, z, facing, 0.95) };
     this.agents.set(agent.id, {
-      id: agent.id, person, screen, theme, ring, label, alert, hit, cluster, focus, status: null, pos: new THREE.Vector3(x, 1.25, z),
-      home, where: 'home', spot: null, breakIn: null, stay: 0, firstBreak: true, observer: agent.provider === 'observer',
+      id: agent.id,
+      name: agent.name,
+      deptColor,
+      person,
+      screen,
+      theme,
+      ring,
+      label,
+      bubble,
+      bubbleTimer: 0,
+      alert,
+      hit,
+      cluster,
+      focus,
+      status: agent.status ?? 'idle',
+      progressPct: agent.progressPct ?? 0,
+      activityText: agent.activityText ?? 'Sẵn sàng',
+      queued: agent.queued ?? 0,
+      pos: new THREE.Vector3(x, 1.25, z),
+      home,
+      where: 'home',
+      spot: null,
+      breakIn: null,
+      stay: 0,
+      firstBreak: true,
+      observer: agent.provider === 'observer',
     });
   }
 
-  // ================================================================ giờ nghỉ: cà phê & chơi game
-  /** Gọi mỗi khung hình: ai rảnh đủ lâu thì đi nghỉ, có việc thì quay về bàn */
+  refreshAgentTag(v) {
+    if (!v) return;
+    const sig = ${v.status}||||;
+    if (v._tagSig === sig) return;
+    v._tagSig = sig;
+    const oldTex = v.label.material.map;
+    const tagData = agentOverheadTag(v.name, {
+      status: v.status,
+      pct: v.progressPct,
+      activity: v.activityText,
+      queued: v.queued,
+      isSelected: v.id === this.selectedId,
+      deptColor: v.deptColor,
+    });
+    v.label.material.map = tagData.texture;
+    v.label.material.needsUpdate = true;
+    v.label.userData.aspect = tagData.aspect;
+    v.label.userData.h = (v.status === 'working' || v.id === this.selectedId) ? 0.35 : 0.29;
+    oldTex?.dispose?.();
+  }
+
+  setAgentProgress(id, { pct, activityText, queued, status } = {}) {
+    const v = this.agents.get(id);
+    if (!v) return;
+    if (pct !== undefined) v.progressPct = pct;
+    if (activityText !== undefined) v.activityText = activityText;
+    if (queued !== undefined) v.queued = queued;
+    if (status !== undefined && status !== v.status) this.setStatus(id, status, true);
+    this.refreshAgentTag(v);
+  }
+
+  showBubble(id, text, accent = '#10b981', dur = 5.2) {
+    const v = this.agents.get(id);
+    if (!v || !v.bubble) return;
+    const oldTex = v.bubble.material.map;
+    const bData = speechBubbleTag(text, { accent });
+    v.bubble.material.map = bData.texture;
+    v.bubble.material.needsUpdate = true;
+    v.bubble.userData.aspect = bData.aspect;
+    v.bubble.visible = true;
+    v.bubbleTimer = dur;
+    oldTex?.dispose?.();
+  }
+
+  // ================================================================ giờ nghỉ & đi giao tiếp công việc
   updateLeisure(dt) {
-    if (!this.spots.length) return;
     const k = dt * this.leisureSpeed;
+    // Tự động kích hoạt trao đổi công việc định kỳ giữa Mama và các Subagent để văn phòng luôn sống động
+    this.collabCooldown = (this.collabCooldown ?? 6) - dt;
+    if (this.collabCooldown <= 0) {
+      this.collabCooldown = rand(9, 15);
+      this.triggerAmbientCollaboration();
+    }
+
+    if (!this.spots.length) return;
     for (const v of this.agents.values()) {
       const p = v.person;
       const free = v.status === 'idle';
@@ -681,11 +779,65 @@ export class Office3D {
           v.stay -= k;
           if (v.stay <= 0) Math.random() < 0.3 ? this.goLeisure(v) : this.goHome(v);
         }
+      } else if (v.where === 'talking') {
+        v.talkStay = (v.talkStay ?? 4) - dt;
+        if (v.talkStay <= 0 || v.status === 'working') {
+          v.person.talking = false;
+          const peer = v.talkPeer ? this.agents.get(v.talkPeer) : null;
+          if (peer) peer.person.talking = false;
+          v.talkPeer = null;
+          this.goHome(v, v.status === 'working');
+        }
       }
     }
   }
 
-  /** Chọn chỗ trống, ưu tiên bàn đang có người (cho vui) */
+  triggerAmbientCollaboration() {
+    const pairs = [
+      ['mama', 'mkt', '💬 Mama: Chốt 3 SKU Whitelist mới nhé!', '💬 MKT: Đã lọc xong ≥4.8 sao!'],
+      ['mama', 'edit', '💬 Mama: Kiểm tra lưới Zero-Clone Page AI', '💬 Edit: 24/24 ảnh độc bản 100%!'],
+      ['mama', 'edit-2', '💬 Mama: Chuẩn bị khung TVC 8 Nhịp Veo 3', '💬 Edit-2: Đã khóa Cảnh 3 Hero Reveal!'],
+      ['edit', 'bo-nao-thu-2', '💬 Edit: Nhờ Bộ Não #2 duyệt mẫu mới', '💬 Bộ Não #2: APPROVED Luật #10 ✓'],
+      ['mkt', 'content', '💬 MKT: Bàn giao insight KTX & Phòng Trọ', '💬 Content: Đang viết Hook 3s đầu!'],
+      ['content', 'voice', '💬 Content: Kịch bản 32s vừa khớp nhịp', '💬 Voice: Đang mastering Vbee -3dB!'],
+      ['quan-ly-kenh', 'cham-soc-kenh', '💬 QL Kênh: Lịch 11:45 & 20:00 đã lên', '💬 CS Kênh: Sẵn sàng Pinned Comment #1!'],
+      ['hieu-suat', 'mama', '💬 Hiệu Suất: Báo cáo Funnel 4 Fanpage', '💬 Mama: Giữ vững nhịp độ đăng bài!'],
+    ];
+    const [fromId, toId, msgA, msgB] = pairs[Math.floor(Math.random() * pairs.length)];
+    const a = this.agents.get(fromId), b = this.agents.get(toId);
+    if (!a || !b) return;
+    // Bắn tia truyền dữ liệu + cho nhân vật đi bộ sang trao đổi nếu đang ở bàn
+    this.courier(fromId, toId, msgA.replace(/^💬\s*/, ''), fromId === 'mama' ? 'delegate' : toId === 'bo-nao-thu-2' ? 'audit' : 'chat');
+    setTimeout(() => this.showBubble(toId, msgB, b.deptColor || '#06b6d4', 4.8), 1100);
+    if (a.where === 'home' && !a.person.trip && a.status === 'idle') {
+      this.walkToColleague(a, b, msgA, msgB);
+    }
+  }
+
+  walkToColleague(visitor, host, msgVisitor, msgHost) {
+    if (!visitor || !host || visitor.person.trip) return;
+    const targetExit = host.home.exit;
+    const path = this.nav?.findPath(visitor.home.exit.x, visitor.home.exit.z, targetExit.x, targetExit.z) ?? [visitor.home.exit, targetExit];
+    const faceHost = faceToward(targetExit.x, targetExit.z, host.home.x, host.home.z);
+    this.leaveSpot(visitor);
+    visitor.where = 'walking_collab';
+    visitor.person.travel({
+      path,
+      seat: { x: targetExit.x, z: targetExit.z, seatH: 0.68, facing: faceHost, variant: 'stand' },
+      run: false,
+      standAtEnd: true,
+      onArrive: () => {
+        visitor.where = 'talking';
+        visitor.talkStay = 4.6;
+        visitor.talkPeer = host.id;
+        visitor.person.talking = true;
+        host.person.talking = true;
+        if (msgVisitor) this.showBubble(visitor.id, msgVisitor, visitor.deptColor || '#10b981', 4.5);
+        if (msgHost) setTimeout(() => this.showBubble(host.id, msgHost, host.deptColor || '#38bdf8', 4.2), 900);
+      },
+    });
+  }
+
   pickSpot(v) {
     const free = this.spots.filter(s => !s.occupant);
     if (!free.length) return null;
@@ -698,7 +850,6 @@ export class Office3D {
     return free[free.length - 1];
   }
 
-  /** Điểm đứng hiện tại (cạnh ghế đang ngồi, hoặc ngay chỗ đang đi) */
   startPoint(v) {
     const p = v.person;
     if (p.trip) return { x: p.anchor.x, z: p.anchor.z };
@@ -719,7 +870,6 @@ export class Office3D {
     this.onLeisure?.();
   }
 
-  /** Đếm người đang nghỉ: { cafe, game } */
   leisureCounts() {
     const c = { cafe: 0, game: 0 };
     for (const v of this.agents.values()) if (v.where === 'leisure' && v.spot) c[v.spot.kind]++;
@@ -748,22 +898,23 @@ export class Office3D {
     const path = this.route(v, v.home);
     const dist = path.reduce((s, pt, i) => i ? s + Math.hypot(pt.x - path[i - 1].x, pt.z - path[i - 1].z) : 0, 0);
     this.leaveSpot(v);
+    v.person.talking = false;
     v.where = 'returning';
     v.person.travel({
-      path, seat: v.home, run: urgent && dist > 5,
+      path, seat: v.home, run: urgent && dist > 4,
       onArrive: () => { v.where = 'home'; v.breakIn = null; },
     });
   }
 
-  /** Nhãn, vòng trạng thái, vùng bấm đi theo người */
   syncAgent(v) {
     const p = v.person, a = p.anchor;
     if (v._ax === a.x && v._az === a.z && v._st === p.standing) return;
     v._ax = a.x; v._az = a.z; v._st = p.standing;
     const seatH = p.baseY ?? 0.5;
-    const ly = (1.4 + seatH) * (1 - p.standing) + 2.08 * p.standing;
+    const ly = (1.42 + seatH) * (1 - p.standing) + 2.12 * p.standing;
     v.label.position.set(a.x, ly, a.z);
-    v.alert.position.x = a.x; v.alert.position.z = a.z; v.alertY = ly + 0.4;
+    if (v.bubble) v.bubble.position.set(a.x, ly + 0.42, a.z);
+    v.alert.position.x = a.x; v.alert.position.z = a.z; v.alertY = ly + 0.42;
     v.ring.position.set(a.x, 0.03, a.z);
     v.hit.position.set(a.x, 0.85 + 0.1 * p.standing, a.z); v.hit.rotation.y = p.root.rotation.y; v.hit.updateMatrixWorld(true);
     v.focus.set(a.x, 1.15 + 0.2 * p.standing, a.z);
@@ -772,19 +923,35 @@ export class Office3D {
 
   setStatus(id, status, silent = false) {
     const v = this.agents.get(id);
-    if (!v || v.status === status) return;
+    if (!v) return;
+    const changed = v.status !== status;
     v.status = status;
     v.person.setStatus(status);
     v.screen.material = this.screens.material(v.theme, status);
-    v.ring.material.color.set(STATUS_RING[status] ?? '#c7d6ff');
+    v.ring.material.color.set(STATUS_RING[status] ?? v.deptColor ?? '#10b981');
     v.alert.visible = status === 'waiting';
+    if (status === 'working' && (!v.progressPct || v.progressPct < 10)) {
+      v.progressPct = 20;
+      if (!v.activityText || v.activityText === 'Sẵn sàng') v.activityText = '⚡ Đang thực thi...';
+    } else if (status === 'idle') {
+      v.progressPct = 0;
+      v.activityText = 'Sẵn sàng';
+    }
     this.updateLabel(v);
-    if (!silent) this.refreshLights();
+    if (changed && !silent) this.refreshLights();
   }
 
   updateLabel(v) {
-    v.label.visible = v.status !== 'idle' && v.status !== 'offline' || v.id === this.selectedId || v.id === this.hoveredId;
-    v.ring.userData.target = ['working', 'waiting', 'queued', 'error'].includes(v.status) ? 0.85 : v.id === this.selectedId ? 0.55 : v.id === this.hoveredId ? 0.35 : 0;
+    // Luôn hiển thị thẻ tên + trạng thái + % trên đầu mọi nhân vật 3D
+    v.label.visible = true;
+    this.refreshAgentTag(v);
+    v.ring.userData.target = ['working', 'waiting', 'queued', 'error'].includes(v.status)
+      ? 0.9
+      : v.id === this.selectedId
+        ? 0.75
+        : v.id === this.hoveredId
+          ? 0.5
+          : 0.22;
   }
 
   select(id) {
@@ -792,33 +959,72 @@ export class Office3D {
     for (const k of [prev, id]) { const v = this.agents.get(k); if (v) this.updateLabel(v); }
   }
 
-  /** Bật đèn cụm có người đang làm; gán đèn điểm thật cho cụm bận nhất */
   refreshLights() {
     const busyOf = (c) => c.agents.reduce((s, id) => { const st = this.agents.get(id)?.status; return s + (st === 'working' ? 2 : st === 'waiting' ? 1.5 : st === 'queued' ? 0.5 : 0); }, 0);
     for (const c of this.clusters) {
       if (c.amenity) { const n = c.occupants.size; c.busy = n * 0.6; c.targetLevel = n ? 0.9 : 0.4; continue; }
       c.busy = busyOf(c);
-      c.targetLevel = c.busy > 0 ? 1 : c.agents.length ? 0.32 : 0.18;
+      c.targetLevel = c.busy > 0 ? 1 : c.agents.length ? 0.38 : 0.18;
     }
     const ranked = [...this.clusters].sort((a, b) => b.busy - a.busy || b.agents.length - a.agents.length);
     this.pointLights.forEach((l, i) => {
       const c = ranked[i];
       if (!c) { l.userData.target = 0; return; }
       l.position.copy(c.center);
-      l.userData.target = c.busy > 0 ? 10 : 2.5;
+      l.userData.target = c.busy > 0 ? 10 : 3.2;
     });
   }
 
-  courier(fromId, toId) {
-    const a = this.agents.get(fromId)?.pos, b = this.agents.get(toId)?.pos;
+  /**
+   * Hiệu ứng Truyền Thông Tin 3D bắt mắt (Mama <-> Subagent <-> Bộ Não Thứ 2):
+   * - Đường cong ánh sáng năng lượng (Bezier Arc)
+   * - Chuỗi 3 hạt xung dữ liệu phát sáng bay dọc theo đường cong
+   * - Vòng sóng xung kích (Shockwave Ring) lan tỏa dưới chân bàn nhận lệnh
+   * - Bong bóng hội thoại hiển thị nội dung trao đổi
+   */
+  courier(fromId, toId, topic = '', kind = 'delegate') {
+    const va = this.agents.get(fromId), vb = this.agents.get(toId);
+    const a = va?.pos, b = vb?.pos;
     if (!a || !b) return;
-    const mid = a.clone().lerp(b, 0.5); mid.y += 2.5 + a.distanceTo(b) * 0.15;
+
+    const palette = {
+      delegate: { beam: '#10b981', orb: '#6ee7b7', ring: '#34d399' },
+      audit: { beam: '#06b6d4', orb: '#67e8f9', ring: '#22d3ee' },
+      report: { beam: '#f59e0b', orb: '#fde68a', ring: '#fbbf24' },
+      chat: { beam: '#8b5cf6', orb: '#c4b5fd', ring: '#a78bfa' },
+    }[kind] || { beam: '#10b981', orb: '#6ee7b7', ring: '#34d399' };
+
+    if (topic) {
+      this.showBubble(fromId, 📨 , palette.beam, 4.2);
+      setTimeout(() => this.showBubble(toId, ⚡ Đã nhận: , palette.ring, 4.2), 650);
+    }
+
+    const mid = a.clone().lerp(b, 0.5);
+    mid.y += 2.6 + a.distanceTo(b) * 0.16;
     const curve = new THREE.QuadraticBezierCurve3(a.clone(), mid, b.clone());
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 10), new THREE.MeshBasicMaterial({ color: '#ffe0a8', toneMapped: false }));
-    dot.material.color.multiplyScalar(3);
-    const trail = new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(48)), new THREE.LineBasicMaterial({ color: '#c9a25a', transparent: true, opacity: 0.5 }));
-    this.scene.add(dot, trail);
-    this.couriers.push({ curve, dot, trail, t: 0 });
+
+    const dots = [0, 1, 2].map(() => {
+      const m = new THREE.Mesh(
+        new THREE.SphereGeometry(0.12, 14, 12),
+        new THREE.MeshBasicMaterial({ color: palette.orb, toneMapped: false })
+      );
+      m.material.color.multiplyScalar(3.5);
+      this.scene.add(m);
+      return m;
+    });
+
+    const trail = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(curve.getPoints(56)),
+      new THREE.LineBasicMaterial({ color: palette.beam, transparent: true, opacity: 0.78 })
+    );
+    const wave = new THREE.Mesh(
+      new THREE.RingGeometry(0.35, 0.52, 40).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: palette.ring, transparent: true, opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false })
+    );
+    wave.position.set(b.x, 0.04, b.z);
+    wave.renderOrder = 6;
+    this.scene.add(trail, wave);
+    this.couriers.push({ curve, dots, trail, wave, t: 0 });
   }
 
   // ================================================================ camera
@@ -903,7 +1109,6 @@ export class Office3D {
     this.composer?.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    // màn hình dọc: lùi camera để thấy đủ chiều ngang văn phòng
     const scale = this.camera.aspect < 1.25 ? Math.min(2.1, 1.25 / this.camera.aspect) : 1;
     if (force || this.homeScale !== scale) {
       this.homeScale = scale;
@@ -918,7 +1123,6 @@ export class Office3D {
     this.step(Math.min(0.05, this.clock.getDelta()));
   }
 
-  /** Dừng vòng lặp & chạy n bước mô phỏng rồi render 1 lần (dùng cho kiểm thử / chụp ảnh) */
   debugRender(steps = 60, dt = 1 / 30) {
     this.paused = true;
     this.autoQuality = false;
@@ -934,20 +1138,22 @@ export class Office3D {
     for (const v of this.agents.values()) {
       v.person.update(t, dt);
       this.syncAgent(v);
-      const m = v.ring.material, tgt = v.ring.userData.target ?? 0;
+      if (v.bubbleTimer > 0) {
+        v.bubbleTimer -= dt;
+        if (v.bubbleTimer <= 0 && v.bubble) v.bubble.visible = false;
+      }
+      const m = v.ring.material, tgt = v.ring.userData.target ?? 0.22;
       m.opacity += (tgt - m.opacity) * Math.min(1, dt * 6);
       v.ring.visible = m.opacity > 0.01;
       if (v.ring.visible) { const s = 1 + (Math.sin(t * 3 + v.pos.x) + 1) * 0.07; v.ring.scale.set(s, 1, s); }
       if (v.alert.visible) v.alert.position.y = (v.alertY ?? v.person.baseY + 1.8) + Math.sin(t * 5) * 0.05;
-      // nhãn giữ kích thước dễ đọc: thu nhỏ khi camera lại gần
-      for (const sp of [v.label, v.alert]) {
-        if (!sp.visible) continue;
+      for (const sp of [v.label, v.bubble, v.alert]) {
+        if (!sp || !sp.visible) continue;
         const d = this.camera.position.distanceTo(sp.position);
-        const h = Math.min(sp.userData.h, Math.max(0.12, d * 0.018 * (sp.userData.h / 0.34)));
+        const h = Math.min(sp.userData.h, Math.max(0.14, d * 0.016 * (sp.userData.h / 0.32)));
         sp.scale.set(h * sp.userData.aspect, h, 1);
       }
     }
-    // đèn thả: sáng dần / dịu dần
     for (const c of this.clusters) {
       c.level = (c.level ?? 0) + ((c.targetLevel ?? 0.2) - (c.level ?? 0)) * Math.min(1, dt * 2.5);
       const L = c.level;
@@ -955,11 +1161,26 @@ export class Office3D {
       if (c.poolMat) c.poolMat.opacity = 0.05 + 0.3 * L;
     }
     for (const l of this.pointLights) l.intensity += (l.userData.target - l.intensity) * Math.min(1, dt * 2.5);
-    // hạt giao việc
+    // Tia truyền dữ liệu 3D đa hạt + vòng sóng xung kích
     for (let i = this.couriers.length - 1; i >= 0; i--) {
-      const c = this.couriers[i]; c.t += dt / 1.3;
-      if (c.t >= 1) { this.scene.remove(c.dot, c.trail); c.dot.geometry.dispose(); c.trail.geometry.dispose(); c.dot.material.dispose(); c.trail.material.dispose(); this.couriers.splice(i, 1); continue; }
-      c.dot.position.copy(c.curve.getPoint(c.t)); c.trail.material.opacity = 0.5 * (1 - c.t);
+      const c = this.couriers[i];
+      c.t += dt / 1.45;
+      if (c.t >= 1) {
+        c.dots.forEach(d => { this.scene.remove(d); d.geometry.dispose(); d.material.dispose(); });
+        this.scene.remove(c.trail, c.wave);
+        c.trail.geometry.dispose(); c.trail.material.dispose();
+        c.wave.geometry.dispose(); c.wave.material.dispose();
+        this.couriers.splice(i, 1);
+        continue;
+      }
+      c.dots.forEach((d, idx) => {
+        const ptT = Math.max(0, Math.min(1, c.t * 1.15 - idx * 0.12));
+        d.position.copy(c.curve.getPoint(ptT));
+      });
+      c.trail.material.opacity = 0.78 * (1 - Math.pow(c.t, 1.5));
+      const ws = 1 + c.t * 2.6;
+      c.wave.scale.set(ws, 1, ws);
+      c.wave.material.opacity = 0.9 * (1 - c.t);
     }
     if (this.camAnim) {
       const a = this.camAnim; a.t += dt / a.dur;

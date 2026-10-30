@@ -1,36 +1,94 @@
-﻿// Ứng dụng văn phòng ảo: dữ liệu, WebSocket, HUD, panel nhân viên, modal. Cảnh 3D nằm trong scene/office3d.js
+// Ứng dụng Văn phòng ảo 3D Agent-Javis:
+// - Đồng bộ trực tiếp Đa Cuộc Trò Chuyện chuẩn Antigravity IDE (Thinking, Tool Calls, Markdown)
+// - Bấm vào nhân vật 3D để giao việc trực tiếp + Hàng đợi tuần tự (Queue #1, #2, #3...)
+// - Hiệu ứng truyền thông tin 3D (Mama <-> Subagent <-> Bộ Não Thứ 2) + Nhân vật đi bộ trò chuyện
 import { Office3D, QUALITY } from './scene/office3d.js';
 
 const TOKEN = document.querySelector('meta[name="office-token"]').content;
 const PROVIDER_LABEL = {
-  'claude-code': 'Claude Code', 'codex': 'OpenAI Codex', 'anthropic-chat': 'Claude chat (API)',
-  'openai-chat': 'OpenAI chat (API)', 'observer': 'Quan sát phiên',
+  'claude-code': 'Claude Code',
+  'codex': 'Agent-Javis / Antigravity',
+  'anthropic-chat': 'Claude API',
+  'openai-chat': 'OpenAI API',
+  'observer': 'Quan sát phiên',
 };
-const STATUS_LABEL = { idle: 'Rảnh', queued: 'Chờ việc', working: 'Đang làm', waiting: 'Xin duyệt', error: 'Lỗi', offline: 'Offline' };
-const SHAPES = { zone: 'Khu cụm bàn', lounge: 'Lounge trung tâm', room: 'Phòng họp kính', cafe: 'Khu cà phê (giờ nghỉ)', game: 'Khu giải trí (giờ nghỉ)' };
-const AMENITY = new Set(['cafe', 'game']);   // khu nghỉ: không xếp nhân viên vào
-const THEMES = { docs: 'Văn bản', code: 'Code', design: 'Thiết kế', charts: 'Biểu đồ', media: 'Mạng xã hội', video: 'Dựng phim' };
+const STATUS_LABEL = {
+  idle: 'Rảnh • Sẵn sàng',
+  queued: 'Chờ việc trong hàng đợi',
+  working: 'Đang thực thi',
+  waiting: 'Xin duyệt quyền',
+  error: 'Lỗi',
+  offline: 'Offline',
+};
+const SHAPES = {
+  zone: 'Khu cụm bàn',
+  lounge: 'Lounge trung tâm',
+  room: 'Phòng họp kính',
+  cafe: 'Khu cà phê (giờ nghỉ)',
+  game: 'Khu giải trí (giờ nghỉ)',
+};
+const AMENITY = new Set(['cafe', 'game']);
+const THEMES = {
+  docs: 'Văn bản',
+  code: 'Code',
+  design: 'Thiết kế',
+  charts: 'Biểu đồ',
+  media: 'Mạng xã hội',
+  video: 'Dựng phim',
+};
 
-// ---------------- Tiện ích
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const hhmm = (ts) => new Date(ts).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-const ago = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'vừa xong' : m < 60 ? `${m} phút trước` : m < 1440 ? `${Math.round(m / 60)} giờ trước` : `${Math.round(m / 1440)} ngày trước`; };
-function toast(msg, ms = 3200) { const t = $('#toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(toast._t); toast._t = setTimeout(() => t.style.display = 'none', ms); }
+const hhmm = (ts) => {
+  const d = new Date(ts);
+  return isNaN(d.getTime()) ? '' : d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+};
+const ago = (ts) => {
+  const m = Math.round((Date.now() - ts) / 60000);
+  return m < 1 ? 'vừa xong' : m < 60 ? `${m} phút trước` : m < 1440 ? `${Math.round(m / 60)} giờ trước` : `${Math.round(m / 1440)} ngày trước`;
+};
+
+function toast(msg, ms = 3200) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.style.display = 'none', ms);
+}
+
 async function api(path, method = 'GET', body) {
-  const r = await fetch('/api' + path, { method, headers: { 'content-type': 'application/json', 'x-office-token': TOKEN }, body: body ? JSON.stringify(body) : undefined });
+  const r = await fetch('/api' + path, {
+    method,
+    headers: { 'content-type': 'application/json', 'x-office-token': TOKEN },
+    body: body ? JSON.stringify(body) : undefined,
+  });
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || r.statusText);
   return j;
 }
 
+/** Render Markdown nhẹ chuẩn Antigravity IDE */
+function renderMarkdown(md) {
+  if (!md) return '';
+  let s = esc(md);
+  s = s.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_m, _lang, code) => `<pre><code>${code.trim()}</code></pre>`);
+  s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  s = s.replace(/^####\s+(.+)$/gm, '<h4>$1</h4>');
+  s = s.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
+  s = s.replace(/^##\s+(.+)$/gm, '<h3>$1</h3>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  s = s.replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>');
+  s = s.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+  s = s.replace(/<\/ul>\s*<ul>/g, '');
+  s = s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+  return s;
+}
+
 // ---------------- Tệp đính kèm (dán ảnh, kéo thả, chọn tệp)
 const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + 'MB' : Math.max(1, Math.round(n / 1024)) + 'KB';
-const fileUrl = (a) => `/files/${a.id}/${encodeURIComponent(a.name)}?t=${encodeURIComponent(TOKEN)}`;
 const extOf = (n) => (String(n).split('.').pop() || '').slice(0, 4);
 const MAX_FILES = 10, MAX_SIZE = 25 * 1024 * 1024;
 
-/** Khay đính kèm gắn vào 1 ô nhập: dán / kéo thả / nút chọn tệp, tự tải lên ngay */
 function makeTray({ list: listEl, input, dropZone, fileInput, button }) {
   const items = [];
   const render = () => {
@@ -52,26 +110,31 @@ function makeTray({ list: listEl, input, dropZone, fileInput, button }) {
       if (items.length >= MAX_FILES) { toast(`Tối đa ${MAX_FILES} tệp mỗi việc`); break; }
       if (f.size > MAX_SIZE) { toast(`${f.name} quá lớn (tối đa 25MB)`); continue; }
       let name = f.name || 'tep';
-      if (/^image\.(png|jpe?g|gif|webp)$/i.test(name) || !f.name) { // ảnh dán từ clipboard
+      if (/^image\.(png|jpe?g|gif|webp)$/i.test(name) || !f.name) {
         const d = new Date(); const p = (n) => String(n).padStart(2, '0');
         name = `anh-dan-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}.${(f.type.split('/')[1] || 'png').replace('jpeg', 'jpg')}`;
       }
       const it = { name, size: f.size, mime: f.type, status: 'uploading', preview: f.type.startsWith('image/') ? URL.createObjectURL(f) : null };
       items.push(it); render();
       try {
-        const r = await fetch('/api/uploads', { method: 'POST', body: f, headers: {
-          'x-office-token': TOKEN, 'content-type': 'application/octet-stream', 'x-filename': encodeURIComponent(name), 'x-mime': f.type || '' } });
+        const r = await fetch('/api/uploads', {
+          method: 'POST', body: f,
+          headers: { 'x-office-token': TOKEN, 'content-type': 'application/octet-stream', 'x-filename': encodeURIComponent(name), 'x-mime': f.type || '' },
+        });
         const j = await r.json().catch(() => ({}));
         if (!r.ok) throw new Error(j.error || r.statusText);
         it.id = j.id; it.status = 'ok';
-      } catch (err) { it.status = 'error'; toast(`Không tải lên được ${name}: ${err.message}`); }
+      } catch (err) {
+        it.status = 'error';
+        toast(`Không tải lên được ${name}: ${err.message}`);
+      }
       render();
     }
   }
   input.addEventListener('paste', e => {
     const files = [...(e.clipboardData?.files ?? [])];
     if (!files.length) return;
-    if (!e.clipboardData.getData('text/plain')) e.preventDefault(); // chỉ có ảnh → không dán chữ rác
+    if (!e.clipboardData.getData('text/plain')) e.preventDefault();
     add(files);
   });
   let depth = 0;
@@ -92,31 +155,34 @@ function makeTray({ list: listEl, input, dropZone, fileInput, button }) {
     clear: () => { items.forEach(it => it.preview && URL.revokeObjectURL(it.preview)); items.length = 0; render(); },
   };
 }
-const attHtml = (atts) => atts?.length ? `<div class="ev-atts">${atts.map(a => /^image\//.test(a.mime)
-  ? `<a class="img" href="${fileUrl(a)}" target="_blank" rel="noopener" title="${esc(a.name)}"><img src="${fileUrl(a)}" alt="${esc(a.name)}" loading="lazy" /></a>`
-  : `<a href="${fileUrl(a)}" title="Tải ${esc(a.name)}"><div class="ficon">${esc(extOf(a.name))}</div><span>${esc(a.name)}</span></a>`).join('')}</div>` : '';
 
-// ---------------- Trạng thái
-const state = { departments: [], agents: [], permissions: [], feed: [], providers: [], usageToday: null };
-const fmtTok = (n) => !n ? '0' : n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M' : n >= 1e3 ? (n / 1e3).toFixed(n >= 1e4 ? 0 : 1) + 'k' : String(Math.round(n));
-const fmtUsd = (v) => v >= 100 ? '$' + v.toFixed(0) : v >= 1 ? '$' + v.toFixed(2) : v > 0 ? '$' + v.toFixed(3) : '$0';
-const fmtVnd = (v, rate) => rate ? ' · ' + Math.round(v * rate).toLocaleString('vi-VN') + '₫' : '';
-const usageOf = (id) => state.usageToday?.agents.find(a => a.agentId === id);
-let selectedId = null;
+// ---------------- Trạng thái toàn cục
+const state = {
+  departments: [],
+  agents: [],
+  permissions: [],
+  feed: [],
+  providers: [],
+  conversations: [],
+  activeConvId: null,
+  activeConvDetail: null,
+};
+
+let selectedId = 'mama';
 const agentById = (id) => state.agents.find(a => a.id === id);
 const deptById = (id) => state.departments.find(d => d.id === id);
 
 // ---------------- Cảnh 3D
 const params = new URLSearchParams(location.search);
 const office = new Office3D($('#stage'), {
-  onPick: (id) => openPanel(id),
+  onPick: (id) => onPickAgent3D(id),
   onProgress: (msg) => { $('#loading-text').textContent = msg; },
 });
 if (params.get('q') && QUALITY[params.get('q')]) office.quality = params.get('q');
 if (params.get('auto') === '0') office.autoQuality = false;
-if (params.get('nghi') === 'nhanh') office.leisureSpeed = 10;   // thử nhanh cảnh đi nghỉ
+if (params.get('nghi') === 'nhanh') office.leisureSpeed = 10;
 office.onLeisure = () => renderHud();
-office.onQualityAuto = (q) => { renderQuality(); toast(`Máy hơi chậm — đã chuyển chất lượng hình sang "${QUALITY[q]}"`); };
+office.onQualityAuto = (q) => { renderQuality(); toast(`Đã tự động tối ưu chất lượng 3D sang "${QUALITY[q]}"`); };
 
 function renderQuality() { $('#btn-quality').textContent = `Chất lượng: ${QUALITY[office.quality]}`; }
 $('#btn-quality').onclick = () => {
@@ -127,62 +193,321 @@ $('#btn-quality').onclick = () => {
 };
 $('#btn-overview').onclick = () => office.overview();
 
-// ---------------- HUD & feed
+$('#btn-collab-wave').onclick = async () => {
+  try {
+    await api('/collab-wave', 'POST', { topic: 'Triển khai Chiến dịch 4 Page & Kiểm duyệt Luật #10' });
+    toast('⚡ Mama đang truyền lệnh xuống các Subagent & Bộ Não Thứ 2 trên sàn 3D!');
+  } catch (e) { toast(e.message); }
+};
+
+// ---------------- HUD & Feed
 function renderHud() {
   const working = state.agents.filter(a => a.status === 'working' || a.status === 'waiting');
   const lead = working.find(a => a.status === 'waiting') ?? working[0];
   if (lead) {
     const dept = deptById(lead.departmentId)?.name ?? '';
-    $('#hud-title').textContent = lead.status === 'waiting' ? `${lead.name} cần bạn duyệt` : `${dept}: đang làm`;
-    $('#hud-sub').textContent = lead.currentTask?.prompt?.slice(0, 110) || `${lead.name} · ${lead.role}`;
+    $('#hud-title').textContent = `${lead.name} (${lead.progressPct || 35}%)`;
+    $('#hud-sub').textContent = lead.activityText || lead.currentTask?.prompt?.slice(0, 100) || `${dept} · đang thực thi`;
   } else {
-    $('#hud-title').textContent = state.agents.length ? 'Văn phòng đang nghỉ' : 'Chưa có nhân viên';
-    $('#hud-sub').textContent = state.agents.length ? 'Giao brief để cả nhà bắt đầu làm việc. Đèn chỉ sáng ở bàn có việc thật.' : 'Bấm “+ Nhân viên” để tuyển người đầu tiên.';
+    $('#hud-title').textContent = `Đội 11 Agent-Javis Sẵn Sàng`;
+    $('#hud-sub').textContent = 'Bấm vào nhân vật 3D bất kỳ để giao việc trực tiếp hoặc mở 💬 Antigravity Chat.';
   }
   const q = state.agents.reduce((s, a) => s + (a.queued || 0), 0);
-  const t = state.usageToday?.total;
-  const spend = t && (t.input + t.output) > 0 ? ` · Hôm nay ${fmtTok(t.input + t.output + t.cacheRead + t.cacheWrite)} token${t.costUsd > 0 ? ' ~' + fmtUsd(t.costUsd) : ''}` : '';
   const lc = office.leisureCounts?.() ?? { cafe: 0, game: 0 };
-  const rest = [lc.cafe && `${lc.cafe} người uống cà phê`, lc.game && `${lc.game} người chơi game`].filter(Boolean).join(', ');
-  $('#hud-count').textContent = `${working.length} chuyên gia đang làm việc` + (q ? ` · ${q} việc đang chờ` : '') + ` · ${state.agents.length} nhân sự` + (rest ? ` · ${rest}` : '') + spend;
+  const rest = [lc.cafe && `${lc.cafe} uống cà phê`, lc.game && `${lc.game} giải trí`].filter(Boolean).join(', ');
+  $('#hud-count').textContent = `${working.length} đang làm việc` + (q ? ` · ${q} việc xếp hàng` : '') + ` · ${state.agents.length} nhân sự 3D` + (rest ? ` · ${rest}` : '') + ` · ${state.conversations.length} cuộc trò chuyện`;
 }
-/** Dòng sự kiện góc dưới: chỉ giữ tin trong 2 phút gần nhất cho đỡ che khu cà phê / giải trí */
+
 function renderFeed() {
-  const fresh = state.feed.filter(e => Date.now() - e.ts < 120000);
+  const fresh = state.feed.filter(e => Date.now() - e.ts < 180000);
   $('#feed').innerHTML = fresh.slice(-4).map(e => {
     const a = agentById(e.agentId);
     return `<div>${hhmm(e.ts)} · <b>${esc(a?.name ?? e.agentId)}</b>: ${esc(e.text.slice(0, 110))}</div>`;
   }).join('');
 }
-
 setInterval(renderFeed, 15000);
 
-// ---------------- Panel nhân viên
-async function openPanel(id) {
-  selectedId = id; $('#panel').classList.add('open'); document.body.classList.add('panel-open'); renderPanel(); office.select(id);
-  const evs = await api(`/agents/${id}/events?limit=200`).catch(() => []);
-  if (selectedId !== id) return;
-  $('#log').innerHTML = ''; evs.forEach(appendLog); $('#log').scrollTop = 1e9;
+// ============================================================================
+// QUẢN LÝ ĐA CUỘC TRÒ CHUYỆN CHUẨN ANTIGRAVITY IDE & HÀNG ĐỢI TUẦN TỰ
+// ============================================================================
+function renderConversationSidebar() {
+  const listEl = $('#conv-list');
+  if (!listEl) return;
+  if (!state.conversations.length) {
+    listEl.innerHTML = `<div class="muted" style="padding:12px;text-align:center">Chưa có cuộc trò chuyện nào.<br>Bấm <b>+ Mới</b> để bắt đầu.</div>`;
+  } else {
+    listEl.innerHTML = state.conversations.map(c => {
+      const isAct = c.id === state.activeConvId;
+      const dotCls = c.status === 'working' ? 'working' : c.status === 'queued' ? 'queued' : '';
+      const srcBadge = c.source === 'antigravity-ide' ? 'Antigravity IDE' : 'Office 3D';
+      const pctBadge = c.status === 'working' ? `${c.progressPct || 45}%` : `${c.stepCount || 0} bước`;
+      return `
+        <div class="conv-item ${isAct ? 'active' : ''}" data-cid="${esc(c.id)}">
+          <div class="c-top">
+            <span class="c-dot ${dotCls}"></span>
+            <span title="${esc(c.title)}">${esc(c.title)}</span>
+          </div>
+          <div class="c-sub" title="${esc(c.currentActivity)}">${esc(c.currentActivity || c.subtitle)}</div>
+          <div class="c-meta">
+            <span class="c-badge">${esc(srcBadge)} · ${esc(pctBadge)}</span>
+            <span>${ago(c.updatedAt)}</span>
+          </div>
+          <button class="c-del" type="button" data-del-cid="${esc(c.id)}" title="Xoá cuộc trò chuyện này">×</button>
+        </div>`;
+    }).join('');
+  }
+
+  // Render 11 nhân sự nhanh ở đáy Sidebar
+  const pillsEl = $('#agent-quick-pills');
+  if (pillsEl) {
+    pillsEl.innerHTML = state.agents.map(a => {
+      const short = a.name.replace(/\s*\(.*?\)\s*/g, '').trim();
+      const dotCls = a.status === 'working' ? 'working' : a.queued > 0 ? 'queued' : '';
+      const badge = a.status === 'working' ? ` ${a.progressPct || 35}%` : a.queued > 0 ? ` #${a.queued}` : '';
+      return `<div class="a-pill ${a.id === selectedId ? 'selected' : ''}" data-aid="${esc(a.id)}" title="${esc(a.name)} — ${esc(a.role)}">
+        <span class="dot ${dotCls}"></span><span>${esc(short)}${esc(badge)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Cập nhật dropdown chọn nhân vật 3D nhận việc
+  const selEl = $('#p-target-agent');
+  if (selEl) {
+    selEl.innerHTML = state.agents.map(a => {
+      const stText = a.status === 'working' ? ` [Đang làm ${a.progressPct || 35}% — sẽ xếp hàng đợi]` : a.queued > 0 ? ` [Đang chờ ${a.queued} việc]` : ' [Sẵn sàng]';
+      return `<option value="${esc(a.id)}" ${a.id === selectedId ? 'selected' : ''}>${esc(a.name)}${esc(stText)}</option>`;
+    }).join('');
+  }
 }
-function closePanel() { selectedId = null; $('#panel').classList.remove('open'); document.body.classList.remove('panel-open'); office.select(null); }
-function renderPanel() {
-  const a = agentById(selectedId); if (!a) return closePanel();
-  $('#p-name').textContent = a.name;
-  $('#p-role').textContent = `${a.role || '—'} · ${deptById(a.departmentId)?.name ?? ''}`;
-  const chips = [`<span class="chip status-${a.status}">${STATUS_LABEL[a.status] ?? a.status}</span>`, `<span class="chip">${PROVIDER_LABEL[a.provider]}</span>`];
-  if (a.model) chips.push(`<span class="chip">${esc(a.model)}</span>`);
-  if (a.permissionMode && !['anthropic-chat', 'openai-chat', 'observer'].includes(a.provider)) chips.push(`<span class="chip">quyền: ${a.permissionMode}</span>`);
-  if (a.sessionId) chips.push(`<span class="chip" title="${esc(a.sessionId)}">phiên ${esc(a.sessionId.split(/[\\/]/).pop().slice(0, 10))}…</span>`);
-  if (a.queued) chips.push(`<span class="chip status-queued">${a.queued} việc chờ</span>`);
-  const u = usageOf(a.id);
-  if (u) chips.push(`<span class="chip chip-cost" title="Token vào ${fmtTok(u.input)} · ra ${fmtTok(u.output)} · cache ${fmtTok(u.cacheRead + u.cacheWrite)}">Hôm nay: ${fmtTok(u.input + u.output + u.cacheRead + u.cacheWrite)} token${u.costUsd > 0 ? ' · ~' + fmtUsd(u.costUsd) : u.unpriced ? ' · chưa có giá' : ''}</span>`);
-  $('#p-chips').innerHTML = chips.join('');
-  const observer = a.provider === 'observer';
-  $('#composer').style.display = observer ? 'none' : 'flex';
-  $('#p-stop').style.display = observer ? 'none' : '';
-  $('#p-reset').style.display = observer ? 'none' : '';
+
+$('#conv-list').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-del-cid]');
+  if (delBtn) {
+    e.stopPropagation();
+    const cid = delBtn.dataset.delCid;
+    if (!confirm('Xoá cuộc trò chuyện này khỏi danh sách?')) return;
+    try {
+      await api(`/conversations/${encodeURIComponent(cid)}`, 'DELETE');
+      state.conversations = state.conversations.filter(c => c.id !== cid);
+      if (state.activeConvId === cid) {
+        state.activeConvId = state.conversations[0]?.id ?? null;
+        if (state.activeConvId) await selectConversation(state.activeConvId);
+        else { state.activeConvDetail = null; renderChatStream(); }
+      }
+      renderConversationSidebar();
+      toast('Đã xoá cuộc trò chuyện');
+    } catch (err) { toast(err.message); }
+    return;
+  }
+  const item = e.target.closest('[data-cid]');
+  if (item) await selectConversation(item.dataset.cid);
+});
+
+$('#agent-quick-pills').addEventListener('click', (e) => {
+  const pill = e.target.closest('[data-aid]');
+  if (!pill) return;
+  selectAgentTarget(pill.dataset.aid, true);
+});
+
+$('#p-target-agent').addEventListener('change', (e) => {
+  selectAgentTarget(e.target.value, false);
+});
+
+$('#btn-new-conv').onclick = async () => {
+  try {
+    const conv = await api('/conversations', 'POST', { agentId: selectedId || 'mama' });
+    state.conversations.unshift(conv);
+    await selectConversation(conv.id);
+    $('#p-input').focus();
+    toast(`Đã tạo cuộc trò chuyện mới với ${conv.agentName}`);
+  } catch (e) { toast(e.message); }
+};
+
+async function selectConversation(convId) {
+  state.activeConvId = convId;
+  renderConversationSidebar();
+  try {
+    const detail = await api(`/conversations/${encodeURIComponent(convId)}`);
+    state.activeConvDetail = detail;
+    if (detail.agentId && agentById(detail.agentId)) {
+      selectedId = detail.agentId;
+      office.select(selectedId);
+    }
+    renderPanelHeaderAndQueue();
+    renderChatStream();
+    renderConversationSidebar();
+  } catch (e) {
+    toast(e.message);
+  }
+}
+
+function selectAgentTarget(agentId, flyCamera = false) {
+  if (!agentById(agentId)) return;
+  selectedId = agentId;
+  office.select(agentId);
+  if (flyCamera) office.flyTo(agentId);
+  renderConversationSidebar();
+  renderPanelHeaderAndQueue();
+}
+
+/** Khi CEO bấm trực tiếp vào nhân vật 3D trên mặt sàn */
+async function onPickAgent3D(agentId) {
+  selectedId = agentId;
+  office.select(agentId);
+  $('#panel').classList.add('open');
+  document.body.classList.add('panel-open');
+
+  // Tìm cuộc trò chuyện gần nhất của Agent này hoặc giữ cuộc trò chuyện hiện tại nhưng đổi mục tiêu giao việc sang Agent vừa bấm
+  const agentConv = state.conversations.find(c => c.agentId === agentId);
+  if (agentConv) {
+    await selectConversation(agentConv.id);
+  } else if (!state.activeConvId && state.conversations.length) {
+    await selectConversation(state.conversations[0].id);
+  }
+  selectAgentTarget(agentId, false);
+  const a = agentById(agentId);
+  if (a) {
+    toast(`🎯 Đang chọn ${a.name} — ${a.status === 'working' ? `Đang bận (${a.progressPct || 35}%), việc mới sẽ tự động xếp vào hàng đợi!` : 'Sẵn sàng nhận việc ngay!'}`);
+  }
+  $('#p-input').focus();
+}
+
+$('#btn-chat-toggle').onclick = async () => {
+  const isOpen = $('#panel').classList.contains('open');
+  if (isOpen) {
+    closePanel();
+  } else {
+    $('#panel').classList.add('open');
+    document.body.classList.add('panel-open');
+    if (!state.activeConvId && state.conversations.length) {
+      await selectConversation(state.conversations[0].id);
+    } else if (state.activeConvId) {
+      await selectConversation(state.activeConvId);
+    }
+  }
+};
+
+function closePanel() {
+  $('#panel').classList.remove('open');
+  document.body.classList.remove('panel-open');
+  office.select(null);
+}
+
+function renderPanelHeaderAndQueue() {
+  const a = agentById(selectedId) ?? state.agents[0];
+  const conv = state.activeConvDetail;
+  $('#p-conv-title').textContent = conv ? conv.title : (a ? a.name : 'Antigravity Chat');
+
+  if (a) {
+    const chips = [
+      `<span class="chip status-${a.status}">🎯 ${esc(a.name)}: ${STATUS_LABEL[a.status] ?? a.status}${a.status === 'working' ? ` (${a.progressPct || 35}%)` : ''}</span>`,
+      `<span class="chip">${esc(deptById(a.departmentId)?.name ?? '')}</span>`,
+    ];
+    if (a.queued > 0) {
+      chips.push(`<span class="chip status-queued">⏳ ${a.queued} việc trong hàng đợi</span>`);
+    }
+    if (conv?.source === 'antigravity-ide') {
+      chips.push(`<span class="chip" style="color:#a5b4fc;border-color:rgba(99,102,241,0.45)">🔗 Đồng bộ trực tiếp Antigravity IDE</span>`);
+    }
+    $('#p-chips').innerHTML = chips.join('');
+
+    // Cập nhật Thanh Tiến Độ & Hàng Đợi Tuần Tự (Task Queue)
+    const qb = $('#queue-banner');
+    const qTasks = a.queuedTasks ?? [];
+    if (a.status === 'working' || a.status === 'waiting' || qTasks.length > 0) {
+      qb.classList.add('visible');
+      const pct = a.status === 'working' ? Math.max(8, a.progressPct || 35) : 0;
+      $('#q-active-text').textContent = a.status === 'working'
+        ? `${a.activityText || '⚡ Đang thực thi'}${a.currentTask?.prompt ? ` — "${a.currentTask.prompt.slice(0, 58)}"` : ''}`
+        : `⏳ Đang chuẩn bị chạy hàng đợi (${qTasks.length} việc chờ)…`;
+      $('#q-active-pct').textContent = a.status === 'working' ? `${pct}%` : `Chờ #${qTasks.length}`;
+      $('#q-bar-fill').style.width = `${pct}%`;
+
+      $('#q-list').innerHTML = qTasks.map(qt => `
+        <div class="q-item">
+          <span><b>Hàng đợi #${qt.position}:</b> ${esc(qt.prompt.slice(0, 68))}</span>
+          <div style="display:flex;gap:4px">
+            ${qt.position > 1 ? `<button type="button" data-q-up="${esc(qt.id)}" title="Đẩy lên ưu tiên #1">↑ Ưu tiên</button>` : ''}
+            <button type="button" data-q-del="${esc(qt.id)}" title="Huỷ việc này khỏi hàng đợi">× Huỷ</button>
+          </div>
+        </div>`).join('');
+    } else {
+      qb.classList.remove('visible');
+    }
+
+    $('#p-queue-hint').textContent = a.status === 'working'
+      ? `⏳ ${a.name} đang bận (${a.progressPct || 35}%) → Gửi lệnh sẽ xếp vào Hàng đợi #${(a.queued || 0) + 1}`
+      : `🟢 ${a.name} đang rảnh → Gửi lệnh sẽ thực thi ngay lập tức`;
+  }
   renderPerms();
 }
+
+$('#q-list').addEventListener('click', async (e) => {
+  const upBtn = e.target.closest('[data-q-up]');
+  if (upBtn) {
+    try { await api(`/queue/${encodeURIComponent(upBtn.dataset.qUp)}/promote`, 'POST'); await loadState(); toast('Đã đẩy công việc lên đầu hàng đợi'); }
+    catch (err) { toast(err.message); }
+    return;
+  }
+  const delBtn = e.target.closest('[data-q-del]');
+  if (delBtn) {
+    try { await api(`/queue/${encodeURIComponent(delBtn.dataset.qDel)}`, 'DELETE'); await loadState(); toast('Đã xoá công việc khỏi hàng đợi'); }
+    catch (err) { toast(err.message); }
+  }
+});
+
+function renderChatStream() {
+  const log = $('#log');
+  if (!log) return;
+  const conv = state.activeConvDetail;
+  if (!conv || !conv.steps || !conv.steps.length) {
+    log.innerHTML = `<div class="muted" style="text-align:center;margin:auto;padding:24px">
+      Chưa có tin nhắn nào trong cuộc trò chuyện này.<br>Hãy nhập yêu cầu bên dưới để giao việc cho <b>${esc(agentById(selectedId)?.name ?? 'Mama')}</b>!
+    </div>`;
+    return;
+  }
+
+  log.innerHTML = conv.steps.map(st => {
+    const timeStr = hhmm(st.createdAt);
+    if (st.role === 'user') {
+      return `
+        <div class="anti-msg-user">
+          <div class="u-meta"><span>👤 CEO</span><span>${esc(timeStr)}</span></div>
+          <div>${esc(st.content)}</div>
+        </div>`;
+    }
+    const agName = st.agentName || conv.agentName || 'Mama (Gemini 4)';
+    const thinkBlock = st.thinking
+      ? `<details class="anti-thinking">
+          <summary>💭 Quá trình suy nghĩ &amp; kiểm tra quy tắc (${Math.max(1, Math.round(st.thinking.length / 85))}s)</summary>
+          <div class="think-body">${esc(st.thinking)}</div>
+        </details>`
+      : '';
+    const toolsBlock = st.toolCalls && st.toolCalls.length
+      ? `<div class="anti-tools">${st.toolCalls.map(tc => `
+          <div class="anti-tool-pill">
+            <span class="ok">✓</span>
+            <span><b>${esc(tc.name)}</b> · ${esc(tc.summary)}</span>
+          </div>`).join('')}</div>`
+      : '';
+    const contentBlock = st.content
+      ? `<div class="anti-content">${renderMarkdown(st.content)}</div>`
+      : '';
+    return `
+      <div class="anti-msg-agent">
+        <div class="anti-agent-head">
+          <b>🤖 ${esc(agName)}</b>
+          <span>${esc(timeStr)}</span>
+        </div>
+        ${thinkBlock}
+        ${toolsBlock}
+        ${contentBlock}
+      </div>`;
+  }).join('');
+
+  log.scrollTop = log.scrollHeight;
+}
+
 function renderPerms() {
   const list = state.permissions.filter(p => p.agentId === selectedId);
   $('#perms').innerHTML = list.map(p => `
@@ -197,28 +522,55 @@ $('#perms').addEventListener('click', async e => {
   b.disabled = true;
   await api(`/permissions/${b.dataset.perm}`, 'POST', { allow: b.dataset.allow === '1' }).catch(err => toast(err.message));
 });
-function appendLog(e) {
-  const el = document.createElement('div'); el.className = `ev k-${e.kind}`;
-  el.innerHTML = `<time>${hhmm(e.ts)} · ${e.kind}</time>${esc(e.text)}${attHtml(e.data?.attachments)}`;
-  const log = $('#log'); const atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 60;
-  log.appendChild(el); if (atBottom) log.scrollTop = 1e9;
-}
+
 const panelTray = makeTray({ list: $('#p-atts'), input: $('#p-input'), dropZone: $('#composer'), fileInput: $('#p-file'), button: $('#p-attach') });
+
 async function sendTask() {
-  const prompt = $('#p-input').value.trim(); if ((!prompt && !panelTray.count()) || !selectedId) return;
-  if (panelTray.busy()) return toast('Đợi tải tệp lên xong rồi giao nhé');
+  const prompt = $('#p-input').value.trim();
+  const targetAgent = $('#p-target-agent')?.value || selectedId || 'mama';
+  if (!prompt && !panelTray.count()) return;
+  if (panelTray.busy()) return toast('Đợi tải tệp lên xong rồi gửi nhé');
+
   $('#p-send').disabled = true;
-  try { await api(`/agents/${selectedId}/tasks`, 'POST', { prompt, attachments: panelTray.ids() }); $('#p-input').value = ''; panelTray.clear(); }
-  catch (err) { toast(err.message); }
-  finally { $('#p-send').disabled = false; }
+  try {
+    let convId = state.activeConvId;
+    if (!convId) {
+      const created = await api('/conversations', 'POST', { agentId: targetAgent, title: prompt.slice(0, 60) });
+      state.conversations.unshift(created);
+      convId = created.id;
+      state.activeConvId = convId;
+    }
+    $('#p-input').value = '';
+    const attIds = panelTray.ids();
+    panelTray.clear();
+
+    const res = await api(`/conversations/${encodeURIComponent(convId)}/messages`, 'POST', {
+      agentId: targetAgent,
+      prompt,
+      attachments: attIds,
+    });
+    if (res.conv) {
+      state.activeConvDetail = res.conv;
+      renderChatStream();
+    }
+    await loadState();
+  } catch (err) {
+    toast(err.message);
+  } finally {
+    $('#p-send').disabled = false;
+  }
 }
+
 $('#p-send').onclick = sendTask;
-$('#p-input').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendTask(); });
+$('#p-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendTask();
+  }
+});
 $('#p-close').onclick = closePanel;
 $('#p-focus').onclick = () => selectedId && office.flyTo(selectedId);
 $('#p-stop').onclick = () => api(`/agents/${selectedId}/stop`, 'POST').then(r => toast(`Đã dừng${r.cancelledQueued ? `, huỷ ${r.cancelledQueued} việc chờ` : ''}`)).catch(e => toast(e.message));
-$('#p-reset').onclick = () => confirm('Bắt đầu phiên mới? Nhân viên sẽ quên ngữ cảnh cũ.') && api(`/agents/${selectedId}/reset`, 'POST').catch(e => toast(e.message));
-$('#p-del').onclick = () => { const a = agentById(selectedId); if (a && confirm(`Xoá ${a.name} khỏi văn phòng?`)) api(`/agents/${a.id}`, 'DELETE').then(closePanel).catch(e => toast(e.message)); };
 $('#p-edit').onclick = () => agentForm(agentById(selectedId));
 
 // ---------------- Modal
@@ -235,87 +587,64 @@ function agentForm(a = {}, isEdit = !!a.id && !!agentById(a.id)) {
         <div class="field"><label>Tên hiển thị</label><input name="name" required value="${esc(a.name)}" /></div>
         <div class="field"><label>Phòng ban</label><select name="departmentId">${state.departments.filter(d => !AMENITY.has(d.style?.shape)).map(d => opt(d.id, a.departmentId, d.name)).join('')}</select></div>
       </div>
-      <div class="field"><label>Vai trò</label><input name="role" value="${esc(a.role)}" placeholder="VD: Viết copy Naver tiếng Hàn" /></div>
+      <div class="field"><label>Vai trò</label><input name="role" value="${esc(a.role)}" /></div>
       <div class="row2">
-        <div class="field"><label>Loại nhân viên</label><select name="provider">${state.providers.map(p => opt(p, a.provider ?? 'claude-code', PROVIDER_LABEL[p])).join('')}</select></div>
-        <div class="field" data-for="claude-code codex anthropic-chat openai-chat"><label>Model (bỏ trống = mặc định)</label><input name="model" value="${esc(a.model)}" /></div>
+        <div class="field"><label>Loại nhân viên</label><select name="provider">${state.providers.map(p => opt(p, a.provider ?? 'codex', PROVIDER_LABEL[p])).join('')}</select></div>
+        <div class="field"><label>Model</label><input name="model" value="${esc(a.model)}" placeholder="Gemini 4 / Inherit" /></div>
       </div>
-      <div class="field" data-for="claude-code codex"><label>Thư mục làm việc (cwd)</label><input name="cwd" value="${esc(a.cwd)}" placeholder="C:\\du-an\\web hoặc /home/ban/du-an" /><small>Agent chỉ nên đọc/ghi trong thư mục này.</small></div>
-      <div class="field" data-for="claude-code codex"><label>Quyền</label><select name="permissionMode">
-        ${opt('default', a.permissionMode ?? 'default', 'Hỏi trước khi sửa file / chạy lệnh')}
-        ${opt('acceptEdits', a.permissionMode, 'Tự sửa file, hỏi khi chạy lệnh')}
-        ${opt('plan', a.permissionMode, 'Chỉ đọc & lập kế hoạch')}
-        ${opt('bypassPermissions', a.permissionMode, '⚠ Toàn quyền, không hỏi')}
-      </select></div>
-      <div class="field" data-for="observer claude-code codex openai-chat"><label>Session / thread ID ${a.provider === 'observer' ? '(đường dẫn file JSONL)' : '(bỏ trống = phiên mới)'}</label><input name="sessionId" value="${esc(a.sessionId)}" /></div>
-      <div class="field" data-for="claude-code codex anthropic-chat openai-chat"><label>Hướng dẫn riêng (system prompt)</label><textarea name="systemPrompt">${esc(a.systemPrompt)}</textarea></div>
+      <div class="field"><label>Thư mục làm việc (cwd)</label><input name="cwd" value="${esc(a.cwd)}" /></div>
+      <div class="field"><label>Hướng dẫn riêng (system prompt)</label><textarea name="systemPrompt">${esc(a.systemPrompt)}</textarea></div>
       <div class="modal-actions"><button type="button" class="btn" data-close>Huỷ</button><button class="btn primary">${isEdit ? 'Lưu' : 'Tuyển'}</button></div>
     </form>`);
   const form = $('#agent-form');
-  const sync = () => { const p = form.provider.value; form.querySelectorAll('[data-for]').forEach(el => el.style.display = el.dataset.for.split(' ').includes(p) ? '' : 'none'); };
-  form.provider.onchange = sync; sync();
   form.onsubmit = async e => {
     e.preventDefault();
     const body = Object.fromEntries(new FormData(form));
     try {
-      if (body.permissionMode === 'bypassPermissions' && !confirm('Toàn quyền: agent có thể chạy MỌI lệnh trên máy bạn mà không hỏi. Chắc chắn?')) return;
       if (isEdit) await api(`/agents/${a.id}`, 'PATCH', body);
-      else { const c = await api('/agents', 'POST', body); setTimeout(() => openPanel(c.id), 400); }
+      else await api('/agents', 'POST', body);
       closeModal();
+      await loadState();
     } catch (err) { toast(err.message); }
   };
 }
-$('#btn-add').onclick = () => agentForm({ departmentId: state.departments[0]?.id });
 
-// Gắn phiên có sẵn
-$('#btn-attach').onclick = async () => {
-  openModal('<h3>Gắn phiên có sẵn</h3><p style="color:var(--muted)">Đang quét ~/.claude/projects và ~/.codex/sessions…</p>');
-  let list = [];
-  try { list = await api('/discover'); } catch (e) { return openModal(`<h3>Lỗi</h3><p>${esc(e.message)}</p>`); }
-  openModal(`
-    <h3>Gắn phiên có sẵn</h3>
-    <div class="warnbox"><b>Quan sát</b>: chỉ xem phiên bạn đang chạy trong terminal, an toàn. <b>Tiếp quản</b>: văn phòng resume phiên đó và giao việc tiếp — hãy đóng phiên trong terminal trước để hai bên không ghi đè nhau.</div>
-    ${list.length ? '' : '<p style="color:var(--muted)">Không tìm thấy phiên nào.</p>'}
-    ${list.map((s, i) => `
-      <div class="sess">
-        <div class="top"><span>${s.source === 'claude' ? 'Claude Code' : s.source === 'antigravity' ? 'Antigravity (Gemini 4)' : 'Codex'} · ${esc(s.project)}</span><span>${ago(s.mtime)}</span></div>
-        <div class="pv">${esc(s.preview || '(không có xem trước)')}</div>
-        <button class="btn small" data-i="${i}" data-mode="observe">Quan sát</button>
-        <button class="btn small" data-i="${i}" data-mode="control">Tiếp quản</button>
-      </div>`).join('')}
-    <div class="modal-actions"><button class="btn" data-close>Đóng</button></div>`);
-  $('#modal-box').onclick = e => {
-    const b = e.target.closest('[data-mode]'); if (!b) return;
-    const s = list[+b.dataset.i];
-    const name = (s.preview || s.project).slice(0, 28) || 'Phiên';
-    const dept = state.departments.find(d => d.id === 'ky-thuat')?.id ?? state.departments[0]?.id;
-    $('#modal-box').onclick = null;
-    if (b.dataset.mode === 'observe') agentForm({ name, role: 'Phiên terminal', departmentId: dept, provider: 'observer', sessionId: s.file }, false);
-    else agentForm({ name, role: 'Phiên tiếp quản', departmentId: dept, provider: s.source === 'claude' ? 'claude-code' : 'codex', sessionId: s.sessionId, cwd: s.cwd || '', permissionMode: 'default' }, false);
-  };
-};
-
-// Giao brief
+// Giao brief nhanh
 $('#btn-brief').onclick = () => {
-  const lead = state.agents.find(a => a.departmentId === 'dieu-phoi' && a.provider !== 'observer') ?? state.agents.find(a => a.provider !== 'observer');
-  if (!lead) return toast('Chưa có nhân viên nào nhận việc được');
+  const lead = agentById(selectedId) ?? state.agents[0];
+  if (!lead) return;
   openModal(`
-    <h3>Giao brief</h3>
+    <h3>Giao brief nhanh (Tự động xếp hàng đợi nếu Agent đang bận)</h3>
     <form id="brief-form">
-      <div class="field"><label>Người nhận</label><select name="to">${state.agents.filter(a => a.provider !== 'observer').map(a => `<option value="${a.id}" ${a.id === lead.id ? 'selected' : ''}>${esc(a.name)} — ${esc(deptById(a.departmentId)?.name ?? '')}</option>`).join('')}</select></div>
-      <div class="field brief-drop" id="brief-drop"><label>Brief</label><textarea name="prompt" style="min-height:140px" placeholder="VD: Lên 3 mẫu quảng cáo Naver Power Content cho resort ở Phú Quốc, khách Hàn 30-45 tuổi, kèm gợi ý hình ảnh. Dán ảnh tham khảo bằng Ctrl+V hoặc kéo thả tệp vào đây."></textarea>
+      <div class="field"><label>Nhân sự 3D nhận việc</label><select name="to">${state.agents.map(a => `<option value="${a.id}" ${a.id === lead.id ? 'selected' : ''}>${esc(a.name)} — ${a.status === 'working' ? `Đang làm (${a.progressPct || 35}%)` : 'Sẵn sàng'}</option>`).join('')}</select></div>
+      <div class="field brief-drop" id="brief-drop"><label>Nội dung công việc</label><textarea name="prompt" style="min-height:120px" placeholder="VD: Nghiên cứu 3 SKU mới cho Page Phòng Trọ Hết Cứu và chuyển sang Content viết kịch bản Hook 3s..."></textarea>
         <div class="drop-hint">Thả tệp vào để đính kèm</div></div>
       <div class="atts" id="brief-atts" style="margin:-4px 0 10px"></div>
       <input type="file" id="brief-file" multiple hidden />
-      <div class="modal-actions"><button type="button" class="btn" id="brief-attach" style="margin-right:auto">Đính kèm tệp</button><button type="button" class="btn" data-close>Huỷ</button><button class="btn primary">Giao</button></div>
+      <div class="modal-actions"><button type="button" class="btn" id="brief-attach" style="margin-right:auto">Đính kèm tệp</button><button type="button" class="btn" data-close>Huỷ</button><button class="btn primary">Giao việc</button></div>
     </form>`);
   const f0 = $('#brief-form');
   const tray = makeTray({ list: $('#brief-atts'), input: f0.prompt, dropZone: $('#brief-drop'), fileInput: $('#brief-file'), button: $('#brief-attach') });
   f0.onsubmit = async e => {
-    e.preventDefault(); const f = e.target;
+    e.preventDefault();
+    const f = e.target;
     if (tray.busy()) return toast('Đợi tải tệp lên xong rồi giao nhé');
-    try { await api(`/agents/${f.to.value}/tasks`, 'POST', { prompt: f.prompt.value, attachments: tray.ids() }); closeModal(); openPanel(f.to.value); }
-    catch (err) { toast(err.message); }
+    try {
+      const targetId = f.to.value;
+      let convId = state.activeConvId;
+      if (!convId) {
+        const c = await api('/conversations', 'POST', { agentId: targetId, title: f.prompt.value.slice(0, 60) });
+        convId = c.id;
+        state.activeConvId = convId;
+      }
+      await api(`/conversations/${encodeURIComponent(convId)}/messages`, 'POST', {
+        agentId: targetId,
+        prompt: f.prompt.value,
+        attachments: tray.ids(),
+      });
+      closeModal();
+      await onPickAgent3D(targetId);
+    } catch (err) { toast(err.message); }
   };
 };
 
@@ -323,8 +652,7 @@ $('#btn-brief').onclick = () => {
 $('#btn-depts').onclick = () => {
   const list = state.departments;
   openModal(`
-    <h3>Phòng ban</h3>
-    <p style="color:var(--muted);margin:0 0 10px;font-size:12.5px">Sàn rộng x −18…18, z −14…14 (mét). Toạ độ là tâm khu vực.</p>
+    <h3>Phòng ban 3D</h3>
     <form id="dept-form">
       <div class="field"><label>Chọn phòng</label><select name="id">${list.map(d => opt(d.id, list[0]?.id, d.name)).join('')}${opt('__new', '', '+ Thêm phòng mới')}</select></div>
       <div id="dept-fields"></div>
@@ -332,7 +660,7 @@ $('#btn-depts').onclick = () => {
     </form>`);
   const form = $('#dept-form');
   const fill = () => {
-    const d = deptById(form.id.value) ?? { id: '', name: '', color: '#6b6f78', x: 0, z: 9, w: 6, d: 4, style: { shape: 'zone', screenTheme: 'docs' } };
+    const d = deptById(form.id.value) ?? { id: '', name: '', color: '#10b981', x: 0, z: 9, w: 6, d: 4, style: { shape: 'zone', screenTheme: 'docs' } };
     const st = d.style ?? {};
     $('#dept-fields').innerHTML = `
       ${form.id.value === '__new' ? `<div class="field"><label>Mã (không dấu)</label><input name="newId" required pattern="[a-z0-9-]+" /></div>` : ''}
@@ -364,82 +692,129 @@ $('#btn-depts').onclick = () => {
   };
 };
 
-// ---------------- Token & chi phí
-async function loadUsageToday() {
-  try { state.usageToday = await api('/usage?range=today'); renderHud(); if (selectedId) renderPanel(); } catch { /* bỏ qua */ }
-}
-const PROVIDER_SHORT = { 'claude-code': 'Claude Code', 'codex': 'Codex', 'anthropic-chat': 'Claude API', 'openai-chat': 'OpenAI API', 'observer': 'Quan sát' };
-let costRange = 'today';
-async function renderCost(range = 'today') {
-  costRange = range;
-  const box = $('#cost-box'); if (!box) return;
-  let d;
-  try { d = await api(`/usage?range=${range}`); } catch (e) { box.innerHTML = `<p>${esc(e.message)}</p>`; return; }
-  const rate = d.usdToVnd;
-  const tabs = [['today', 'Hôm nay'], ['7d', '7 ngày'], ['30d', '30 ngày'], ['all', 'Tất cả']]
-    .map(([k, v]) => `<button class="btn small ${k === range ? 'primary' : ''}" data-range="${k}">${v}</button>`).join('');
-  const name = (id) => esc(agentById(id)?.name ?? id + ' (đã xoá)');
-  const costCell = (r) => r.costUsd > 0 ? fmtUsd(r.costUsd) + fmtVnd(r.costUsd, rate) + (r.unpriced ? ' <span class="muted">+ phần chưa có giá</span>' : '') : (r.unpriced ? '<span class="muted">chưa có giá</span>' : '$0');
-  const rows = d.agents.map(a => `
-    <tr class="agent-row"><td><b>${name(a.agentId)}</b><div class="muted">${PROVIDER_SHORT[a.provider] ?? a.provider} · ${a.tasks} việc</div></td>
-      <td>${fmtTok(a.input)}</td><td>${fmtTok(a.output)}</td><td>${fmtTok(a.cacheRead + a.cacheWrite)}</td><td class="num">${costCell(a)}</td></tr>
-    ${a.models.map(m => `<tr class="model-row"><td>↳ ${esc(m.model)}</td><td>${fmtTok(m.input)}</td><td>${fmtTok(m.output)}</td><td>${fmtTok(m.cacheRead + m.cacheWrite)}</td><td class="num">${costCell(m)}</td></tr>`).join('')}`).join('');
-  const t = d.total;
-  const maxDay = Math.max(1, ...d.byDay.map(x => x.tokens));
-  const bars = d.byDay.length > 1 ? `<div class="daybars">${d.byDay.map(x => `<div title="${x.day}: ${fmtTok(x.tokens)} token · ${fmtUsd(x.costUsd)}"><span style="height:${Math.max(3, x.tokens / maxDay * 100)}%"></span><em>${x.day.slice(8)}</em></div>`).join('')}</div>` : '';
-  box.innerHTML = `
-    <div class="cost-tabs">${tabs}</div>
-    <div class="cost-total"><div><small>Tổng token</small><b>${fmtTok(t.input + t.output + t.cacheRead + t.cacheWrite)}</b></div>
-      <div><small>Chi phí ước tính</small><b>${fmtUsd(t.costUsd)}${rate ? '<em>' + Math.round(t.costUsd * rate).toLocaleString('vi-VN') + '₫</em>' : ''}</b></div>
-      <div><small>Số việc</small><b>${t.tasks}</b></div></div>
-    ${bars}
-    ${d.agents.length ? `<div class="cost-scroll"><table class="cost-table"><thead><tr><th>Nhân viên</th><th>Vào</th><th>Ra</th><th>Cache</th><th class="num">Chi phí</th></tr></thead><tbody>${rows}</tbody></table></div>`
-      : '<p class="muted">Chưa có việc nào trong khoảng thời gian này.</p>'}
-    <p class="cost-note">• <b>Claude Code</b>: chi phí do Claude Code tự tính theo giá API. Nếu dùng gói Pro/Max (token OAuth) thì đây là <i>giá trị tương đương</i>, không phải tiền bị trừ — dùng để biết ai đang ngốn hạn mức nhiều nhất.<br>
-    • <b>Codex / chat API</b>: chỉ có số token; muốn ra tiền thì điền giá vào <code>pricing.json</code> (USD / 1 triệu token). Thêm <code>usdToVnd</code> để hiện VNĐ.<br>
-    • "Cache" là token đọc/ghi bộ nhớ đệm — rẻ hơn nhiều so với token vào thường.</p>`;
-  box.querySelectorAll('[data-range]').forEach(b => b.onclick = () => renderCost(b.dataset.range));
-}
-$('#btn-cost').onclick = () => {
-  openModal('<h3>Token &amp; chi phí</h3><div id="cost-box"><p class="muted">Đang tải…</p></div><div class="modal-actions"><button class="btn" data-close>Đóng</button></div>');
-  renderCost('today');
-};
-
-// ---------------- Dữ liệu & WebSocket
+// ---------------- Dữ liệu & WebSocket Real-time
 async function loadState() {
   const s = await api('/state');
-  Object.assign(state, s);
+  state.departments = s.departments || [];
+  state.agents = s.agents || [];
+  state.permissions = s.permissions || [];
+  state.feed = s.feed || [];
+  state.providers = s.providers || [];
+  if (Array.isArray(s.conversations)) state.conversations = s.conversations;
+
   office.setData(state.departments, state.agents);
-  renderHud(); renderFeed(); if (selectedId) renderPanel();
+  if (!state.activeConvId && state.conversations.length) {
+    state.activeConvId = state.conversations[0].id;
+    api(`/conversations/${encodeURIComponent(state.activeConvId)}`).then(d => {
+      state.activeConvDetail = d;
+      renderChatStream();
+      renderPanelHeaderAndQueue();
+    }).catch(() => {});
+  }
+  renderHud();
+  renderFeed();
+  renderConversationSidebar();
+  renderPanelHeaderAndQueue();
 }
+
 function connect() {
   const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws?token=${TOKEN}`);
-  ws.onopen = () => loadState().then(() => { $('#loading').classList.add('done'); loadUsageToday(); }).catch(e => toast(e.message));
+  ws.onopen = () => loadState().then(() => { $('#loading').classList.add('done'); }).catch(e => toast(e.message));
   ws.onmessage = (m) => {
     const { type, payload } = JSON.parse(m.data);
     if (type === 'status') {
       const a = agentById(payload.agentId);
-      if (a) { a.status = payload.status; office.setStatus(a.id, a.status); renderHud(); if (a.id === selectedId) renderPanel(); }
-      clearTimeout(connect._t); connect._t = setTimeout(() => loadState().catch(() => {}), 400);
+      if (a) {
+        a.status = payload.status;
+        if (payload.pct !== undefined) a.progressPct = payload.pct;
+        if (payload.activityText) a.activityText = payload.activityText;
+        if (payload.queued !== undefined) a.queued = payload.queued;
+        office.setAgentProgress(a.id, { pct: a.progressPct, activityText: a.activityText, queued: a.queued, status: a.status });
+        renderHud();
+        renderConversationSidebar();
+        renderPanelHeaderAndQueue();
+      }
+      clearTimeout(connect._t);
+      connect._t = setTimeout(() => loadState().catch(() => {}), 350);
+    } else if (type === 'progress') {
+      const a = agentById(payload.agentId);
+      if (a) {
+        a.progressPct = payload.pct;
+        a.activityText = payload.activityText;
+        office.setAgentProgress(a.id, { pct: payload.pct, activityText: payload.activityText, status: payload.status });
+        renderHud();
+        renderConversationSidebar();
+        renderPanelHeaderAndQueue();
+      }
+    } else if (type === 'collab') {
+      office.courier(payload.fromId, payload.toId, payload.topic || '', payload.kind || 'delegate');
+      const va = office.agents.get(payload.fromId), vb = office.agents.get(payload.toId);
+      if (va && vb && !va.person.trip && va.where === 'home') {
+        office.walkToColleague(va, vb, `💬 ${payload.topic || 'Trao đổi công việc'}`, `💬 Đã nhận thông tin!`);
+      }
     } else if (type === 'event') {
-      if (['task', 'result', 'error', 'permission'].includes(payload.kind)) { state.feed.push(payload); state.feed = state.feed.slice(-30); renderFeed(); }
-      if (payload.kind === 'task' && payload.data?.fromAgentId) office.courier(payload.data.fromAgentId, payload.agentId);
-      if (payload.agentId === selectedId) appendLog(payload);
+      if (['task', 'result', 'error', 'permission'].includes(payload.kind)) {
+        state.feed.push(payload);
+        state.feed = state.feed.slice(-30);
+        renderFeed();
+      }
+      if (payload.kind === 'task' && payload.data?.fromAgentId) {
+        office.courier(payload.data.fromAgentId, payload.agentId, payload.text.slice(0, 42), 'delegate');
+      }
+    } else if (type === 'conversations-changed') {
+      api('/conversations').then(list => {
+        state.conversations = list;
+        renderConversationSidebar();
+        if (state.activeConvId) {
+          api(`/conversations/${encodeURIComponent(state.activeConvId)}`).then(d => {
+            state.activeConvDetail = d;
+            renderChatStream();
+            renderPanelHeaderAndQueue();
+          }).catch(() => {});
+        }
+      }).catch(() => {});
     } else if (type === 'permission') {
-      state.permissions.push(payload); if (payload.agentId === selectedId) renderPerms();
-      const a = agentById(payload.agentId); toast(`${a?.name ?? payload.agentId} xin quyền dùng ${payload.tool}`);
+      state.permissions.push(payload);
+      if (payload.agentId === selectedId) renderPerms();
+      const a = agentById(payload.agentId);
+      toast(`${a?.name ?? payload.agentId} xin quyền dùng ${payload.tool}`);
     } else if (type === 'permission-resolved') {
-      state.permissions = state.permissions.filter(p => p.id !== payload.id); renderPerms();
-    } else if (type === 'usage') {
-      clearTimeout(connect._u); connect._u = setTimeout(() => { loadUsageToday(); if ($('#cost-box')) renderCost(costRange); }, 800);
-    } else if (type === 'changed') loadState().catch(() => {});
+      state.permissions = state.permissions.filter(p => p.id !== payload.id);
+      renderPerms();
+    } else if (type === 'changed') {
+      loadState().catch(() => {});
+    }
   };
-  ws.onclose = () => { $('#hud-title').textContent = 'Mất kết nối, đang thử lại…'; setTimeout(connect, 2000); };
+  ws.onclose = () => {
+    $('#hud-title').textContent = 'Đang kết nối lại máy chủ 3D…';
+    setTimeout(connect, 1800);
+  };
 }
 
-// Chờ font tiếng Việt (chữ trên sàn vẽ bằng canvas) rồi mới dựng cảnh
-await Promise.all([document.fonts.load('600 64px "Be Vietnam Pro"'), document.fonts.load('400 14px "Be Vietnam Pro"')]).catch(() => {});
+// Tự động đồng bộ danh sách cuộc trò chuyện Antigravity IDE mỗi 5 giây
+setInterval(() => {
+  if (document.hidden) return;
+  api('/conversations').then(list => {
+    const oldSig = state.conversations.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
+    const newSig = list.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
+    if (oldSig !== newSig) {
+      state.conversations = list;
+      renderConversationSidebar();
+      if (state.activeConvId) {
+        api(`/conversations/${encodeURIComponent(state.activeConvId)}`).then(d => {
+          state.activeConvDetail = d;
+          renderChatStream();
+        }).catch(() => {});
+      }
+    }
+  }).catch(() => {});
+}, 5000);
+
+await Promise.all([
+  document.fonts.load('600 64px "Be Vietnam Pro"'),
+  document.fonts.load('400 14px "Be Vietnam Pro"'),
+]).catch(() => {});
 await office.init();
 renderQuality();
-window.__office = office; // tiện debug: __office.stats()
+window.__office = office;
 connect();

@@ -360,3 +360,143 @@ const DRAW = {
     for (let i = 0; i < n; i++) bar(g, 176, 84 + i * 16, (i === cut ? 0.4 : 1) * (W - 250 - ((i * 53) % 90)), 7, '#bcb8b0', 3);
   },
 };
+
+
+/**
+ * Thẻ HUD nổi nhỏ gọn trên đầu mỗi nhân vật 3D:
+ * - Dòng 1: Chấm trạng thái + Tên Agent + Badge % tiến độ / Hàng đợi
+ * - Dòng 2: Nội dung công việc đang làm (Đang nghiên cứu / Đang thực thi / Kiểm duyệt...)
+ * - Đáy: Thanh tiến độ % phát sáng
+ */
+export function agentOverheadTag(name, {
+  status = 'idle',
+  pct = 0,
+  activity = 'Sẵn sàng',
+  queued = 0,
+  isSelected = false,
+  deptColor = '#10b981',
+} = {}) {
+  const shortName = String(name || 'Agent').replace(/\s*\(.*?\)\s*/g, '').trim();
+  const isBusy = status === 'working' || status === 'waiting';
+  const badgeText = isBusy
+    ? `${Math.max(5, Math.min(100, Math.round(pct || 35)))}%`
+    : queued > 0
+      ? `Chờ #${queued}`
+      : status === 'error'
+        ? 'LỖI'
+        : 'RẢNH';
+  const subText = String(activity || (isBusy ? '⚡ Đang thực thi...' : queued > 0 ? `⏳ Xếp hàng (${queued} việc)` : 'Sẵn sàng nhận việc')).slice(0, 34);
+
+  const [m, mg] = canvas(8, 8);
+  mg.font = `700 28px ${FONT}`;
+  const nameW = mg.measureText(shortName).width;
+  mg.font = `700 22px ${FONT}`;
+  const badgeW = mg.measureText(badgeText).width + 24;
+  mg.font = `500 21px ${FONT}`;
+  const subW = mg.measureText(subText).width;
+
+  const w = Math.max(250, Math.ceil(Math.max(nameW + badgeW + 58, subW + 36)));
+  const h = 92;
+  const [c, g] = canvas(w, h);
+
+  g.fillStyle = isSelected ? 'rgba(14, 21, 32, 0.95)' : 'rgba(11, 13, 19, 0.88)';
+  g.beginPath();
+  g.roundRect(2, 2, w - 4, h - 4, 18);
+  g.fill();
+
+  const borderCol = isSelected
+    ? '#ffd38a'
+    : isBusy
+      ? deptColor || '#10b981'
+      : queued > 0
+        ? '#38bdf8'
+        : 'rgba(255,255,255,0.22)';
+  g.strokeStyle = borderCol;
+  g.lineWidth = isSelected || isBusy ? 3 : 1.8;
+  g.beginPath();
+  g.roundRect(2, 2, w - 4, h - 4, 18);
+  g.stroke();
+
+  const dotCol = status === 'working'
+    ? '#10b981'
+    : status === 'waiting'
+      ? '#ff9a4d'
+      : queued > 0 || status === 'queued'
+        ? '#38bdf8'
+        : status === 'error'
+          ? '#ff6b6b'
+          : '#94a3b8';
+  g.fillStyle = dotCol;
+  g.beginPath();
+  g.arc(20, 28, 7, 0, Math.PI * 2);
+  g.fill();
+
+  g.font = `700 27px ${FONT}`;
+  g.fillStyle = '#f8fafc';
+  g.textBaseline = 'middle';
+  g.textAlign = 'left';
+  g.fillText(shortName, 35, 29);
+
+  const bx = w - badgeW - 14;
+  g.fillStyle = isBusy ? 'rgba(16, 185, 129, 0.24)' : queued > 0 ? 'rgba(56, 189, 248, 0.22)' : 'rgba(255,255,255,0.08)';
+  g.beginPath();
+  g.roundRect(bx, 13, badgeW, 30, 10);
+  g.fill();
+  g.font = `700 21px ${FONT}`;
+  g.fillStyle = isBusy ? '#6ee7b7' : queued > 0 ? '#7dd3fc' : '#cbd5e1';
+  g.textAlign = 'center';
+  g.fillText(badgeText, bx + badgeW / 2, 29);
+
+  g.font = `500 20px ${FONT}`;
+  g.fillStyle = isBusy ? '#fde68a' : '#94a3b8';
+  g.textAlign = 'left';
+  g.fillText(subText, 16, 61);
+
+  const barX = 14, barY = h - 13, barW = w - 28, barH = 6;
+  g.fillStyle = 'rgba(255,255,255,0.10)';
+  g.beginPath();
+  g.roundRect(barX, barY, barW, barH, 3);
+  g.fill();
+
+  const fillPct = isBusy ? Math.max(8, Math.min(100, pct || 35)) : queued > 0 ? 15 : 0;
+  if (fillPct > 0) {
+    const grad = g.createLinearGradient(barX, 0, barX + barW, 0);
+    grad.addColorStop(0, deptColor || '#10b981');
+    grad.addColorStop(1, '#fbbf24');
+    g.fillStyle = grad;
+    g.beginPath();
+    g.roundRect(barX, barY, (barW * fillPct) / 100, barH, 3);
+    g.fill();
+  }
+
+  return { texture: tex(c, { aniso: 4 }), aspect: w / h };
+}
+
+export function speechBubbleTag(text, { accent = '#10b981' } = {}) {
+  const clean = String(text || '').slice(0, 44);
+  const [m, mg] = canvas(8, 8);
+  mg.font = `600 24px ${FONT}`;
+  const tw = mg.measureText(clean).width;
+  const w = Math.max(180, Math.ceil(tw + 38));
+  const h = 56;
+  const [c, g] = canvas(w, h);
+
+  g.fillStyle = 'rgba(15, 23, 42, 0.94)';
+  g.beginPath();
+  g.roundRect(2, 2, w - 4, h - 8, 14);
+  g.fill();
+
+  g.strokeStyle = accent;
+  g.lineWidth = 2.5;
+  g.beginPath();
+  g.roundRect(2, 2, w - 4, h - 8, 14);
+  g.stroke();
+
+  g.font = `600 22px ${FONT}`;
+  g.fillStyle = '#f8fafc';
+  g.textBaseline = 'middle';
+  g.textAlign = 'center';
+  g.fillText(clean, w / 2, (h - 6) / 2 + 1);
+
+  return { texture: tex(c, { aniso: 4 }), aspect: w / h };
+}

@@ -1,5 +1,5 @@
-// HTTP + WebSocket server cho văn phòng ảo
-import './log.ts';            // ghi log ra data/server.log (phải đứng đầu)
+// HTTP + WebSocket server cho văn phòng ảo 3D Agent-Javis (Đồng bộ Antigravity IDE)
+import './log.ts';
 import 'dotenv/config';
 import express, { type Request, type Response, type NextFunction } from 'express';
 import { createServer } from 'node:http';
@@ -12,11 +12,16 @@ import { repo } from './db.ts';
 import { discoverSessions } from './observer.ts';
 import { pricing } from './pricing.ts';
 import { saveUpload, getUpload, isImage, MAX_UPLOAD } from './attachments.ts';
+import {
+  listAllConversations,
+  getConversationDetail,
+  createOfficeConversation,
+  deleteConversation,
+} from './antigravityBridge.ts';
 import type { Department } from './types.ts';
 
 const PORT = Number(process.env.PORT ?? 4800);
 const HOST = process.env.HOST ?? '127.0.0.1';
-// Token chống trang web lạ gọi API localhost của bạn (CSRF / DNS rebinding)
 const TOKEN = process.env.OFFICE_TOKEN || randomBytes(16).toString('hex');
 const ALLOWED_HOSTS = new Set([`localhost:${PORT}`, `127.0.0.1:${PORT}`, `[::1]:${PORT}`, ...(process.env.ALLOWED_HOSTS?.split(',') ?? [])]);
 const WORKSPACE_ROOT = resolve(process.cwd(), '../..').replace(/\\/g, '/');
@@ -71,24 +76,19 @@ const hostGuard = (req: Request, res: Response, next: NextFunction) => {
 };
 app.use(hostGuard);
 
-// Trang chính: nhúng token vào HTML (trang web khác không đọc được do same-origin policy)
 const indexHtml = () => readFileSync('public/index.html', 'utf8').replace('__OFFICE_TOKEN__', TOKEN);
 app.get('/', (_req, res) => res.type('html').send(indexHtml()));
-// Chưa có model GLB nào → trả manifest rỗng (giao diện dùng đồ dựng bằng code)
 app.get('/models/manifest.json', (_req, res, next) => existsSync('public/models/manifest.json') ? next() : res.json({}));
 app.use(express.static('public', { index: false }));
-// Three.js phục vụ từ node_modules → giao diện chạy được cả khi offline
 app.use('/vendor/three', express.static('node_modules/three'));
 app.use('/vendor/fonts', express.static('node_modules/@fontsource'));
 
-// Xem lại tệp đính kèm trong nhật ký (thẻ <img> không gửi header được → token qua query)
 app.get('/files/:id/:name', (req, res) => {
   if (req.query.t !== TOKEN) return res.status(401).send('Sai token');
   const a = getUpload(String(req.params.id));
   if (!a) return res.status(404).send('Không còn tệp này');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Content-Security-Policy', 'sandbox');
-  // Chỉ ảnh mới hiển thị trực tiếp; tệp khác luôn tải về (tránh chạy HTML/JS lạ trong trang văn phòng)
   res.type(isImage(a) ? a.mime : 'application/octet-stream');
   res.setHeader('Content-Disposition', `${isImage(a) ? 'inline' : 'attachment'}; filename*=UTF-8''${encodeURIComponent(a.name)}`);
   res.sendFile(a.path);
@@ -105,7 +105,48 @@ const wrap = (fn: (req: Request, res: Response) => unknown) => (req: Request, re
 };
 const id = (req: Request) => String(req.params.id);
 
-api.get('/state', wrap(() => ({ ...office.snapshot(), providers: PROVIDERS })));
+api.get('/state', wrap(() => ({
+  ...office.snapshot(),
+  providers: PROVIDERS,
+  conversations: listAllConversations(25),
+})));
+
+// ---- Quản lý Đa Cuộc Trò Chuyện chuẩn Antigravity IDE
+api.get('/conversations', wrap(() => listAllConversations(30)));
+api.get('/conversations/:id', wrap(req => {
+  const c = getConversationDetail(id(req));
+  if (!c) throw new Error('Không tìm thấy cuộc trò chuyện');
+  return c;
+}));
+api.post('/conversations', wrap(req => {
+  const agentId = String(req.body.agentId || 'mama');
+  const agent = repo.getAgent(agentId);
+  const conv = createOfficeConversation({
+    title: req.body.title,
+    agentId,
+    agentName: agent?.name || 'Mama (Chief of Staff)',
+  });
+  broadcast('conversations-changed', null);
+  return conv;
+}));
+api.delete('/conversations/:id', wrap(req => {
+  deleteConversation(id(req));
+  broadcast('conversations-changed', null);
+  return { ok: true };
+}));
+api.post('/conversations/:id/messages', wrap(req => {
+  const convId = id(req);
+  const targetAgentId = String(req.body.agentId || 'mama');
+  const prompt = String(req.body.prompt || '');
+  const ids: unknown[] = Array.isArray(req.body.attachments) ? req.body.attachments : [];
+  const atts = ids.map(x => getUpload(String(x)));
+  if (atts.some(a => !a)) throw new Error('Có tệp đính kèm không còn trên máy, hãy đính kèm lại');
+  const task = office.assignTask(targetAgentId, prompt, undefined, undefined, atts as any, convId);
+  broadcast('conversations-changed', { convId });
+  return { task, conv: getConversationDetail(convId) };
+}));
+
+// ---- Quản lý Nhân viên & Hàng đợi Task
 api.post('/agents', wrap(req => office.createAgent(req.body)));
 api.patch('/agents/:id', wrap(req => office.updateAgent(id(req), req.body)));
 api.delete('/agents/:id', wrap(req => { office.deleteAgent(id(req)); return { ok: true }; }));
@@ -115,9 +156,29 @@ api.post('/agents/:id/tasks', wrap(req => {
   const ids: unknown[] = Array.isArray(req.body.attachments) ? req.body.attachments : [];
   const atts = ids.map(x => getUpload(String(x)));
   if (atts.some(a => !a)) throw new Error('Có tệp đính kèm không còn trên máy, hãy đính kèm lại');
-  return office.assignTask(id(req), String(req.body.prompt ?? ''), undefined, undefined, atts as any);
+  const convId = req.body.convId ? String(req.body.convId) : undefined;
+  return office.assignTask(id(req), String(req.body.prompt ?? ''), undefined, undefined, atts as any, convId);
 }));
-// Tải tệp lên (ảnh dán, file kéo thả). Thân request là dữ liệu thô của tệp.
+
+api.delete('/queue/:id', wrap(req => ({ ok: office.cancelSingleQueuedTask(id(req)) })));
+api.post('/queue/:id/promote', wrap(req => ({ ok: office.promoteQueuedTask(id(req)) })));
+
+api.post('/collab-wave', wrap(req => {
+  const topic = String(req.body?.topic || 'Đồng bộ Chiến dịch 4 Page & Kiểm duyệt Luật #10');
+  const chain: Array<[string, string, string, 'delegate' | 'audit' | 'report']> = [
+    ['mama', 'mkt', `Săn SKU Whitelist: ${topic.slice(0, 28)}`, 'delegate'],
+    ['mama', 'content', 'Soạn kịch bản Hook 3s & Caption A/B', 'delegate'],
+    ['mama', 'edit', 'Render Ảnh Zero-Clone 1:1 & Bespoke Reel', 'delegate'],
+    ['mama', 'edit-2', 'Chuẩn bị TVC 8 Nhịp Sandwich A-Roll/B-Roll', 'delegate'],
+    ['edit', 'bo-nao-thu-2', 'Kiểm duyệt chống trùng lặp (Luật #10)', 'audit'],
+    ['bo-nao-thu-2', 'mama', 'APPROVED_BY_SECOND_BRAIN ✓', 'report'],
+  ];
+  chain.forEach(([from, to, msg, kind], idx) => {
+    setTimeout(() => office.emitCollab(from, to, msg, kind), idx * 650);
+  });
+  return { ok: true, count: chain.length };
+}));
+
 api.post('/uploads', express.raw({ type: () => true, limit: MAX_UPLOAD }), wrap(req => {
   const name = decodeURIComponent(String(req.headers['x-filename'] ?? 'tep'));
   const a = saveUpload(name, String(req.headers['x-mime'] ?? ''), req.body as Buffer);
@@ -129,7 +190,7 @@ api.post('/departments', wrap(req => { office.upsertDepartment(req.body); return
 api.post('/permissions/:id', wrap(req => ({ ok: office.resolvePermission(id(req), !!req.body.allow) })));
 api.get('/tasks', wrap(() => repo.listTasks(undefined, 100)));
 api.get('/discover', wrap(() => discoverSessions(40)));
-// Token & chi phí: range = today | 7d | 30d | all
+
 api.get('/usage', wrap(req => {
   const range = String(req.query.range ?? 'today');
   const start = new Date(); start.setHours(0, 0, 0, 0);
@@ -166,28 +227,30 @@ const broadcast = (type: string, payload: unknown) => {
 };
 office.on('event', ev => broadcast('event', ev));
 office.on('status', s => broadcast('status', s));
+office.on('progress', p => broadcast('progress', p));
+office.on('collab', c => broadcast('collab', c));
 office.on('permission', p => broadcast('permission', p));
 office.on('permission-resolved', p => broadcast('permission-resolved', p));
 office.on('usage', u => broadcast('usage', u));
 let changedTimer: NodeJS.Timeout | undefined;
-office.on('changed', () => { clearTimeout(changedTimer); changedTimer = setTimeout(() => broadcast('changed', null), 100); });
+office.on('changed', () => {
+  clearTimeout(changedTimer);
+  changedTimer = setTimeout(() => {
+    broadcast('changed', null);
+    broadcast('conversations-changed', null);
+  }, 100);
+});
 
 server.on('error', (e: NodeJS.ErrnoException) => {
   if (e.code === 'EADDRINUSE') {
     console.error(`\nCổng ${PORT} đang được dùng: văn phòng có lẽ đã chạy sẵn ở một cửa sổ khác → mở http://localhost:${PORT}.`);
-    console.error('Muốn chạy lại từ đầu thì đóng cửa sổ kia trước. (Mã thoát 3)');
     process.exit(3);
   }
   console.error('[server]', e);
   process.exit(1);
 });
 server.listen(PORT, HOST, () => {
-  console.log(`\n🏢 Văn phòng ảo: http://localhost:${PORT}`);
-  const auth = process.env.ANTHROPIC_API_KEY ? 'ANTHROPIC_API_KEY trong .env (trả theo token)'
-    : process.env.CLAUDE_CODE_OAUTH_TOKEN ? `CLAUDE_CODE_OAUTH_TOKEN trong .env (${process.env.CLAUDE_CODE_OAUTH_TOKEN.slice(0, 10)}…)`
-    : 'đăng nhập Claude Code trên máy (~/.claude)';
-  console.log(`   Claude Code đăng nhập bằng: ${auth}`);
-  if (!process.env.OFFICE_TOKEN) console.log(`   Token phiên này: ${TOKEN} (đặt OFFICE_TOKEN trong .env để cố định)`);
+  console.log(`\n🏢 Văn phòng ảo 3D Agent-Javis: http://localhost:${PORT}`);
 });
 
 process.on('SIGINT', () => { console.log('\nĐóng văn phòng…'); process.exit(0); });
