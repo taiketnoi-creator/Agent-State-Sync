@@ -177,6 +177,22 @@ const params = new URLSearchParams(location.search);
 const office = new Office3D($('#stage'), {
   onPick: (id) => onPickAgent3D(id),
   onProgress: (msg) => { $('#loading-text').textContent = msg; },
+  onDeptMoved: async (dept) => {
+    try {
+      await api(`/departments/${encodeURIComponent(dept.id)}`, 'PUT', {
+        name: dept.name, color: dept.color, x: dept.x, z: dept.z, w: dept.w, d: dept.d, style: dept.style,
+      });
+      toast(`🏗️ Đã di chuyển phòng ban "${dept.name}" tới tọa độ (${dept.x}, ${dept.z})`);
+    } catch (e) {
+      toast(`Lỗi lưu vị trí phòng ban: ${e.message}`);
+    }
+  },
+  onCameraChange: ({ mode, autoRotate }) => {
+    $('#mode-orbit')?.classList.toggle('active', mode === 'orbit');
+    $('#mode-pan')?.classList.toggle('active', mode === 'pan');
+    $('#mode-dept')?.classList.toggle('active', mode === 'move_dept');
+    $('#btn-spin360')?.classList.toggle('active-Spin', !!autoRotate);
+  },
 });
 if (params.get('q') && QUALITY[params.get('q')]) office.quality = params.get('q');
 if (params.get('auto') === '0') office.autoQuality = false;
@@ -762,7 +778,8 @@ function connect() {
         office.courier(payload.data.fromAgentId, payload.agentId, payload.text.slice(0, 42), 'delegate');
       }
     } else if (type === 'conversations-changed') {
-      api('/conversations').then(list => {
+      api('/conversations').then(res => {
+        const list = res.conversations || res;
         state.conversations = list;
         renderConversationSidebar();
         if (state.activeConvId) {
@@ -794,7 +811,8 @@ function connect() {
 // Tự động đồng bộ danh sách cuộc trò chuyện Antigravity IDE mỗi 5 giây
 setInterval(() => {
   if (document.hidden) return;
-  api('/conversations').then(list => {
+  api('/conversations').then(res => {
+    const list = res.conversations || res;
     const oldSig = state.conversations.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
     const newSig = list.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
     if (oldSig !== newSig) {
@@ -814,6 +832,221 @@ await Promise.all([
   document.fonts.load('600 64px "Be Vietnam Pro"'),
   document.fonts.load('400 14px "Be Vietnam Pro"'),
 ]).catch(() => {});
+
+// ============================================================================
+// ĐIỀU KHIỂN 3D NỔI: CẦM NẮM KÉO SÀN, KÉO ĐỔI CHỖ PHÒNG BAN, ZOOM & XOAY 360°
+// ============================================================================
+$('#mode-orbit').onclick = () => {
+  office.setNavMode('orbit');
+  toast('🔄 Chế độ Xoay 360°: Kéo chuột trái để xoay 360°, chuột phải để kéo sàn.');
+};
+$('#mode-pan').onclick = () => {
+  office.setNavMode('pan');
+  toast('✋ Chế độ Cầm Nắm Kéo Sàn: Kéo chuột trái để cầm nắm dịch chuyển toàn bộ mặt sàn.');
+};
+$('#mode-dept').onclick = () => {
+  const next = office.navMode === 'move_dept' ? 'orbit' : 'move_dept';
+  office.setNavMode(next);
+  if (next === 'move_dept') {
+    toast('🏗️ Chế độ Kéo Phòng Ban: Bấm giữ chuột trái vào thảm phòng ban bất kỳ và kéo sang vị trí mới!');
+  }
+};
+$('#btn-spin360').onclick = () => {
+  const on = office.toggleAutoRotate360();
+  toast(on ? '🎡 Đang tự động xoay 360° quanh vị trí hiện tại!' : '⏹ Đã dừng tự động xoay 360°.');
+};
+$('#btn-eye360').onclick = () => {
+  office.eyeLevelView();
+  toast('👁️ Đã hạ góc nhìn ngang tầm mắt — kéo chuột để ngắm 360° quanh phòng!');
+};
+$('#btn-zoom-in').onclick = () => {
+  office.zoomBy(0.76);
+  setTimeout(syncZoomSlider, 380);
+};
+$('#btn-zoom-out').onclick = () => {
+  office.zoomBy(1.28);
+  setTimeout(syncZoomSlider, 380);
+};
+const zoomSlider = $('#zoom-slider');
+function syncZoomSlider() {
+  if (!zoomSlider || !office.camera) return;
+  const d = Math.round(office.getZoomDistance());
+  // Đảo chiều thanh trượt: kéo sang phải (giá trị cao) = phóng to (khoảng cách gần)
+  zoomSlider.value = String(Math.max(2, Math.min(75, 77 - d)));
+}
+if (zoomSlider) {
+  zoomSlider.addEventListener('input', () => {
+    const val = Number(zoomSlider.value);
+    const targetDist = Math.max(1.5, 77 - val);
+    office.setZoomDistance(targetDist);
+  });
+}
+setInterval(syncZoomSlider, 800);
+
+// ============================================================================
+// TÙY CHỈNH KÉO DÃN KHUNG CHAT 8 HƯỚNG, KÉO VỊ TRÍ & CO GIÃN CỘT CUỘC TRÒ CHUYỆN
+// ============================================================================
+(function initResizableDraggableChat() {
+  const panel = $('#panel');
+  const sidebar = $('#conv-sidebar');
+  const splitter = $('#conv-splitter');
+  const header = $('#chat-header');
+  if (!panel) return;
+
+  // Khôi phục kích thước đã lưu
+  try {
+    const saved = JSON.parse(localStorage.getItem('office.chatRect') || 'null');
+    if (saved) {
+      if (saved.w) panel.style.width = `${ Math.min(window.innerWidth - 20, Math.max(420, saved.w)) }px`;
+      if (saved.h) {
+        panel.style.height = `${ Math.min(window.innerHeight - 20, Math.max(340, saved.h)) }px`;
+        panel.style.bottom = 'auto';
+      }
+      if (saved.sidebarW && sidebar) {
+        sidebar.style.width = `${ Math.min(440, Math.max(175, saved.sidebarW)) }px`;
+        sidebar.style.minWidth = sidebar.style.width;
+      }
+    }
+  } catch {}
+
+  const saveRect = () => {
+    try {
+      const r = panel.getBoundingClientRect();
+      const sw = sidebar ? sidebar.getBoundingClientRect().width : 245;
+      localStorage.setItem('office.chatRect', JSON.stringify({ w: Math.round(r.width), h: Math.round(r.height), sidebarW: Math.round(sw) }));
+    } catch {}
+  };
+
+  // Nút chọn nhanh kích thước Gọn / Vừa / Rộng
+  $('#p-size-sm')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panel.style.top = '58px'; panel.style.right = '12px'; panel.style.left = 'auto'; panel.style.bottom = 'auto';
+    panel.style.width = '540px'; panel.style.height = '540px';
+    if (sidebar) { sidebar.style.width = '195px'; sidebar.style.minWidth = '195px'; }
+    saveRect();
+  });
+  $('#p-size-md')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panel.style.top = '12px'; panel.style.right = '12px'; panel.style.left = 'auto'; panel.style.bottom = '12px';
+    panel.style.width = '780px'; panel.style.height = 'auto';
+    if (sidebar) { sidebar.style.width = '245px'; sidebar.style.minWidth = '245px'; }
+    saveRect();
+  });
+  $('#p-size-lg')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panel.style.top = '10px'; panel.style.right = '10px'; panel.style.left = 'auto'; panel.style.bottom = '10px';
+    panel.style.width = `${Math.round(window.innerWidth * 0.9)}px`; panel.style.height = 'auto';
+    if (sidebar) { sidebar.style.width = '310px'; sidebar.style.minWidth = '310px'; }
+    saveRect();
+  });
+
+  // Kéo dãn 8 hướng quanh viền khung chat
+  panel.querySelectorAll('.chat-resizer').forEach(handle => {
+    handle.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dir = handle.dataset.dir || 'w';
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const rect = panel.getBoundingClientRect();
+      panel.style.top = `${rect.top}px`;
+      panel.style.left = `${rect.left}px`;
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+      panel.style.width = `${rect.width}px`;
+      panel.style.height = `${rect.height}px`;
+
+      const onMove = (ev) => {
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+        if (dir.includes('w')) {
+          const nw = Math.max(420, Math.min(window.innerWidth - 20, rect.width - dx));
+          const nl = rect.right - nw;
+          if (nl >= 6) {
+            panel.style.width = `${nw}px`;
+            panel.style.left = `${nl}px`;
+          }
+        }
+        if (dir.includes('e')) {
+          const nw = Math.max(420, Math.min(window.innerWidth - rect.left - 8, rect.width + dx));
+          panel.style.width = `${nw}px`;
+        }
+        if (dir.includes('n')) {
+          const nh = Math.max(340, Math.min(window.innerHeight - 20, rect.height - dy));
+          const nt = rect.bottom - nh;
+          if (nt >= 6) {
+            panel.style.height = `${nh}px`;
+            panel.style.top = `${nt}px`;
+          }
+        }
+        if (dir.includes('s')) {
+          const nh = Math.max(340, Math.min(window.innerHeight - rect.top - 8, rect.height + dy));
+          panel.style.height = `${nh}px`;
+        }
+      };
+      const onUp = () => {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+        saveRect();
+      };
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    });
+  });
+
+  // Kéo thanh tiêu đề để di chuyển vị trí khung chat trên màn hình
+  if (header) {
+    header.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button, select, input')) return;
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const rect = panel.getBoundingClientRect();
+      panel.style.left = `${rect.left}px`;
+      panel.style.top = `${rect.top}px`;
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+      panel.style.width = `${rect.width}px`;
+      panel.style.height = `${rect.height}px`;
+
+      const onMove = (ev) => {
+        const nl = Math.max(6, Math.min(window.innerWidth - rect.width - 6, rect.left + (ev.clientX - startX)));
+        const nt = Math.max(6, Math.min(window.innerHeight - 80, rect.top + (ev.clientY - startY)));
+        panel.style.left = `${nl}px`;
+        panel.style.top = `${nt}px`;
+      };
+      const onUp = () => {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      };
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    });
+  }
+
+  // Kéo vách ngăn giữa cột Cuộc Trò Chuyện và cột Chat Chính
+  if (splitter && sidebar) {
+    splitter.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      splitter.classList.add('dragging');
+      const startX = e.clientX;
+      const startW = sidebar.getBoundingClientRect().width;
+      const onMove = (ev) => {
+        const nw = Math.max(170, Math.min(460, startW + (ev.clientX - startX)));
+        sidebar.style.width = `${nw}px`;
+        sidebar.style.minWidth = `${nw}px`;
+      };
+      const onUp = () => {
+        splitter.classList.remove('dragging');
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+        saveRect();
+      };
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    });
+  }
+})();
+
 await office.init();
 renderQuality();
 window.__office = office;

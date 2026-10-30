@@ -116,7 +116,7 @@ export function skylinePanorama() {
 }
 
 /** Chữ trên sàn: in hoa, giãn chữ rộng, màu vàng đồng */
-export function floorLabel(text, { color = '#e3bd6e', size = 72, spacing = 0.3 } = {}) {
+export function floorLabel(text, { color = '#f3d48b', size = 112, spacing = 0.28 } = {}) {
   const label = text.toUpperCase();
   const [m, mg] = canvas(8, 8);
   mg.font = `600 ${size}px ${FONT}`;
@@ -131,7 +131,7 @@ export function floorLabel(text, { color = '#e3bd6e', size = 72, spacing = 0.3 }
   g.fillStyle = color;
   let x = pad;
   [...label].forEach((ch, i) => { g.fillText(ch, x, c.height / 2 + size * 0.06); x += widths[i] + sp; });
-  return { texture: tex(c), aspect: c.width / c.height };
+  const t = tex(c, { aniso: 16 }); t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; return { texture: t, aspect: c.width / c.height };
 }
 
 /** Nhãn nổi (sprite) — tên nhân viên, dấu "!" */

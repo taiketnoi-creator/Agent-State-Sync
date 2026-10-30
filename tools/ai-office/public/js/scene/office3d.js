@@ -46,13 +46,20 @@ class OfficeGTAO extends GTAOPass {
 export const QUALITY = { high: 'Cao', medium: 'Vừa', low: 'Thấp' };
 
 export class Office3D {
-  constructor(container, { onPick, onHover, onProgress } = {}) {
+  constructor(container, { onPick, onHover, onProgress, onDeptMoved, onCameraChange } = {}) {
     this.container = container;
     this.onPick = onPick; this.onHover = onHover; this.onProgress = onProgress;
+    this.onDeptMoved = onDeptMoved; this.onCameraChange = onCameraChange;
     this.agents = new Map();     // agentId → visual
     this.clusters = [];          // nhóm bàn có đèn thả
     this.hitboxes = [];
+    this.deptHitboxes = [];      // hitbox kéo thả phòng ban trực tiếp trong 3D
     this.couriers = [];
+    this.navMode = 'orbit';      // 'orbit' | 'pan' | 'move_dept'
+    this.autoRotate360 = false;
+    this._projVec = new THREE.Vector3();
+    this._floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    this._planeHit = new THREE.Vector3();
     this.selectedId = null; this.hoveredId = null;
     this.screens = new ScreenBank();
     this.assets = new Assets();
@@ -81,11 +88,28 @@ export class Office3D {
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environmentIntensity = 0.22;
 
-    this.camera = new THREE.PerspectiveCamera(37, 1, 0.5, 400);
+    // Lớp HUD Vector HTML sắc nét tuyệt đối cho thông tin nhân vật 3D
+    this.hudLayer = document.getElementById('hud3d-layer');
+    if (!this.hudLayer) {
+      this.hudLayer = document.createElement('div');
+      this.hudLayer.id = 'hud3d-layer';
+      this.container.appendChild(this.hudLayer);
+    }
+
+    this.camera = new THREE.PerspectiveCamera(37, 1, 0.35, 450);
     this.controls = new OrbitControls(this.camera, r.domElement);
     this.controls.enableDamping = true;
-    this.controls.maxPolarAngle = Math.PI * 0.44;
-    this.controls.minDistance = 5; this.controls.maxDistance = 70;
+    this.controls.dampingFactor = 0.065;
+    this.controls.rotateSpeed = 0.92;
+    this.controls.zoomSpeed = 1.35;
+    this.controls.panSpeed = 1.25;
+    this.controls.screenSpacePanning = false; // Kéo sàn phẳng mượt mà theo mặt phẳng ngang
+    if ('zoomToCursor' in this.controls) this.controls.zoomToCursor = true;
+    this.controls.maxPolarAngle = Math.PI * 0.488; // Cho phép hạ thấp ngang tầm mắt nhìn 360 độ
+    this.controls.minDistance = 1.35;              // Zoom cận cảnh sát nhân vật / màn hình
+    this.controls.maxDistance = 92;                // Zoom toàn cảnh rộng
+    this.controls.autoRotate = false;
+    this.controls.autoRotateSpeed = 2.4;
     this.home = { pos: new THREE.Vector3(0, 23.5, 28.5), target: new THREE.Vector3(0, 0, 2.2) };   // nhìn trọn cả khu cà phê / giải trí ở mặt tiền
 
     this.buildLights();
@@ -97,6 +121,35 @@ export class Office3D {
     this.layout = new THREE.Group(); this.layout.name = 'layout';
     this.dynamic = new THREE.Group(); this.dynamic.name = 'dynamic';
     scene.add(this.layout, this.dynamic);
+
+    // Vòng tâm xoay 360° dưới sàn (hiển thị vị trí đang khóa xoay 360)
+    this.pivotRing = new THREE.Group();
+    const prOuter = new THREE.Mesh(
+      new THREE.RingGeometry(0.52, 0.64, 48).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: '#10b981', transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false })
+    );
+    const prInner = new THREE.Mesh(
+      new THREE.RingGeometry(0.14, 0.22, 32).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: '#38bdf8', transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false })
+    );
+    this.pivotRing.add(prOuter, prInner);
+    this.pivotRing.position.set(0, 0.04, 2.2);
+    this.pivotRing.visible = false;
+    scene.add(this.pivotRing);
+
+    // Khung Hologram khi cầm nắm kéo di chuyển cả phòng ban trong 3D
+    this.deptDragBox = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 0.18, 1),
+      new THREE.MeshBasicMaterial({ color: '#10b981', wireframe: true, transparent: true, opacity: 0.9, toneMapped: false })
+    );
+    this.deptDragFill = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: '#10b981', transparent: true, opacity: 0.24, depthWrite: false, side: THREE.DoubleSide, toneMapped: false })
+    );
+    this.deptDragGroup = new THREE.Group();
+    this.deptDragGroup.add(this.deptDragBox, this.deptDragFill);
+    this.deptDragGroup.visible = false;
+    scene.add(this.deptDragGroup);
 
     this.raycaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2();
@@ -218,12 +271,16 @@ export class Office3D {
 
   rebuild(departments, agents) {
     // dọn bản cũ
-    for (const v of this.agents.values()) v.person.dispose();
+    for (const v of this.agents.values()) {
+      v.person.dispose();
+      v.hudEl?.remove();
+    }
+    if (this.hudLayer) this.hudLayer.innerHTML = '';
     disposeTree(this.layout); disposeTree(this.dynamic);
     this.scene.remove(this.layout, this.dynamic);
     this.layout = new THREE.Group(); this.dynamic = new THREE.Group();
     this.scene.add(this.layout, this.dynamic);
-    this.agents.clear(); this.clusters = []; this.hitboxes = [];
+    this.agents.clear(); this.clusters = []; this.hitboxes = []; this.deptHitboxes = [];
     this.games.dispose(); this.spots = [];
     this.nav = new NavGrid(FLOOR.w, FLOOR.d);
 
@@ -240,6 +297,16 @@ export class Office3D {
       else if (style.shape === 'cafe' && !members.length) this.buildCafe(d, style, build);
       else if (style.shape === 'game' && !members.length) this.buildGame(d, style, build);   // lỡ xếp người vào khu nghỉ → dựng bàn làm việc để không ai bị mất
       else this.buildZone(d, style, members, build);
+
+      // Tạo hitbox sàn cho phòng ban để cầm nắm kéo di chuyển hoặc bấm đúp xoay 360°
+      const dHit = new THREE.Mesh(
+        new THREE.BoxGeometry(d.w, 0.25, d.d),
+        new THREE.MeshBasicMaterial({ visible: false })
+      );
+      dHit.position.set(d.x, 0.12, d.z);
+      dHit.updateMatrixWorld(true);
+      dHit.userData.dept = d;
+      this.deptHitboxes.push(dHit);
     }
     this.buildDecor(departments, build, dense);
     this.layout.add(mergeStatic(build));
@@ -654,10 +721,9 @@ export class Office3D {
     label.userData.h = 0.46;
     label.position.set(x, 1.92 + y - 0.5, z);
     label.renderOrder = 10;
-    label.visible = true; // Luôn hiển thị thẻ tên + trạng thái + % trên đầu
+    label.visible = false; // Đã thay bằng lớp HTML Vector HUD siêu nét (#hud3d-layer)
     this.dynamic.add(label);
 
-    // Bong bóng hội thoại khi trao đổi công việc
     const bData = speechBubbleTag('Sẵn sàng', { accent: deptColor });
     const bubble = new THREE.Sprite(new THREE.SpriteMaterial({ map: bData.texture, transparent: true, depthTest: false }));
     bubble.scale.set(0.24 * bData.aspect, 0.24, 1);
@@ -667,6 +733,32 @@ export class Office3D {
     bubble.renderOrder = 12;
     bubble.visible = false;
     this.dynamic.add(bubble);
+
+    // Tạo thẻ HTML Vector sắc nét tuyệt đối trên đầu nhân vật
+    const hudEl = document.createElement('div');
+    hudEl.className = 'agent-hud3d';
+    hudEl.dataset.agentId = agent.id;
+    hudEl.innerHTML = `
+      <div class="hud3d-bubble" style="display:none"></div>
+      <div class="hud3d-card">
+        <div class="hud3d-top">
+          <span class="hud3d-dot"></span>
+          <span class="hud3d-name"></span>
+          <span class="hud3d-pct"></span>
+        </div>
+        <div class="hud3d-act"></div>
+        <div class="hud3d-bar"><div class="hud3d-fill"></div></div>
+      </div>
+    `;
+    hudEl.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      this.onPick?.(agent.id);
+    });
+    hudEl.addEventListener('dblclick', (ev) => {
+      ev.stopPropagation();
+      this.flyTo(agent.id);
+    });
+    this.hudLayer?.appendChild(hudEl);
 
     const al = pillLabel('!', { size: 56, color: '#1a1205', bg: '#ff9a4d', pad: 12 });
     const alert = new THREE.Sprite(new THREE.SpriteMaterial({ map: al.texture, transparent: true, depthTest: false }));
@@ -690,6 +782,7 @@ export class Office3D {
       ring,
       label,
       bubble,
+      hudEl,
       bubbleTimer: 0,
       alert,
       hit,
@@ -711,24 +804,67 @@ export class Office3D {
   }
 
   refreshAgentTag(v) {
-    if (!v) return;
-    const sig = `${v.status}|${v.progressPct}|${v.activityText}|${v.queued}|${v.id === this.selectedId}`;
+    if (!v || !v.hudEl) return;
+    const isSel = v.id === this.selectedId;
+    const isHov = v.id === this.hoveredId;
+    const sig = `${v.status}|${v.progressPct}|${v.activityText}|${v.queued}|${isSel}|${isHov}`;
     if (v._tagSig === sig) return;
     v._tagSig = sig;
-    const oldTex = v.label.material.map;
-    const tagData = agentOverheadTag(v.name, {
-      status: v.status,
-      pct: v.progressPct,
-      activity: v.activityText,
-      queued: v.queued,
-      isSelected: v.id === this.selectedId,
-      deptColor: v.deptColor,
-    });
-    v.label.material.map = tagData.texture;
-    v.label.material.needsUpdate = true;
-    v.label.userData.aspect = tagData.aspect;
-    v.label.userData.h = (v.status === 'working' || v.id === this.selectedId) ? 0.54 : 0.45;
-    oldTex?.dispose?.();
+
+    const SHORT_MAP = {
+      'mama': 'Mama',
+      'mkt': 'MKT',
+      'content': 'Content',
+      'edit': 'Edit',
+      'edit-2': 'Edit-2',
+      'voice': 'Voice',
+      'content-da-kenh': 'Đa Kênh',
+      'quan-ly-kenh': 'QL Kênh',
+      'cham-soc-kenh': 'CS Kênh',
+      'hieu-suat': 'Hiệu Suất',
+      'bo-nao-thu-2': 'Bộ Não #2',
+    };
+    const shortName = SHORT_MAP[v.id] || String(v.name || 'Agent').replace(/\s*\(.*?\)\s*/g, '').trim();
+    const st = v.status || 'idle';
+    const pct = Math.max(0, Math.min(100, Math.round(v.progressPct || 0)));
+    const queued = v.queued || 0;
+
+    v.hudEl.className = `agent-hud3d st-${st}${isSel ? ' is-selected' : ''}${isHov ? ' is-hovered' : ''}`;
+    const card = v.hudEl.querySelector('.hud3d-card');
+    if (card) card.style.setProperty('--dept-accent', v.deptColor || '#10b981');
+
+    const nameEl = v.hudEl.querySelector('.hud3d-name');
+    if (nameEl) nameEl.textContent = shortName;
+
+    const pctEl = v.hudEl.querySelector('.hud3d-pct');
+    if (pctEl) {
+      if (st === 'working' || pct > 0) {
+        pctEl.textContent = `${pct}%`;
+        pctEl.className = 'hud3d-pct is-working';
+      } else if (st === 'waiting') {
+        pctEl.textContent = 'CHỜ DUYỆT';
+        pctEl.className = 'hud3d-pct is-waiting';
+      } else if (queued > 0) {
+        pctEl.textContent = `HÀNG ĐỢI +${queued}`;
+        pctEl.className = 'hud3d-pct is-queued';
+      } else {
+        pctEl.textContent = 'SẴN SÀNG';
+        pctEl.className = 'hud3d-pct is-idle';
+      }
+    }
+
+    const actEl = v.hudEl.querySelector('.hud3d-act');
+    if (actEl) {
+      let act = v.activityText || (st === 'working' ? '⚡ Đang thực thi công việc...' : 'Sẵn sàng nhận lệnh');
+      if (queued > 0 && st === 'working') act = `${act} · Chờ +${queued}`;
+      actEl.textContent = act;
+    }
+
+    const fillEl = v.hudEl.querySelector('.hud3d-fill');
+    if (fillEl) {
+      const barPct = st === 'working' ? Math.max(10, pct) : pct > 0 ? pct : 100;
+      fillEl.style.width = `${barPct}%`;
+    }
   }
 
   setAgentProgress(id, { pct, activityText, queued, status } = {}) {
@@ -743,15 +879,13 @@ export class Office3D {
 
   showBubble(id, text, accent = '#10b981', dur = 5.2) {
     const v = this.agents.get(id);
-    if (!v || !v.bubble) return;
-    const oldTex = v.bubble.material.map;
-    const bData = speechBubbleTag(text, { accent });
-    v.bubble.material.map = bData.texture;
-    v.bubble.material.needsUpdate = true;
-    v.bubble.userData.aspect = bData.aspect;
-    v.bubble.visible = true;
+    if (!v || !v.hudEl) return;
+    const bEl = v.hudEl.querySelector('.hud3d-bubble');
+    if (!bEl) return;
+    bEl.textContent = text;
+    bEl.style.borderColor = accent;
+    bEl.style.display = 'block';
     v.bubbleTimer = dur;
-    oldTex?.dispose?.();
   }
 
   // ================================================================ giờ nghỉ & đi giao tiếp công việc
@@ -943,7 +1077,7 @@ export class Office3D {
 
   updateLabel(v) {
     // Luôn hiển thị thẻ tên + trạng thái + % trên đầu mọi nhân vật 3D
-    v.label.visible = true;
+    v.label.visible = false;
     this.refreshAgentTag(v);
     v.ring.userData.target = ['working', 'waiting', 'queued', 'error'].includes(v.status)
       ? 0.9
@@ -1027,14 +1161,106 @@ export class Office3D {
     this.couriers.push({ curve, dots, trail, wave, t: 0 });
   }
 
-  // ================================================================ camera
+  // ================================================================ camera, zoom, xoay 360° & cầm nắm phòng ban
   flyTo(id) {
     const v = this.agents.get(id); if (!v) return;
     const target = v.focus.clone();
-    const dir = this.camera.position.clone().sub(this.controls.target).setY(0).normalize();
-    this.animateCamera(target.clone().add(dir.multiplyScalar(4.2)).setY(target.y + 3.4), target);
+    this.lockPivot360(target.x, target.y, target.z, 4.4, 2.8);
   }
-  overview() { this.animateCamera(this.home.pos.clone().multiplyScalar(this.homeScale ?? 1).setY(this.home.pos.y * (this.homeScale ?? 1)), this.home.target.clone()); }
+
+  /** Khóa tâm xoay 360° vào bất kỳ vị trí (x, y, z) nào trong văn phòng */
+  lockPivot360(x, y = 0.9, z = 0, dist = 5.6, heightOffset = 3.2) {
+    const target = new THREE.Vector3(x, y, z);
+    const dir = this.camera.position.clone().sub(this.controls.target).setY(0);
+    if (dir.lengthSq() < 0.001) dir.set(0, 0, 1);
+    dir.normalize();
+    const pos = target.clone().add(dir.multiplyScalar(dist)).setY(Math.max(1.3, y + heightOffset));
+    if (this.pivotRing) {
+      this.pivotRing.position.set(x, 0.04, z);
+      this.pivotRing.visible = true;
+      this.pivotRingTimer = 6.0;
+    }
+    this.animateCamera(pos, target, 0.75);
+    this.onCameraChange?.({ mode: this.navMode, autoRotate: this.controls.autoRotate, pivot: { x, y, z } });
+  }
+
+  /** Hạ góc camera xuống ngang tầm mắt để xoay 360° quanh vị trí hiện tại */
+  eyeLevelView() {
+    const t = this.controls.target.clone();
+    const dir = this.camera.position.clone().sub(t).setY(0);
+    if (dir.lengthSq() < 0.001) dir.set(0, 0, 1);
+    dir.normalize();
+    const dist = Math.max(3.2, Math.min(8.5, this.camera.position.distanceTo(t)));
+    const newTarget = new THREE.Vector3(t.x, 1.2, t.z);
+    const newPos = newTarget.clone().add(dir.multiplyScalar(dist)).setY(1.65);
+    if (this.pivotRing) {
+      this.pivotRing.position.set(t.x, 0.04, t.z);
+      this.pivotRing.visible = true;
+      this.pivotRingTimer = 6.0;
+    }
+    this.animateCamera(newPos, newTarget, 0.75);
+  }
+
+  /** Bật/tắt tự động xoay vòng 360° quanh vị trí đang chọn */
+  toggleAutoRotate360(force) {
+    this.controls.autoRotate = force !== undefined ? !!force : !this.controls.autoRotate;
+    if (this.controls.autoRotate && this.pivotRing) {
+      this.pivotRing.position.set(this.controls.target.x, 0.04, this.controls.target.z);
+      this.pivotRing.visible = true;
+      this.pivotRingTimer = 9999;
+    } else if (this.pivotRing) {
+      this.pivotRingTimer = 1.5;
+    }
+    this.onCameraChange?.({ mode: this.navMode, autoRotate: this.controls.autoRotate });
+    return this.controls.autoRotate;
+  }
+
+  /** Đổi chế độ cầm nắm chuột trái: 'orbit' (Xoay 360°) | 'pan' (Cầm nắm kéo sàn) | 'move_dept' (Cầm nắm kéo phòng ban) */
+  setNavMode(mode = 'orbit') {
+    this.navMode = mode;
+    if (mode === 'pan') {
+      this.controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
+      this.controls.mouseButtons.RIGHT = THREE.MOUSE.ROTATE;
+    } else {
+      this.controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
+      this.controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
+    }
+    const el = this.renderer?.domElement;
+    if (el) {
+      el.style.cursor = mode === 'pan' ? 'grab' : mode === 'move_dept' ? 'move' : 'grab';
+    }
+    this.onCameraChange?.({ mode: this.navMode, autoRotate: this.controls.autoRotate });
+  }
+
+  /** Zoom mượt theo hệ số hoặc khoảng cách */
+  zoomBy(factor = 0.8) {
+    const t = this.controls.target;
+    const offset = this.camera.position.clone().sub(t);
+    const curDist = offset.length();
+    const nextDist = Math.max(this.controls.minDistance, Math.min(this.controls.maxDistance, curDist * factor));
+    offset.normalize().multiplyScalar(nextDist);
+    this.animateCamera(t.clone().add(offset), t.clone(), 0.35);
+  }
+
+  getZoomDistance() {
+    return this.camera.position.distanceTo(this.controls.target);
+  }
+
+  setZoomDistance(dist) {
+    const t = this.controls.target;
+    const offset = this.camera.position.clone().sub(t);
+    const clamped = Math.max(this.controls.minDistance, Math.min(this.controls.maxDistance, Number(dist) || 18));
+    offset.normalize().multiplyScalar(clamped);
+    this.camera.position.copy(t).add(offset);
+    this.controls.update();
+  }
+
+  overview() {
+    this.controls.autoRotate = false;
+    if (this.pivotRing) this.pivotRing.visible = false;
+    this.animateCamera(this.home.pos.clone().multiplyScalar(this.homeScale ?? 1).setY(this.home.pos.y * (this.homeScale ?? 1)), this.home.target.clone());
+    this.onCameraChange?.({ mode: this.navMode, autoRotate: false });
+  }
   animateCamera(pos, target, dur = 0.9) {
     this.camAnim = { p0: this.camera.position.clone(), t0: this.controls.target.clone(), p1: pos, t1: target, t: 0, dur };
   }
@@ -1075,30 +1301,154 @@ export class Office3D {
     this.scene?.traverse(o => { if (o.isMesh && o.userData._cast === undefined) o.userData._cast = o.castShadow; if (o.isMesh) o.castShadow = on && o.userData._cast; });
   }
 
-  // ================================================================ sự kiện chuột
+  // ================================================================ sự kiện chuột (Chọn Agent, Kéo thả phòng ban 3D, Đúp chuột khóa tâm 360°)
   bindEvents() {
     const el = this.renderer.domElement;
     let down = null;
-    const pick = (e) => {
+    let draggingDept = null; // { dept, startX, startZ, offsetX, offsetZ, curX, curZ }
+
+    const updateRay = (e) => {
       const rect = el.getBoundingClientRect();
       this.pointer.set(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
       this.raycaster.setFromCamera(this.pointer, this.camera);
+    };
+
+    const pickAgent = (e) => {
+      updateRay(e);
       return this.raycaster.intersectObjects(this.hitboxes, false)[0]?.object.userData.agentId ?? null;
     };
-    el.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY]; this.camAnim = null; });
-    el.addEventListener('pointerup', e => {
-      if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
-      const id = pick(e); if (id) this.onPick?.(id);
+
+    const pickDept = (e) => {
+      updateRay(e);
+      return this.raycaster.intersectObjects(this.deptHitboxes, false)[0]?.object.userData.dept ?? null;
+    };
+
+    const pickFloorPoint = (e) => {
+      updateRay(e);
+      return this.raycaster.ray.intersectPlane(this._floorPlane, this._planeHit) ? this._planeHit.clone() : null;
+    };
+
+    el.addEventListener('pointerdown', e => {
+      down = [e.clientX, e.clientY];
+      this.camAnim = null;
+
+      // Chế độ cầm nắm kéo di chuyển phòng ban (hoặc giữ phím Shift + kéo chuột trái trên thảm phòng ban)
+      if (e.button === 0 && (this.navMode === 'move_dept' || e.shiftKey)) {
+        const dept = pickDept(e);
+        const pt = pickFloorPoint(e);
+        if (dept && pt) {
+          draggingDept = {
+            dept,
+            startX: dept.x,
+            startZ: dept.z,
+            offsetX: dept.x - pt.x,
+            offsetZ: dept.z - pt.z,
+            curX: dept.x,
+            curZ: dept.z,
+          };
+          this.controls.enabled = false;
+          this.deptDragBox.scale.set(dept.w, 1, dept.d);
+          this.deptDragFill.scale.set(dept.w, dept.d, 1);
+          this.deptDragGroup.position.set(dept.x, 0.09, dept.z);
+          this.deptDragGroup.visible = true;
+          el.style.cursor = 'grabbing';
+        }
+      }
     });
-    el.addEventListener('dblclick', e => { const id = pick(e); if (id) this.flyTo(id); });
+
     el.addEventListener('pointermove', e => {
+      if (draggingDept) {
+        const pt = pickFloorPoint(e);
+        if (!pt) return;
+        const halfW = FLOOR.w / 2 - draggingDept.dept.w / 2 - 0.5;
+        const halfD = FLOOR.d / 2 - draggingDept.dept.d / 2 - 0.5;
+        const nx = Math.round(Math.max(-halfW, Math.min(halfW, pt.x + draggingDept.offsetX)) * 2) / 2;
+        const nz = Math.round(Math.max(-halfD, Math.min(halfD, pt.z + draggingDept.offsetZ)) * 2) / 2;
+        const dx = nx - draggingDept.curX;
+        const dz = nz - draggingDept.curZ;
+        if (dx !== 0 || dz !== 0) {
+          draggingDept.curX = nx;
+          draggingDept.curZ = nz;
+          this.deptDragGroup.position.set(nx, 0.09, nz);
+          // Dịch chuyển trực tiếp các nhân vật thuộc phòng ban theo tay kéo
+          for (const v of this.agents.values()) {
+            if (v.cluster?.deptId === draggingDept.dept.id) {
+              v.person.anchor.x += dx;
+              v.person.anchor.z += dz;
+              v.person.root.position.x += dx;
+              v.person.root.position.z += dz;
+              v.home.x += dx;
+              v.home.z += dz;
+              v.home.exit.x += dx;
+              v.home.exit.z += dz;
+            }
+          }
+        }
+        return;
+      }
+
       if (e.buttons) return;
-      const id = pick(e);
-      if (id === this.hoveredId) return;
-      const prev = this.hoveredId; this.hoveredId = id;
-      for (const k of [prev, id]) { const v = this.agents.get(k); if (v) { this.updateLabel(v); v.person.mat.emissive.set(k === id && v.status !== 'error' ? '#2a1d0c' : v.status === 'error' ? '#3a0606' : '#000'); } }
-      el.style.cursor = id ? 'pointer' : 'grab';
-      this.onHover?.(id);
+      const id = pickAgent(e);
+      if (id !== this.hoveredId) {
+        const prev = this.hoveredId;
+        this.hoveredId = id;
+        for (const k of [prev, id]) {
+          const v = this.agents.get(k);
+          if (v) {
+            this.updateLabel(v);
+            v.person.mat.emissive.set(k === id && v.status !== 'error' ? '#2a1d0c' : v.status === 'error' ? '#3a0606' : '#000');
+          }
+        }
+        this.onHover?.(id);
+      }
+      if (this.navMode === 'move_dept') {
+        const d = pickDept(e);
+        el.style.cursor = d ? 'grab' : 'default';
+      } else {
+        el.style.cursor = id ? 'pointer' : 'grab';
+      }
+    });
+
+    el.addEventListener('pointerup', e => {
+      if (draggingDept) {
+        const { dept, startX, startZ, curX, curZ } = draggingDept;
+        draggingDept = null;
+        this.deptDragGroup.visible = false;
+        this.controls.enabled = true;
+        el.style.cursor = this.navMode === 'move_dept' ? 'grab' : 'grab';
+        if (curX !== startX || curZ !== startZ) {
+          dept.x = curX;
+          dept.z = curZ;
+          if (this.lastData) {
+            this.layoutSig = '';
+            this.setData(this.lastData[0], this.lastData[1]);
+          }
+          this.onDeptMoved?.(dept);
+        }
+        return;
+      }
+
+      if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+      const id = pickAgent(e);
+      if (id) this.onPick?.(id);
+    });
+
+    // Nhấp đúp vào nhân vật, phòng ban hoặc bất kỳ điểm nào trên sàn để khóa tâm xoay 360° quanh điểm đó
+    el.addEventListener('dblclick', e => {
+      const id = pickAgent(e);
+      if (id) {
+        this.flyTo(id);
+        return;
+      }
+      const dept = pickDept(e);
+      if (dept) {
+        this.lockPivot360(dept.x, 1.0, dept.z, Math.max(6.5, Math.max(dept.w, dept.d) * 1.1), 4.8);
+        return;
+      }
+      const pt = pickFloorPoint(e);
+      if (pt) {
+        this.lockPivot360(pt.x, 0.8, pt.z, 7.2, 4.2);
+      }
     });
   }
 
@@ -1140,14 +1490,17 @@ export class Office3D {
       this.syncAgent(v);
       if (v.bubbleTimer > 0) {
         v.bubbleTimer -= dt;
-        if (v.bubbleTimer <= 0 && v.bubble) v.bubble.visible = false;
+        if (v.bubbleTimer <= 0 && v.hudEl) {
+          const bEl = v.hudEl.querySelector('.hud3d-bubble');
+          if (bEl) bEl.style.display = 'none';
+        }
       }
       const m = v.ring.material, tgt = v.ring.userData.target ?? 0.22;
       m.opacity += (tgt - m.opacity) * Math.min(1, dt * 6);
       v.ring.visible = m.opacity > 0.01;
       if (v.ring.visible) { const s = 1 + (Math.sin(t * 3 + v.pos.x) + 1) * 0.07; v.ring.scale.set(s, 1, s); }
       if (v.alert.visible) v.alert.position.y = (v.alertY ?? v.person.baseY + 1.8) + Math.sin(t * 5) * 0.05;
-      for (const sp of [v.label, v.bubble, v.alert]) {
+      for (const sp of [v.alert]) {
         if (!sp || !sp.visible) continue;
         const d = this.camera.position.distanceTo(sp.position);
         const h = Math.min(sp.userData.h * 1.35, Math.max(0.28, d * 0.024 * (sp.userData.h / 0.45)));
@@ -1190,6 +1543,18 @@ export class Office3D {
       if (a.t >= 1) this.camAnim = null;
     }
     this.controls.update();
+    if (this.pivotRing && this.pivotRing.visible) {
+      this.pivotRing.position.x = this.controls.target.x;
+      this.pivotRing.position.z = this.controls.target.z;
+      this.pivotRing.rotation.y = t * 1.6;
+      const ps = 1 + Math.sin(t * 4) * 0.08;
+      this.pivotRing.scale.set(ps, 1, ps);
+      if (!this.controls.autoRotate && this.pivotRingTimer !== undefined) {
+        this.pivotRingTimer -= dt;
+        if (this.pivotRingTimer <= 0) this.pivotRing.visible = false;
+      }
+    }
+    this.updateDomHud();
     if (!render) return;
     this.renderer.info.reset();
     if (this.composer) this.composer.render(dt); else this.renderer.render(this.scene, this.camera);
@@ -1208,6 +1573,60 @@ export class Office3D {
       f.lastDowngrade = performance.now();
       this.applyQuality(this.quality === 'high' ? 'medium' : 'low');
       this.onQualityAuto?.(this.quality);
+    }
+  }
+
+  /** Chiếu tọa độ đầu nhân vật 3D sang pixel nguyên + tự động tách khoảng cách chống đè nhau 100% */
+  updateDomHud() {
+    const w = this.container.clientWidth, h = this.container.clientHeight;
+    if (!w || !h) return;
+    const items = [];
+    for (const v of this.agents.values()) {
+      const el = v.hudEl;
+      if (!el) continue;
+      this._projVec.set(v.label.position.x, v.label.position.y + 0.08, v.label.position.z).project(this.camera);
+      if (this._projVec.z > 1 || this._projVec.z < -1) {
+        el.style.display = 'none';
+        continue;
+      }
+      const sx = (this._projVec.x * 0.5 + 0.5) * w;
+      const sy = (-this._projVec.y * 0.5 + 0.5) * h;
+      if (sx < -160 || sx > w + 160 || sy < -120 || sy > h + 120) {
+        el.style.display = 'none';
+        continue;
+      }
+      items.push({ el, sx, sy, z: this._projVec.z });
+    }
+
+    // Chống đè thẻ (Screen-space collision repulsion 3 vòng lặp)
+    const minW = 128, minH = 50;
+    for (let iter = 0; iter < 3; iter++) {
+      for (let i = 0; i < items.length; i++) {
+        for (let j = i + 1; j < items.length; j++) {
+          const a = items[i], b = items[j];
+          const dx = b.sx - a.sx;
+          const dy = b.sy - a.sy;
+          const ox = minW - Math.abs(dx);
+          const oy = minH - Math.abs(dy);
+          if (ox > 0 && oy > 0) {
+            if (ox < oy * 1.8) {
+              const push = (ox / 2 + 2) * (dx >= 0 ? 1 : -1);
+              a.sx -= push;
+              b.sx += push;
+            } else {
+              const push = (oy / 2 + 2) * (dy >= 0 ? 1 : -1);
+              a.sy -= push;
+              b.sy += push;
+            }
+          }
+        }
+      }
+    }
+
+    for (const it of items) {
+      it.el.style.display = 'flex';
+      it.el.style.left = `${Math.round(it.sx)}px`;
+      it.el.style.top = `${Math.round(it.sy)}px`;
     }
   }
 

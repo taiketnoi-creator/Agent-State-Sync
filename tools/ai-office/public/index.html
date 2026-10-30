@@ -82,7 +82,7 @@
   #feed div { color: #e2e8f0; text-shadow: 0 1px 4px #000, 0 0 10px #000; margin-top: 3px; }
   #feed b { color: #34d399; font-weight: 600; }
   #hint {
-    position: absolute; left: 14px; bottom: 10px; font-size: 11.5px; color: var(--muted);
+    position: absolute; left: 14px; bottom: 56px; font-size: 11px; color: var(--muted);
     pointer-events: none; text-shadow: 0 1px 3px #000; z-index: 3;
   }
 
@@ -352,6 +352,195 @@
     #conv-sidebar { width: 100%; max-height: 180px; border-right: none; border-bottom: 1px solid var(--line); }
     .sidebar-agents { display: none; }
   }
+
+  /* ============================================================================
+     LỚP HUD VECTOR HTML SIÊU SẮC NÉT TRÊN ĐẦU NHÂN VẬT 3D (#hud3d-layer)
+     ============================================================================ */
+  #hud3d-layer {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 5;
+  }
+  .agent-hud3d {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    pointer-events: auto; cursor: pointer; user-select: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    transition: z-index 0s;
+  }
+  .agent-hud3d:hover, .agent-hud3d.is-selected, .agent-hud3d.st-working {
+    z-index: 15;
+  }
+  .hud3d-bubble {
+    max-width: 240px; padding: 4px 10px; border-radius: 10px;
+    background: rgba(8, 12, 22, 0.96);
+    border: 1.5px solid #10b981;
+    color: #ffffff; font-size: 11.5px; font-weight: 600; line-height: 1.3;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+    margin-bottom: 2px;
+  }
+  .hud3d-card {
+    --dept-accent: #10b981;
+    min-width: 118px; max-width: 176px;
+    padding: 4px 8px 5px;
+    border-radius: 10px;
+    background: rgba(9, 13, 22, 0.94);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: flex; flex-direction: column; gap: 2px;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .agent-hud3d:hover .hud3d-card,
+  .agent-hud3d.is-selected .hud3d-card {
+    border-color: #fbbf24;
+    background: rgba(13, 18, 30, 0.98);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.8), 0 0 12px rgba(251, 191, 36, 0.35);
+  }
+  .agent-hud3d.st-working .hud3d-card {
+    border-color: #10b981;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(16, 185, 129, 0.35);
+  }
+  .hud3d-top {
+    display: flex; align-items: center; justify-content: space-between; gap: 7px;
+  }
+  .hud3d-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    background: var(--dept-accent, #10b981);
+    box-shadow: 0 0 6px var(--dept-accent, #10b981);
+  }
+  .agent-hud3d.st-working .hud3d-dot {
+    background: #10b981; box-shadow: 0 0 9px #10b981;
+  }
+  .hud3d-name {
+    font-size: 12px; font-weight: 700; color: #ffffff; letter-spacing: 0.01em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  }
+  .hud3d-pct {
+    font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 99px;
+    letter-spacing: 0.02em; flex-shrink: 0; font-variant-numeric: tabular-nums;
+  }
+  .hud3d-pct.is-idle {
+    background: rgba(255, 255, 255, 0.1); color: #cbd5e1;
+  }
+  .hud3d-pct.is-working {
+    background: rgba(16, 185, 129, 0.24); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.55);
+  }
+  .hud3d-pct.is-queued {
+    background: rgba(56, 189, 248, 0.22); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.5);
+  }
+  .hud3d-pct.is-waiting {
+    background: rgba(251, 146, 60, 0.25); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.55);
+  }
+  .hud3d-act {
+    font-size: 10.5px; font-weight: 500; color: #cbd5e1;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 196px; line-height: 1.25;
+  }
+  .agent-hud3d.st-working .hud3d-act {
+    color: #a7f3d0; font-weight: 600;
+  }
+  .hud3d-bar {
+    height: 3.5px; background: rgba(255, 255, 255, 0.12); border-radius: 99px;
+    overflow: hidden; margin-top: 2px;
+  }
+  .hud3d-fill {
+    height: 100%; width: 100%; border-radius: 99px;
+    background: var(--dept-accent, #10b981);
+    transition: width 0.3s ease;
+  }
+  .agent-hud3d.st-working .hud3d-fill {
+    background: linear-gradient(90deg, #10b981, #fbbf24);
+  }
+
+  /* ============================================================================
+     THANH ĐIỀU KHIỂN 3D NỔI: CẦM NẮM KÉO SÀN, KÉO PHÒNG BAN, ZOOM & XOAY 360°
+     ============================================================================ */
+  #cam3d-dock {
+    position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+    z-index: 8; display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; white-space: nowrap;
+    padding: 6px 10px; border-radius: 14px;
+    background: rgba(11, 15, 24, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+  }
+  #cam3d-dock .dock-sep {
+    width: 1px; height: 20px; background: rgba(255, 255, 255, 0.12); margin: 0 2px;
+  }
+  .dock-btn {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e2e8f0; border-radius: 9px; padding: 5px 10px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: all 0.14s ease; white-space: nowrap;
+  }
+  .dock-btn:hover {
+    border-color: #10b981; background: rgba(16, 185, 129, 0.12); color: #ffffff;
+  }
+  .dock-btn.active {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-color: #34d399; color: #04130d; font-weight: 700;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+  }
+  .dock-btn.active-Spin {
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    border-color: #67e8f9; color: #ffffff; font-weight: 700;
+    box-shadow: 0 0 14px rgba(6, 182, 212, 0.45);
+  }
+  .zoom-wrap {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 0 4px; font-size: 11.5px; color: #94a3b8;
+  }
+  #zoom-slider {
+    width: 82px; accent-color: #10b981; cursor: pointer;
+  }
+
+  /* ============================================================================
+     KÉO DÃN KHUNG CHAT 8 HƯỚNG & KÉO VÁCH NGĂN SIDEBAR (#panel resizers)
+     ============================================================================ */
+  #panel {
+    min-width: 420px; min-height: 340px;
+    max-width: calc(100vw - 16px); max-height: calc(100vh - 16px);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.72);
+  }
+  .chat-resizer {
+    position: absolute; z-index: 20;
+  }
+  .chat-resizer.r-w {
+    left: 0; top: 0; bottom: 0; width: 7px; cursor: ew-resize;
+  }
+  .chat-resizer.r-w::after {
+    content: ''; position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 42px; border-radius: 99px; background: rgba(255, 255, 255, 0.18);
+    transition: background 0.15s, height 0.15s;
+  }
+  .chat-resizer.r-w:hover::after {
+    background: #10b981; height: 64px;
+  }
+  .chat-resizer.r-e { right: 0; top: 0; bottom: 0; width: 6px; cursor: ew-resize; }
+  .chat-resizer.r-n { top: 0; left: 0; right: 0; height: 6px; cursor: ns-resize; }
+  .chat-resizer.r-s { bottom: 0; left: 0; right: 0; height: 6px; cursor: ns-resize; }
+  .chat-resizer.r-nw { top: 0; left: 0; width: 12px; height: 12px; cursor: nwse-resize; z-index: 22; }
+  .chat-resizer.r-ne { top: 0; right: 0; width: 12px; height: 12px; cursor: nesw-resize; z-index: 22; }
+  .chat-resizer.r-sw { bottom: 0; left: 0; width: 12px; height: 12px; cursor: nesw-resize; z-index: 22; }
+  .chat-resizer.r-se { bottom: 0; right: 0; width: 12px; height: 12px; cursor: nwse-resize; z-index: 22; }
+
+  /* Thanh kéo co giãn cột Cuộc Trò Chuyện */
+  #conv-splitter {
+    width: 5px; cursor: col-resize; background: transparent;
+    position: relative; flex-shrink: 0; z-index: 12;
+    transition: background 0.15s;
+  }
+  #conv-splitter:hover, #conv-splitter.dragging {
+    background: rgba(16, 185, 129, 0.45);
+  }
+  #chat-header {
+    cursor: move; user-select: none;
+  }
+
 </style>
 <script type="importmap">
 { "imports": {
@@ -377,11 +566,37 @@
     <button class="btn ghost" id="btn-overview">Toàn cảnh 3D</button>
     <button class="btn ghost desktop-only" id="btn-quality">Chất lượng</button>
   </div>
+  <div id="hud3d-layer"></div>
   <div id="feed" class="card"></div>
-  <div id="hint">Kéo để xoay 3D · Cuộn để phóng to · Bấm vào nhân vật 3D trên sàn để giao việc trực tiếp (tự động xếp hàng đợi nếu đang bận)</div>
 
-  <!-- BẢNG CHAT ĐA CUỘC TRÒ CHUYỆN GIỐNG HỆT ANTIGRAVITY IDE -->
+  <!-- THANH CÔNG CỤ CẦM NẮM 3D, DI CHUYỂN PHÒNG BAN, ZOOM & XOAY 360° -->
+  <div id="cam3d-dock">
+    <button class="dock-btn active" id="mode-orbit" title="Kéo chuột trái để xoay 360° quanh điểm nhìn (Chuột phải để kéo sàn)">🔄 Xoay 360°</button>
+    <button class="dock-btn" id="mode-pan" title="Cầm nắm kéo di chuyển toàn bộ sàn văn phòng bằng chuột trái">✋ Cầm Nắm Kéo Sàn</button>
+    <button class="dock-btn" id="mode-dept" title="Cầm nắm kéo di chuyển từng Phòng Ban (thảm + bàn + nhân vật) sang vị trí mới trên sàn 3D">🏗️ Kéo Đổi Chỗ Phòng Ban</button>
+    <div class="dock-sep"></div>
+    <button class="dock-btn" id="btn-spin360" title="Tự động quay 360° quanh nhân vật / phòng ban / vị trí đang chọn">🎡 Tự Xoay 360°</button>
+    <button class="dock-btn" id="btn-eye360" title="Hạ camera xuống góc nhìn ngang tầm mắt để ngắm 360°">👁️ Góc Ngang</button>
+    <div class="dock-sep"></div>
+    <div class="zoom-wrap">
+      <button class="dock-btn" id="btn-zoom-out" title="Thu nhỏ (Zoom Out)" style="padding:3px 8px">➖</button>
+      <input type="range" id="zoom-slider" min="2" max="75" value="28" title="Kéo để phóng to / thu nhỏ 3D" />
+      <button class="dock-btn" id="btn-zoom-in" title="Phóng to cận cảnh (Zoom In)" style="padding:3px 8px">➕</button>
+    </div>
+  </div>
+
+  <div id="hint">Mẹo: Nhấp đúp vào bất kỳ vị trí/nhân vật nào để khóa tâm xoay 360° · Giữ Shift + Kéo thảm để di chuyển phòng ban</div>
+
+  <!-- BẢNG CHAT ĐA CUỘC TRÒ CHUYỆN GIỐNG HỆT ANTIGRAVITY IDE (CÓ KÉO DÃN 8 HƯỚNG) -->
   <aside id="panel" class="card">
+    <div class="chat-resizer r-w" data-dir="w" title="Kéo để mở rộng / thu hẹp khung chat"></div>
+    <div class="chat-resizer r-e" data-dir="e"></div>
+    <div class="chat-resizer r-n" data-dir="n"></div>
+    <div class="chat-resizer r-s" data-dir="s"></div>
+    <div class="chat-resizer r-nw" data-dir="nw"></div>
+    <div class="chat-resizer r-ne" data-dir="ne"></div>
+    <div class="chat-resizer r-sw" data-dir="sw"></div>
+    <div class="chat-resizer r-se" data-dir="se"></div>
     <div id="conv-sidebar">
       <div class="sidebar-head">
         <div class="brand"><span class="dot"></span> Cuộc Trò Chuyện</div>
@@ -394,12 +609,17 @@
       </div>
     </div>
 
+    <div id="conv-splitter" title="Kéo qua lại để thay đổi độ rộng cột Cuộc Trò Chuyện"></div>
+
     <div id="chat-main">
-      <header id="chat-header">
+      <header id="chat-header" title="Giữ chuột tại thanh tiêu đề này để kéo di chuyển vị trí khung chat">
         <div class="ch-row1">
           <h2 id="p-conv-title">Đang tải cuộc trò chuyện…</h2>
-          <div style="display:flex;gap:5px;align-items:center">
-            <button class="btn small" id="p-focus" title="Bay camera 3D tới bàn nhân viên này">🎯 Đến gần 3D</button>
+          <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+            <button class="btn small ghost" id="p-size-sm" title="Khung chat gọn">▫ Gọn</button>
+            <button class="btn small ghost" id="p-size-md" title="Khung chat tiêu chuẩn">▪ Vừa</button>
+            <button class="btn small ghost" id="p-size-lg" title="Mở rộng toàn màn hình">⛶ Rộng</button>
+            <button class="btn small" id="p-focus" title="Bay camera 3D & khóa xoay 360° quanh nhân vật này">🎯 Xoay 360°</button>
             <button class="btn small" id="p-stop" title="Dừng việc đang chạy">⏹ Dừng</button>
             <button class="btn small" id="p-edit" title="Sửa cấu hình Agent">⚙ Sửa</button>
             <button class="btn small ghost" id="p-close">✕ Đóng</button>
