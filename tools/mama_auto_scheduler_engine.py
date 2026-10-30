@@ -424,6 +424,28 @@ def main():
     (out_dir / f"milestone_{args.mode}_{now_vn.strftime('%H%M')}.md").write_text(summary_text, encoding="utf-8")
     if (not sent_by_child) or dup_actions or pin_actions:
         send_telegram_if_configured(summary_text.strip())
+
+    # 4. Kiểm tra và bắn lời nhắc lịch hẹn buổi tối của CEO (như nhắc Training Video Bán Hàng)
+    reminders_file = SUBAGENT_DIR / "knowledge" / "ceo_evening_reminders.json"
+    if reminders_file.exists():
+        try:
+            reminders = json.loads(reminders_file.read_text(encoding="utf-8"))
+            changed = False
+            for rem in reminders:
+                if rem.get("status") == "PENDING" and now_vn.hour >= int(rem.get("trigger_after_hour", 19)):
+                    send_telegram_if_configured(rem["message"])
+                    rem["status"] = "SENT"
+                    rem["sent_at"] = now_vn.isoformat()
+                    changed = True
+            if changed:
+                reminders_file.write_text(json.dumps(reminders, ensure_ascii=False, indent=2), encoding="utf-8")
+                if (state_sync_dir / ".git").exists():
+                    sync_rem = state_sync_dir / "knowledge" / "ceo_evening_reminders.json"
+                    sync_rem.parent.mkdir(parents=True, exist_ok=True)
+                    sync_rem.write_text(reminders_file.read_text(encoding="utf-8"), encoding="utf-8")
+        except Exception:
+            pass
+
     print(summary_text)
 
 
