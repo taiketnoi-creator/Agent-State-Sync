@@ -246,28 +246,28 @@ setInterval(renderFeed, 15000);
 // ============================================================================
 // QUẢN LÝ ĐA CUỘC TRÒ CHUYỆN CHUẨN ANTIGRAVITY IDE & HÀNG ĐỢI TUẦN TỰ
 // ============================================================================
+function shortAgo(ts) {
+  const m = Math.max(1, Math.round((Date.now() - ts) / 60000));
+  if (m < 60) return `${m}m`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h}h`;
+  return `${Math.round(h / 24)}d`;
+}
+
 function renderConversationSidebar() {
   const listEl = $('#conv-list');
   if (!listEl) return;
   if (!state.conversations.length) {
-    listEl.innerHTML = `<div class="muted" style="padding:12px;text-align:center">Chưa có cuộc trò chuyện nào.<br>Bấm <b>+ Mới</b> để bắt đầu.</div>`;
+    listEl.innerHTML = `<div class="muted" style="padding:12px 14px">Chưa có cuộc trò chuyện nào.</div>`;
   } else {
     listEl.innerHTML = state.conversations.map(c => {
       const isAct = c.id === state.activeConvId;
-      const dotCls = c.status === 'working' ? 'working' : c.status === 'queued' ? 'queued' : '';
-      const srcBadge = c.source === 'antigravity-ide' ? 'Antigravity IDE' : 'Office 3D';
-      const pctBadge = c.status === 'working' ? `${c.progressPct || 45}%` : `${c.stepCount || 0} bước`;
+      const dotCls = c.status === 'working' ? 'working' : '';
       return `
-        <div class="conv-item ${isAct ? 'active' : ''}" data-cid="${esc(c.id)}">
-          <div class="c-top">
-            <span class="c-dot ${dotCls}"></span>
-            <span title="${esc(c.title)}">${esc(c.title)}</span>
-          </div>
-          <div class="c-sub" title="${esc(c.currentActivity)}">${esc(c.currentActivity || c.subtitle)}</div>
-          <div class="c-meta">
-            <span class="c-badge">${esc(srcBadge)} · ${esc(pctBadge)}</span>
-            <span>${ago(c.updatedAt)}</span>
-          </div>
+        <div class="agy-tab-item conv-item ${isAct ? 'active' : ''}" data-cid="${esc(c.id)}" title="${esc(c.title)} — ${esc(c.currentActivity || '')}">
+          <span class="t-dot ${dotCls}"></span>
+          <span class="t-title">${esc(c.title)}</span>
+          <span class="t-time">${shortAgo(c.updatedAt)}</span>
           <button class="c-del" type="button" data-del-cid="${esc(c.id)}" title="Xoá cuộc trò chuyện này">×</button>
         </div>`;
     }).join('');
@@ -916,6 +916,25 @@ setInterval(syncZoomSlider, 800);
       localStorage.setItem('office.chatRect', JSON.stringify({ w: Math.round(r.width), h: Math.round(r.height), sidebarW: Math.round(sw) }));
     } catch {}
   };
+
+
+  // Chuyển đổi giao diện Chat Sáng / Tối (Light / Dark Mode)
+  const themeBtn = $('#btn-chat-theme');
+  const applyChatTheme = (mode) => {
+    const isLight = mode === 'light';
+    panel.classList.toggle('theme-light', isLight);
+    if (themeBtn) themeBtn.textContent = isLight ? '🌙 Tối' : '☀️ Sáng';
+    try { localStorage.setItem('office.chatTheme', mode); } catch {}
+  };
+  try {
+    const savedTheme = localStorage.getItem('office.chatTheme') || 'dark';
+    applyChatTheme(savedTheme);
+  } catch {}
+  themeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const next = panel.classList.contains('theme-light') ? 'dark' : 'light';
+    applyChatTheme(next);
+  });
 
   // Nút chọn nhanh kích thước Gọn / Vừa / Rộng
   $('#p-size-sm')?.addEventListener('click', (e) => {
