@@ -387,41 +387,43 @@ def main():
     pin_actions = ensure_all_live_posts_have_pinned_comment(pages)
 
     # 2. Thực thi tác vụ theo từng mốc giờ
+    sent_by_child = False
     if args.mode in ("boot-or-9am", "eod-2130"):
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_9am_report.py"), "--quiet"])
+        sent_by_child = True
 
     if args.mode == "shift1-1200":
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "1", "--send-telegram"])
+        sent_by_child = True
 
     if args.mode == "shift2-1730":
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "2", "--send-telegram"])
+        sent_by_child = True
 
     if args.mode == "shift3-2030":
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "3", "--send-telegram"])
+        sent_by_child = True
 
-    # 3. Ghi nhận báo cáo mốc giờ ra file & gửi Telegram
+    # 3. Ghi nhận báo cáo mốc giờ ra file & gửi Telegram ngắn gọn (không gửi trùng 2 tin nhắn liên tiếp)
     out_dir = REPORTS_DIR / today_str
     out_dir.mkdir(parents=True, exist_ok=True)
     milestone_file = REPORTS_DIR / "latest-milestone-status.md"
 
-    lines = [
-        f"# ⏰ BÁO CÁO TỰ ĐỘNG MỐC [{args.mode.upper()}] — {now_vn.strftime('%H:%M:%S %d/%m/%Y')}",
-        "",
-        "## 1. Trạng Thái Tự Động Lên Lịch & Xuất Bản 4 Fanpage (Zero-Repost Gate Active)",
-    ]
-    if sched_actions:
-        lines.extend([f"- {a}" for a in sched_actions])
-    else:
-        lines.append("- ✅ Toàn bộ 4 Fanpage (`AI Players`, `Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`) đã đủ lịch bài đăng hôm nay.")
-
+    lines = [f"⏰ Mốc {args.mode} ({now_vn.strftime('%H:%M %d/%m')}):"]
+    if dup_actions:
+        lines.append(f"• Đã xóa {len(dup_actions)} bài trùng lặp.")
     if pin_actions:
-        lines.append("\n## 2. Tự Động Gắn Pinned Comment #1 Cho Bài Mới Lên Sóng")
-        lines.extend([f"- {p}" for p in pin_actions])
+        lines.append(f"• Đã tự gắn Pinned Comment #1 cho {len(pin_actions)} bài mới.")
+    if sched_actions and not dup_actions:
+        lines.extend([f"• {a}" for a in sched_actions[:4]])
+    elif not dup_actions and not pin_actions:
+        lines.append("• 4 Fanpage đủ lịch & Pinned Comment #1.")
 
     summary_text = "\n".join(lines) + "\n"
     milestone_file.write_text(summary_text, encoding="utf-8")
     (out_dir / f"milestone_{args.mode}_{now_vn.strftime('%H%M')}.md").write_text(summary_text, encoding="utf-8")
-    send_telegram_if_configured(summary_text)
+    if (not sent_by_child) or dup_actions or pin_actions:
+        send_telegram_if_configured(summary_text.strip())
     print(summary_text)
 
 

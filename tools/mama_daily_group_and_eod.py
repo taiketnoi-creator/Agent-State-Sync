@@ -762,26 +762,20 @@ def main():
     log_file.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 
     shift_names = {
-        1: "CA 1 (12h00 TRƯA — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
-        2: "CA 2 (17h30 CHIỀU — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG & DỌC)",
-        3: "CA 3 (20h30 TỐI / TĂNG CƯỜNG — BÀI MỚI NHIỀU LIKE/CMT + VIDEO NGANG 16:9 & REELS 9:16)",
+        1: "Ca 1 (12:00)",
+        2: "Ca 2 (17:30)",
+        3: "Ca 3 (20:30)",
     }
     bridge = SUBAGENT_DIR / "tools" / "telegram_bridge.py"
+    short_now = dt.datetime.now().strftime("%H:%M %d/%m")
 
     if summary.get("total_likes", 0) > 0 or summary.get("total_comments", 0) > 0:
         if args.send_telegram or args.reply_task > 0:
             lines = [
-                f"🚀 BÁO CÁO TƯƠNG TÁC HỘI NHÓM & VIDEO CÙNG TỆP — {shift_names.get(args.shift, 'HIGH-VOLUME')}",
-                f"⏰ Thời gian hoàn tất: {dt.datetime.now().strftime('%H:%M:%S %d/%m/%Y')}",
-                "🎯 Bộ lọc thông minh: Ưu tiên tuyệt đối Bài viết & Video MỚI + NHIỀU LIKE + NHIỀU COMMENT nhất trên Feed!",
-                "",
-                "🔥 Tổng kết đợt tương tác vừa chạy xong trên Chrome Bot độc lập (100% Tự Động):",
-                f"  • 👍 Lượt Thích (Likes) bài & video HOT: +{summary['total_likes']} lượt",
-                f"  • 🎬 Tương tác Video Cùng Tệp (Xem giữ chân + Like + Cmt): +{summary['total_videos_interacted']} Video "
-                f"(gồm {summary['horizontal_videos_interacted']} Video Ngang 16:9 & {summary['vertical_videos_interacted']} Video Dọc/Reels 9:16)",
-                f"  • 💬 Bình luận chuyên sâu trên Bài & Video TOP tương tác: +{summary['total_comments']} bình luận (0% link rác, 0% tương tác chéo Page)",
-                f"  • 🔄 Chia sẻ bài/video HOT cùng tệp (Shares): +{summary.get('total_shares', 0)} lượt chia sẻ",
-                f"  • 🤝 Gia nhập Hội nhóm mới (Auto-Join Group): +{summary['total_groups_joined']} Group cùng tệp",
+                f"✅ Xong {shift_names.get(args.shift, 'Ca tương tác')} ({short_now})",
+                f"• Like: +{summary['total_likes']} | Bình luận: +{summary['total_comments']}",
+                f"• Video đã xem & tương tác: +{summary['total_videos_interacted']} ({summary['horizontal_videos_interacted']} ngang, {summary['vertical_videos_interacted']} Reels)",
+                f"• Share: +{summary.get('total_shares', 0)} | Vào nhóm mới: +{summary['total_groups_joined']}",
             ]
             msg_text = "\n".join(lines)
             cmd = [sys.executable, str(bridge)]
@@ -795,10 +789,8 @@ def main():
     else:
         status_code = summary.get("status", "ZERO_INTERACTION")
         alert_lines = [
-            f"🚨 [CẢNH BÁO TỨC THỜI TỪ MAMA] — {shift_names.get(args.shift, 'CA TƯƠNG TÁC')}",
-            f"⏰ Thời điểm phát hiện: {dt.datetime.now().strftime('%H:%M:%S %d/%m/%Y')}",
-            f"⚠️ Trạng thái cần xử lý/duyệt: {status_code}",
-            "👉 Hệ thống báo động ngay qua Telegram theo lệnh của CEO (không tự ý im lặng bỏ qua ca).",
+            f"⚠️ Cảnh báo {shift_names.get(args.shift, 'Ca tương tác')} ({short_now}): {status_code}",
+            "• Chưa ghi nhận tương tác mới trong ca này.",
         ]
         alert_text = "\n".join(alert_lines)
         cmd = [sys.executable, str(bridge), "--send", "8110826820", "--text", alert_text]

@@ -440,6 +440,62 @@ def generate_9am_report(force: bool = False) -> str:
     return report_md
 
 
+def build_concise_telegram_summary(force: bool = False) -> str:
+    """
+    Tạo bản báo cáo Telegram cực kỳ ngắn gọn (6-8 dòng, đi thẳng vào số liệu thực tế,
+    cấm bảng Markdown ngang, cấm liệt kê dài dòng).
+    """
+    now_local = dt.datetime.now(dt.timezone(dt.timedelta(hours=7)))
+    now_utc = dt.datetime.now(dt.timezone.utc)
+    short_time = now_local.strftime("%H:%M %d/%m")
+    cache_file = REPORTS_DIR / ".metrics_cache.json"
+    page_results = None
+
+    if not force and cache_file.exists():
+        try:
+            cdata = json.loads(cache_file.read_text(encoding="utf-8"))
+            if time.time() - cdata.get("timestamp", 0) < 300:
+                page_results = cdata.get("page_results")
+        except Exception:
+            pass
+
+    if not page_results:
+        vault = load_pages_vault()
+        def _fetch_single(cfg):
+            tok = vault.get(cfg["id"], {}).get("access_token", "")
+            return fetch_page_metrics(cfg, tok, now_utc)
+        with ThreadPoolExecutor(max_workers=len(FOUR_PAGES_CONFIG)) as executor:
+            page_results = list(executor.map(_fetch_single, FOUR_PAGES_CONFIG))
+
+    total_posted = sum(p["posts_24h"] for p in page_results)
+    total_target = sum(p["daily_target_posts"] for p in page_results)
+    total_sched = sum(p["scheduled_count"] for p in page_results)
+
+    lines = [
+        f"📊 BÁO CÁO 4 PAGE ({short_time})",
+        f"• Tổng 24h: {total_posted}/{total_target} bài | Chờ đăng: {total_sched} bài",
+    ]
+    short_names = {
+        "1022527194267367": "AI Players",
+        "1442323328956326": "Phòng Trọ",
+        "1421270697727753": "Ký Túc Xá",
+        "1407231352464711": "Hội Deadline",
+    }
+    for idx, p in enumerate(page_results, 1):
+        sname = short_names.get(p["id"], p["name"])
+        lines.append(
+            f"{idx}. {sname}: {p['posts_24h']}/{p['daily_target_posts']} bài 24h | "
+            f"{p['scheduled_count']} hẹn giờ | {p['likes_total']} Like • {p['user_comments_count']} Cmt"
+        )
+
+    empty_q = [short_names.get(p["id"], p["name"]) for p in page_results if p["scheduled_count"] == 0]
+    if empty_q:
+        lines.append(f"⚠️ Cần nạp thêm lịch hẹn giờ: {', '.join(empty_q)}")
+    else:
+        lines.append("✅ Cả 4 Page đều đã có sẵn bài hẹn giờ.")
+    return "\n".join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Mama 9:00 AM Daily 4-Page Report Generator")
     parser.add_argument("--quiet", action="store_true", help="Write report files without printing to stdout")
@@ -448,8 +504,9 @@ def main():
     args = parser.parse_args()
 
     report_md = generate_9am_report(force=args.force)
+    concise_tg = build_concise_telegram_summary(force=False)
     if not args.quiet:
-        print(report_md)
+        print(concise_tg)
 
     if not args.no_telegram:
         try:
@@ -457,7 +514,7 @@ def main():
             bridge_script = SUBAGENT_DIR / "tools" / "telegram_bridge.py"
             if bridge_script.exists():
                 subprocess.run(
-                    [sys.executable, str(bridge_script), "--send", "--text", report_md[:3900]],
+                    [sys.executable, str(bridge_script), "--send", "--text", concise_tg],
                     timeout=20,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,

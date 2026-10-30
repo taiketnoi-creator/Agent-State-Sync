@@ -102,8 +102,9 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
    - Bắt buộc tương tác cả 3 định dạng: **Bài thảo luận nhóm (`post_group`) + Video Ngang (`16:9`) + Video Dọc/Reels (`9:16`)**.
    - Chỉ lọc bài **Mới đăng (`vừa xong`, `phút`, `giờ`, `1-3 ngày`) + Nhiều Like/Comment nhất** trên feed (`JS_RANK_HOT_POSTS_AND_VIDEOS`), dừng xem video 2.5–3.5s trước khi Like/Bình luận.
 
-8. **LUẬT #8 — Giao Thức Giải Quyết Vấn Đề & Báo Cáo Telegram Tức Thì (`knowledge/mama-problem-solving-rule.md`):**
+8. **LUẬT #8 — Giao Thức Giải Quyết Vấn Đề & Báo Cáo Telegram Ngắn Gọn 4–8 Dòng (`knowledge/mama-problem-solving-rule.md`):**
    - Khi gặp bất kỳ lỗi/vướng mắc nào cần CEO duyệt, phải gửi thông báo ngay qua Telegram (`tools/telegram_bridge.py`) kèm nguyên nhân + phương án xử lý khả thi.
+   - **Văn phong báo cáo Telegram bắt buộc ngắn gọn 4–8 dòng (`compact_telegram_text()`):** Đi thẳng vào số liệu thực tế, cấm bảng Markdown ngang (`|---|`), cấm liệt kê danh sách bài dài dòng hoặc văn hoa rườm rà, cấm gửi trùng 2 tin nhắn liên tiếp trong cùng 1 ca.
 
 9. **LUẬT #9 — Giao Thức Tự Động Xóa Sạch Tư Liệu & Code Cũ Ngay Khi Có Chuẩn Mới (`Purge-On-Upgrade Protocol`):**
    - Bất kỳ khi nào CEO chốt một quy chuẩn thiết kế/sản xuất mới (phong cách ảnh mới, kiến trúc video Zero-Clone mới, kịch bản mới), **`mama` và các Subagent BẮT BUỘC xóa vĩnh viễn (`unlink` / `shutil.rmtree` qua `tools/purge_legacy_superseded_assets.py`) toàn bộ tư liệu mẫu cũ, thư mục campaign cũ lỗi thời, composition demo cũ và script sinh hàng loạt kiểu cũ** trên cả Workspace `Subagent` lẫn kho Git đồng bộ `Agent-State-Sync`.

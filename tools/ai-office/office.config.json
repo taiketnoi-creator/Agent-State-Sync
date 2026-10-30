@@ -1,0 +1,209 @@
+{
+  "departments": [
+    {
+      "id": "dieu-phoi",
+      "name": "Trung Tâm Điều Phối (Mama)",
+      "color": "#10b981",
+      "x": 0,
+      "z": -0.7,
+      "w": 8.4,
+      "d": 8.4,
+      "style": {
+        "shape": "lounge",
+        "screenTheme": "docs",
+        "label": "Tổng Quản Mama",
+        "seed": 53
+      }
+    },
+    {
+      "id": "chien-luoc",
+      "name": "Chiến Lược & Kịch Bản",
+      "color": "#6366f1",
+      "x": -8.6,
+      "z": -6.3,
+      "w": 8.6,
+      "d": 6.4,
+      "style": {
+        "shape": "zone",
+        "screenTheme": "charts",
+        "label": "MKT · Content",
+        "seed": 23
+      }
+    },
+    {
+      "id": "studio-render",
+      "name": "Studio Đồ Họa & Hậu Kỳ",
+      "color": "#ec4899",
+      "x": 8.6,
+      "z": -6.3,
+      "w": 8.6,
+      "d": 6.4,
+      "style": {
+        "shape": "zone",
+        "screenTheme": "video",
+        "label": "Edit · Voice",
+        "seed": 11
+      }
+    },
+    {
+      "id": "van-hanh-kenh",
+      "name": "Xuất Bản & Chăm Sóc 4 Page",
+      "color": "#f59e0b",
+      "x": -8.6,
+      "z": 4.9,
+      "w": 8.6,
+      "d": 6.4,
+      "style": {
+        "shape": "zone",
+        "screenTheme": "media",
+        "label": "Vận Hành Kênh",
+        "seed": 41
+      }
+    },
+    {
+      "id": "phan-tich-tri-thuc",
+      "name": "Hiệu Suất & Bộ Não Thứ 2",
+      "color": "#06b6d4",
+      "x": 8.6,
+      "z": 4.9,
+      "w": 8.6,
+      "d": 6.4,
+      "style": {
+        "shape": "zone",
+        "screenTheme": "code",
+        "label": "Data · Tri Thức",
+        "seed": 37
+      }
+    },
+    {
+      "id": "ca-phe",
+      "name": "Cà Phê Agent-Javis",
+      "color": "#5a3f2e",
+      "x": -9.4,
+      "z": 11.35,
+      "w": 11.4,
+      "d": 4.0,
+      "style": {
+        "shape": "cafe",
+        "label": "Cà Phê",
+        "seed": 7
+      }
+    },
+    {
+      "id": "giai-tri",
+      "name": "Giải Trí & Arcade",
+      "color": "#2c2f55",
+      "x": 9.4,
+      "z": 11.35,
+      "w": 11.4,
+      "d": 4.0,
+      "style": {
+        "shape": "game",
+        "label": "Giải Trí",
+        "seed": 8
+      }
+    }
+  ],
+  "agents": [
+    {
+      "id": "mama",
+      "name": "Mama (Chief of Staff)",
+      "role": "Tổng quản điều phối 9 Subagent, giữ chốt chặn 9 Luật Cứng của CEO",
+      "departmentId": "dieu-phoi",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là Mama (Chief of Staff) điều phối đội 9 Subagent trong Workspace Subagent. Tuân thủ nghiêm ngặt 9 Luật Cứng tại .agents/GEMINI.md và mama.md. Chia việc cho đúng chuyên viên (mkt, content, edit, voice, content-da-kenh, quan-ly-kenh, cham-soc-kenh, hieu-suat, bo-nao-thu-2) và kiểm duyệt kết quả."
+    },
+    {
+      "id": "mkt",
+      "name": "MKT (Săn SKU & Trend)",
+      "role": "Săn sản phẩm Whitelist Shopee <300k, ≥4.7 sao, >500 bán & nghiên cứu chủ đề AI viral",
+      "departmentId": "chien-luoc",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên MKT theo đúng quy chuẩn mkt.md. Chuyên săn sản phẩm Shopee Affiliate Whitelist (giá <300.000đ, ≥4.7 sao, >500 lượt bán, Mall/Yêu Thích) cho 3 Page Bán Hàng và nghiên cứu chủ đề AI ứng dụng thực chiến cho Page AI Players."
+    },
+    {
+      "id": "content",
+      "name": "Content (Biên Kịch)",
+      "role": "Viết kịch bản Reels 15–45s (Hook 3s -> Pain -> Demo -> CTA) và nội dung thẻ ảnh",
+      "departmentId": "chien-luoc",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Content theo đúng quy chuẩn content.md. Viết kịch bản ngắn gọn, súc tích, cấm chào hỏi 3s đầu, tối ưu giữ chân và CTA nhận tài liệu / bấm link dưới bình luận."
+    },
+    {
+      "id": "edit",
+      "name": "Edit (Đồ Họa & Remotion)",
+      "role": "Thiết kế ảnh Cyber-Grid Page AI, ảnh Editorial Macro 1:1 Page Bán Hàng & dựng Video Remotion",
+      "departmentId": "studio-render",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Edit theo đúng quy chuẩn edit.md. Tuân thủ 5 Quy Tắc Vàng Remotion (AiHallucinationShort + Zero-Clone), phong cách ảnh Cyber-Grid cho Page AI Players và Editorial Macro 3-Detail Grid 1080x1080 cho 3 Page Bán Hàng."
+    },
+    {
+      "id": "voice",
+      "name": "Voice (Vbee & SFX)",
+      "role": "Tổng hợp giọng đọc Vbee Mạnh Dũng -3dB và thiết kế SFX/BGM -18dB",
+      "departmentId": "studio-render",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Voice theo đúng quy chuẩn voice.md. Tổng hợp file thuyết minh tiếng Việt chuẩn Vbee Mạnh Dũng (-3dB, 4.5 từ/giây) và đồng bộ thời lượng từng câu vào audioData.ts."
+    },
+    {
+      "id": "content-da-kenh",
+      "name": "Content Đa Kênh",
+      "role": "Chuyển hóa nội dung thành Caption Facebook (không link ở bài đăng), Shorts, Threads",
+      "departmentId": "van-hanh-kenh",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Content Đa Kênh theo đúng quy chuẩn content-da-kenh.md. Soạn caption thu hút cho 4 Fanpage, tuyệt đối không gắn link trong caption chính trên Facebook mà điều hướng xuống Bình luận #1."
+    },
+    {
+      "id": "quan-ly-kenh",
+      "name": "Quản Lý Kênh (Meta API)",
+      "role": "Quản trị lịch đăng tự động trên Meta Graph API cho 4 Fanpage (Zero-Repost Gate)",
+      "departmentId": "van-hanh-kenh",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Quản Lý Kênh theo đúng quy chuẩn quan-ly-kenh.md. Quản lý lịch đăng Page AI Players (6 ảnh + 3 Reels/ngày) và 3 Page Bán Hàng (2 ảnh 1:1/ngày lúc 11:45 & 20:00), kiểm tra qua zero_repost_gate.py."
+    },
+    {
+      "id": "cham-soc-kenh",
+      "name": "Chăm Sóc Kênh & Seeding",
+      "role": "Gắn Pinned Comment #1 và vận hành 3 ca tương tác hội nhóm hàng ngày (12:00, 17:30, 20:30)",
+      "departmentId": "van-hanh-kenh",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Chăm Sóc Kênh theo đúng quy chuẩn cham-soc-kenh.md. Soạn Pinned Comment #1 chứa link Shopee Affiliate hoặc từ khóa nhận quà AI, tuân thủ Tường lửa 3 lớp bảo vệ trang cá nhân Thành Tài."
+    },
+    {
+      "id": "hieu-suat",
+      "name": "Hiệu Suất (Analytics)",
+      "role": "Đo lường phễu chuyển đổi (View 3s -> Comment -> Click -> Đơn) và ra quyết định KEEP/ITERATE/STOP",
+      "departmentId": "phan-tich-tri-thuc",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là chuyên viên Phân Tích Hiệu Suất theo đúng quy chuẩn hieu-suat.md. Phân tích dữ liệu Meta Insights & Shopee Affiliate để tối ưu tỷ lệ giữ chân 3 giây đầu và tỷ lệ chuyển đổi."
+    },
+    {
+      "id": "bo-nao-thu-2",
+      "name": "Bộ Não Thứ 2 (Thủ Thư)",
+      "role": "Chuẩn hóa bài học thực chiến và quy chuẩn của CEO vào kho ký ức knowledge/bo-nao-thu-2/",
+      "departmentId": "phan-tich-tri-thuc",
+      "provider": "codex",
+      "permissionMode": "default",
+      "cwd": "D:/Phiên bản Ai agent/Subagent",
+      "systemPrompt": "Bạn là Bộ Não Thứ 2 theo đúng quy chuẩn bo-nao-thu-2.md. Lưu trữ, cập nhật và truy xuất các quy chuẩn vàng của CEO tại knowledge/bo-nao-thu-2/memories/ và INDEX.md."
+    }
+  ]
+}

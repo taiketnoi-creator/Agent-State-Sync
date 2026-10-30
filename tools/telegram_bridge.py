@@ -155,10 +155,36 @@ def tg_api(token: str, method: str, payload: dict | None = None, timeout: float 
         return json.loads(resp.read().decode("utf-8", errors="ignore"))
 
 
+def compact_telegram_text(text: str) -> str:
+    """
+    Chuẩn hóa văn phong báo cáo Telegram ngắn gọn, súc tích:
+    - Bỏ ký hiệu Markdown thừa (###, **, `, đường kẻ dài).
+    - Loại bỏ dòng bảng phân cách (| :--- |) và thu gọn dòng trống liên tiếp.
+    - Giới hạn tối đa 15 dòng cho mọi báo cáo tự động.
+    """
+    import re
+    cleaned_lines = []
+    for raw_ln in text.splitlines():
+        ln = raw_ln.strip()
+        if not ln:
+            if cleaned_lines and cleaned_lines[-1] != "":
+                cleaned_lines.append("")
+            continue
+        if re.match(r"^[\|\-\:\s]+$", ln) or ln.startswith("---") or ln.startswith("━━━"):
+            continue
+        ln = re.sub(r"^#{1,6}\s*", "", ln)
+        ln = ln.replace("**", "").replace("`", "")
+        cleaned_lines.append(ln)
+    while cleaned_lines and cleaned_lines[-1] == "":
+        cleaned_lines.pop()
+    return "\n".join(cleaned_lines[:18])[:1200]
+
+
 def tg_send_message(token: str, chat_id: str | int, text: str, reply_to: int | None = None) -> dict:
+    clean_text = compact_telegram_text(text)
     payload = {
         "chat_id": str(chat_id),
-        "text": text[:4000],
+        "text": clean_text,
         "disable_web_page_preview": True,
     }
     if reply_to:
@@ -171,8 +197,9 @@ def tg_send_message(token: str, chat_id: str | int, text: str, reply_to: int | N
 
 def tg_send_photo(token: str, chat_id: str | int, photo_path: str, caption: str = "") -> dict:
     p = Path(photo_path)
+    clean_caption = compact_telegram_text(caption) if caption else ""
     if not p.exists():
-        return tg_send_message(token, chat_id, f"{caption}\n\n⚠️ (Không tìm thấy file ảnh: {photo_path})")
+        return tg_send_message(token, chat_id, f"{clean_caption}\n⚠️ Không tìm thấy ảnh: {photo_path}")
 
     boundary = f"----MamaBoundary{uuid.uuid4().hex}"
     body = bytearray()
@@ -183,8 +210,8 @@ def tg_send_photo(token: str, chat_id: str | int, photo_path: str, caption: str 
         body.extend(f"{val}\r\n".encode("utf-8"))
 
     add_field("chat_id", str(chat_id))
-    if caption:
-        add_field("caption", caption[:1000])
+    if clean_caption:
+        add_field("caption", clean_caption[:900])
 
     mime_type = mimetypes.guess_type(p.name)[0] or "image/jpeg"
     body.extend(f"--{boundary}\r\n".encode("utf-8"))
@@ -224,18 +251,18 @@ def format_pages_list() -> str:
     env = parse_env_file(ENV_PATH)
     active_id = env.get("FACEBOOK_PAGE_ID", "")
     if not vault_path.exists():
-        return f"📄 Active Page ID hiện tại: {active_id or 'Chưa cấu hình'}"
+        return f"📄 Active Page: {active_id or 'Chưa cấu hình'}"
     try:
         vdata = json.loads(vault_path.read_text(encoding="utf-8", errors="ignore"))
         pages = vdata.get("pages", [])
-        lines = ["📊 DANH SÁCH FANPAGE TRONG KHO CỦA SẾP:\n"]
+        lines = ["📊 DANH SÁCH FANPAGE:"]
         for idx, p in enumerate(pages, 1):
             pid = str(p.get("id", ""))
             name = p.get("name", "Unknown")
             fans = p.get("fan_count", 0)
-            marker = "✅ [ĐANG ACTIVE]" if pid == active_id else "⚪"
-            lines.append(f"{idx}. {marker} {name}\n   • ID: {pid} | Follows: {fans}")
-        lines.append("\n💡 Gõ `/switch <số thứ tự>` (VD: `/switch 1`) để chuyển Fanpage active.")
+            marker = "✅" if pid == active_id else "⚪"
+            lines.append(f"{idx}. {marker} {name} ({fans} follows)")
+        lines.append("💡 Đổi Page: /switch <số>")
         return "\n".join(lines)
     except Exception as e:
         return f"⚠️ Lỗi đọc kho Fanpage: {e}"
@@ -249,7 +276,7 @@ def handle_switch_page(arg: str) -> str:
     pages = vdata.get("pages", [])
     arg = arg.strip()
     if not arg:
-        return "⚠️ Vui lòng nhập số thứ tự Page. Ví dụ: `/switch 1`\n\n" + format_pages_list()
+        return format_pages_list()
 
     chosen = None
     if arg.isdigit() and 1 <= int(arg) <= len(pages):
@@ -260,22 +287,19 @@ def handle_switch_page(arg: str) -> str:
                 chosen = p
                 break
     if not chosen:
-        return f"❌ Không tìm thấy Fanpage khớp với '{arg}'.\n\n" + format_pages_list()
+        return f"❌ Không tìm thấy Page '{arg}'.\n" + format_pages_list()
 
     set_env_key(ENV_PATH, "FACEBOOK_PAGE_ID", str(chosen["id"]))
     if chosen.get("access_token"):
         set_env_key(ENV_PATH, "FACEBOOK_ACCESS_TOKEN", str(chosen["access_token"]))
-    return (
-        f"✅ Đã chuyển Active Page sang:\n"
-        f"🌟 {chosen.get('name')} (ID: {chosen.get('id')} | Follows: {chosen.get('fan_count', 0)})"
-    )
+    return f"✅ Đã chuyển sang: {chosen.get('name')} ({chosen.get('fan_count', 0)} follows)"
 
 
 def handle_sync_git() -> str:
     sync_script = STATE_SYNC_DIR / "sync-light.ps1"
     if sync_script.exists():
         try:
-            out = subprocess.check_output(
+            subprocess.check_output(
                 ["powershell", "-ExecutionPolicy", "Bypass", "-File", str(sync_script)],
                 stderr=subprocess.STDOUT,
                 timeout=30,
@@ -283,54 +307,49 @@ def handle_sync_git() -> str:
                 encoding="utf-8",
                 errors="ignore",
             )
-            return f"✅ Đã chạy đồng bộ GitHub (Agent-State-Sync) thành công!\n\n{out.strip()[-600:]}"
+            return "✅ Đã đồng bộ GitHub (Agent-State-Sync) thành công."
         except Exception as e:
-            return f"⚠️ Lỗi khi chạy sync-light.ps1: {e}"
-    return "⚠️ Không tìm thấy thư mục Agent-State-Sync trên máy này."
+            return f"⚠️ Lỗi đồng bộ: {e}"
+    return "⚠️ Không tìm thấy thư mục Agent-State-Sync."
 
 
 def handle_status_report() -> str:
     try:
         sys.path.insert(0, str(SUBAGENT_DIR / "tools"))
+        import mama_daily_9am_report
         import mama_boot_check
-        report = mama_boot_check.build_markdown_report(auto_pull=False)
-        # Clean markdown table slightly for mobile Telegram readability
-        return report
+        prog = mama_boot_check.parse_goal_progress()
+        page_summary = mama_daily_9am_report.build_concise_telegram_summary(force=False)
+        return (
+            f"{page_summary}\n"
+            f"• Tiến độ chung: {prog['percent']}% ({prog['done_count']}/{prog['total_count']} việc xong, "
+            f"{prog['in_progress_count']} đang chạy)"
+        )
     except Exception as e:
-        return f"⚠️ Lỗi khi chạy mama_boot_check: {e}"
+        return f"⚠️ Lỗi tạo báo cáo nhanh: {e}"
 
 
 def handle_tasks_list(conn: sqlite3.Connection) -> str:
     cur = conn.execute(
-        "SELECT id, task_text, status, created_at FROM telegram_tasks ORDER BY id DESC LIMIT 8"
+        "SELECT id, task_text, status, created_at FROM telegram_tasks ORDER BY id DESC LIMIT 5"
     )
     rows = cur.fetchall()
     if not rows:
-        return "📭 Hiện chưa có nhiệm vụ nào trong hàng đợi Telegram."
-    lines = ["📋 8 NHIỆM VỤ GẦN NHẤT TRÊN TELEGRAM:\n"]
+        return "📭 Chưa có nhiệm vụ nào."
+    lines = ["📋 5 NHIỆM VỤ GẦN NHẤT:"]
     for r in rows:
         icon = "⏳" if r["status"] == "PENDING" else ("🔄" if r["status"] == "IN_PROGRESS" else "✅")
-        lines.append(f"#{r['id']} {icon} [{r['status']}] ({r['created_at'][:16]})\n   👉 {r['task_text'][:120]}")
-    return "\n\n".join(lines)
+        lines.append(f"#{r['id']} {icon} {r['task_text'][:70]}")
+    return "\n".join(lines)
 
 
 def build_help_text() -> str:
     return (
-        "🤖 HƯỚNG DẪN ĐIỀU KHIỂN MAMA & ĐỘI 9 SUBAGENT QUA TELEGRAM\n"
-        "━━━━━━━━━━━━━━━━━━\n"
-        "⚡ 1. LỆNH NHANH 0-TOKEN (Phản hồi tức thì 1 giây):\n"
-        "• /status — Xem Báo cáo khởi động phiên & Tiến độ dự án\n"
-        "• /pages — Xem danh sách 5 Fanpage & lượt Follow\n"
-        "• /switch <số> — Đổi Fanpage đang điều khiển (VD: /switch 1)\n"
-        "• /tasks — Xem tiến độ các việc đã giao cho Mama\n"
-        "• /sync — Đồng bộ lịch sử công việc lên GitHub\n"
-        "• /help — Xem bảng hướng dẫn này\n\n"
-        "🧠 2. GIAO VIỆC TỰ DO CHO MAMA (Chat tiếng Việt tự nhiên):\n"
-        "Sếp chỉ cần nhắn thẳng yêu cầu vào khung chat này (không cần gõ dấu /), ví dụ:\n"
-        "• \"Mama ơi, viết 1 bài tặng bộ Prompt văn phòng kèm tạo ảnh 1:1 rồi gửi qua đây cho anh duyệt\"\n"
-        "• \"Đăng bài mở màn thu phễu lên page AI Players và ghim comment đầu tiên\"\n"
-        "• \"Tìm cho anh 3 sản phẩm gia dụng thông minh dưới 200k để làm video AI\"\n\n"
-        "👉 Ngay khi Sếp nhắn, Mama (Gemini 4) trên máy tính sẽ tự động thức dậy, điều phối 9 Subagent thực thi và gửi báo cáo + ảnh/link về thẳng đây cho Sếp!"
+        "🤖 LỆNH NHANH TELEGRAM:\n"
+        "• /status — Báo cáo ngắn gọn 4 Page & tiến độ\n"
+        "• /pages — Danh sách Fanpage | /switch <số>\n"
+        "• /tasks — Việc gần nhất | /sync — Đồng bộ Git\n"
+        "• Nhắn trực tiếp nội dung để giao việc cho Mama."
     )
 
 
@@ -470,11 +489,7 @@ def listen_loop(wake_on_task: bool = True, max_seconds: int = 3600) -> int:
             task_id = cur.lastrowid
             conn.commit()
 
-            ack = (
-                f"🫡 Mama đã nhận lệnh #{task_id} của Sếp!\n"
-                f"📝 Nội dung: \"{clean_task}\"\n"
-                f"⚡ Đang đánh thức phiên Mama (Gemini 4) + Đội 9 Subagent thực thi và sẽ báo cáo kết quả ngay tại đây..."
-            )
+            ack = f"✅ Đã nhận lệnh #{task_id}: \"{clean_task[:80]}\" — Đang xử lý..."
             tg_send_message(token, chat_id, ack, reply_to=msg_id)
 
             wake_payload = {
@@ -551,8 +566,6 @@ def main():
 
         if args.photo:
             res = tg_send_photo(token, target_chat, args.photo, caption=args.text)
-            if len(args.text) > 1000:
-                tg_send_message(token, target_chat, args.text, reply_to=reply_msg_id)
         else:
             res = tg_send_message(token, target_chat, args.text, reply_to=reply_msg_id)
 
@@ -573,8 +586,6 @@ def main():
             sys.exit(1)
         if args.photo:
             res = tg_send_photo(token, target_chat, args.photo, caption=msg_body)
-            if len(msg_body) > 1000:
-                tg_send_message(token, target_chat, msg_body)
         else:
             res = tg_send_message(token, target_chat, msg_body)
         print(json.dumps({"status": "SENT", "telegram_ok": res.get("ok")}, ensure_ascii=False))
