@@ -50,21 +50,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-30 20:00",
         "raw_file": "phongtro_01_may_say_quan_ao_raw.png",
         "out_file": "phongtro_01_may_say_quan_ao_bold.jpg",
-        "accent_hex": "#EA580C",
-        "accent_dark_hex": "#9A3412",
-        "page_badge": "PHÒNG TRỌ HẾT CỨU • CỨU CÁNH MÙA MƯA",
+        "accent_hex": "#FF3D00",
+        "accent_dark_hex": "#9A1B00",
+        "page_badge": "CỨU CÁNH MÙA MƯA",
         "title_line1": "MÁY SẤY QUẦN ÁO",
-        "title_highlight": "MINI GẤP GỌN KHỬ UV",
-        "spec_pills": ["Sấy Nhanh 60°C", "Khử Khuẩn Tia UV", "Gấp Gọn Bỏ Tủ"],
-        "macro_points": [
-            ("GỐM PTC ẤM NHANH", "KHÔNG LÀM NHĂN CO VẢI"),
-            ("KHỬ KHUẨN TIA UV", "DIỆT SẠCH MÙI ẨM MỐC"),
-            ("TÚI VẢI OXFORD", "GIỮ NHIỆT KÍN XOAY 360°"),
-        ],
+        "title_highlight": "GẤP GỌN KHỬ KHUẨN UV",
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("SƯỞI GỐM PTC AN TOÀN", "Hơi nóng tuần hoàn khô đều"),
-            ("ĐÈN UV DIỆT KHUẨN", "Thơm tho như phơi nắng to"),
-            ("GẤP GỌN NHƯ HỘP GIẤY", "Cất gọn gầm giường phòng trọ"),
+            ("SƯỞI GỐM PTC", ""),
+            ("ĐÈN UV KHỬ MÙI", ""),
+            ("GẤP GỌN BỎ TỦ", ""),
         ],
         "shopee_kw": "may say quan ao mini gap gon khu khuan uv",
         "sub_id": "phongtro-3010-dryeruv-pin-img",
@@ -84,21 +80,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 11:45",
         "raw_file": "phongtro_02_voi_tang_ap_loc_nuoc_raw.png",
         "out_file": "phongtro_02_voi_tang_ap_loc_nuoc_bold.jpg",
-        "accent_hex": "#EA580C",
-        "accent_dark_hex": "#9A3412",
-        "page_badge": "PHÒNG TRỌ HẾT CỨU • NƯỚC MẠNH & SẠCH",
+        "accent_hex": "#0066FF",
+        "accent_dark_hex": "#003D99",
+        "page_badge": "NƯỚC MẠNH GẤP 3",
         "title_line1": "ĐẦU VÒI TĂNG ÁP",
-        "title_highlight": "XOAY 720° LỌC CẶN PP",
-        "spec_pills": ["Tăng Áp X3 Lần", "Lõi Bông PP Lọc Gỉ", "Xoay 720° Đa Hướng"],
-        "macro_points": [
-            ("MẶT INOX ĐỤC LASER", "TĂNG ÁP NƯỚC MẠNH GẤP 3"),
-            ("LÕI BÔNG PP TRẮNG", "CHẶN SẠCH CẶN GỈ NƯỚC MÁY"),
-            ("KHỚP CẦU ĐÔI 720°", "XOAY RỬA MẶT KHÔNG CÚI SÂU"),
-        ],
+        "title_highlight": "XOAY 720° LỌC CẶN",
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("KHỚP XOAY ĐÔI 720°", "Xịt sạch mọi góc bồn rửa"),
-            ("BUỒNG LỌC TRONG SUỐT", "Nhìn rõ lõi bẩn để thay thế"),
-            ("TIA NƯỚC MỊN CHỐNG BẮN", "Rửa bát không ướt áo"),
+            ("KHỚP XOAY 720°", ""),
+            ("LÕI LỌC CẶN BẨN", ""),
+            ("TĂNG ÁP X3 LẦN", ""),
         ],
         "shopee_kw": "dau voi nuoc tang ap xoay 720 co loi loc pp",
         "sub_id": "phongtro-3110-faucet720-pin-img",
@@ -118,21 +110,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 20:00",
         "raw_file": "phongtro_03_ke_giay_5_tang_raw.png",
         "out_file": "phongtro_03_ke_giay_5_tang_bold.jpg",
-        "accent_hex": "#EA580C",
-        "accent_dark_hex": "#9A3412",
-        "page_badge": "PHÒNG TRỌ HẾT CỨU • GỌN CỬA PHÒNG",
+        "accent_hex": "#00A859",
+        "accent_dark_hex": "#006633",
+        "page_badge": "GỌN GÓC CỬA PHÒNG",
         "title_line1": "KỆ GIÀY 5 TẦNG",
-        "title_highlight": "KHUNG THÉP CHỮ Z BỀN",
-        "spec_pills": ["Đựng 15 Đôi Giày", "Vải Chống Thấm Nước", "Lắp Ráp 5 Phút"],
-        "macro_points": [
-            ("KHUNG CHỮ Z CHỊU LỰC", "ĐỨNG VỮNG KHÔNG NGHIÊNG ĐỔ"),
-            ("VẢI PHỦ CHỐNG THẤM", "BÙN ĐẤT RƠI LAU 1 ĐƯỜNG SẠCH"),
-            ("ỐNG THÉP SƠN TĨNH ĐIỆN", "CHỐNG GỈ SÉT BỀN BỈ NHIỀU NĂM"),
-        ],
+        "title_highlight": "KHUNG CHỮ Z SIÊU BỀN",
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("KHỚP NỐI CHỮ Z DÀY", "Cố định khung chắc chắn"),
-            ("BỀ MẶT CHỐNG THẤM", "Không thấm nước mưa từ đế giày"),
-            ("THANH THÉP ĐỠ ĐÔI", "Chịu tải nặng không võng kệ"),
+            ("KHUNG CHỮ Z CHẮC", ""),
+            ("VẢI CHỐNG THẤM", ""),
+            ("ĐỰNG 15 ĐÔI GIÀY", ""),
         ],
         "shopee_kw": "ke de giay dep 5 tang chu z khung thep",
         "sub_id": "phongtro-3110-shoerackz-pin-img",
@@ -147,7 +135,7 @@ SALES_ITEMS_SPEC = [
     },
 
     # ------------------------------------------------------------------
-    # 2. KÝ TÚC XÁ CÓ BIẾN (1421270697727753) — Accent Xanh Cobalt #0284C7
+    # 2. KÝ TÚC XÁ CÓ BIẾN (1421270697727753)
     # ------------------------------------------------------------------
     {
         "page_id": "1421270697727753",
@@ -156,21 +144,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-30 20:00",
         "raw_file": "ktx_01_den_hoc_kep_giuong_raw.png",
         "out_file": "ktx_01_den_hoc_kep_giuong_bold.jpg",
-        "accent_hex": "#0284C7",
-        "accent_dark_hex": "#075985",
-        "page_badge": "KÝ TÚC XÁ CÓ BIẾN • ÔN THI ĐÊM",
+        "accent_hex": "#FF6B00",
+        "accent_dark_hex": "#9A3412",
+        "page_badge": "CÀY ĐÊM KHÔNG CHÓI",
         "title_line1": "ĐÈN HỌC CHỐNG CẬN",
         "title_highlight": "KẸP GIƯỜNG TẦNG KTX",
-        "spec_pills": ["3 Chế Độ Ánh Sáng", "Pin Sạc Tích Điện", "Kẹp Chắc Thành Giường"],
-        "macro_points": [
-            ("CHao TẢN SÁNG TỔ ONG", "ÁNH SÁNG DỊU KHÔNG CHÓI MẮT"),
-            ("NGÀM KẸP ĐỆM MÚT", "BÁM CHẮC KHUNG SẮT GIƯỜNG KTX"),
-            ("PIN TÍCH ĐIỆN TYPE-C", "CÚP ĐIỆN KTX VẪN SÁNG 8 GIỜ"),
-        ],
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("NGÀM KẸP MỞ RỘNG 6CM", "Kẹp vừa mọi thành giường KTX"),
-            ("CỔ NGỖNG SILICON 360°", "Uốn cong chiếu đúng trang sách"),
-            ("CẢM ỨNG CHẠM 3 MÀU", "Không làm chói mắt bạn cùng phòng"),
+            ("KẸP CHẮC GIƯỜNG", ""),
+            ("XOAY GẬP 360°", ""),
+            ("PIN SẠC TYPE-C", ""),
         ],
         "shopee_kw": "den hoc led chong can kep ban giuong tang tich dien",
         "sub_id": "ktx-3010-lampclip-pin-img",
@@ -190,21 +174,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 11:45",
         "raw_file": "ktx_02_rem_che_giuong_ktx_raw.png",
         "out_file": "ktx_02_rem_che_giuong_ktx_bold.jpg",
-        "accent_hex": "#0284C7",
-        "accent_dark_hex": "#075985",
-        "page_badge": "KÝ TÚC XÁ CÓ BIẾN • GÓC RIÊNG TƯ",
+        "accent_hex": "#6D28D9",
+        "accent_dark_hex": "#3B0764",
+        "page_badge": "GÓC RIÊNG TƯ KTX",
         "title_line1": "RÈM CHE GIƯỜNG TẦNG",
         "title_highlight": "CẢN SÁNG 90% KÈM KHUNG",
-        "spec_pills": ["Chắn Sáng Ngủ Ngon", "Vải Dày Thoáng Khí", "Kèm Móc & Dây Treo"],
-        "macro_points": [
-            ("VẢI DỆT 3 LỚP CẢN SÁNG", "CHẮN 90% ÁNH ĐÈN TUÝP PHÒNG"),
-            ("KHOEN TREO HỢP KIM", "KÉO ĐÓNG MỞ ÊM NHẸ 1 GIÂY"),
-            ("KHÔNG GIAN RIÊNG TƯ", "THAY ĐỒ & NGỦ TRƯA CỰC THOẢI MÁI"),
-        ],
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("MÓC TRƯỢT KIM LOẠI", "Kéo mượt không kẹt rèm"),
-            ("ĐƯỜNG MAY VIỀN KÉP", "Giặt máy không bung chỉ"),
-            ("TÚI LƯỚI BÊN TRONG", "Đựng điện thoại, kính cận tiện lợi"),
+            ("MÓC TRƯỢT ÊM", ""),
+            ("VẢI DÀY 3 LỚP", ""),
+            ("KÈM TÚI ĐỰNG ĐỒ", ""),
         ],
         "shopee_kw": "rem che giuong tang ktx can sang kem khung day treo",
         "sub_id": "ktx-3110-curtainbed-pin-img",
@@ -224,21 +204,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 20:00",
         "raw_file": "ktx_03_gio_treo_dau_giuong_raw.png",
         "out_file": "ktx_03_gio_treo_dau_giuong_bold.jpg",
-        "accent_hex": "#0284C7",
-        "accent_dark_hex": "#075985",
-        "page_badge": "KÝ TÚC XÁ CÓ BIẾN • TIỆN ÍCH TẦNG 2",
+        "accent_hex": "#E11D48",
+        "accent_dark_hex": "#881337",
+        "page_badge": "TIỆN ÍCH GIƯỜNG TẦNG",
         "title_line1": "GIỎ TREO ĐẦU GIƯỜNG",
         "title_highlight": "THÉP CARBON CHỊU LỰC",
-        "spec_pills": ["Tải Trọng Tới 10KG", "Không Cần Khoan Đục", "Kèm Móc Treo Cạnh"],
-        "macro_points": [
-            ("LƯỚI THÉP HÀN DÀY", "ĐỰNG VỪA LAPTOP 15.6 INCH & SÁCH"),
-            ("NGÀM MÓC BỌC CAO SU", "CHỐNG TRẦY SƠN THÀNH GIƯỜNG"),
-            ("LÒNG GIỎ SÂU RỘNG", "LẤY ĐỒ TẦM TAY KHÔNG CẦN LEO XUỐNG"),
-        ],
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("NGÀM CHỮ U BỌC ĐỆM", "Gài chắc vào thanh giường KTX"),
-            ("MÓC PHỤ 2 BÊN CẠNH", "Treo tai nghe, chìa khóa, dây sạc"),
-            ("ĐÁY LƯỚI ĐAN KHÍT", "Không lọt bút, son, đồ nhỏ"),
+            ("MÓC ĐỆM CAO SU", ""),
+            ("TREO TAI NGHE", ""),
+            ("CHỊU TẢI 10KG", ""),
         ],
         "shopee_kw": "gio treo dau giuong tang ktx thep son tinh dien",
         "sub_id": "ktx-3110-caddyhang-pin-img",
@@ -253,7 +229,7 @@ SALES_ITEMS_SPEC = [
     },
 
     # ------------------------------------------------------------------
-    # 3. HỘI DEADLINE (1407231352464711) — Accent Đỏ Ruby #E11D48
+    # 3. HỘI DEADLINE (1407231352464711)
     # ------------------------------------------------------------------
     {
         "page_id": "1407231352464711",
@@ -264,19 +240,15 @@ SALES_ITEMS_SPEC = [
         "out_file": "deadline_01_ke_chan_cong_thai_hoc_bold.jpg",
         "accent_hex": "#E11D48",
         "accent_dark_hex": "#881337",
-        "page_badge": "HỘI DEADLINE • CÔNG THÁI HỌC VĂN PHÒNG",
+        "page_badge": "CHỐNG MỎI LƯNG & CHÂN",
         "title_line1": "GHẾ KÊ CHÂN GẦM BÀN",
-        "title_highlight": "CHỈNH 6 NẤC & MASSAGE",
-        "spec_pills": ["Nâng Đỡ Đùi & Lưng", "Con Lăn Massage Chân", "Chỉnh 6 Nấc Độ Cao"],
-        "macro_points": [
-            ("CON LĂN & GAI MASSAGE", "GIẢM TÊ MỎI LÒNG BÀN CHÂN"),
-            ("CHỈNH 6 NẤC NGHIÊNG", "GIỮ ĐẦU GỐI VUÔNG GÓC 90°"),
-            ("NHỰA ABS DÀY CHỊU LỰC", "ĐẠP CHÂN VỮNG CHÃI KHÔNG TRƯỢT"),
-        ],
+        "title_highlight": "CHỈNH 6 NẤC MASSAGE",
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("TRỤC LĂN MASSAGE KÉP", "Lăn chân thư giãn lúc chạy việc"),
-            ("KHỚP CHỈNH 6 ĐỘ CAO", "Hợp mọi chiều cao ghế xoay"),
-            ("CHÂN ĐẾ ĐỆM CAO SU", "Bám chặt sàn gạch & thảm văn phòng"),
+            ("CON LĂN MASSAGE", ""),
+            ("CHỈNH 6 ĐỘ CAO", ""),
+            ("ĐẾ CHỐNG TRƯỢT", ""),
         ],
         "shopee_kw": "ke chan cong thai hoc van phong massage 6 nac",
         "sub_id": "deadline-3010-footrest-pin-img",
@@ -296,21 +268,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 11:45",
         "raw_file": "deadline_02_den_treo_man_hinh_raw.png",
         "out_file": "deadline_02_den_treo_man_hinh_bold.jpg",
-        "accent_hex": "#E11D48",
-        "accent_dark_hex": "#881337",
-        "page_badge": "HỘI DEADLINE • BẢO VỆ MẮT BAN ĐÊM",
+        "accent_hex": "#0284C7",
+        "accent_dark_hex": "#075985",
+        "page_badge": "BẢO VỆ MẮT BAN ĐÊM",
         "title_line1": "ĐÈN TREO MÀN HÌNH",
         "title_highlight": "SCREENBAR CHỐNG CHÓI",
-        "spec_pills": ["Quang Học Bất Đối Xứng", "Vỏ Nhôm CNC Cao Cấp", "Cảm Ứng Chạm 3 Màu"],
-        "macro_points": [
-            ("THẤU KÍNH BẤT ĐỐI XỨNG", "0% HẮT SÁNG LÊN MÀN HÌNH"),
-            ("HỢP KIM NHÔM CNC", "TẢN NHIỆT TỐT & BỀN BỈ"),
-            ("NGÀM ĐỐI TRỌNG 1 GIÂY", "GÁC LÊN VIỀN MÀN HÌNH MỎNG"),
-        ],
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("KẸP ĐỐI TRỌNG SILICON", "Không kẹp ép vào tấm nền màn hình"),
-            ("CẢM ỨNG ĐẦU THANH ĐÈN", "Chỉnh độ sáng & nhiệt độ màu"),
-            ("CẤP NGUỒN USB TYPE-C", "Cắm thẳng vào cổng USB máy tính"),
+            ("GÁC NHẸ 1 GIÂY", ""),
+            ("CẢM ỨNG 3 MÀU", ""),
+            ("NGUỒN USB TYPE-C", ""),
         ],
         "shopee_kw": "den treo man hinh may tinh screenbar chong choi",
         "sub_id": "deadline-3110-screenbar-pin-img",
@@ -330,21 +298,17 @@ SALES_ITEMS_SPEC = [
         "slot_dt": "2026-10-31 20:00",
         "raw_file": "deadline_03_dem_ke_tay_memory_foam_raw.png",
         "out_file": "deadline_03_dem_ke_tay_memory_foam_bold.jpg",
-        "accent_hex": "#E11D48",
-        "accent_dark_hex": "#881337",
-        "page_badge": "HỘI DEADLINE • ÊM CỔ TAY 8 TIẾNG",
+        "accent_hex": "#FF4500",
+        "accent_dark_hex": "#9A1B00",
+        "page_badge": "ÊM CỔ TAY SUỐT 8 GIỜ",
         "title_line1": "BỘ ĐỆM KÊ CỔ TAY",
         "title_highlight": "CAO SU NON MEMORY FOAM",
-        "spec_pills": ["Combo Phím & Chuột", "Cao Su Non Đàn Hồi", "Đế PU Bám Chặt Bàn"],
-        "macro_points": [
-            ("VẢI LYCRA LỤA MÁT MỊN", "KHÔNG BÁM MỒ HÔI CỔ TAY"),
-            ("MEMORY FOAM ĐẶC", "NÂNG ĐỠ CỔ TAY THẲNG TRỤC"),
-            ("ĐẾ PU HÚT MẶT BÀN", "DI CHUỘT NHANH KHÔNG XÊ DỊCH"),
-        ],
+        "spec_pills": [],
+        "macro_points": [],
         "detail_items": [
-            ("CAO SU NON ĐÀN HỒI CHẬM", "Ôm sát cổ tay, không xẹp lún"),
-            ("RÃNH CONG CÔNG THÁI HỌC", "Giảm tỳ đè xương cổ tay xuống bàn"),
-            ("MẶT ĐẾ CHỐNG TRƯỢT PU", "Cố định chắc trên mặt bàn gỗ/kính"),
+            ("CAO SU NON ĐẶC", ""),
+            ("NÂNG ĐỠ CỔ TAY", ""),
+            ("ĐẾ PU BÁM BÀN", ""),
         ],
         "shopee_kw": "bo dem ke tay ban phim va chuot cao su non memory foam",
         "sub_id": "deadline-3110-wristpad-pin-img",
@@ -379,6 +343,43 @@ def publish_and_schedule_sales_9(manifest_items: list[dict]) -> list[dict]:
 
     pages = load_vault()
     now_ts = int(time.time())
+
+    # Tự động xóa bản hẹn giờ cũ (nếu có) trước khi đẩy bản thiết kế mới lên
+    legacy_cluttered_posts = [
+        ("1442323328956326", "122108772873514839"),
+        ("1442323328956326", "122108773083514839"),
+        ("1442323328956326", "122108773251514839"),
+        ("1421270697727753", "122112234267511096"),
+        ("1421270697727753", "122112234429511096"),
+        ("1421270697727753", "122112234669511096"),
+        ("1407231352464711", "122115488817502096"),
+        ("1407231352464711", "122115488913502096"),
+        ("1407231352464711", "122115489033502096"),
+    ]
+    if MANIFEST_PATH.exists():
+        try:
+            old_items = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+            for old_it in old_items:
+                if old_it.get("page_id") and old_it.get("post_id"):
+                    legacy_cluttered_posts.append((old_it["page_id"], old_it["post_id"]))
+        except Exception:
+            pass
+
+    seen_del = set()
+    for old_pid, old_post_id in legacy_cluttered_posts:
+        if old_post_id in seen_del or old_pid not in pages:
+            continue
+        seen_del.add(old_post_id)
+        try:
+            tok = pages[old_pid]["access_token"]
+            del_r = requests.delete(
+                f"https://graph.facebook.com/v22.0/{old_post_id}",
+                params={"access_token": tok},
+                timeout=30,
+            )
+            print(f"🗑️ Đã xóa bài rối chữ cũ {old_post_id}: {del_r.json()}", flush=True)
+        except Exception as e:
+            print(f"⚠️ Bỏ qua xóa {old_post_id}: {e}", flush=True)
 
     for item in manifest_items:
         pid = item["page_id"]

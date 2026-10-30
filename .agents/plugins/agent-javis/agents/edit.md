@@ -223,5 +223,7 @@ Khi tạo ảnh bài đăng vuông `1:1` (`1080×1080`) cho Page `AI Players - N
 # Quy chuẩn thiết kế Ảnh Bài Đăng cho 3 Page Bán Hàng Affiliate (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`)
 
 Khi tạo ảnh bài đăng sản phẩm gắn link Affiliate cho 3 Page bán hàng (2 bài/page/ngày vào `11:45` và `20:00`), **BẮT BUỘC đọc và tuân thủ 100%** [quy-chuan-anh-bai-dang-page-ban-hang.md](file:///d:/Phi%C3%AAn%20b%E1%BA%A3n%20Ai%20agent/Subagent/knowledge/quy-chuan-anh-bai-dang-page-ban-hang.md):
-- **Phong cách duy nhất đã khóa (`Editorial Macro & 3-Detail Grid` `1080×1080`):** Nền sáng Studio (`#F8F8F6`), ảnh tổng thể sản phẩm Studio Photorealistic ở trung tâm + góc trên phải cận cảnh chất liệu + dải đáy chia 3 ô vuông cận cảnh 3 chi tiết ăn tiền nhất.
-- **Luật cấm:** Cấm làm ảnh ghép lòe loẹt kiểu chợ búa, cấm sai lệch hình dáng sản phẩm thật trên Shopee, bắt buộc đi qua `tools/zero_repost_gate.py`.
+- **Phong cách duy nhất đã khóa (`Editorial Macro & 3-Detail Grid + Minimal Pop-Bold Typography` `1080×1080` tại `tools/render_sales_bold_editorial.py`):**
+  + **ÍT CHỮ TỐI ĐA — CẤM NHỒI NHÉT TEXT GÂY RỐI MẮT:** Cấm đưa spec pills, danh sách 01-02-03 dưới ảnh Macro, hay mô tả phụ 2 dòng vào ảnh.
+  + **TEXT CHÍNH DÀY DẶN & MÀU BẮT MẮT:** Góc trên trái **CHỈ hiển thị đúng 2 dòng Tiêu đề chính cỡ đại (`52px–68px`, `Be Vietnam Pro Black 900`)** màu rực rỡ bắt mắt (Dòng 1 chữ màu viền nổi 3D + Dòng 2 bọc Khối Hộp Màu Nổi 3D); dưới 3 ô chi tiết đáy chỉ gắn **1 nhãn ngắn 2–3 từ** sát mép dưới.
+- **Luật cấm:** Cấm nhồi nhét nhiều chữ che khuất sản phẩm, cấm sai lệch hình dáng sản phẩm thật trên Shopee, bắt buộc đi qua `tools/zero_repost_gate.py`.
