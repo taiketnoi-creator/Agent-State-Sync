@@ -39,6 +39,7 @@ OBSOLETE_DIRS = [
     "campaigns/2026-10-23",
     "campaigns/2026-10-24",
     "campaigns/2026-10-26/ai-players-4day-vault",
+    "campaigns/2026-10-26/ai-players-weekly-vault/test_samples",
     "templates/remotion-cuongit-template/src/DevOpsSysadmin",
     "templates/remotion-cuongit-template/src/DockerExplainer",
     "templates/remotion-cuongit-template/src/McpShort",
