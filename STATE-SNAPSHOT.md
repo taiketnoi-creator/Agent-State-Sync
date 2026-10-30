@@ -1,7 +1,7 @@
 # Bản Chụp Trạng Thái Tự Động (Lightweight State Snapshot)
 
-- **Cập nhật lần cuối:** `2026-10-30 12:02:24`
-- **Máy thực hiện:** `DESKTOP-NH840HH` (`D:\Phiên bản Ai agent\Subagent`)
+- **Cập nhật lần cuối:** `2026-10-30 18:36:44`
+- **Máy thực hiện:** `Admin-PC` (`F:\Ai Agent Setup\SubAgent\Subagent`)
 
 ## 1. Các Thư Mục Chiến Dịch Hiện Có (`Subagent/campaigns`)
 - `2026-10-26`
@@ -15,11 +15,11 @@
 {
   "products": [
     {
-      "id": 3,
+      "id": 2,
       "name": "Quạt cầm tay mini phản lực iMI 120 mức gió Pin 5000mAh",
       "niche": "Gia dụng & Tiện ích Sinh viên/Văn phòng",
       "score": 92,
-      "commission": "12% (Xtra)",
+      "commission": "15",
       "status": "ACTIVE"
     },
     {

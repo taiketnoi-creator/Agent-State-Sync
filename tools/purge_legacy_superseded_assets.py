@@ -13,9 +13,16 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
+_SELF_SUBAGENT = Path(__file__).resolve().parent.parent
+_SELF_SYNC = _SELF_SUBAGENT.parent / "Agent-State-Sync"
+
 WORKSPACES = [
+    _SELF_SUBAGENT,
+    _SELF_SYNC,
     Path(r"d:\Phiên bản Ai agent\Subagent"),
     Path(r"d:\Phiên bản Ai agent\Agent-State-Sync"),
+    Path(r"f:\Ai Agent Setup\SubAgent\Subagent"),
+    Path(r"f:\Ai Agent Setup\SubAgent\Agent-State-Sync"),
 ]
 
 # 1. Các thư mục chiến dịch & mẫu ảnh cũ đã bị thay thế bởi quy chuẩn mới
@@ -64,6 +71,13 @@ OBSOLETE_FILES = [
     "tools/schedule_weekly_batch.py",
     "tools/test_bespoke_6cards.py",
     "tools/test_vp.py",
+    "tools/generate_weekly_vid_vault.py",
+    "tools/send_clean_page_report_tele.py",
+    "campaigns/2026-10-30/test_samples/sample_t1_hero.jpg",
+    "campaigns/2026-10-30/test_samples/sample_t2_curriculum.jpg",
+    "campaigns/2026-10-30/test_samples/sample_t3_feature_matrix.jpg",
+    "campaigns/2026-10-30/test_samples/sample_t4_offer_card.jpg",
+    "campaigns/2026-10-30/test_samples/sample_t5_urgency.jpg",
 ]
 
 
@@ -83,9 +97,11 @@ def clean_root_tsx(ws: Path) -> bool:
 def main():
     removed_dirs = 0
     removed_files = 0
+    seen = set()
     for ws in WORKSPACES:
-        if not ws.exists():
+        if not ws.exists() or str(ws.resolve()) in seen:
             continue
+        seen.add(str(ws.resolve()))
         for rel_d in OBSOLETE_DIRS:
             dpath = ws / rel_d
             if dpath.exists() and dpath.is_dir():
