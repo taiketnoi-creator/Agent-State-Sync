@@ -2,7 +2,7 @@
   {
     "id": "reel01",
     "comp_id": "Reel01DeepResearch",
-    "schedule_vn": "2026-11-03 11:45",
+    "schedule_vn": "2026-11-03 20:00",
     "keyword": "DEEPRESEARCH",
     "title": "Deep Research Agent: Cách AI Tự Đọc 200 Trang Web Và Viết Báo Cáo Chiến Lược Trong 3 Phút",
     "visual_archetype": "Holographic Sonar & Concentric 360 Web Spider (Bố cục Đồng Tâm Tỏa Tròn + Lệch Trái)",
@@ -97,14 +97,14 @@
     ],
     "totalFrames": 1408,
     "totalSeconds": 46.93,
-    "fb_video_id": "3762209877275581",
-    "fb_comment_id": "3762209877275581_2292804744840225",
+    "fb_video_id": "1435772628666505",
+    "fb_comment_id": "1435772628666505_1590689635603952",
     "status": "SCHEDULED"
   },
   {
     "id": "reel02",
     "comp_id": "Reel02ZeroShotVoice",
-    "schedule_vn": "2026-11-03 16:30",
+    "schedule_vn": "2026-11-04 11:45",
     "keyword": "VOICECLONE",
     "title": "Công Nghệ Zero-Shot Voice Cloning: Tại Sao Chỉ Cần 5 Giây Mẫu Là AI Tái Tạo Được Giọng Phòng Thu?",
     "visual_archetype": "Acoustic Oscilloscope & Dual-Wave Spectrum (Bố cục Sóng Âm Tần 24 Cột EQ + Tiêu Đề Đáy)",
@@ -197,14 +197,14 @@
     ],
     "totalFrames": 1425,
     "totalSeconds": 47.5,
-    "fb_video_id": "1147403741201528",
-    "fb_comment_id": "1147403741201528_1839447490574936",
+    "fb_video_id": "1136051608993541",
+    "fb_comment_id": "1136051608993541_2144565449508687",
     "status": "SCHEDULED"
   },
   {
     "id": "reel03",
     "comp_id": "Reel03GraphRagMatrix",
-    "schedule_vn": "2026-11-03 20:00",
+    "schedule_vn": "2026-11-04 16:30",
     "keyword": "GRAPHRAG",
     "title": "GraphRAG Là Gì? Bước Tiến Giúp AI Nối Hàng Nghìn Tài Liệu Rời Rạc Thành Bản Đồ Tri Thức",
     "visual_archetype": "3D Constellation Knowledge Graph (Chòm Sao Tinh Thể Lục Giác & Xung Thần Kinh Chéo Góc)",
@@ -297,8 +297,8 @@
     ],
     "totalFrames": 1372,
     "totalSeconds": 45.73,
-    "fb_video_id": "4326013374357382",
-    "fb_comment_id": "4326013374357382_2147933435815570",
+    "fb_video_id": "1661416602039529",
+    "fb_comment_id": "1661416602039529_989024623605123",
     "status": "SCHEDULED"
   },
   {
@@ -595,7 +595,7 @@
   {
     "id": "reel07",
     "comp_id": "Reel07VoiceToAction",
-    "schedule_vn": "2026-10-29 11:45",
+    "schedule_vn": "2026-10-30 08:15",
     "keyword": "VOICEAGENT",
     "title": "Điều Khiển Hệ Thống Bằng Giọng Nói Thời Gian Thực: Nói 1 Câu, AI Tự Lên Lịch & Gửi Báo Cáo",
     "visual_archetype": "Sonic Command Ring & Action Domino Chain (Vòng Sóng Khẩu Lệnh + Chuỗi Domino Thực Thi)",
@@ -687,15 +687,12 @@
       }
     ],
     "totalFrames": 1371,
-    "totalSeconds": 45.7,
-    "fb_video_id": "1053511331047514",
-    "fb_comment_id": "1053511331047514_2197195877817487",
-    "status": "LIVE_PUBLISHED"
+    "totalSeconds": 45.7
   },
   {
     "id": "reel08",
     "comp_id": "Reel08CodeSandboxExec",
-    "schedule_vn": "2026-10-29 16:30",
+    "schedule_vn": "2026-10-30 11:45",
     "keyword": "SANDBOX",
     "title": "Môi Trường Sandbox Thực Thi Mã Tự Động: Tại Sao AI Tự Viết Code Tính Toán Chuẩn Hơn Đoán Chữ?",
     "visual_archetype": "Isolated Glass Reactor Chamber & Live Python Plotter (Buồng Phản Ứng Cô Lập + Máy Vẽ Biểu Đồ)",
@@ -787,15 +784,12 @@
       }
     ],
     "totalFrames": 1426,
-    "totalSeconds": 47.53,
-    "fb_video_id": "1127066843379191",
-    "fb_comment_id": "1127066843379191_1386761220206636",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.53
   },
   {
     "id": "reel09",
     "comp_id": "Reel09SelfHealingWorkflow",
-    "schedule_vn": "2026-10-29 20:00",
+    "schedule_vn": "2026-10-30 16:30",
     "keyword": "SELFHEAL",
     "title": "Quy Trình Tự Chữa Lành (Self-Healing AI): Cách Thiết Kế Nhánh Tự Bắt Lỗi & Đổi Cổng Dự Phòng",
     "visual_archetype": "Dual-Circuit Breaker & Automatic Failover Switchboard (Cầu Dao Kép & Bảng Chuyển Mạch Tự Động)",
@@ -887,15 +881,12 @@
       }
     ],
     "totalFrames": 1439,
-    "totalSeconds": 47.97,
-    "fb_video_id": "2151365025766417",
-    "fb_comment_id": "2151365025766417_1669807221365807",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.97
   },
   {
     "id": "reel10",
     "comp_id": "Reel10CompetitorAdSpy",
-    "schedule_vn": "2026-10-30 11:45",
+    "schedule_vn": "2026-10-30 20:00",
     "keyword": "SPYHOOK",
     "title": "Trinh Sát Nội Dung Tự Động: Cách Dùng AI Giải Phẫu 100 Video Xu Hướng Tìm Công Thức Giữ Chân",
     "visual_archetype": "Retention Curve X-Ray & 3-Second Hook Dissector (Máy Chụp X-Quang Đường Giữ Chân + Giải Phẫu 3s)",
@@ -987,15 +978,12 @@
       }
     ],
     "totalFrames": 1425,
-    "totalSeconds": 47.5,
-    "fb_video_id": "1449653920429782",
-    "fb_comment_id": "1449653920429782_1488004673464283",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.5
   },
   {
     "id": "reel11",
     "comp_id": "Reel11SmallLanguageModel",
-    "schedule_vn": "2026-10-30 16:30",
+    "schedule_vn": "2026-10-31 11:45",
     "keyword": "SLMFAST",
     "title": "Mô Hình Nhỏ Chuyên Biệt (SLM) vs Mô Hình Khổng Lồ: Khi Nào Nhỏ Gọn Chạy Nhanh Gấp 5 Lần?",
     "visual_archetype": "Precision Scalpel vs Heavy Sledgehammer Balance Scale (Bàn Cân Đối Trọng & Dao Phẫu Thuật Tia Chớp)",
@@ -1087,15 +1075,12 @@
       }
     ],
     "totalFrames": 1422,
-    "totalSeconds": 47.4,
-    "fb_video_id": "4686814674976521",
-    "fb_comment_id": "4686814674976521_1697712078583245",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.4
   },
   {
     "id": "reel12",
     "comp_id": "Reel12SemanticSearchVector",
-    "schedule_vn": "2026-10-30 20:00",
+    "schedule_vn": "2026-10-31 16:30",
     "keyword": "VECTOR",
     "title": "Tìm Kiếm Theo Ý Nghĩa (Semantic Vector Search): Khách Gõ Sai Từ Khóa Mà AI Vẫn Tìm Đúng Sản Phẩm!",
     "visual_archetype": "3D Vector Coordinate Cube & Cosine Proximity Magnet (Khối Lập Phương Tọa Độ 3D + Nam Châm Ngữ Nghĩa)",
@@ -1187,15 +1172,12 @@
       }
     ],
     "totalFrames": 1421,
-    "totalSeconds": 47.37,
-    "fb_video_id": "4547390555543909",
-    "fb_comment_id": "4547390555543909_1900578828046713",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.37
   },
   {
     "id": "reel13",
     "comp_id": "Reel13PromptInjectionShield",
-    "schedule_vn": "2026-10-31 11:45",
+    "schedule_vn": "2026-10-31 20:00",
     "keyword": "FIREWALLAI",
     "title": "Tường Lửa Chống Thao Túng Câu Lệnh (Prompt Injection): Bảo Vệ Bot Bán Hàng Không Bị Lừa Giảm Giá",
     "visual_archetype": "Triple-Layer Hexagonal Cyber Shield & Red Threat Deflector (Khiên Lục Giác 3 Lớp + Chắn Đòn Tấn Công)",
@@ -1287,15 +1269,12 @@
       }
     ],
     "totalFrames": 1410,
-    "totalSeconds": 47.0,
-    "fb_video_id": "1117679911051289",
-    "fb_comment_id": "1117679911051289_1127181016948954",
-    "status": "SCHEDULED"
+    "totalSeconds": 47.0
   },
   {
     "id": "reel14",
     "comp_id": "Reel14SyntheticDataGen",
-    "schedule_vn": "2026-10-31 16:30",
+    "schedule_vn": "2026-11-01 11:45",
     "keyword": "TEST1000",
     "title": "Dữ Liệu Giả Lập (Synthetic Personas): Tạo 1.000 Khách Hàng Khó Tính Để Sát Hạch AI Trước Khi Chạy Thật",
     "visual_archetype": "Virtual Crash-Test Arena & 1000-Persona Cloning Matrix (Đấu Trường Sát Hạch Ảo & Ma Trận 1000 Chân Dung)",
@@ -1387,15 +1366,12 @@
       }
     ],
     "totalFrames": 1371,
-    "totalSeconds": 45.7,
-    "fb_video_id": "1805954350644829",
-    "fb_comment_id": "1805954350644829_1139325831880794",
-    "status": "SCHEDULED"
+    "totalSeconds": 45.7
   },
   {
     "id": "reel15",
     "comp_id": "Reel15BatchApiOvernight",
-    "schedule_vn": "2026-10-31 20:00",
+    "schedule_vn": "2026-11-01 16:30",
     "keyword": "BATCH50",
     "title": "Chiến Thuật Xử Lý Lô Ban Đêm (Overnight Batch API): Gom 500 Việc Nặng Chạy Đêm Giảm 50% Chi Phí",
     "visual_archetype": "Night-Shift Lunar Conveyor & 50% Cost Slasher (Băng Chuyền Ca Đêm Tự Hành + Lưỡi Cắt 50% Ngân Sách)",
@@ -1487,15 +1463,12 @@
       }
     ],
     "totalFrames": 1325,
-    "totalSeconds": 44.17,
-    "fb_video_id": "1809809703686953",
-    "fb_comment_id": "1809809703686953_1483769473610261",
-    "status": "SCHEDULED"
+    "totalSeconds": 44.17
   },
   {
     "id": "reel16",
     "comp_id": "Reel16SpeculativeDecoding",
-    "schedule_vn": "2026-11-01 11:45",
+    "schedule_vn": "2026-11-01 20:00",
     "keyword": "TURBOAI",
     "title": "Giải Mã Dự Đoán (Speculative Decoding): Bí Mật Giúp Mô Hình Lớn Xuất Chữ Nhanh Gấp Đôi Mà Vẫn Thông Minh",
     "visual_archetype": "Draft-and-Verify Twin Turbo Engine (Động Cơ Kép Nháp Nhanh & Duyệt Song Song)",
@@ -1587,15 +1560,12 @@
       }
     ],
     "totalFrames": 1445,
-    "totalSeconds": 48.17,
-    "fb_video_id": "985191891307784",
-    "fb_comment_id": "985191891307784_1880212609819366",
-    "status": "SCHEDULED"
+    "totalSeconds": 48.17
   },
   {
     "id": "reel17",
     "comp_id": "Reel17CustomerIntentRouter",
-    "schedule_vn": "2026-11-01 16:30",
+    "schedule_vn": "2026-11-02 11:45",
     "keyword": "ROUTER",
     "title": "Bộ Định Tuyến Ý Định (AI Intent Router): Tự Động Phân Loại Khách Hỏi Giá, Khiếu Nại & Chốt Đơn Trong 0.5 Giây",
     "visual_archetype": "High-Speed 3-Way Optical Prism & Priority Lane Switch (Lăng Kính Phân Luồng 3 Nhánh & Làn Ưu Tiên)",
@@ -1687,15 +1657,12 @@
       }
     ],
     "totalFrames": 1407,
-    "totalSeconds": 46.9,
-    "fb_video_id": "2132592064022182",
-    "fb_comment_id": "2132592064022182_2207729129958082",
-    "status": "SCHEDULED"
+    "totalSeconds": 46.9
   },
   {
     "id": "reel18",
     "comp_id": "Reel18AutomatedAbTesting",
-    "schedule_vn": "2026-11-01 20:00",
+    "schedule_vn": "2026-11-02 16:30",
     "keyword": "ABTEST",
     "title": "Thử Nghiệm Đa Phiên Bản Tự Động (AI A/B Testing): Để Hệ Thống Tự Đua Top 3 Tiêu Đề & Giữ Bản Thắng Cuộc",
     "visual_archetype": "3-Lane Racing Track & Winner Trophy Podium (Đường Đua 3 Làn Tốc Độ + Bục Vinh Danh Quán Quân)",
@@ -1788,14 +1755,14 @@
     ],
     "totalFrames": 1357,
     "totalSeconds": 45.23,
-    "fb_video_id": "1831764678271456",
-    "fb_comment_id": "1831764678271456_1083732898002286",
+    "fb_video_id": "967762623073980",
+    "fb_comment_id": "967762623073980_1154677847075648",
     "status": "SCHEDULED"
   },
   {
     "id": "reel19",
     "comp_id": "Reel19LongContextNeedle",
-    "schedule_vn": "2026-11-02 11:45",
+    "schedule_vn": "2026-11-02 20:00",
     "keyword": "NEEDLE",
     "title": "Hiệu Ứng Quên Khúc Giữa (Lost In The Middle): Cách Sắp Xếp Câu Lệnh Để AI Không Bỏ Sót Luật Quan Trọng",
     "visual_archetype": "U-Shaped Attention Curve & Golden Anchor Zones (Đường Cong Chú Ý Hình Chữ U + 2 Điểm Neo Vàng)",
@@ -1888,14 +1855,14 @@
     ],
     "totalFrames": 1419,
     "totalSeconds": 47.3,
-    "fb_video_id": "1445405647005957",
-    "fb_comment_id": "1445405647005957_1476912687679795",
+    "fb_video_id": "1851022529660723",
+    "fb_comment_id": "1851022529660723_1737147627369567",
     "status": "SCHEDULED"
   },
   {
     "id": "reel20",
     "comp_id": "Reel20ZeroTouchOnboarding",
-    "schedule_vn": "2026-11-02 16:30",
+    "schedule_vn": "2026-11-03 11:45",
     "keyword": "ONBOARD",
     "title": "Đào Tạo Nhân Sự Tự Động Bằng AI (Zero-Touch Onboarding): Giúp Người Mới Nắm Bắt Việc Trong 24 Giờ",
     "visual_archetype": "Interactive Skill Tree & Instant Knowledge Download (Cây Kỹ Năng Tương Tác & Trạm Truyền Tri Thức)",
@@ -1988,14 +1955,14 @@
     ],
     "totalFrames": 1393,
     "totalSeconds": 46.43,
-    "fb_video_id": "2022628318409841",
-    "fb_comment_id": "2022628318409841_1113529454998823",
+    "fb_video_id": "1791399451981804",
+    "fb_comment_id": "1791399451981804_1755200765768791",
     "status": "SCHEDULED"
   },
   {
     "id": "reel21",
     "comp_id": "Reel21AutonomousKpiAudit",
-    "schedule_vn": "2026-11-02 20:00",
+    "schedule_vn": "2026-11-03 16:30",
     "keyword": "KPIAUDIT",
     "title": "Kiểm Toán Hiệu Suất Tự Hành Cuối Tuần: Để AI Tự Đối Soát Phễu Chuyển Đổi & Ra Quyết Định Giữ Hay Dừng",
     "visual_archetype": "Executive Control Tower & Keep-Iterate-Stop Traffic Matrix (Đài Chỉ Huy Trung Tâm & Ma Trận Quyết Định 3 Màu)",
@@ -2088,8 +2055,8 @@
     ],
     "totalFrames": 1444,
     "totalSeconds": 48.13,
-    "fb_video_id": "1462939269095668",
-    "fb_comment_id": "1462939269095668_1151121527444729",
+    "fb_video_id": "1417763500552265",
+    "fb_comment_id": "1417763500552265_1750427899367653",
     "status": "SCHEDULED"
   }
 ]
