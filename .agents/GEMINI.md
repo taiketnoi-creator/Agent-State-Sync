@@ -110,6 +110,11 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
    - Bất kỳ khi nào CEO chốt một quy chuẩn thiết kế/sản xuất mới (phong cách ảnh mới, kiến trúc video Zero-Clone mới, kịch bản mới), **`mama` và các Subagent BẮT BUỘC xóa vĩnh viễn (`unlink` / `shutil.rmtree` qua `tools/purge_legacy_superseded_assets.py`) toàn bộ tư liệu mẫu cũ, thư mục campaign cũ lỗi thời, composition demo cũ và script sinh hàng loạt kiểu cũ** trên cả Workspace `Subagent` lẫn kho Git đồng bộ `Agent-State-Sync`.
    - **Mục tiêu:** Triệt tiêu 100% nguy cơ bất kỳ Agent nào đọc nhầm hoặc tái sử dụng tư liệu/code cũ đã bị thay thế.
 
+10. **LUẬT #10 — Cơ Chế Giám Sát Đa Tab & Kiểm Duyệt Cuối Cùng Bắt Buộc Qua `bo-nao-thu-2` (`Second-Brain Mandatory Gatekeeper & Omni-Tab Watcher`):**
+    - **Giám sát mọi Tab & mọi Cuộc trò chuyện (`tools/second_brain_gatekeeper.py --watch-all-tabs`):** `bo-nao-thu-2` tự động theo dõi mọi cửa sổ/tab công việc trên cả 2 máy (`guicci` & `Admin-PC`); bất kỳ lời nhắc nhở (`reminders`), sửa đổi hay quy tắc mới nào của CEO đều được `bo-nao-thu-2` ghi nhớ ngay vào `knowledge/bo-nao-thu-2/ACTIVE-RULES-MANIFEST.json`, `LIVE-WATCH-LOG.json` và `memories/MEM-*.md`.
+    - **Kiểm duyệt Bắt Buộc Trước & Sau Thực Thi (`python "tools/second_brain_gatekeeper.py" --audit --agent <name> --text <brief_or_output>`):** Vì các Agent chuyên môn dễ nhầm lẫn dùng lại bộ nhớ cũ, **mọi công việc `mama` giao xuống cho các Agent đều phải đi qua bộ quy tắc của `bo-nao-thu-2` trước khi thực thi**, và `bo-nao-thu-2` đóng vai trò **Người Kiểm Duyệt Cuối Cùng (`Final Compliance Auditor`)** xem Agent đó cần làm gì, được làm gì và đã làm đúng quy chuẩn mới nhất chưa (`APPROVED_BY_SECOND_BRAIN` vs `REJECTED_BY_SECOND_BRAIN_STALE_MEMORY`).
+    - **Trách nhiệm Báo cáo Cuối Cùng:** Chỉ sau khi qua cửa kiểm duyệt của `bo-nao-thu-2`, `mama` mới nghiệm thu và chịu trách nhiệm báo cáo kết quả cuối cùng trước CEO.
+
 ---
 
 ## 5. SỔ TAY NHIỆM VỤ ĐANG THỰC THI & CHỜ HOÀN TẤT (`ACTIVE TASKS — CẤM BỎ DỞ`)
