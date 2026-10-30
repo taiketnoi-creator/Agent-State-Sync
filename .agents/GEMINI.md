@@ -83,8 +83,8 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 3. **LUẬT #3 — Quy Chuẩn 3 Page Bán Hàng Affiliate (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
    - Theo `knowledge/bo-nao-thu-2/memories/MEM-20261023-sales-pages-freeze-video-image-only-rule.md` & `knowledge/quy-chuan-anh-bai-dang-page-ban-hang.md`:
      + **ĐÓNG BĂNG TUYỆT ĐỐI VIDEO BÁN HÀNG:** Cấm xuất bản hoặc lên lịch bất kỳ video nào lên 3 Page Bán Hàng cho đến khi Video AI Bán Hàng được training đạt chuẩn Vàng và CEO nghiệm thu.
-     + **100% CHỈ ĐĂNG ẢNH VUÔNG `1:1` (`1080×1080`):** Phong cách duy nhất **`Editorial Macro & 3-Detail Grid`** (Nền xám ấm `#F8F8F6`, ảnh sản phẩm Studio Photorealistic ở trung tâm + dải 3 khung chi tiết ở đáy) vào 2 khung giờ vàng **`11:45` và `20:00`** (2 bài/page/ngày = 6 bài/ngày).
-     + **100% gắn `Pinned Comment #1`** chứa link Shopee Affiliate chính chủ (`SHOPEE_AFFILIATE_ID=17395830088`, cổng `s.shopee.vn/an_redir` kèm 5 tầng `Sub_ID`), kiểm tra qua `tools/zero_repost_gate.py` cấm đăng lặp SKU/ảnh cũ.
+     + **100% CHỈ ĐĂNG ẢNH VUÔNG `1:1` (`1080×1080`) CHUẨN `BOLD HIGH-IMPACT TYPOGRAPHY`:** Phong cách duy nhất **`Editorial Macro & 3-Detail Grid (Bold High-Impact v2)`** (`assets/sales-pages-image-styles/sales-style-master-macro-grid-bold-v2.jpg`, kết xuất qua `tools/render_sales_bold_editorial.py` & `tools/build_sales_weekend_vault.py`): Nền xám ấm `#F2F3ED`, chữ **cực dày (`Be Vietnam Pro Black 900`)**, Dòng 2 bọc **Khối Hộp Màu Nổi 3D (`3D Colored Highlight Block`)**, 3 dải tính năng đánh số `01-02-03` tô màu từ khóa dưới vòng tròn Macro, và 3 nhãn hộp tối màu viền đáy màu nhấn dưới 3 ô chi tiết đáy; đăng vào 2 khung giờ vàng **`11:45` và `20:00`** (2 bài/page/ngày = 6 bài/ngày).
+     + **100% gắn `Pinned Comment #1` + Câu hỏi kích cầu bình luận A/B cuối Caption:** Gắn link Shopee Affiliate chính chủ (`SHOPEE_AFFILIATE_ID=17395830088`, cổng `s.shopee.vn/an_redir` kèm 5 tầng `Sub_ID`), kiểm tra qua `tools/zero_repost_gate.py` cấm đăng lặp SKU/ảnh cũ.
 
 4. **LUẬT #4 — Tường Lửa Bảo Vệ Trang Cá Nhân CEO (`Thành Tài`) & Messenger (`Triple-Layer Personal Profile Firewall`):**
    - **NGHIÊM CẤM TUYỆT ĐỐI** dùng tài khoản cá nhân của CEO (`Thành Tài`) để đi bình luận, thả like hoặc nhắn tin Messenger!
@@ -114,14 +114,14 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ## 5. SỔ TAY NHIỆM VỤ ĐANG THỰC THI & CHỜ HOÀN TẤT (`ACTIVE TASKS — CẤM BỎ DỞ`)
 
-*(Cập nhật đồng bộ 2 máy lúc `2026-10-30 11:25` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
+*(Cập nhật đồng bộ 2 máy lúc `2026-10-30 16:22` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
 
 1. **`[IN_PROGRESS]` (Ưu tiên #1) Kho Nội Dung Độc Bản `Zero-Clone` & Hàng Đợi Hẹn Giờ Cho Page `AI Players - Người chơi hệ AI`:**
-   - **Nhánh 1A — Kho Ảnh Độc Bản `Zero-Clone` (`6 ảnh/ngày`):** Đã xóa sạch toàn bộ ảnh 5-template cũ trên Page & ổ cứng, khóa cổng `verify_zero_clone_images()` (`tools/zero_repost_gate.py`) và xuất bản/lên lịch **12 Ảnh Độc Bản 100%** (12 kiến trúc không gian & 12 bảng màu riêng tại `tools/build_bespoke_ai_players_images.py`) cho ngày `30/10` và `31/10`. Cần tiếp tục thiết kế cuốn chiếu các lô ảnh độc bản tiếp theo cho tháng 11.
+   - **Nhánh 1A — Kho Ảnh Độc Bản `Zero-Clone` (`6 ảnh/ngày`):** Đã xóa sạch toàn bộ ảnh 5-template cũ trên Page & ổ cứng, khóa cổng `verify_zero_clone_images()` (`tools/zero_repost_gate.py`) và xuất bản/lên lịch đủ **24/24 Ảnh Độc Bản 100%** (`Cards 01..24` tại `tools/build_bespoke_ai_players_images.py` & `tools/build_bespoke_ai_players_day7_day8.py`) phủ kín đến hết `02/11/2026`. Tiếp tục thiết kế cuốn chiếu lô `03/11–06/11`.
    - **Nhánh 1B — Kho Video Reels Độc Bản `Zero-Clone` (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã hoàn tất 21/21 Bespoke Video Reels (`remotion-studio/src/compositions/bespoke21/Reel01..Reel21.tsx`), qua cổng `verify_zero_clone_compositions()` và hẹn giờ đầy đủ đến hết `02/11/2026`.
 
-2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Mới Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
-   - Đang chạy đều đặn 2 bài/page/ngày (`11:45` & `20:00`, chuẩn `Editorial Macro & 3-Detail Grid` `1080×1080` + Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088`). Tiếp tục sản xuất cuốn chiếu các lô SKU mới cho đầu tháng 11.
+2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Chuẩn `Bold High-Impact Typography` Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
+   - Đã nâng cấp lên chuẩn **`Editorial Macro & 3-Detail Grid (Bold High-Impact v2)`** (`tools/render_sales_bold_editorial.py` & `tools/build_sales_weekend_vault.py`, chữ dày `Be Vietnam Pro Black 900` + khối hộp màu nổi 3D + câu hỏi kích cầu A/B cuối caption) và lên lịch đủ **9 bài SKU mới** (`30/10 20:00`, `31/10 11:45`, `31/10 20:00`) kèm Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088`. Tiếp tục sản xuất cuốn chiếu lô SKU ngày `01/11–03/11`.
 
 3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành Ổn Định 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`) Chạy Ngầm 100% + Đồng Bộ Cookie 2 Máy:**
    - Đã nâng cấp `tools/start_bot_chrome.py` chạy ngầm 100% (`--headless=new` + `CREATE_NO_WINDOW`), tự động đóng trình duyệt ngay sau ca (`stop_bot_chrome()`) và đồng bộ Cookie mã hóa (`knowledge/fb_bot_session_vault.json`) giữa Máy Công Ty và Máy Ở Nhà.
