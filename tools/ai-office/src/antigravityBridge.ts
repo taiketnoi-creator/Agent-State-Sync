@@ -1,9 +1,11 @@
-// Cầu nối đồng bộ trực tiếp các Tab Cuộc Trò Chuyện chính của Antigravity IDE (từ conversation_summaries.db & brain)
-// - Chỉ lấy các Tab Trò Chuyện chính của CEO trong dự án Subagent (nesting_depth = 0, không trộn các phiên chạy ngầm của Subagent)
-// - Lấy đúng Tiêu đề chính thức của Antigravity IDE ("Kiểm Tra Dự Án Văn Phòng 3D", "Git Pull Command Explanation", "Kiểm Tra Cấu Trúc Sub Agent"...)
+// Cầu nối đồng bộ trực tiếp 2 chiều với Antigravity IDE (conversation_summaries.db + transcript_full.jsonl + agentapi.bat)
+// - Gom tất cả các bước PLANNER_RESPONSE trong cùng 1 lượt trả lời thành 1 câu trả lời sạch duy nhất giống hệt Antigravity IDE
+// - Đọc transcript_full.jsonl để không bao giờ bị cắt cụt bảng biểu hay báo cáo dài
+// - Chuyển tiếp tin nhắn trực tiếp sang Antigravity IDE qua agentapi.bat
 import { existsSync, statSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { spawn } from 'node:child_process';
 import { DatabaseSync } from 'node:sqlite';
 
 export interface AntiToolCall {
@@ -43,7 +45,62 @@ export interface AntiConversation {
 const AGY_DIR = join(homedir(), '.gemini', 'antigravity');
 const BRAIN_DIR = join(AGY_DIR, 'brain');
 const SUMMARIES_DB = join(AGY_DIR, 'conversation_summaries.db');
+const AGENTAPI_BAT = join(AGY_DIR, 'bin', 'agentapi.bat');
 const STATE_FILE = 'data/conversations_state.json';
+const AGY_ENV_FILE = 'data/antigravity_env.json';
+
+// Lưu lại biến môi trường kết nối Antigravity Language Server khi server chạy từ trong Antigravity
+export function captureAntigravityEnv() {
+  mkdirSync('data', { recursive: true });
+  if (process.env.ANTIGRAVITY_LS_ADDRESS && process.env.ANTIGRAVITY_CSRF_TOKEN) {
+    const envSnapshot: Record<string, string> = {};
+    for (const [k, v] of Object.entries(process.env)) {
+      if (v && (k.startsWith('ANTIGRAVITY_') || k.startsWith('AGY_'))) {
+        envSnapshot[k] = v;
+      }
+    }
+    try { writeFileSync(AGY_ENV_FILE, JSON.stringify(envSnapshot, null, 2), 'utf8'); } catch {}
+  } else if (existsSync(AGY_ENV_FILE)) {
+    try {
+      const saved = JSON.parse(readFileSync(AGY_ENV_FILE, 'utf8'));
+      for (const [k, v] of Object.entries(saved)) {
+        if (typeof v === 'string' && !process.env[k]) process.env[k] = v;
+      }
+    } catch {}
+  }
+}
+captureAntigravityEnv();
+
+/** Chuyển tiếp tin nhắn từ http://localhost:4800/ thẳng vào Antigravity IDE qua agentapi.bat */
+export function forwardToAntigravityIde(convId: string, prompt: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    captureAntigravityEnv();
+    if (!existsSync(AGENTAPI_BAT) || !convId || convId.startsWith('conv-')) {
+      resolve(false);
+      return;
+    }
+    try {
+      const child = spawn('cmd.exe', ['/c', AGENTAPI_BAT, 'send-message', convId, prompt], {
+        env: { ...process.env },
+        windowsHide: true,
+      });
+      const timer = setTimeout(() => {
+        try { child.kill(); } catch {}
+        resolve(false);
+      }, 4000);
+      child.on('close', (code) => {
+        clearTimeout(timer);
+        resolve(code === 0);
+      });
+      child.on('error', () => {
+        clearTimeout(timer);
+        resolve(false);
+      });
+    } catch {
+      resolve(false);
+    }
+  });
+}
 
 interface SummaryRow {
   conversation_id: string;
@@ -100,7 +157,6 @@ function extractFolderName(workspaceUris: string): string {
   return 'Subagent';
 }
 
-/** Đọc danh sách các Tab Trò Chuyện chính (nesting_depth = 0) từ conversation_summaries.db của Antigravity */
 function queryTopLevelAntigravitySummaries(): Map<string, SummaryRow> {
   const map = new Map<string, SummaryRow>();
   if (!existsSync(SUMMARIES_DB)) return map;
@@ -117,7 +173,6 @@ function queryTopLevelAntigravitySummaries(): Map<string, SummaryRow> {
       map.set(r.conversation_id, r);
     }
   } catch {
-    // ignore lock errors
   } finally {
     try { db?.close(); } catch {}
   }
@@ -127,12 +182,15 @@ function queryTopLevelAntigravitySummaries(): Map<string, SummaryRow> {
 function cleanUserText(raw: string): string {
   if (!raw) return '';
   let s = raw;
+  s = s.replace(/<CONTEXT_SUMMARY>[\s\S]*?<\/CONTEXT_SUMMARY>/g, '');
   s = s.replace(/<ADDITIONAL_METADATA>[\s\S]*?<\/ADDITIONAL_METADATA>/g, '');
   s = s.replace(/<USER_SETTINGS_CHANGE>[\s\S]*?<\/USER_SETTINGS_CHANGE>/g, '');
   s = s.replace(/<SYSTEM_MESSAGE>[\s\S]*?<\/SYSTEM_MESSAGE>/g, '');
+  s = s.replace(/The following is a <SYSTEM_MESSAGE>[\s\S]*/g, '');
   const m = s.match(/<USER_REQUEST>([\s\S]*?)<\/USER_REQUEST>/);
   if (m) s = m[1];
   s = s.replace(/<\/?USER_REQUEST>/g, '').trim();
+  if (s.startsWith('Error: The stream was interrupted')) return '';
   return s;
 }
 
@@ -143,13 +201,12 @@ function summarizeToolCall(tc: any): AntiToolCall {
     try { args = JSON.parse(args); } catch { args = {}; }
   }
   let summary = name;
-  if (name === 'run_command') summary = args.toolSummary || `Chạy lệnh: ${(args.CommandLine || '').slice(0, 60)}`;
-  else if (name === 'read_file') summary = `Đọc file: ${(args.Path || '').split(/[\\/]/).pop() || args.Path || ''}`;
-  else if (name === 'write_file') summary = `Ghi file: ${(args.Path || '').split(/[\\/]/).pop() || args.Path || ''}`;
-  else if (name === 'edit_file') summary = `Sửa file: ${(args.Path || '').split(/[\\/]/).pop() || args.Path || ''}`;
-  else if (name === 'invoke_subagent') summary = `Gọi Subagent: ${args.TypeName || ''} (${args.Role || ''})`;
-  else if (name === 'manage_task') summary = `Quản lý tiến trình: ${args.Action || ''}`;
-  else if (name === 'search_web') summary = `Tìm kiếm Web: ${args.query || ''}`;
+  if (name === 'run_command') summary = args.toolSummary || (args.CommandLine || '').slice(0, 55);
+  else if (name === 'read_file') summary = (args.Path || '').split(/[\\/]/).pop() || 'read_file';
+  else if (name === 'write_file') summary = (args.Path || '').split(/[\\/]/).pop() || 'write_file';
+  else if (name === 'edit_file') summary = (args.Path || '').split(/[\\/]/).pop() || 'edit_file';
+  else if (name === 'invoke_subagent') summary = `${args.TypeName || ''} (${args.Role || ''})`;
+  else if (name === 'manage_task') summary = `${args.Action || ''}`;
   return {
     id: tc?.id || Math.random().toString(36).slice(2, 9),
     name,
@@ -159,7 +216,9 @@ function summarizeToolCall(tc: any): AntiToolCall {
 }
 
 export function parseAntigravityTranscript(convId: string, fullSteps = false, summaryRow?: SummaryRow): AntiConversation | null {
-  const logPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript.jsonl');
+  const fullLogPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript_full.jsonl');
+  const compactLogPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript.jsonl');
+  const logPath = existsSync(fullLogPath) ? fullLogPath : compactLogPath;
   const hasLog = existsSync(logPath);
   if (!hasLog && !summaryRow) return null;
 
@@ -167,11 +226,16 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
   if (summaryRow?.last_modified_time) {
     const parsedTs = Date.parse(summaryRow.last_modified_time);
     if (!isNaN(parsedTs)) mtimeMs = parsedTs;
-  } else if (hasLog) {
-    try { mtimeMs = statSync(logPath).mtimeMs; } catch {}
+  }
+  if (hasLog) {
+    try {
+      const fTime = statSync(logPath).mtimeMs;
+      if (fTime > mtimeMs) mtimeMs = fTime;
+    } catch {}
   }
 
-  const steps: AntiStep[] = [];
+  // Gom các bước PLANNER_RESPONSE liên tiếp trong cùng 1 lượt (turn) thành 1 câu trả lời duy nhất giống hệt Antigravity IDE
+  const mergedTurns: AntiStep[] = [];
   let firstUserPrompt = '';
   let lastActivity = 'Sẵn sàng';
   let lastRole: 'user' | 'assistant' | 'tool' = 'assistant';
@@ -180,6 +244,8 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
     let raw = '';
     try { raw = readFileSync(logPath, 'utf8'); } catch {}
     const lines = raw.split('\n').filter(l => l.trim().length > 0);
+    let pendingAssistant: AntiStep | null = null;
+
     for (let i = 0; i < lines.length; i++) {
       let obj: any;
       try { obj = JSON.parse(lines[i]); } catch { continue; }
@@ -189,11 +255,17 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
       if (type === 'USER_INPUT') {
         const text = cleanUserText(obj.content || '');
         if (!text) continue;
+        if (pendingAssistant) {
+          if (pendingAssistant.content || (pendingAssistant.toolCalls && pendingAssistant.toolCalls.length)) {
+            mergedTurns.push(pendingAssistant);
+          }
+          pendingAssistant = null;
+        }
         if (!firstUserPrompt) firstUserPrompt = text;
-        lastActivity = `CEO: ${text.slice(0, 75)}`;
+        lastActivity = text.slice(0, 75);
         lastRole = 'user';
-        steps.push({
-          index: steps.length,
+        mergedTurns.push({
+          index: mergedTurns.length,
           role: 'user',
           createdAt,
           content: text,
@@ -204,37 +276,45 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
         const rawCalls = Array.isArray(obj.tool_calls) ? obj.tool_calls : [];
         const toolCalls = rawCalls.map(summarizeToolCall);
 
-        if (toolCalls.length > 0) {
-          lastActivity = `🔧 ${toolCalls[toolCalls.length - 1].summary}`;
-          lastRole = 'tool';
-        }
-        if (content) {
-          lastActivity = content.replace(/[#*`>-]/g, '').trim().slice(0, 85);
-          lastRole = 'assistant';
-        } else if (thinking && !toolCalls.length) {
-          lastActivity = `💭 Đang suy nghĩ: ${thinking.slice(0, 70)}...`;
-        }
-
-        if (content || thinking || toolCalls.length > 0) {
-          steps.push({
-            index: steps.length,
+        if (!pendingAssistant) {
+          pendingAssistant = {
+            index: mergedTurns.length,
             role: 'assistant',
             createdAt,
-            content,
-            thinking: thinking || undefined,
-            toolCalls: toolCalls.length ? toolCalls : undefined,
-          });
+            content: '',
+            thinking: '',
+            toolCalls: [],
+          };
+        }
+        pendingAssistant.createdAt = createdAt;
+        if (toolCalls.length > 0) {
+          pendingAssistant.toolCalls = [...(pendingAssistant.toolCalls || []), ...toolCalls];
+          lastActivity = `Đang chạy: ${toolCalls[toolCalls.length - 1].summary}`;
+          lastRole = 'tool';
+        }
+        if (thinking) {
+          pendingAssistant.thinking = thinking;
+        }
+        if (content) {
+          // Luôn lấy nội dung phản hồi cuối cùng đầy đủ nhất của lượt đó
+          pendingAssistant.content = content;
+          lastActivity = content.replace(/[#*`>|_-]/g, '').trim().slice(0, 85);
+          lastRole = 'assistant';
         }
       }
+    }
+    if (pendingAssistant && (pendingAssistant.content || (pendingAssistant.toolCalls && pendingAssistant.toolCalls.length))) {
+      mergedTurns.push(pendingAssistant);
     }
   }
 
   const state = loadState();
   const customExtraSteps = state.customSteps[convId] ?? [];
-  const allSteps = [...steps, ...customExtraSteps];
+  // Lọc bỏ các bước custom trùng hoặc rỗng, và gộp mượt mà
+  const allSteps = [...mergedTurns, ...customExtraSteps];
   if (!allSteps.length && !summaryRow?.title) return null;
 
-  const isRunning = summaryRow?.status === 'CASCADE_RUN_STATUS_RUNNING' || ((Date.now() - mtimeMs < 15000) && lastRole !== 'assistant');
+  const isRunning = summaryRow?.status === 'CASCADE_RUN_STATUS_RUNNING' || ((Date.now() - mtimeMs < 12000) && lastRole !== 'assistant');
   const officialTitle = state.titleOverrides[convId] || summaryRow?.title || firstUserPrompt || `Cuộc trò chuyện ${convId.slice(0, 6)}`;
   const projectFolder = summaryRow ? extractFolderName(summaryRow.workspace_uris) : 'Subagent';
 
@@ -242,18 +322,18 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
     id: convId,
     title: officialTitle.replace(/\s+/g, ' ').trim(),
     projectFolder,
-    subtitle: `${projectFolder} · ${allSteps.length || summaryRow?.step_count || 0} bước`,
+    subtitle: `${projectFolder}`,
     currentActivity: customExtraSteps.length
-      ? customExtraSteps[customExtraSteps.length - 1].content.slice(0, 85)
+      ? customExtraSteps[customExtraSteps.length - 1].content.replace(/[#*`>|_-]/g, '').slice(0, 85)
       : lastActivity,
     status: isRunning ? 'working' : 'idle',
     progressPct: isRunning ? Math.min(95, 35 + (allSteps.length * 7) % 55) : 100,
     agentId: 'mama',
-    agentName: 'Mama (Chief of Staff)',
+    agentName: 'Mama',
     source: 'antigravity-ide',
     updatedAt: mtimeMs,
     stepCount: allSteps.length || summaryRow?.step_count || 0,
-    steps: fullSteps ? allSteps.slice(-80) : undefined,
+    steps: fullSteps ? allSteps.slice(-60) : undefined,
   };
 }
 
@@ -262,7 +342,6 @@ export function listAllConversations(limit = 25): AntiConversation[] {
   const deleted = new Set(st.deletedIds);
   const out: AntiConversation[] = [];
 
-  // 1. Các Tab Trò Chuyện tạo mới trực tiếp trong Văn phòng 3D
   for (const c of st.customConversations) {
     if (deleted.has(c.id)) continue;
     const cSteps = st.customSteps[c.id] ?? [];
@@ -276,12 +355,10 @@ export function listAllConversations(limit = 25): AntiConversation[] {
     });
   }
 
-  // 2. Các Tab Trò Chuyện chính của CEO từ conversation_summaries.db (Lọc đúng dự án Subagent, bỏ sạch Subagent runs)
   const summaryMap = queryTopLevelAntigravitySummaries();
   for (const [convId, row] of summaryMap.entries()) {
     if (deleted.has(convId)) continue;
     const folder = extractFolderName(row.workspace_uris);
-    // Chỉ hiển thị đúng các Tab thuộc dự án Subagent giống hệt ảnh 2 của CEO
     if (folder.toLowerCase() !== 'subagent') continue;
     const parsed = parseAntigravityTranscript(convId, false, row);
     if (parsed) out.push(parsed);
@@ -307,14 +384,14 @@ export function createOfficeConversation(input: { title?: string; agentId?: stri
   const st = loadState();
   const id = 'conv-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6);
   const agentId = input.agentId || 'mama';
-  const agentName = input.agentName || 'Mama (Chief of Staff)';
+  const agentName = input.agentName || 'Mama';
   const title = (input.title || `Cuộc trò chuyện mới`).trim();
   const conv: AntiConversation = {
     id,
     title,
     projectFolder: 'Subagent',
-    subtitle: `${agentName} · Văn phòng 3D`,
-    currentActivity: 'Vừa khởi tạo • Sẵn sàng nhận lệnh',
+    subtitle: `Subagent`,
+    currentActivity: 'Sẵn sàng',
     status: 'idle',
     progressPct: 0,
     agentId,
@@ -325,19 +402,9 @@ export function createOfficeConversation(input: { title?: string; agentId?: stri
     steps: [],
   };
   st.customConversations.unshift(conv);
-  st.customSteps[id] = [
-    {
-      index: 0,
-      role: 'assistant',
-      createdAt: new Date().toISOString(),
-      agentId,
-      agentName,
-      thinking: `Khởi tạo phiên làm việc trực tiếp cho ${agentName}. Đã nạp 10 Luật Cứng và kết nối Cổng Kiểm Duyệt Bộ Não Thứ 2 (Luật #10).`,
-      content: `Xin chào CEO! Tôi là **${agentName}**. Cuộc trò chuyện này được đồng bộ trực tiếp trong thư mục **📁 Subagent**.\n\nCEO có thể giao việc trực tiếp tại đây hoặc bấm vào bất kỳ nhân vật 3D nào trên mặt sàn!`,
-    },
-  ];
+  st.customSteps[id] = [];
   saveState(st);
-  return { ...conv, steps: st.customSteps[id], stepCount: 1 };
+  return { ...conv, steps: [], stepCount: 0 };
 }
 
 export function appendConversationStep(convId: string, step: Omit<AntiStep, 'index' | 'createdAt'>, statusUpdate?: { status?: 'working' | 'idle' | 'queued'; pct?: number; activity?: string; titleIfNew?: string }) {

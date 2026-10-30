@@ -67,20 +67,51 @@ async function api(path, method = 'GET', body) {
   return j;
 }
 
-/** Render Markdown nhẹ chuẩn Antigravity IDE */
+/** Render Markdown chuẩn Antigravity IDE (Hỗ trợ đầy đủ Bảng Table, Heading, List, Blockquote, Code) */
 function renderMarkdown(md) {
   if (!md) return '';
   let s = esc(md);
-  s = s.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_m, _lang, code) => `<pre><code>${code.trim()}</code></pre>`);
+
+  // Code blocks
+  const codeBlocks = [];
+  s = s.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_m, _lang, code) => {
+    const idx = codeBlocks.length;
+    codeBlocks.push(`<pre><code>${code.trim()}</code></pre>`);
+    return `@@CODEBLOCK_${idx}@@`;
+  });
+
+  // Markdown Tables
+  s = s.replace(/(?:^|\n)(\|.+\|\r?\n\|[-:| ]+\|\r?\n(?:\|.+\|(?:\r?\n|$))+)/g, (_m, tbl) => {
+    const rows = tbl.trim().split(/\r?\n/).filter(Boolean);
+    if (rows.length < 2) return tbl;
+    const parseCells = (r) => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+    const headers = parseCells(rows[0]);
+    const bodyRows = rows.slice(2).map(parseCells);
+    const thHtml = '<tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr>';
+    const tbHtml = bodyRows.map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('');
+    return `<table><thead>${thHtml}</thead><tbody>${tbHtml}</tbody></table>`;
+  });
+
+  // Inline formatting
   s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:#6366f1;text-decoration:underline">$1</a>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  s = s.replace(/^---$/gm, '<hr>');
+  s = s.replace(/^&gt;\s*(.+)$/gm, '<blockquote>$1</blockquote>');
   s = s.replace(/^####\s+(.+)$/gm, '<h4>$1</h4>');
   s = s.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
   s = s.replace(/^##\s+(.+)$/gm, '<h3>$1</h3>');
-  s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  s = s.replace(/^#\s+(.+)$/gm, '<h3>$1</h3>');
   s = s.replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>');
   s = s.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
   s = s.replace(/<\/ul>\s*<ul>/g, '');
   s = s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+  s = s.replace(/<br>(<\/?(?:h3|h4|ul|li|table|thead|tbody|tr|pre|hr|blockquote))/g, '$1');
+  s = s.replace(/(<\/(?:h3|h4|ul|li|table|thead|tbody|tr|pre|hr|blockquote)>)<br>/g, '$1');
+
+  codeBlocks.forEach((cb, idx) => {
+    s = s.replace(`@@CODEBLOCK_${idx}@@`, cb);
+  });
   return s;
 }
 
@@ -478,48 +509,23 @@ function renderChatStream() {
   const conv = state.activeConvDetail;
   if (!conv || !conv.steps || !conv.steps.length) {
     log.innerHTML = `<div class="muted" style="text-align:center;margin:auto;padding:24px">
-      Chưa có tin nhắn nào trong cuộc trò chuyện này.<br>Hãy nhập yêu cầu bên dưới để giao việc cho <b>${esc(agentById(selectedId)?.name ?? 'Mama')}</b>!
+      Nhập tin nhắn bên dưới để bắt đầu trò chuyện.
     </div>`;
     return;
   }
 
-  log.innerHTML = conv.steps.map(st => {
-    const timeStr = hhmm(st.createdAt);
-    if (st.role === 'user') {
+  // Chỉ hiển thị câu hỏi của User và câu trả lời sạch của Antigravity (ẩn toàn bộ bước trung gian thừa)
+  log.innerHTML = conv.steps
+    .filter(st => st.role === 'user' || (st.content && st.content.trim().length > 0))
+    .map(st => {
+      if (st.role === 'user') {
+        return `<div class="anti-msg-user">${esc(st.content)}</div>`;
+      }
       return `
-        <div class="anti-msg-user">
-          <div class="u-meta"><span>👤 CEO</span><span>${esc(timeStr)}</span></div>
-          <div>${esc(st.content)}</div>
+        <div class="anti-msg-agent">
+          <div class="anti-content">${renderMarkdown(st.content)}</div>
         </div>`;
-    }
-    const agName = st.agentName || conv.agentName || 'Mama (Gemini 4)';
-    const thinkBlock = st.thinking
-      ? `<details class="anti-thinking">
-          <summary>💭 Quá trình suy nghĩ &amp; kiểm tra quy tắc (${Math.max(1, Math.round(st.thinking.length / 85))}s)</summary>
-          <div class="think-body">${esc(st.thinking)}</div>
-        </details>`
-      : '';
-    const toolsBlock = st.toolCalls && st.toolCalls.length
-      ? `<div class="anti-tools">${st.toolCalls.map(tc => `
-          <div class="anti-tool-pill">
-            <span class="ok">✓</span>
-            <span><b>${esc(tc.name)}</b> · ${esc(tc.summary)}</span>
-          </div>`).join('')}</div>`
-      : '';
-    const contentBlock = st.content
-      ? `<div class="anti-content">${renderMarkdown(st.content)}</div>`
-      : '';
-    return `
-      <div class="anti-msg-agent">
-        <div class="anti-agent-head">
-          <b>🤖 ${esc(agName)}</b>
-          <span>${esc(timeStr)}</span>
-        </div>
-        ${thinkBlock}
-        ${toolsBlock}
-        ${contentBlock}
-      </div>`;
-  }).join('');
+    }).join('');
 
   log.scrollTop = log.scrollHeight;
 }

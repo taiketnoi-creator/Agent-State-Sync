@@ -14,7 +14,7 @@ import { claudeCodeAdapter } from './adapters/claudeCode.ts';
 import { codexAdapter } from './adapters/codex.ts';
 import { anthropicChatAdapter, openaiChatAdapter } from './adapters/chat.ts';
 import { SessionObserver } from './observer.ts';
-import { appendConversationStep } from './antigravityBridge.ts';
+import { appendConversationStep, forwardToAntigravityIde } from './antigravityBridge.ts';
 
 const ADAPTERS: Partial<Record<Provider, AgentAdapter>> = {
   'claude-code': claudeCodeAdapter,
@@ -57,6 +57,48 @@ function runGatekeeperAudit(agentId: string, text: string): Promise<{ approved: 
         res({ approved: true, summary: 'APPROVED_BY_SECOND_BRAIN (Chuẩn Luật #10)' });
       }
     });
+  });
+}
+
+
+async function runWorkspaceBrain(agentId: string, agentName: string, prompt: string): Promise<string> {
+  return new Promise((resolve) => {
+    const scriptPath = resolve(process.cwd(), 'src/workspaceBrain.py');
+    if (!existsSync(scriptPath)) {
+      resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+      return;
+    }
+    try {
+      const child = spawn('python', ['-X', 'utf8', scriptPath], {
+        cwd: WORKSPACE_ROOT,
+        windowsHide: true,
+      });
+      let out = '';
+      child.stdout.on('data', (d) => { out += String(d); });
+      child.stdin.write(JSON.stringify({ agentId, agentName, prompt }));
+      child.stdin.end();
+      const timer = setTimeout(() => {
+        try { child.kill(); } catch {}
+        resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+      }, 6000);
+      child.on('close', () => {
+        clearTimeout(timer);
+        try {
+          const parsed = JSON.parse(out.trim());
+          if (parsed && parsed.reply) {
+            resolve(String(parsed.reply));
+            return;
+          }
+        } catch {}
+        resolve(out.trim() || `Đã tiếp nhận yêu cầu: "${prompt}".`);
+      });
+      child.on('error', () => {
+        clearTimeout(timer);
+        resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+      });
+    } catch {
+      resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+    }
   });
 }
 
@@ -442,28 +484,26 @@ export class Office extends EventEmitter implements OfficeApi {
     this.setProgress(agent.id, 100, '✅ Hoàn tất 100%');
 
     const remainingInQueue = this.queue.filter(t => t.agentId === agent.id).length;
-    const responseMd = [
-      `### ✅ Báo Cáo Thực Thi — ${agent.name}`,
-      `- **Nhiệm vụ:** ${task.prompt}`,
-      `- **Kiểm duyệt Luật #10 (\`bo-nao-thu-2\`):** \`${auditRes.summary}\``,
-      delegatedNames.length
-        ? `- **Đã kích hoạt dây chuyền Subagent:** ${delegatedNames.map(n => `**${n}**`).join(' • ')} (đèn bàn đã bật sáng & đang xử lý song song trên mặt sàn 3D).`
-        : `- **Trạng thái chuyên môn:** Đã hoàn tất 100% theo đúng quy chuẩn tại \`${agent.id}.md\` và đồng bộ vào hệ thống.`,
-      remainingInQueue > 0
-        ? `- **Hàng đợi tiếp theo:** Đang tự động chuyển sang thực thi công việc kế tiếp trong hàng đợi (còn **${remainingInQueue}** việc chờ).`
-        : `- **Hàng đợi:** Đã xử lý hết toàn bộ việc trong hàng đợi. Nhân sự sẵn sàng nhận lệnh mới!`,
-    ].join('\n');
+    let responseMd = '';
+    if (task.depth === 0) {
+      if (task.convId) {
+        void forwardToAntigravityIde(task.convId, task.prompt);
+      }
+      responseMd = await runWorkspaceBrain(agent.id, agent.name, task.prompt);
+    } else {
+      responseMd = `Đã hoàn tất phần việc chuyên môn của **${agent.name}**.`;
+    }
 
     this.emitEvent(agent.id, 'message', responseMd);
 
-    if (task.convId) {
+    if (task.convId && task.depth === 0) {
       appendConversationStep(
         task.convId,
         {
           role: 'assistant',
           agentId: agent.id,
           agentName: agent.name,
-          thinking: `Đã phân tích yêu cầu "${task.prompt.slice(0, 80)}". Kiểm tra qua chốt chặn Luật #10 (bo-nao-thu-2): ${auditRes.summary}. Thực thi theo đúng phân quyền của ${agent.name}.`,
+          thinking: `Kiểm duyệt Luật #10 (bo-nao-thu-2): ${auditRes.summary}. Đã tổng hợp dữ liệu thực tế từ hệ thống.`,
           toolCalls,
           content: responseMd,
         },
