@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-zero_repost_gate.py — Cổng Khóa Cứng Chống Đăng Lặp Bài Cũ / Ảnh Cũ / Video Cũ (Zero-Repost Firewall).
-
-Chức năng:
-1. Lưu trữ sổ cái `campaigns/daily-reports/published_history_registry.json` chứa:
-   - SHA-256 hash của mọi file ảnh/video đã từng xuất bản hoặc thuộc kho cũ (20/10 -> 26/10).
-   - Tên file (basename) của các media cũ bị cấm tái sử dụng (`mcp-ai-explainer-40s.mp4`, `sales-phongtro-1145-style02.jpg`...).
-   - Dấu vân tay nội dung (normalized 60 ký tự đầu của caption/title) đã từng xuất hiện trên 4 Fanpage.
-2. Cung cấp hàm `verify_fresh_content(page_id, media_path, caption)` cho mọi công cụ đăng/lên lịch:
-   - Nếu trùng SHA-256 hash, trùng tên file cũ, hoặc trùng dấu vân tay caption đã đăng -> CHẶN CỨNG NGAY LẬP TỨC (`return False, reason`).
-3. Cho phép chạy CLI `python tools/zero_repost_gate.py --sync` để quét toàn bộ lịch sử bài đăng thực tế từ Meta Graph API của cả 4 Page + khóa toàn bộ media cũ.
+zero_repost_gate.py — Cổng Khóa Cứng Chống Đăng Lặp Bài Cũ / Ảnh Cũ / Video Cũ (Zero-Repost Firewall)
+và Cổng Khóa Cứng Chống Nhân Bản Bố Cục Video (`verify_zero_clone_tsx`).
 """
 
 import argparse
@@ -38,9 +30,7 @@ FOUR_PAGE_IDS = [
     "1407231352464711",  # Hội Deadline
 ]
 
-# Danh sách đen các file media cũ (20/10 - 26/10) bị CẤM VĨNH VIỄN không được đăng lại
 PERMANENT_BANNED_FILENAMES = [
-    # 6 ảnh bán hàng ngày 20/10 đã bị lặp nhiều ngày
     "sales-phongtro-1145-style02.jpg",
     "sales-phongtro-1145-style02.png",
     "sales-phongtro-2030-style01.jpg",
@@ -53,14 +43,11 @@ PERMANENT_BANNED_FILENAMES = [
     "sales-deadline-1145-style02.png",
     "sales-deadline-2000-style01.jpg",
     "sales-deadline-2000-style01.png",
-    # 4 video Reels Remotion ngày 20/10 đã đăng
     "mcp-ai-explainer-40s.mp4",
     "ai-hallucination-45s.mp4",
     "ai-agent-vs-chatbot-45s.mp4",
     "ai-map-pillars-45s.mp4",
-    # Video bảng trắng test bị cấm
     "openrouter_mindmap_explainer.mp4",
-    # 6 ảnh AI Players ngày 20/10 và 6 ảnh ngày 1 (26/10) đã đăng
     "ai-square-01-lead-prompt50.jpg",
     "ai-square-02-lead-hethong.jpg",
     "ai-square-03-github-f5-tts.jpg",
@@ -129,10 +116,6 @@ def save_registry(data: dict) -> None:
 
 
 def check_live_graph_duplicate(page_id: str, caption: str, title: str = "") -> tuple[bool, str]:
-    """
-    Kiểm tra trực tiếp theo thời gian thực trên Meta Graph API (published_posts, scheduled_posts, videos, video_reels)
-    xem tiêu đề hoặc nội dung mở đầu đã tồn tại trên Page chưa (chống trùng lặp tuyệt đối kể cả khi 2 máy chưa kịp git pull).
-    """
     if not VAULT_PATH.exists():
         return True, "OK"
     fp_cap = normalize_caption_fingerprint(caption)
@@ -179,10 +162,6 @@ def check_live_graph_duplicate(page_id: str, caption: str, title: str = "") -> t
 
 
 def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: str, title: str = "") -> tuple[bool, str]:
-    """
-    Kiểm tra xem media_path và caption có phải nội dung MỚI 100% hay không (kết hợp sổ Local + kiểm tra trực tuyến Meta Graph API).
-    Trả về (True, "OK") nếu hợp lệ; trả về (False, "Lý do chặn") nếu phát hiện bài/ảnh/video cũ hoặc trùng lặp!
-    """
     reg = load_registry()
     if media_path:
         p = Path(media_path)
@@ -201,7 +180,6 @@ def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: s
                 prev_post = reg["published_caption_fingerprints"][fp]
                 return False, f"CHẶN CỨNG [Zero-Repost]: Nội dung mở đầu '{fp[:45]}...' trùng với bài đã đăng ({prev_post})!"
 
-    # Kiểm tra trực tiếp trên Meta Graph API để chống lên lịch trùng lặp giữa 2 lần chạy hoặc 2 máy
     is_live_ok, live_reason = check_live_graph_duplicate(str(page_id), caption, title)
     if not is_live_ok:
         return False, live_reason
@@ -229,14 +207,9 @@ def record_published_content(page_id: str, media_path: Path | str | None, captio
 
 
 def sync_historical_posts_and_local_media() -> dict:
-    """
-    Quét toàn bộ bài đã đăng trên 4 Fanpage qua Meta Graph API + toàn bộ file media cũ từ 2026-10-20..2026-10-25
-    để đưa vào sổ khóa cứng `published_history_registry.json`.
-    """
     reg = load_registry()
     ctx = ssl._create_unverified_context()
 
-    # 1. Quét toàn bộ file media trong campaigns/2026-10-20 .. 2026-10-25
     camp_root = SUBAGENT_DIR / "campaigns"
     local_hashed = 0
     if camp_root.exists():
@@ -253,7 +226,6 @@ def sync_historical_posts_and_local_media() -> dict:
                         if media_file.name not in reg["banned_filenames"]:
                             reg["banned_filenames"].append(media_file.name)
 
-    # 2. Quét toàn bộ published_posts và videos trên 4 Fanpage từ Meta Graph API
     graph_posts_recorded = 0
     if VAULT_PATH.exists():
         try:
@@ -294,10 +266,102 @@ def sync_historical_posts_and_local_media() -> dict:
     }
 
 
+def verify_zero_clone_tsx(src_dir: Path | str | None = None) -> tuple[bool, str]:
+    """
+    Cổng Khóa Cứng Chống Nhân Bản Video (`MEM-20261022-zero-clone-bespoke-video-rule.md`):
+    Quét toàn bộ thư mục `src/Reel*/Scene1.tsx .. Scene5.tsx`.
+    Bóc tách khung xương JSX + SVG + Macro Layout (bỏ qua text tiếng Việt) để kiểm tra:
+    1. Không có bất kỳ 2 video nào có cùng cấu trúc thẻ JSX/SVG ở Scene1..Scene5 (chống `idx % N` xoay vòng hàm).
+    2. Không được phép dùng lặp lại cùng 1 chuỗi SVG `<path d="...">` hoặc cấu trúc khung bao giữa 2 video.
+    """
+    if src_dir is None:
+        src_dir = SUBAGENT_DIR / "templates" / "remotion-cuongit-template" / "src"
+    src_path = Path(src_dir)
+    if not src_path.exists():
+        return False, f"Không tìm thấy thư mục nguồn Remotion: {src_path}"
+
+    reel_dirs = sorted([d for d in src_path.iterdir() if d.is_dir() and d.name.startswith("Reel")])
+    if len(reel_dirs) < 2:
+        return True, "OK"
+
+    for scene_num in range(1, 6):
+        seen_skeletons: dict[str, str] = {}
+        seen_svg_paths: dict[str, str] = {}
+        for rdir in reel_dirs:
+            sfile = rdir / f"Scene{scene_num}.tsx"
+            if not sfile.exists():
+                return False, f"CHẶN CỨNG [Zero-Clone]: Thiếu file {rdir.name}/Scene{scene_num}.tsx"
+            code = sfile.read_text(encoding="utf-8", errors="ignore")
+
+            tags_and_classes = re.findall(
+                r"<(svg|path|circle|rect|polygon|line|ellipse|g|h1|h2|table)\b|className=\"([^\"]+)\"",
+                code,
+            )
+            norm_tokens = []
+            for tag, cls in tags_and_classes:
+                if tag:
+                    norm_tokens.append(f"<{tag}>")
+                elif cls:
+                    layout_cls = [
+                        c
+                        for c in cls.split()
+                        if any(
+                            k in c
+                            for k in (
+                                "grid",
+                                "flex",
+                                "col-span",
+                                "row-span",
+                                "rotate",
+                                "rounded",
+                                "border-l",
+                                "border-r",
+                                "border-t",
+                                "border-b",
+                                "items-",
+                                "justify-",
+                                "w-",
+                                "h-",
+                                "max-w-",
+                            )
+                        )
+                    ]
+                    norm_tokens.append(".".join(layout_cls))
+            skeleton_str = "|".join(norm_tokens)
+            skel_hash = hashlib.sha256(skeleton_str.encode("utf-8")).hexdigest()[:16]
+
+            if skel_hash in seen_skeletons:
+                prev_comp = seen_skeletons[skel_hash]
+                return (
+                    False,
+                    f"CHẶN CỨNG [Zero-Clone Gate]: `{rdir.name}/Scene{scene_num}.tsx` trùng khớp khung xương bố cục/SVG với `{prev_comp}/Scene{scene_num}.tsx` (hash={skel_hash})! Cấm dùng chung hàm template!",
+                )
+            seen_skeletons[skel_hash] = rdir.name
+
+            svg_ds = [d.strip() for d in re.findall(r'\bd="([^"]{25,})"', code)]
+            if svg_ds:
+                svg_sig = hashlib.sha256("||".join(svg_ds).encode("utf-8")).hexdigest()[:16]
+                if svg_sig in seen_svg_paths:
+                    prev_svg_comp = seen_svg_paths[svg_sig]
+                    return (
+                        False,
+                        f"CHẶN CỨNG [Zero-Clone Gate]: `{rdir.name}/Scene{scene_num}.tsx` dùng lại hình vẽ SVG `<path>` giống hệt `{prev_svg_comp}/Scene{scene_num}.tsx`!",
+                    )
+                seen_svg_paths[svg_sig] = rdir.name
+
+    return True, f"PASSED Zero-Clone Structural Gate ({len(reel_dirs)} compositions verified 100% unique across Scene1..Scene5)"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sync", action="store_true", help="Quét Graph API & kho cũ để khóa sổ Zero-Repost")
+    parser.add_argument("--check-zero-clone", action="store_true", help="Kiểm tra cứng cấu trúc Zero-Clone của toàn bộ Reel Compositions")
     args = parser.parse_args()
+
+    if args.check_zero_clone:
+        ok, msg = verify_zero_clone_tsx()
+        print(("✅ " if ok else "❌ ") + msg)
+        sys.exit(0 if ok else 1)
 
     if args.sync:
         stats = sync_historical_posts_and_local_media()
