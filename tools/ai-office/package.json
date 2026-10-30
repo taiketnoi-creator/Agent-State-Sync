@@ -1,7 +1,7 @@
 {
   "name": "ai-office",
   "version": "1.0.0",
-  "description": "Văn phòng ảo 3D Agent-Javis: 10 nhân sự Subagent trên mặt sàn 3D",
+  "description": "Văn phòng ảo 3D Agent-Javis: 11 nhân sự Subagent trên mặt sàn 3D",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",

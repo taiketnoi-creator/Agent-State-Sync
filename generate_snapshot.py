@@ -140,7 +140,8 @@ def sync_bidirectional(direction: str = "auto"):
     sync_tree_by_ext("knowledge", (".md", ".json"), direction=direction)
     sync_tree_by_ext(os.path.join(".agents", "skills"), (".md", ".py", ".json"), direction=direction)
     sync_tree_by_ext(os.path.join(".agents", "plugins"), (".md", ".json", ".svg"), direction=direction)
-    sync_tree_by_ext("tools", (".py", ".bat", ".ps1", ".html", ".css", ".json", ".js"), direction=direction)
+    sync_tree_by_ext("tools", (".py", ".bat", ".ps1", ".html", ".css", ".json", ".js", ".ts", ".mjs"), direction=direction)
+    sync_tree_by_ext(os.path.join("assets", "ai-players-image-styles"), (".jpg", ".jpeg", ".png", ".webp", ".md", ".json"), direction=direction)
     sync_tree_by_ext(os.path.join("assets", "sales-pages-image-styles"), (".jpg", ".jpeg", ".png", ".webp", ".md", ".json"), direction=direction)
     sync_tree_by_ext("campaigns", (".md", ".csv", ".json", ".html"), direction=direction, allow_test_samples=True)
 
