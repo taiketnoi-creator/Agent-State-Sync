@@ -108,6 +108,10 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ---
 
+9. **LUẬT #9 — Giao Thức Tự Động Xóa Sạch Tư Liệu & Code Cũ Ngay Khi Có Chuẩn Mới (`Purge-On-Upgrade Protocol`):**
+   - Bất kỳ khi nào CEO chốt một quy chuẩn thiết kế/sản xuất mới (phong cách ảnh mới, kiến trúc video Zero-Clone mới, kịch bản mới), **`mama` và các Subagent BẮT BUỘC xóa vĩnh viễn (`unlink` / `shutil.rmtree` qua `tools/purge_legacy_superseded_assets.py`) toàn bộ tư liệu mẫu cũ, thư mục campaign cũ lỗi thời, composition demo cũ và script sinh hàng loạt kiểu cũ** trên cả Workspace `Subagent` lẫn kho Git đồng bộ `Agent-State-Sync`.
+   - **Mục tiêu:** Triệt tiêu 100% nguy cơ bất kỳ Agent nào đọc nhầm hoặc tái sử dụng tư liệu/code cũ đã bị thay thế.
+
 ## 5. SỔ TAY NHIỆM VỤ ĐANG THỰC THI & CHỜ HOÀN TẤT (`ACTIVE TASKS — CẤM BỎ DỞ`)
 
 *(Cập nhật đồng bộ 2 máy lúc `2026-10-27 01:02` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
