@@ -75,23 +75,20 @@ FOUR_PAGES_CONFIG = [
 
 
 def check_bot_status() -> str:
-    try:
-        req = urllib.request.Request("http://127.0.0.1:9222/json/version")
-        with urllib.request.urlopen(req, timeout=1.5) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            browser = data.get("Browser", "Chrome")
-            return f"🟢 **ĐANG ONLINE 100% TỰ ĐỘNG** (`{browser}` trên cổng `9222` — Sẵn sàng tự động chạy 3 ca 12:00, 17:30 & 20:30)"
-    except Exception:
+    vault_file = SUBAGENT_DIR / "knowledge" / "fb_bot_session_vault.json"
+    if vault_file.exists():
         try:
-            from start_bot_chrome import ensure_bot_chrome_online, get_cdp_version_info
-            ws = ensure_bot_chrome_online(timeout_sec=10.0)
-            if ws:
-                info = get_cdp_version_info(timeout=1.5)
-                browser = info.get("Browser", "Chrome")
-                return f"🟢 **ĐANG ONLINE (Tự động bật ngầm 100%)** (`{browser}` trên cổng `9222` — Sẵn sàng chạy 3 ca 12:00, 17:30 & 20:30)"
+            vdata = json.loads(vault_file.read_text(encoding="utf-8"))
+            src = vdata.get("source_machine", "PC")
+            cnt = vdata.get("cookie_count", 0)
+            upd = vdata.get("updated_at", "")
+            return (
+                f"?? **CH? ?? CH?Y NG?M 100% (`--headless=new`)** "
+                f"(?? ??ng b? `{cnt}` cookies t? `{src}` l?c `{upd}` ? Ch? b?t ng?m ??ng 3 ca `12:00`, `17:30`, `20:30` r?i t? ??ng, KH?NG m? Chrome khi b?t m?y)"
+            )
         except Exception:
             pass
-        return "🔴 **CẢNH BÁO: KHÔNG THỂ TỰ BẬT CỔNG 9222** (Đã gửi cảnh báo tức thời về Telegram CEO)"
+    return "?? **CH? ?? CH?Y NG?M 100% (`--headless=new`)** (Ch? b?t ng?m v?o 3 ca `12:00`, `17:30`, `20:30` v? t? ??ng sau ca ? Kh?ng m? Chrome khi b?t m?y)"
 
 
 def load_pages_vault() -> dict:

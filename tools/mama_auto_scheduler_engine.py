@@ -392,16 +392,22 @@ def main():
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_9am_report.py"), "--quiet"])
         sent_by_child = True
 
-    if args.mode == "shift1-1200":
-        subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "1", "--send-telegram"])
-        sent_by_child = True
-
-    if args.mode == "shift2-1730":
-        subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "2", "--send-telegram"])
-        sent_by_child = True
-
-    if args.mode == "shift3-2030":
-        subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", "3", "--send-telegram"])
+    if args.mode in ("shift1-1200", "shift2-1730", "shift3-2030"):
+        shift_map = {"shift1-1200": (1, 12, 0), "shift2-1730": (2, 17, 30), "shift3-2030": (3, 20, 30)}
+        s_num, s_hour, s_min = shift_map[args.mode]
+        res_file = REPORTS_DIR / today_str / f"shift{s_num}_result.json"
+        already_done = False
+        if res_file.exists():
+            try:
+                rdata = json.loads(res_file.read_text(encoding="utf-8"))
+                if rdata.get("total_likes", 0) > 0 or rdata.get("total_comments", 0) > 0:
+                    already_done = True
+            except Exception:
+                pass
+        sched_minutes = s_hour * 60 + s_min
+        now_minutes = now_vn.hour * 60 + now_vn.minute
+        if not already_done and abs(now_minutes - sched_minutes) <= 90:
+            subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", str(s_num), "--send-telegram"])
         sent_by_child = True
 
     # 3. Ghi nhận báo cáo mốc giờ ra file & gửi Telegram ngắn gọn (không gửi trùng 2 tin nhắn liên tiếp)
