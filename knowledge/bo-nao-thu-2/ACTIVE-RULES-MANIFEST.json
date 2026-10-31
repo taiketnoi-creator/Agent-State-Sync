@@ -86,6 +86,12 @@
         "name": "Strict Video Freeze During Training Phase",
         "memory_ref": "MEM-20261023-sales-pages-freeze-video-image-only-rule",
         "description": "Mọi video sản xuất chỉ lưu thư mục chiến dịch/training để kiểm duyệt. Nghiêm cấm tự ý publish lên 3 Page Bán Hàng khi chưa có lệnh mở băng của CEO."
+      },
+      {
+        "rule_id": "RULE-EDIT2-06",
+        "name": "2 Archetype Video B?n H?ng (ASMR Sensory 12 Shots vs Pain-to-Payoff TVC) & K? Thu?t Sleeve Continuity / Chin-Down Framing",
+        "memory_ref": "MEM-20261031-sales-video-two-archetypes-anatomy",
+        "description": "?p d?ng chu?n gi?i ph?u t? draft.mp4 (36.15s, 12 shots ASMR Sensory: m? m?n 0.9s ASMR x?c gi?c, kh?a ??ng nh?t ?ng tay ?o vest gi?a A-Roll v? B-Roll, c?t khung h?nh d??i c?m khi di chuy?n ??y SP, Audio-Bridge 1 file Voiceover + kho?ng ngh? ASMR 1s, ch? tay kh?p Icon Gi? h?ng g?c tr?i) v? video AI ?? gia d?ng.mp4 (41.84s, TVC 8 nh?p)."
       }
     ],
     "content": [

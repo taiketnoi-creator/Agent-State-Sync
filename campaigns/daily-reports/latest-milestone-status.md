@@ -1,2 +1,2 @@
-⏰ Mốc evening-2000 (22:02 30/10):
+⏰ Mốc boot-or-9am (11:11 31/10):
 • 4 Fanpage đủ lịch & Pinned Comment #1.
