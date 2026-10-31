@@ -178,7 +178,7 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
             cur = cur.parentElement;
             if (cur.getAttribute('role') === 'article') return cur;
             const txt = (cur.innerText || '');
-            if (txt.length > 140 && (cur.querySelector('[aria-label="Thích"]') || cur.querySelector('a[href*="/videos/"], a[href*="/reel/"], video'))) {
+            if (txt.length > 140 && (cur.querySelector('[aria-label="Thích"], [aria-label^="Bày tỏ cảm xúc Thích"]') || cur.querySelector('a[href*="/videos/"], a[href*="/reel/"], video'))) {
                 if (d >= 6) return cur;
             }
         }
@@ -188,7 +188,7 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
     const candidates = [];
     const seenContainers = new Set();
 
-    const actionBtns = Array.from(document.querySelectorAll('[aria-label="Thích"], [aria-label="Viết bình luận"], [aria-label="Bình luận"]'));
+    const actionBtns = Array.from(document.querySelectorAll('[aria-label="Thích"], [aria-label^="Bày tỏ cảm xúc Thích"], [aria-label="Viết bình luận"], [aria-label="Bình luận"], [aria-label^="Bình luận về"], [aria-label^="Comment on "]'));
     for (const btn of actionBtns) {
         const container = getPostContainer(btn);
         if (!container || seenContainers.has(container)) continue;
@@ -254,8 +254,8 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
             videoType = (feedMode === 'video_vertical') ? 'video_vertical' : 'video_horizontal';
         }
 
-        const likeBtn = container.querySelector('[aria-label="Thích"]');
-        const cmtBtn = container.querySelector('[aria-label="Viết bình luận"], [aria-label="Bình luận"]');
+        const likeBtn = container.querySelector('[aria-label="Thích"], [aria-label^="Bày tỏ cảm xúc Thích"]');
+        const cmtBtn = container.querySelector('[aria-label="Viết bình luận"], [aria-label="Bình luận"], [aria-label^="Bình luận về"], [aria-label^="Comment on "]');
         const shareBtn = container.querySelector('[aria-label*="Chia sẻ"], [aria-label*="Gửi nội dung này"]');
 
         let hotScore = freshnessScore + (likes * 1.5) + (comments * 6.0) + (shares * 4.0) + (views * 0.05);
@@ -382,8 +382,12 @@ def _click_first_visible(locator_list) -> bool:
     for i in range(cnt - 1, -1, -1):
         el = locator_list.nth(i)
         try:
-            if el.is_visible(timeout=400):
-                el.click(timeout=2500)
+            el.scroll_into_view_if_needed(timeout=800)
+        except Exception:
+            pass
+        try:
+            if el.is_visible():
+                el.click(timeout=3000)
                 return True
         except Exception:
             continue
@@ -409,10 +413,8 @@ def ensure_fanpage_active(pg, target_page_name: str) -> bool:
                 pass
 
         acct_btn = pg.locator(acct_selector).first
-        if acct_btn.count() == 0:
-            return False
-
-        acct_btn.click(timeout=3000)
+        acct_btn.wait_for(state="visible", timeout=10000)
+        acct_btn.click(timeout=3500)
         time.sleep(1.8)
         dialog, d_lines = _find_account_dialog(pg)
         if not dialog:
@@ -430,10 +432,8 @@ def ensure_fanpage_active(pg, target_page_name: str) -> bool:
         else:
             see_all = dialog.locator('div[role="button"][aria-label="Xem tất cả trang cá nhân"], div[role="button"]:has-text("Xem tất cả trang cá nhân")')
             if _click_first_visible(see_all):
-                time.sleep(2.0)
-                dialog, _ = _find_account_dialog(pg)
-                if not dialog:
-                    return False
+                time.sleep(2.2)
+                dialog, _ = _find_account_dialog(pg) or (dialog, [])
 
             target_candidates = dialog.locator(
                 f'div[role="button"][aria-label*="{target_page_name}"], div[role="listitem"]:has-text("{target_page_name}"), div[role="button"]:has-text("{target_page_name}")'
@@ -444,19 +444,19 @@ def ensure_fanpage_active(pg, target_page_name: str) -> bool:
                 pg.keyboard.press("Escape")
                 return False
 
-        # Xác minh lại lần cuối sau khi chuyển: dòng đầu tiên BẮT BUỘC là Fanpage mục tiêu và CẤM là Thành Tài
+        # Đợi trang tải lại hoàn tất sau khi Switch Profile rồi xác minh dòng đầu tiên BẮT BUỘC là Fanpage mục tiêu
         acct_btn = pg.locator(acct_selector).first
-        if acct_btn.count() > 0:
-            acct_btn.click(timeout=3000)
-            time.sleep(1.8)
-            _, d_lines = _find_account_dialog(pg)
-            active_name = d_lines[0] if d_lines else ""
-            pg.keyboard.press("Escape")
-            time.sleep(0.5)
-            if target_page_name.lower() in active_name.lower() and "thành tài" not in active_name.lower():
-                return True
-    except Exception:
-        pass
+        acct_btn.wait_for(state="visible", timeout=12000)
+        acct_btn.click(timeout=3500)
+        time.sleep(1.8)
+        _, d_lines = _find_account_dialog(pg)
+        active_name = d_lines[0] if d_lines else ""
+        pg.keyboard.press("Escape")
+        time.sleep(0.5)
+        if target_page_name.lower() in active_name.lower() and "thành tài" not in active_name.lower():
+            return True
+    except Exception as e:
+        print(f"[SwitchError] {target_page_name}: {e}", flush=True)
     return False
 
 
@@ -469,8 +469,8 @@ def accept_group_rules_if_present(pg) -> bool:
             pg.locator('[aria-label="Gửi"], div[role="button"]:has-text("Gửi")').last.click()
             time.sleep(1.2)
             return True
-    except Exception:
-        pass
+    except Exception as e:
+        print(f'[SwitchError] {target_page_name}: {e}', flush=True)
     return False
 
 
@@ -590,7 +590,7 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                         try:
                             btn = pg.locator(f'[data-javis-like-rank="{rank_i}"]').first
                             if btn.count() == 0:
-                                btn = pg.locator('[aria-label="Thích"]').nth(rank_i - 1)
+                                btn = pg.locator('[aria-label="Thích"], [aria-label^="Bày tỏ cảm xúc Thích"]').nth(rank_i - 1)
                             btn.scroll_into_view_if_needed(timeout=1500)
                             vtype = btn.get_attribute("data-javis-vtype") or f_mode
 
@@ -646,7 +646,7 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                         try:
                             c_btn = pg.locator(f'[data-javis-cmt-rank="{rank_c}"]').first
                             if c_btn.count() == 0:
-                                c_btn = pg.locator('[aria-label="Viết bình luận"], [aria-label="Bình luận"]').nth(rank_c - 1)
+                                c_btn = pg.locator('[aria-label="Viết bình luận"], [aria-label="Bình luận"], [aria-label^="Bình luận về"], [aria-label^="Comment on "]').nth(rank_c - 1)
                             if c_btn.count() == 0:
                                 continue
 
