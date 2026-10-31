@@ -515,8 +515,12 @@ function renderChatStream() {
   }
 
   // Chỉ hiển thị câu hỏi của User và câu trả lời sạch của Antigravity (ẩn toàn bộ bước trung gian thừa)
-  log.innerHTML = conv.steps
-    .filter(st => st.role === 'user' || (st.content && st.content.trim().length > 0))
+  const visibleSteps = conv.steps.filter(st => st.role === 'user' || (st.content && st.content.trim().length > 0));
+  const lastStep = visibleSteps[visibleSteps.length - 1];
+  const waitingIndicator = (lastStep && lastStep.role === 'user')
+    ? `<div class="anti-msg-agent"><div class="anti-content" style="opacity:0.75;font-style:italic">⏳ Đang trả lời...</div></div>`
+    : '';
+  log.innerHTML = visibleSteps
     .map(st => {
       if (st.role === 'user') {
         return `<div class="anti-msg-user">${esc(st.content)}</div>`;
@@ -525,7 +529,7 @@ function renderChatStream() {
         <div class="anti-msg-agent">
           <div class="anti-content">${renderMarkdown(st.content)}</div>
         </div>`;
-    }).join('');
+    }).join('') + waitingIndicator;
 
   log.scrollTop = log.scrollHeight;
 }
@@ -565,6 +569,12 @@ async function sendTask() {
     $('#p-input').value = '';
     const attIds = panelTray.ids();
     panelTray.clear();
+
+    // Hiển thị tức thì tin nhắn vừa gửi + trạng thái Đang trả lời (0ms delay)
+    if (state.activeConvDetail && Array.isArray(state.activeConvDetail.steps)) {
+      state.activeConvDetail.steps.push({ role: 'user', content: prompt, createdAt: new Date().toISOString() });
+      renderChatStream();
+    }
 
     const res = await api(`/conversations/${encodeURIComponent(convId)}/messages`, 'POST', {
       agentId: targetAgent,
@@ -819,8 +829,8 @@ setInterval(() => {
   if (document.hidden) return;
   api('/conversations').then(res => {
     const list = res.conversations || res;
-    const oldSig = state.conversations.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
-    const newSig = list.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}`).join('|');
+    const oldSig = state.conversations.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}:${c.currentActivity}`).join('|');
+    const newSig = list.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}:${c.currentActivity}`).join('|');
     if (oldSig !== newSig) {
       state.conversations = list;
       renderConversationSidebar();
@@ -832,7 +842,7 @@ setInterval(() => {
       }
     }
   }).catch(() => {});
-}, 5000);
+}, 2000);
 
 await Promise.all([
   document.fonts.load('600 64px "Be Vietnam Pro"'),

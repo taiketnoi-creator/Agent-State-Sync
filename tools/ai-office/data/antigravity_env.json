@@ -1,14 +1,14 @@
 {
   "AGY_BROWSER_ACTIVE_PORT_FILE": "C:\\Users\\Admin\\AppData\\Roaming\\Antigravity\\DevToolsActivePort",
-  "AGY_BROWSER_WS_URL": "ws://127.0.0.1:62197/devtools/browser/9b81d66f-e59c-4317-9864-f94ba8983732",
+  "AGY_BROWSER_WS_URL": "ws://127.0.0.1:61737/devtools/browser/40d94272-e70f-4403-a58d-f66528de7f3d",
   "ANTIGRAVITY_AGENT": "1",
   "ANTIGRAVITY_AGENTAPI_EXE": "C:\\Users\\Admin\\AppData\\Local\\Programs\\antigravity\\resources\\bin\\language_server.exe",
   "ANTIGRAVITY_APP_DATA_DIR": "C:/Users/Admin/.gemini/antigravity",
   "ANTIGRAVITY_CONVERSATION_ID": "dc96f33d-ef93-4af4-acc9-08f4509f2b45",
-  "ANTIGRAVITY_CSRF_TOKEN": "a99f1fa9-64af-43ff-86e2-2de3c990150e",
-  "ANTIGRAVITY_LS_ADDRESS": "localhost:62200",
-  "ANTIGRAVITY_LS_VERSION": "hub-2.28.1",
+  "ANTIGRAVITY_CSRF_TOKEN": "d276b932-cc83-44cf-8566-d0d0df23ff65",
+  "ANTIGRAVITY_LS_ADDRESS": "localhost:61741",
+  "ANTIGRAVITY_LS_VERSION": "hub-2.28.2",
   "ANTIGRAVITY_PROJECT_ID": "9b1b3058-717c-43a8-b0b8-2fa401099898",
-  "ANTIGRAVITY_SOURCE_METADATA": "{\"tool\":{\"conversationId\":\"dc96f33d-ef93-4af4-acc9-08f4509f2b45\",\"stepIndex\":329,\"toolCall\":{\"id\":\"call_795096\",\"name\":\"run_command\",\"argumentsJson\":\"{\\\"CommandLine\\\":\\\"Set-Location \\\\\\\"f:\\\\\\\\Ai Agent Setup\\\\\\\\SubAgent\\\\\\\\Subagent\\\\\\\\tools\\\\\\\\ai-office\\\\\\\"; node --experimental-transform-types src/server.ts\\\",\\\"IsDaemon\\\":true,\\\"WaitMsBeforeAsync\\\":2500,\\\"toolSummary\\\":\\\"Start AI Office 3D v2.3 server on port 4800\\\"}\"}}}",
+  "ANTIGRAVITY_SOURCE_METADATA": "{\"tool\":{\"conversationId\":\"dc96f33d-ef93-4af4-acc9-08f4509f2b45\", \"stepIndex\":435, \"toolCall\":{\"id\":\"call_119301\", \"name\":\"run_command\", \"argumentsJson\":\"{\\\"CommandLine\\\":\\\"Set-Location \\\\\\\"f:\\\\\\\\Ai Agent Setup\\\\\\\\SubAgent\\\\\\\\Subagent\\\\\\\\tools\\\\\\\\ai-office\\\\\\\"; node --experimental-transform-types src/server.ts\\\",\\\"IsDaemon\\\":true,\\\"WaitMsBeforeAsync\\\":2500,\\\"toolSummary\\\":\\\"Start AI Office 3D server with fixed chat responder on port 4800\\\"}\"}}}",
   "ANTIGRAVITY_TRAJECTORY_ID": "c1d6c0b0-680f-4ad9-b8a4-9f898198a373"
 }

@@ -249,6 +249,19 @@ server.on('error', (e: NodeJS.ErrnoException) => {
   console.error('[server]', e);
   process.exit(1);
 });
+let lastConvSignature = '';
+setInterval(() => {
+  if (wss.clients.size === 0) return;
+  try {
+    const convs = listAllConversations(10);
+    const sig = convs.map(c => `${c.id}:${c.stepCount}:${c.updatedAt}:${c.currentActivity}`).join('|');
+    if (lastConvSignature && sig !== lastConvSignature) {
+      broadcast('conversations-changed', null);
+    }
+    lastConvSignature = sig;
+  } catch {}
+}, 1200).unref();
+
 server.listen(PORT, () => {
   console.log(`\n🏢 Văn phòng ảo 3D Agent-Javis: http://localhost:${PORT}`);
 });

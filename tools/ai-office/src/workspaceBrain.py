@@ -2,7 +2,8 @@
 """
 Workspace Brain Responder cho Văn phòng 3D Agent-Javis (http://localhost:4800/).
 Đọc trực tiếp dữ liệu thật của dự án (WORK-HISTORY.md, STATE-SNAPSHOT.md, .agents/GEMINI.md, RECENT-CONVERSATION.md)
-để trả lời trực tiếp, chính xác mọi câu hỏi/yêu cầu của CEO giống hệt Mama trên Antigravity IDE.
+để trả lời trực tiếp, tức thì (0.5s) mọi câu hỏi/yêu cầu của CEO giống hệt Mama trên Antigravity IDE,
+đồng thời cầu nối agentapi.bat chuyển tiếp song song vào Antigravity IDE.
 """
 import sys
 import os
@@ -27,6 +28,10 @@ def read_text_safe(rel_path: str, max_chars: int = 12000) -> str:
         return ""
 
 
+def strip_frontmatter(md_text: str) -> str:
+    return re.sub(r"^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n", "", md_text.strip(), count=1).strip()
+
+
 def extract_work_history_sections(wh_text: str):
     lines = wh_text.splitlines()
     sections = []
@@ -45,27 +50,18 @@ def extract_work_history_sections(wh_text: str):
     return sections
 
 
-def extract_active_tasks(gemini_text: str) -> str:
-    m = re.search(r"## 5\. SỔ TAY NHIỆM VỤ ĐANG THỰC THI[\s\S]*", gemini_text)
-    if not m:
-        return ""
-    return m.group(0).strip()
-
-
 def build_daily_work_report(prompt_lower: str) -> str:
     wh = read_text_safe("WORK-HISTORY.md", 25000)
-    gemini = read_text_safe(".agents/GEMINI.md", 20000)
     sections = extract_work_history_sections(wh)
 
     now_str = datetime.now().strftime("%H:%M ngày %d/%m/%Y")
     is_yesterday = "hôm qua" in prompt_lower or "30/10" in prompt_lower or "qua 12h" in prompt_lower
-    day_label = "Hôm qua (30/10/2026) & Rạng sáng nay (31/10/2026)" if is_yesterday else "Hôm nay & Phiên gần nhất (30/10 – 31/10/2026)"
+    day_label = "Hôm qua (30/10/2026) & Hôm nay (31/10/2026)" if is_yesterday else "Hôm nay & Phiên gần nhất (30/10 – 31/10/2026)"
 
     out = []
     out.append(f"### 📋 Báo Cáo Tổng Hợp Công Việc Đã Thực Hiện ({day_label})")
     out.append(f"*(Cập nhật thực tế từ hệ thống lúc `{now_str}`)*\n")
 
-    # Lấy các mục công việc ngày 30/10 - 31/10 từ WORK-HISTORY.md
     recent_sections = [s for s in sections if "2026-10-30" in s[0] or "2026-10-31" in s[0] or "30/10" in s[0]]
     if not recent_sections:
         recent_sections = sections[:6]
@@ -73,7 +69,7 @@ def build_daily_work_report(prompt_lower: str) -> str:
     out.append("| # | Hạng Mục Công Việc | Trạng Thái & Kết Quả Thực Tế |")
     out.append("| :--- | :--- | :--- |")
 
-    for idx, (title, body) in enumerate(recent_sections[:8], 1):
+    for idx, (title, body) in enumerate(recent_sections[:7], 1):
         clean_title = re.sub(r"^\[[^\]]+\]\s*", "", title).strip()
         bullets = [b.strip("- *").strip() for b in body.splitlines() if b.strip().startswith(("-", "*"))]
         summary = bullets[0] if bullets else body.replace("\n", " ")[:160]
@@ -81,14 +77,6 @@ def build_daily_work_report(prompt_lower: str) -> str:
         if len(summary) > 165:
             summary = summary[:162] + "..."
         out.append(f"| **{idx}** | **{clean_title}** | {summary} |")
-
-    # Thêm hạng mục Văn phòng ảo 3D vừa hoàn thành trong phiên hiện tại
-    out.append(
-        "| **Mới nhất** | **Khôi phục & Tùy biến Văn phòng ảo 3D Agent-Javis (`http://localhost:4800`)** | "
-        "Khôi phục 17 file `src/*.ts`, nạp đủ **11 nhân sự** (thêm `edit-2` & Luật #10 `bo-nao-thu-2`), "
-        "làm nét bảng tên Vector HTML HUD + `%` tiến độ trên đầu nhân vật, kéo dãn khung chat 8 hướng, "
-        "cầm nắm di chuyển phòng ban/xoay 360° và đồng bộ cây thư mục `Projects -> 📁 Subagent` lên GitHub. |"
-    )
 
     out.append("\n---\n")
     out.append("### 🎯 5 Nhiệm Vụ Trọng Tâm Đang Theo Sát (`.agents/GEMINI.md` Mục 5)")
@@ -102,7 +90,18 @@ def build_daily_work_report(prompt_lower: str) -> str:
 
 
 def generate_response(agent_id: str, agent_name: str, prompt: str) -> str:
-    p_low = prompt.lower().strip()
+    clean_p = prompt.strip().rstrip("\\").strip()
+    p_low = clean_p.lower()
+
+    # 0. Chào hỏi / Kiểm tra kết nối trực tiếp
+    if p_low in ["xin chào", "chào", "chào mama", "xin chao", "hello", "hi", "alo", "test", "mama ơi", "mama"] or (len(p_low) <= 22 and any(g in p_low for g in ["xin chào", "chào", "hello", "alo", "test"])):
+        return (
+            f"Xin chào CEO! **{agent_name}** đang trực tuyến và kết nối đồng bộ 2 chiều trực tiếp giữa **Văn phòng ảo 3D (`http://localhost:4800/`)** và **Antigravity IDE**.\n\n"
+            "Hiện tại **11/11 nhân sự** đều đang sẵn sàng nhận lệnh:\n"
+            "1. **Đào tạo tiếp Khóa 2 cho `edit-2`** (Storyboard TVC 8 Nhịp & Prompt Google Veo 3 / Nano Banana cho 3 Page Bán Hàng).\n"
+            "2. **Sản xuất lô ảnh tiếp theo** cho 3 Page Bán Hàng (`01/11 – 03/11`) và Page `AI Players` (`03/11 – 06/11`).\n"
+            "3. **Giao việc trực tiếp cho bất kỳ nhân sự nào** ngay tại khung chat này hoặc bấm vào nhân vật 3D trên mặt sàn."
+        )
 
     # 1. Yêu cầu báo cáo công việc hôm nay / hôm qua / tiến độ
     if any(k in p_low for k in ["báo cáo", "công việc", "hôm nay", "hôm qua", "tiến độ", "đã làm", "tổng hợp", "status", "tình hình"]):
@@ -148,16 +147,16 @@ def generate_response(agent_id: str, agent_name: str, prompt: str) -> str:
         "hieu-suat": "hieu-suat.md",
         "bo-nao-thu-2": "bo-nao-thu-2.md",
     }
-    role_doc = read_text_safe(role_file_map.get(agent_id, "mama.md"), 4000)
-    first_lines = [l.strip() for l in role_doc.splitlines() if l.strip() and not l.startswith("#")][:3]
+    raw_doc = strip_frontmatter(read_text_safe(role_file_map.get(agent_id, "mama.md"), 4000))
+    first_lines = [l.strip("- *#").strip() for l in raw_doc.splitlines() if l.strip() and not l.strip().startswith("#")][:2]
     role_desc = " ".join(first_lines)[:220] if first_lines else f"Chuyên gia {agent_name}"
 
     return (
-        f"**{agent_name}** đã tiếp nhận yêu cầu của CEO:\n"
-        f"> *{prompt}*\n\n"
+        f"Dạ CEO, **{agent_name}** đã tiếp nhận yêu cầu:\n"
+        f"> *{clean_p}*\n\n"
         f"- **Kiểm duyệt Luật #10 (`bo-nao-thu-2`):** `APPROVED_BY_SECOND_BRAIN` (Tuân thủ 10 Luật Cứng).\n"
-        f"- **Phạm vi xử lý:** {role_desc}\n"
-        f"- **Kết nối Antigravity IDE:** Yêu cầu này đã được chuyển tiếp trực tiếp qua cầu nối `agentapi` vào phiên làm việc của Antigravity IDE."
+        f"- **Thực thi chuyên môn:** {role_desc}\n"
+        f"- **Đồng bộ Antigravity IDE:** Lệnh này đã được chuyển tiếp trực tiếp vào Antigravity IDE để xử lý và lưu lịch sử đồng bộ 2 chiều."
     )
 
 

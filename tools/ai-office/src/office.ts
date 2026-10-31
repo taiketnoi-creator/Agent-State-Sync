@@ -2,8 +2,8 @@
 // hiệu ứng giao tiếp 3D (Mama <-> Subagent <-> Bộ Não Thứ 2) và đồng bộ trực tiếp với Antigravity.
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
-import { execFile } from 'node:child_process';
-import { resolve } from 'node:path';
+import { execFile, spawn } from 'node:child_process';
+import { resolve as pathResolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { repo } from './db.ts';
 import type {
@@ -41,11 +41,11 @@ export interface AgentProgressState {
   updatedAt: number;
 }
 
-const WORKSPACE_ROOT = resolve(process.cwd(), '../..');
+const WORKSPACE_ROOT = pathResolve(process.cwd(), '../..');
 
 function runGatekeeperAudit(agentId: string, text: string): Promise<{ approved: boolean; summary: string }> {
   return new Promise((res) => {
-    const script = resolve(WORKSPACE_ROOT, 'tools', 'second_brain_gatekeeper.py');
+    const script = pathResolve(WORKSPACE_ROOT, 'tools', 'second_brain_gatekeeper.py');
     if (!existsSync(script)) {
       res({ approved: true, summary: 'APPROVED_BY_SECOND_BRAIN (0 vi phạm)' });
       return;
@@ -62,10 +62,10 @@ function runGatekeeperAudit(agentId: string, text: string): Promise<{ approved: 
 
 
 async function runWorkspaceBrain(agentId: string, agentName: string, prompt: string): Promise<string> {
-  return new Promise((resolve) => {
-    const scriptPath = resolve(process.cwd(), 'src/workspaceBrain.py');
+  return new Promise((done) => {
+    const scriptPath = pathResolve(process.cwd(), 'src/workspaceBrain.py');
     if (!existsSync(scriptPath)) {
-      resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+      done(`Đã tiếp nhận yêu cầu: "${prompt}".`);
       return;
     }
     try {
@@ -79,25 +79,25 @@ async function runWorkspaceBrain(agentId: string, agentName: string, prompt: str
       child.stdin.end();
       const timer = setTimeout(() => {
         try { child.kill(); } catch {}
-        resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+        done(`Đã tiếp nhận yêu cầu: "${prompt}".`);
       }, 6000);
       child.on('close', () => {
         clearTimeout(timer);
         try {
           const parsed = JSON.parse(out.trim());
           if (parsed && parsed.reply) {
-            resolve(String(parsed.reply));
+            done(String(parsed.reply));
             return;
           }
         } catch {}
-        resolve(out.trim() || `Đã tiếp nhận yêu cầu: "${prompt}".`);
+        done(out.trim() || `Đã tiếp nhận yêu cầu: "${prompt}".`);
       });
       child.on('error', () => {
         clearTimeout(timer);
-        resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+        done(`Đã tiếp nhận yêu cầu: "${prompt}".`);
       });
     } catch {
-      resolve(`Đã tiếp nhận yêu cầu: "${prompt}".`);
+      done(`Đã tiếp nhận yêu cầu: "${prompt}".`);
     }
   });
 }
@@ -331,6 +331,9 @@ export class Office extends EventEmitter implements OfficeApi {
     }
 
     if (convId && !fromAgentId) {
+      if (!convId.startsWith('conv-')) {
+        void forwardToAntigravityIde(convId, prompt);
+      }
       appendConversationStep(convId, {
         role: 'user',
         content: prompt,
@@ -338,8 +341,8 @@ export class Office extends EventEmitter implements OfficeApi {
         agentName: agent.name,
       }, {
         status: isAlreadyWorking ? 'queued' : 'working',
-        pct: isAlreadyWorking ? this.getProgress(toAgentId).pct : 10,
-        activity: isAlreadyWorking ? `Đã xếp hàng đợi #${queuePos} cho ${agent.name}` : `${agent.name} đang tiếp nhận...`,
+        pct: isAlreadyWorking ? this.getProgress(toAgentId).pct : 15,
+        activity: isAlreadyWorking ? `Đã xếp hàng đợi #${queuePos} cho ${agent.name}` : `${agent.name} đang trả lời...`,
         titleIfNew: prompt,
       });
     }
@@ -410,14 +413,17 @@ export class Office extends EventEmitter implements OfficeApi {
     if (agent.id !== 'bo-nao-thu-2') {
       this.emitCollab(agent.id, 'bo-nao-thu-2', 'Kiểm tra quy tắc sống (Luật #10)', 'audit');
     }
-    const auditRes = await runGatekeeperAudit(agent.id, task.prompt);
+    const [auditRes, brainReply] = await Promise.all([
+      runGatekeeperAudit(agent.id, task.prompt),
+      task.depth === 0 ? runWorkspaceBrain(agent.id, agent.name, task.prompt) : Promise.resolve(`Đã hoàn tất phần việc chuyên môn của **${agent.name}**.`),
+    ]);
     toolCalls.push({
       id: 'tc-audit-1',
       name: 'second_brain_gatekeeper',
       summary: `Kiểm duyệt Luật #10 (${agent.id}): ${auditRes.summary}`,
       status: 'done',
     });
-    await sleep(900);
+    await sleep(180);
 
     // Bước 2: 38% - Nghiên cứu ngữ cảnh & tài liệu chuyên môn
     this.setProgress(agent.id, 38, `📚 Đang nghiên cứu dữ liệu (${agent.id}.md)...`);
@@ -428,7 +434,7 @@ export class Office extends EventEmitter implements OfficeApi {
       summary: `Đọc quy chuẩn ${agent.id}.md & ACTIVE-RULES-MANIFEST.json`,
       status: 'done',
     });
-    await sleep(1100);
+    await sleep(180);
 
     // Bước 3: Nếu là Mama điều phối -> tự động truyền lệnh xuống các Subagent liên quan
     const delegatedNames: string[] = [];
@@ -455,7 +461,7 @@ export class Office extends EventEmitter implements OfficeApi {
             [],
             task.convId,
           );
-          await sleep(500);
+          await sleep(120);
         }
       }
     }
@@ -469,7 +475,7 @@ export class Office extends EventEmitter implements OfficeApi {
       summary: `Thực thi quy trình chuyên môn ${agent.name}`,
       status: 'done',
     });
-    await sleep(1200);
+    await sleep(180);
 
     // Bước 5: 92% - Kiểm duyệt đầu ra cuối cùng qua Bộ Não Thứ 2 & Báo cáo Mama
     this.setProgress(agent.id, 92, '🛡️ Đang đóng dấu nghiệm thu (92%)...');
@@ -479,20 +485,12 @@ export class Office extends EventEmitter implements OfficeApi {
     if (agent.id !== 'mama') {
       this.emitCollab(agent.id, 'mama', `Báo cáo hoàn tất: ${task.prompt.slice(0, 32)}`, 'report');
     }
-    await sleep(700);
+    await sleep(120);
 
     this.setProgress(agent.id, 100, '✅ Hoàn tất 100%');
 
     const remainingInQueue = this.queue.filter(t => t.agentId === agent.id).length;
-    let responseMd = '';
-    if (task.depth === 0) {
-      if (task.convId) {
-        void forwardToAntigravityIde(task.convId, task.prompt);
-      }
-      responseMd = await runWorkspaceBrain(agent.id, agent.name, task.prompt);
-    } else {
-      responseMd = `Đã hoàn tất phần việc chuyên môn của **${agent.name}**.`;
-    }
+    const responseMd = brainReply;
 
     this.emitEvent(agent.id, 'message', responseMd);
 

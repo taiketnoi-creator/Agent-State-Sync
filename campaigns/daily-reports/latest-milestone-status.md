@@ -1,2 +1,2 @@
-⏰ Mốc boot-or-9am (11:11 31/10):
+⏰ Mốc shift1-1200 (12:00 31/10):
 • 4 Fanpage đủ lịch & Pinned Comment #1.

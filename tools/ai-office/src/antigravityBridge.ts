@@ -1,7 +1,7 @@
 // Cầu nối đồng bộ trực tiếp 2 chiều với Antigravity IDE (conversation_summaries.db + transcript_full.jsonl + agentapi.bat)
 // - Gom tất cả các bước PLANNER_RESPONSE trong cùng 1 lượt trả lời thành 1 câu trả lời sạch duy nhất giống hệt Antigravity IDE
-// - Đọc transcript_full.jsonl để không bao giờ bị cắt cụt bảng biểu hay báo cáo dài
-// - Chuyển tiếp tin nhắn trực tiếp sang Antigravity IDE qua agentapi.bat
+// - Đọc cả USER_INPUT lẫn SYSTEM_MESSAGE (tin nhắn gửi từ http://localhost:4800/ qua agentapi.bat)
+// - Tự động khử trùng lặp (dedup) giữa phản hồi tức thì (workspaceBrain.py) và phản hồi chính thức từ Antigravity IDE
 import { existsSync, statSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
@@ -179,8 +179,18 @@ function queryTopLevelAntigravitySummaries(): Map<string, SummaryRow> {
   return map;
 }
 
-function cleanUserText(raw: string): string {
+function cleanUserText(raw: string, stepType = 'USER_INPUT'): string {
   if (!raw) return '';
+  // Nếu là bước SYSTEM_MESSAGE được gửi từ http://localhost:4800/ qua agentapi.bat send-message
+  // Định dạng: [Message] timestamp=... sender=<36-char-UUID> priority=MESSAGE_PRIORITY_HIGH content=...
+  if (stepType === 'SYSTEM_MESSAGE' || !raw.includes('<USER_REQUEST>')) {
+    const ipcMatch = raw.match(/<SYSTEM_MESSAGE>\s*\[Message\][^\n]*?\bsender=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\s+priority=MESSAGE_PRIORITY_HIGH\s+content=([\s\S]*?)<\/SYSTEM_MESSAGE>/i);
+    if (ipcMatch) {
+      return ipcMatch[2].trim();
+    }
+    if (stepType === 'SYSTEM_MESSAGE') return '';
+  }
+
   let s = raw;
   s = s.replace(/<CONTEXT_SUMMARY>[\s\S]*?<\/CONTEXT_SUMMARY>/g, '');
   s = s.replace(/<ADDITIONAL_METADATA>[\s\S]*?<\/ADDITIONAL_METADATA>/g, '');
@@ -213,6 +223,10 @@ function summarizeToolCall(tc: any): AntiToolCall {
     summary,
     status: 'done',
   };
+}
+
+function normalizePromptKey(s: string): string {
+  return (s || '').trim().replace(/\s+/g, ' ').toLowerCase();
 }
 
 export function parseAntigravityTranscript(convId: string, fullSteps = false, summaryRow?: SummaryRow): AntiConversation | null {
@@ -252,8 +266,8 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
       const type = obj.type || '';
       const createdAt = obj.created_at || new Date(mtimeMs).toISOString();
 
-      if (type === 'USER_INPUT') {
-        const text = cleanUserText(obj.content || '');
+      if (type === 'USER_INPUT' || type === 'SYSTEM_MESSAGE') {
+        const text = cleanUserText(obj.content || '', type);
         if (!text) continue;
         if (pendingAssistant) {
           if (pendingAssistant.content || (pendingAssistant.toolCalls && pendingAssistant.toolCalls.length)) {
@@ -295,7 +309,7 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
         if (thinking) {
           pendingAssistant.thinking = thinking;
         }
-        if (content) {
+        if (content && content.length > 4) {
           // Luôn lấy nội dung phản hồi cuối cùng đầy đủ nhất của lượt đó
           pendingAssistant.content = content;
           lastActivity = content.replace(/[#*`>|_-]/g, '').trim().slice(0, 85);
@@ -309,13 +323,50 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
   }
 
   const state = loadState();
-  const customExtraSteps = state.customSteps[convId] ?? [];
-  // Lọc bỏ các bước custom trùng hoặc rỗng, và gộp mượt mà
-  const allSteps = [...mergedTurns, ...customExtraSteps];
+  const rawCustomSteps = (state.customSteps[convId] ?? []).filter(
+    s => s && s.content && !/^[A-Za-z]:\\.*\\tools\\ai-office$/i.test(s.content.trim()),
+  );
+
+  // Khử trùng lặp thông minh:
+  // Nếu câu hỏi trong customSteps đã xuất hiện trong mergedTurns (từ transcript_full.jsonl):
+  // - Nếu mergedTurns đã có câu trả lời assistant phía sau -> bỏ qua bản customSteps (dùng câu trả lời chính thức của Antigravity IDE)
+  // - Nếu mergedTurns chưa có câu trả lời assistant phía sau (Antigravity đang xử lý) -> chỉ ghép câu trả lời tạm từ customSteps vào
+  const allSteps: AntiStep[] = [...mergedTurns];
+  for (let i = 0; i < rawCustomSteps.length; i++) {
+    const cStep = rawCustomSteps[i];
+    if (cStep.role === 'user') {
+      const key = normalizePromptKey(cStep.content);
+      const nextCustom = rawCustomSteps[i + 1]?.role === 'assistant' ? rawCustomSteps[i + 1] : null;
+      if (nextCustom) i++; // xử lý theo cặp (user, assistant)
+
+      // Kiểm tra xem trong mergedTurns đã có user prompt này chưa
+      let matchedIdx = -1;
+      for (let j = mergedTurns.length - 1; j >= Math.max(0, mergedTurns.length - 6); j--) {
+        if (mergedTurns[j].role === 'user' && normalizePromptKey(mergedTurns[j].content) === key) {
+          matchedIdx = j;
+          break;
+        }
+      }
+
+      if (matchedIdx >= 0) {
+        const hasIdeReply = mergedTurns.slice(matchedIdx + 1).some(m => m.role === 'assistant' && m.content && m.content.trim().length > 0);
+        if (!hasIdeReply && nextCustom) {
+          allSteps.push(nextCustom);
+        }
+      } else {
+        allSteps.push(cStep);
+        if (nextCustom) allSteps.push(nextCustom);
+      }
+    } else if (cStep.role === 'assistant') {
+      allSteps.push(cStep);
+    }
+  }
+
   if (!allSteps.length && !summaryRow?.title) return null;
 
   const isRunning = summaryRow?.status === 'CASCADE_RUN_STATUS_RUNNING' || ((Date.now() - mtimeMs < 12000) && lastRole !== 'assistant');
-  const officialTitle = state.titleOverrides[convId] || summaryRow?.title || firstUserPrompt || `Cuộc trò chuyện ${convId.slice(0, 6)}`;
+  // Luôn ưu tiên tiêu đề chính thức từ conversation_summaries.db của Antigravity IDE
+  const officialTitle = summaryRow?.title || state.titleOverrides[convId] || firstUserPrompt || `Cuộc trò chuyện ${convId.slice(0, 6)}`;
   const projectFolder = summaryRow ? extractFolderName(summaryRow.workspace_uris) : 'Subagent';
 
   return {
@@ -323,8 +374,8 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
     title: officialTitle.replace(/\s+/g, ' ').trim(),
     projectFolder,
     subtitle: `${projectFolder}`,
-    currentActivity: customExtraSteps.length
-      ? customExtraSteps[customExtraSteps.length - 1].content.replace(/[#*`>|_-]/g, '').slice(0, 85)
+    currentActivity: allSteps.length
+      ? (allSteps[allSteps.length - 1].content || lastActivity).replace(/[#*`>|_-]/g, '').slice(0, 85)
       : lastActivity,
     status: isRunning ? 'working' : 'idle',
     progressPct: isRunning ? Math.min(95, 35 + (allSteps.length * 7) % 55) : 100,
@@ -427,8 +478,6 @@ export function appendConversationStep(convId: string, step: Omit<AntiStep, 'ind
     if (statusUpdate?.titleIfNew && (custom.title.startsWith('Cuộc trò chuyện mới') || custom.title.length < 6)) {
       custom.title = statusUpdate.titleIfNew.slice(0, 62);
     }
-  } else if (statusUpdate?.titleIfNew && !st.titleOverrides[convId]) {
-    st.titleOverrides[convId] = statusUpdate.titleIfNew.slice(0, 62);
   }
   saveState(st);
 }
