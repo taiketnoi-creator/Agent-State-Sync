@@ -56,7 +56,7 @@ SEEDING_TARGETS = [
 def check_cdp_status():
     import urllib.request
     try:
-        with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.0) as resp:
+        with urllib.request.urlopen("http://localhost:9222/json/version", timeout=2.0) as resp:
             data = json.loads(resp.read().decode())
             return True, data.get("Browser", "Chrome")
     except Exception:
@@ -81,7 +81,7 @@ def run_auto_seeding():
     print(f"✅ Đã kết nối với Chrome Bot ({browser_name}) tại cổng 9222.")
 
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
+        browser = p.chromium.connect_over_cdp("http://localhost:9222")
         ctx = browser.contexts[0]
         
         # Tìm page facebook hoặc tạo tab mới

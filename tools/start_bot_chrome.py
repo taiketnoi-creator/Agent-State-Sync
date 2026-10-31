@@ -187,11 +187,22 @@ def sync_bot_state_between_machines(direction: str = "pull") -> None:
 
 
 def get_cdp_version_info(timeout: float = 2.0) -> dict:
-    try:
-        with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=timeout) as resp:
-            return json.loads(resp.read().decode("utf-8", errors="ignore"))
-    except Exception:
-        return {}
+    for url in (
+        "http://localhost:9222/json/version",
+        "http://[::1]:9222/json/version",
+        "http://127.0.0.1:9222/json/version",
+    ):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as resp:
+                info = json.loads(resp.read().decode("utf-8", errors="ignore"))
+                if info.get("webSocketDebuggerUrl"):
+                    info["webSocketDebuggerUrl"] = info["webSocketDebuggerUrl"].replace(
+                        "ws://127.0.0.1:9222/", "ws://localhost:9222/"
+                    )
+                    return info
+        except Exception:
+            continue
+    return {}
 
 
 def ensure_bot_chrome_online(timeout_sec: float = 12.0, headless: bool = True) -> str:

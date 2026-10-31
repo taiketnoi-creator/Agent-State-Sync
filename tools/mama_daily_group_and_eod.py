@@ -330,13 +330,20 @@ def get_ws_url() -> str:
     TUYỆT ĐỐI KHÔNG đọc DevToolsActivePort hay đụng vào Chrome chính của CEO.
     """
     def _fetch_ws() -> str:
-        try:
-            with urllib.request.urlopen("http://127.0.0.1:9222/json/version", timeout=2.0) as resp:
-                info = json.loads(resp.read().decode("utf-8", errors="ignore"))
-                if info.get("webSocketDebuggerUrl"):
-                    return info["webSocketDebuggerUrl"]
-        except Exception:
-            pass
+        for url in (
+            "http://localhost:9222/json/version",
+            "http://[::1]:9222/json/version",
+            "http://127.0.0.1:9222/json/version",
+        ):
+            try:
+                with urllib.request.urlopen(url, timeout=2.0) as resp:
+                    info = json.loads(resp.read().decode("utf-8", errors="ignore"))
+                    if info.get("webSocketDebuggerUrl"):
+                        return info["webSocketDebuggerUrl"].replace(
+                            "ws://127.0.0.1:9222/", "ws://localhost:9222/"
+                        )
+            except Exception:
+                continue
         return ""
 
     ws = _fetch_ws()
