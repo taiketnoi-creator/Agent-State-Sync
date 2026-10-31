@@ -362,17 +362,45 @@ def get_ws_url() -> str:
     return _fetch_ws()
 
 
+def _find_account_dialog(pg):
+    dialogs = pg.locator('div[role="dialog"]')
+    for i in range(dialogs.count()):
+        d = dialogs.nth(i)
+        aria = (d.get_attribute("aria-label") or "").lower()
+        if "thông báo" not in aria and "notifications" not in aria and "messenger" not in aria:
+            try:
+                txt = d.inner_text(timeout=1500)
+                if txt and txt.strip():
+                    return d, [ln.strip() for ln in txt.splitlines() if ln.strip()]
+            except Exception:
+                continue
+    return None, []
+
+
+def _click_first_visible(locator_list) -> bool:
+    cnt = locator_list.count()
+    for i in range(cnt - 1, -1, -1):
+        el = locator_list.nth(i)
+        try:
+            if el.is_visible(timeout=400):
+                el.click(timeout=2500)
+                return True
+        except Exception:
+            continue
+    return False
+
+
 def ensure_fanpage_active(pg, target_page_name: str) -> bool:
     """
     TƯỜNG LỬA CẤM TUYỆT ĐỐI TRANG CÁ NHÂN (ZERO PERSONAL PROFILE TOUCH):
     Bắt buộc chuyển trình duyệt sang đúng Fanpage mục tiêu trước khi đi tương tác.
     Nếu đang ở Trang cá nhân (Thành Tài) mà không chuyển sang Fanpage được -> DỪNG NGAY LẬP TỨC (return False).
     """
+    acct_selector = '[aria-label="Tài khoản, trang cá nhân của bạn"], [aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"], [aria-label="Your profile"], [aria-label="Account"]'
     try:
         pg.goto("https://www.facebook.com/", timeout=25000)
         time.sleep(2.5)
 
-        # Đóng mọi popup chat Messenger nếu có
         close_btns = pg.locator('[aria-label="Đóng đoạn chat"], [aria-label="Close chat"]')
         for i in range(close_btns.count()):
             try:
@@ -380,48 +408,48 @@ def ensure_fanpage_active(pg, target_page_name: str) -> bool:
             except Exception:
                 pass
 
-        acct_btn = pg.locator('[aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"], [aria-label="Your profile"], [aria-label="Account"]').first
+        acct_btn = pg.locator(acct_selector).first
         if acct_btn.count() == 0:
             return False
 
         acct_btn.click(timeout=3000)
-        time.sleep(1.5)
-        dialog = pg.locator('div[role="dialog"]').last
+        time.sleep(1.8)
+        dialog, d_lines = _find_account_dialog(pg)
+        if not dialog:
+            return False
 
-        # Kiểm tra dòng đầu tiên trong menu Tài khoản đã là Fanpage mục tiêu chưa
-        d_lines = [ln.strip() for ln in dialog.inner_text(timeout=2000).splitlines() if ln.strip()]
         current_name = d_lines[0] if d_lines else ""
         if target_page_name.lower() in current_name.lower() and "thành tài" not in current_name.lower():
             pg.keyboard.press("Escape")
             time.sleep(0.5)
             return True
 
-        # Thử nút chuyển nhanh "Chuyển sang <target_page_name>"
-        quick_switch = dialog.locator(f'div[role="button"][aria-label="Chuyển sang {target_page_name}"]').first
-        if quick_switch.count() > 0 and quick_switch.is_visible(timeout=1200):
-            quick_switch.click(timeout=3000)
-            time.sleep(5.0)
+        quick_candidates = dialog.locator(f'div[role="button"][aria-label="Chuyển sang {target_page_name}"]')
+        if _click_first_visible(quick_candidates):
+            time.sleep(5.5)
         else:
-            see_all = dialog.locator('div[role="button"][aria-label="Xem tất cả trang cá nhân"], div[role="button"]:has-text("Xem tất cả trang cá nhân")').first
-            if see_all.count() > 0 and see_all.is_visible(timeout=1500):
-                see_all.click(timeout=2000)
-                time.sleep(1.8)
+            see_all = dialog.locator('div[role="button"][aria-label="Xem tất cả trang cá nhân"], div[role="button"]:has-text("Xem tất cả trang cá nhân")')
+            if _click_first_visible(see_all):
+                time.sleep(2.0)
+                dialog, _ = _find_account_dialog(pg)
+                if not dialog:
+                    return False
 
-            target_btn = dialog.locator(f'div[role="button"][aria-label^="{target_page_name}"]').first
-            if target_btn.count() > 0 and target_btn.is_visible(timeout=2000):
-                target_btn.click(timeout=3000)
-                time.sleep(5.0)
+            target_candidates = dialog.locator(
+                f'div[role="button"][aria-label*="{target_page_name}"], div[role="listitem"]:has-text("{target_page_name}"), div[role="button"]:has-text("{target_page_name}")'
+            )
+            if _click_first_visible(target_candidates):
+                time.sleep(5.5)
             else:
                 pg.keyboard.press("Escape")
                 return False
 
         # Xác minh lại lần cuối sau khi chuyển: dòng đầu tiên BẮT BUỘC là Fanpage mục tiêu và CẤM là Thành Tài
-        acct_btn = pg.locator('[aria-label="Trang cá nhân của bạn"], [aria-label="Tài khoản"], [aria-label="Your profile"], [aria-label="Account"]').first
+        acct_btn = pg.locator(acct_selector).first
         if acct_btn.count() > 0:
             acct_btn.click(timeout=3000)
-            time.sleep(1.5)
-            dialog = pg.locator('div[role="dialog"]').last
-            d_lines = [ln.strip() for ln in dialog.inner_text(timeout=2000).splitlines() if ln.strip()]
+            time.sleep(1.8)
+            _, d_lines = _find_account_dialog(pg)
             active_name = d_lines[0] if d_lines else ""
             pg.keyboard.press("Escape")
             time.sleep(0.5)

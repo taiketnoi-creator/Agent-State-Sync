@@ -10,5 +10,10 @@
   "vertical_videos_interacted": 0,
   "details": [],
   "screenshots": [],
-  "status": "ERROR_CANNOT_AUTOSTART_PORT_9222"
+  "status": "OK",
+  "bot_chrome_auto_closed": {
+    "closed_via_cdp": true,
+    "terminated_bot_pids": [],
+    "port_9222_still_open": false
+  }
 }
