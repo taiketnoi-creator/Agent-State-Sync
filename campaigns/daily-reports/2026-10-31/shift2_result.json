@@ -1,0 +1,214 @@
+{
+  "shift": 2,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS",
+  "total_likes": 26,
+  "total_comments": 12,
+  "total_shares": 2,
+  "total_groups_joined": 4,
+  "total_videos_interacted": 19,
+  "horizontal_videos_interacted": 8,
+  "vertical_videos_interacted": 11,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 6,
+      "comments": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "video_horizontal": 1,
+      "video_vertical": 3,
+      "videos_total": 4,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 2,
+          "comments": 0,
+          "views": 0,
+          "fresh": true,
+          "hotScore": 453
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 19,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 229
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 1600,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 2850
+        }
+      ],
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ai_video_horizontal_1.png"
+      ]
+    },
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
+      "likes": 6,
+      "comments": 4,
+      "shares": 1,
+      "groups_joined": 2,
+      "video_horizontal": 2,
+      "video_vertical": 3,
+      "videos_total": 5,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 16,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 224
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 1,
+          "comments": 1,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 208
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 923,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 1835
+        }
+      ],
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_post_group_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_post_group_2.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_video_vertical_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_video_vertical_2.png"
+      ]
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
+      "likes": 7,
+      "comments": 4,
+      "shares": 0,
+      "groups_joined": 1,
+      "video_horizontal": 2,
+      "video_vertical": 3,
+      "videos_total": 5,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 2,
+          "comments": 2,
+          "views": 0,
+          "fresh": true,
+          "hotScore": 465
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 1,
+          "comments": 1,
+          "views": 0,
+          "fresh": true,
+          "hotScore": 458
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 12000,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 16400
+        }
+      ],
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_post_group_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_horizontal_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_vertical_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_vertical_2.png"
+      ]
+    },
+    {
+      "slug": "deadline",
+      "name": "Hội Deadline - Dân Văn Phòng & Desk Setup",
+      "likes": 7,
+      "comments": 3,
+      "shares": 1,
+      "groups_joined": 1,
+      "video_horizontal": 3,
+      "video_vertical": 2,
+      "videos_total": 5,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 15,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 223
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 12,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 218
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 8,
+          "comments": 8,
+          "views": 0,
+          "fresh": true,
+          "hotScore": 760
+        }
+      ],
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_post_group_1.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_post_group_2.png",
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_video_horizontal_1.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ai_video_horizontal_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_post_group_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_post_group_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_video_vertical_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_phongtro_video_vertical_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_post_group_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_horizontal_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_vertical_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_ktx_video_vertical_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_post_group_1.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_post_group_2.png",
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\highvol_deadline_video_horizontal_1.png"
+  ],
+  "status": "OK",
+  "bot_chrome_auto_closed": {
+    "closed_via_cdp": true,
+    "terminated_bot_pids": [],
+    "port_9222_still_open": false
+  },
+  "grid_photo": "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-10-31\\shift2_highvol_grid_8.jpg"
+}
