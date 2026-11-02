@@ -49,6 +49,8 @@ SYNC_FILES = [
     "on_stop_sync.py",
     os.path.join(".agents", "GEMINI.md"),
     os.path.join(".agents", "hooks.json"),
+    os.path.join(".vscode", "tasks.json"),
+    os.path.join(".vscode", "settings.json"),
 ]
 
 

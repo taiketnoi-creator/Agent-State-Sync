@@ -1,14 +1,14 @@
 {
-  "AGY_BROWSER_ACTIVE_PORT_FILE": "C:\\Users\\Admin\\AppData\\Roaming\\Antigravity\\DevToolsActivePort",
-  "AGY_BROWSER_WS_URL": "ws://127.0.0.1:61737/devtools/browser/40d94272-e70f-4403-a58d-f66528de7f3d",
+  "AGY_BROWSER_ACTIVE_PORT_FILE": "C:\\Users\\guicci\\AppData\\Roaming\\Antigravity\\DevToolsActivePort",
+  "AGY_BROWSER_WS_URL": "ws://127.0.0.1:51433/devtools/browser/2329525f-0a9d-47c0-87fa-6f514047ae07",
   "ANTIGRAVITY_AGENT": "1",
-  "ANTIGRAVITY_AGENTAPI_EXE": "C:\\Users\\Admin\\AppData\\Local\\Programs\\antigravity\\resources\\bin\\language_server.exe",
-  "ANTIGRAVITY_APP_DATA_DIR": "C:/Users/Admin/.gemini/antigravity",
-  "ANTIGRAVITY_CONVERSATION_ID": "dc96f33d-ef93-4af4-acc9-08f4509f2b45",
-  "ANTIGRAVITY_CSRF_TOKEN": "d276b932-cc83-44cf-8566-d0d0df23ff65",
-  "ANTIGRAVITY_LS_ADDRESS": "localhost:61741",
+  "ANTIGRAVITY_AGENTAPI_EXE": "C:\\Users\\guicci\\AppData\\Local\\Programs\\Antigravity\\resources\\bin\\language_server.exe",
+  "ANTIGRAVITY_APP_DATA_DIR": "C:/Users/guicci/.gemini/antigravity",
+  "ANTIGRAVITY_CONVERSATION_ID": "1b0d78de-0eaf-4a05-a2d4-462df1e13063",
+  "ANTIGRAVITY_CSRF_TOKEN": "c44688be-b03f-4345-9f0a-2c10c8df5f27",
+  "ANTIGRAVITY_LS_ADDRESS": "localhost:51436",
   "ANTIGRAVITY_LS_VERSION": "hub-2.28.2",
-  "ANTIGRAVITY_PROJECT_ID": "9b1b3058-717c-43a8-b0b8-2fa401099898",
-  "ANTIGRAVITY_SOURCE_METADATA": "{\"tool\":{\"conversationId\":\"dc96f33d-ef93-4af4-acc9-08f4509f2b45\", \"stepIndex\":435, \"toolCall\":{\"id\":\"call_119301\", \"name\":\"run_command\", \"argumentsJson\":\"{\\\"CommandLine\\\":\\\"Set-Location \\\\\\\"f:\\\\\\\\Ai Agent Setup\\\\\\\\SubAgent\\\\\\\\Subagent\\\\\\\\tools\\\\\\\\ai-office\\\\\\\"; node --experimental-transform-types src/server.ts\\\",\\\"IsDaemon\\\":true,\\\"WaitMsBeforeAsync\\\":2500,\\\"toolSummary\\\":\\\"Start AI Office 3D server with fixed chat responder on port 4800\\\"}\"}}}",
-  "ANTIGRAVITY_TRAJECTORY_ID": "c1d6c0b0-680f-4ad9-b8a4-9f898198a373"
+  "ANTIGRAVITY_PROJECT_ID": "8c73907f-a035-4730-a6e8-4b382f490aa8",
+  "ANTIGRAVITY_SOURCE_METADATA": "{\"tool\":{\"conversationId\":\"1b0d78de-0eaf-4a05-a2d4-462df1e13063\", \"stepIndex\":168, \"toolCall\":{\"id\":\"call_1407840\", \"name\":\"run_command\", \"argumentsJson\":\"{\\\"CommandLine\\\":\\\"cd \\\\\\\"d:\\\\\\\\Phiên bản Ai agent\\\\\\\\Subagent\\\\\\\\tools\\\\\\\\ai-office\\\\\\\"; $env:PATH = \\\\\\\"C:\\\\\\\\Program Files\\\\\\\\nodejs;C:\\\\\\\\Program Files\\\\\\\\Adobe\\\\\\\\Adobe Creative Cloud Experience\\\\\\\\libs;$env:APPDATA\\\\\\\\npm;$env:PATH\\\\\\\"; node .\\\\\\\\node_modules\\\\\\\\tsx\\\\\\\\dist\\\\\\\\cli.mjs src/server.ts\\\",\\\"IsDaemon\\\":true,\\\"WaitMsBeforeAsync\\\":4000,\\\"toolSummary\\\":\\\"Start AI Office server with Mobile Tunnel \\\\u0026 PIN support\\\"}\"}}}",
+  "ANTIGRAVITY_TRAJECTORY_ID": "2355eed5-4da0-4b3e-af46-bfed56afeb7a"
 }

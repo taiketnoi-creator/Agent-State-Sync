@@ -360,6 +360,45 @@ def ensure_daily_auto_scheduler_booted() -> str:
     return "⚠️ Chưa tìm thấy `mama_auto_scheduler_engine.py`"
 
 
+
+
+def ensure_ai_office_booted() -> str:
+    import socket
+    office_script = SUBAGENT_DIR / 'tools' / 'ensure_ai_office_running.py'
+    state_file = SUBAGENT_DIR / 'tools' / 'ai-office' / 'data' / 'live_tunnel_state.json'
+    port_open = False
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(0.5)
+            port_open = (s.connect_ex(('127.0.0.1', 4800)) == 0)
+    except Exception:
+        pass
+    if office_script.exists():
+        try:
+            creationflags = 0x08000000 if os.name == 'nt' else 0
+            subprocess.Popen(
+                [sys.executable, str(office_script), '--install-startup', '--open-browser', '--notify-telegram', '--quiet'],
+                cwd=str(SUBAGENT_DIR),
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                close_fds=True,
+                creationflags=creationflags,
+            )
+        except Exception:
+            pass
+    mobile_url = ''
+    if state_file.exists():
+        try:
+            mobile_url = json.loads(state_file.read_text(encoding='utf-8')).get('mobile_url', '')
+        except Exception:
+            pass
+    if port_open:
+        extra = f' | Mobile: `{mobile_url}`' if mobile_url else ''
+        return f'✅ ĐANG CHẠY NGẦM (`http://localhost:4800`{extra} — Tự bật khi mở máy/Antigravity)'
+    return '🚀 ĐÃ TỰ KÍCH HOẠT NGẦM (`http://localhost:4800` + Cloudflare Mobile Tunnel `?k=8899`)'
+
+
 def build_markdown_report(auto_pull: bool = True) -> str:
     # BƯỚC 1: Phải chạy đồng bộ Git Pull + Mirror về Subagent TRƯỚC KHI đọc WORK-HISTORY.md
     git_status = sync_git_before_reading(auto_pull=auto_pull)
@@ -375,6 +414,7 @@ def build_markdown_report(auto_pull: bool = True) -> str:
         f_media = ex.submit(check_local_media_tools)
         f_chrome = ex.submit(ensure_chrome_remote_debugging)
         f_sched = ex.submit(ensure_daily_auto_scheduler_booted)
+        f_office = ex.submit(ensure_ai_office_booted)
 
         prog = f_prog.result()
         rc_digest = f_rc.result()
@@ -385,6 +425,7 @@ def build_markdown_report(auto_pull: bool = True) -> str:
         media_status = f_media.result()
         chrome_status = f_chrome.result()
         scheduler_status = f_sched.result()
+        office_status = f_office.result()
 
     bar_len = 20
     filled = int(round((prog["percent"] / 100.0) * bar_len))
@@ -416,6 +457,7 @@ def build_markdown_report(auto_pull: bool = True) -> str:
    | Hệ Thống / Phần Mềm | Trạng Thái Kết Nối Thực Tế |
    | :--- | :--- |
    | **Facebook Page (`facebook-page` MCP)** | {fb_status} |
+   | **Văn Phòng Ảo 3D (`Port 4800 & Mobile`)** | {office_status} |
    | **Lịch Chạy Ngầm 4 Page (`Auto-Scheduler`)** | {scheduler_status} |
    | **Chrome Browser (`/browser` DevTools)** | {chrome_status} |
    | **Telegram Remote (`Telegram Bot`)** | {tg_status} |

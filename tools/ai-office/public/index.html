@@ -1025,6 +1025,31 @@
     color: #0f172a !important;
   }
 
+
+  /* MOBILE_RESPONSIVE_TUNNEL_CSS */
+  @media (max-width: 768px) {
+    #stage { inset: 0; border-radius: 0; border: none; }
+    #hud { top: 8px; left: 8px; right: 8px; max-width: none; padding: 9px 12px; }
+    #hud h1 { font-size: 14px; }
+    #hud p { display: none; }
+    #toolbar {
+      top: auto; bottom: 10px; left: 8px; right: 8px;
+      max-width: none; justify-content: center; gap: 5px;
+    }
+    .btn { padding: 6px 9px; font-size: 11.5px; }
+    #hint, #feed { display: none !important; }
+    #panel {
+      top: 6px !important; left: 6px !important; right: 6px !important; bottom: 6px !important;
+      width: auto !important; height: auto !important;
+      flex-direction: column !important;
+    }
+    #conv-sidebar {
+      width: 100% !important; min-width: 100% !important;
+      max-height: 155px; border-right: none; border-bottom: 1px solid var(--line);
+    }
+    #conv-splitter { display: none !important; }
+    body.panel-open #toolbar { display: none; }
+  }
 </style>
 <script type="importmap">
 { "imports": {

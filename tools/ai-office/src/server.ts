@@ -21,7 +21,8 @@ import {
 import type { Department } from './types.ts';
 
 const PORT = Number(process.env.PORT ?? 4800);
-const HOST = process.env.HOST ?? '127.0.0.1';
+const HOST = process.env.HOST ?? '0.0.0.0';
+const REMOTE_PIN = process.env.REMOTE_PIN || '8899';
 const TOKEN = process.env.OFFICE_TOKEN || randomBytes(16).toString('hex');
 const ALLOWED_HOSTS = new Set([`localhost:${PORT}`, `127.0.0.1:${PORT}`, `[::1]:${PORT}`, ...(process.env.ALLOWED_HOSTS?.split(',') ?? [])]);
 const WORKSPACE_ROOT = resolve(process.cwd(), '../..').replace(/\\/g, '/');
@@ -71,8 +72,19 @@ const app = express();
 app.use(express.json({ limit: '2mb' }));
 
 const hostGuard = (req: Request, res: Response, next: NextFunction) => {
-  if (!ALLOWED_HOSTS.has(req.headers.host ?? '')) return res.status(403).send('Host không được phép');
-  next();
+  const host = req.headers.host ?? '';
+  const isLocal = ALLOWED_HOSTS.has(host) && !req.headers['cf-connecting-ip'] && !req.headers['x-forwarded-for'];
+  if (isLocal) return next();
+  if (req.headers['x-office-token'] === TOKEN || req.query.t === TOKEN) return next();
+  if (req.path.startsWith('/vendor/') || req.path.startsWith('/js/') || req.path.startsWith('/models/')) return next();
+  const cookieStr = req.headers.cookie ?? '';
+  const hasPinCookie = cookieStr.includes(`javis_mobile_pin=${REMOTE_PIN}`);
+  if (req.query.k === REMOTE_PIN) {
+    res.setHeader('Set-Cookie', `javis_mobile_pin=${REMOTE_PIN}; Path=/; Max-Age=2592000; HttpOnly; SameSite=Lax`);
+    return next();
+  }
+  if (hasPinCookie) return next();
+  return res.status(401).type('html').send(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Văn Phòng Ảo 3D · Xác Thực CEO</title><style>body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#070a10;color:#f8fafc;font-family:system-ui,sans-serif}.box{background:#111827;border:2px solid #10b981;border-radius:20px;padding:28px;width:min(360px,90vw);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.7)}input{width:100%;padding:12px;margin:16px 0;border-radius:12px;border:1px solid #334155;background:#090d16;color:#fff;font-size:20px;text-align:center;letter-spacing:6px;box-sizing:border-box}button{width:100%;padding:13px;border-radius:12px;border:none;background:#10b981;color:#04130d;font-weight:800;font-size:16px;cursor:pointer}</style></head><body><form class="box" method="GET" action="/"><div style="font-size:38px">🏢</div><h2 style="margin:10px 0 6px">Văn Phòng Ảo 3D Agent-Javis</h2><p style="color:#94a3b8;font-size:13.5px;margin:0">Nhập Mã PIN CEO để mở điều khiển từ điện thoại</p><input type="password" name="k" placeholder="••••" autofocus required><button type="submit">MỞ VĂN PHÒNG 3D</button></form></body></html>`);
 };
 app.use(hostGuard);
 
@@ -214,7 +226,7 @@ const server = createServer(app);
 const wss = new WebSocketServer({ noServer: true });
 server.on('upgrade', (req, socket, head) => {
   const url = new URL(req.url ?? '/', 'http://x');
-  if (url.pathname !== '/ws' || url.searchParams.get('token') !== TOKEN || !ALLOWED_HOSTS.has(req.headers.host ?? '')) {
+  if (url.pathname !== '/ws' || url.searchParams.get('token') !== TOKEN) {
     socket.destroy();
     return;
   }
@@ -262,7 +274,7 @@ setInterval(() => {
   } catch {}
 }, 1200).unref();
 
-server.listen(PORT, () => {
+server.listen(PORT, HOST, () => {
   console.log(`\n🏢 Văn phòng ảo 3D Agent-Javis: http://localhost:${PORT}`);
 });
 

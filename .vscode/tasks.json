@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Auto-Start AI Virtual Office 3D (Port 4800 & Mobile Tunnel)",
+      "type": "process",
+      "command": "python",
+      "args": [
+        "${workspaceFolder}/tools/ensure_ai_office_running.py",
+        "--install-startup",
+        "--open-browser",
+        "--notify-telegram",
+        "--quiet"
+      ],
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated",
+        "close": true
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

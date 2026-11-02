@@ -1,0 +1,33 @@
+{
+  "shift": 1,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS",
+  "total_likes": 0,
+  "total_comments": 0,
+  "total_shares": 0,
+  "total_groups_joined": 2,
+  "total_videos_interacted": 0,
+  "horizontal_videos_interacted": 0,
+  "vertical_videos_interacted": 0,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Cộng đồng AI & Automation",
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "groups_joined": 2,
+      "video_horizontal": 0,
+      "video_vertical": 0,
+      "videos_total": 0,
+      "top_scored_samples": [],
+      "screenshots": []
+    }
+  ],
+  "screenshots": [],
+  "status": "OK",
+  "bot_chrome_auto_closed": {
+    "closed_via_cdp": true,
+    "terminated_bot_pids": [],
+    "port_9222_still_open": false
+  }
+}

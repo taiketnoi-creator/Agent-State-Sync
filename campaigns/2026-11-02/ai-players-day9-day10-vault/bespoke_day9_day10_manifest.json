@@ -1,0 +1,134 @@
+[
+  {
+    "index": 25,
+    "code": "day9_img1_0830_gatekeeper",
+    "slot_dt": "2026-11-03 08:30",
+    "cta_kw": "GATEKEEPER",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img1_0830_gatekeeper.jpg",
+    "caption": "🛡️ CÁCH XÂY CỔNG KIỂM DUYỆT 'BỘ NÃO THỨ 2' ĐỂ 10 SUBAGENT KHÔNG BAO GIỜ DÙNG NHẦM QUY TẮC CŨ!\n\nKhi bạn vận hành nhiều cửa sổ AI cùng lúc, rủi ro lớn nhất là một Agent chuyên môn quên mất chỉ đạo mới vừa chốt và quay lại dùng mẫu thiết kế cũ.\n\nGiải pháp triệt để là đặt một Chốt Chặn Kiểm Duyệt Cuối Cùng (Second-Brain Gatekeeper):\n✨ Tự động lắng nghe mọi quy tắc mới từ tất cả các Tab làm việc.\n✨ Kiểm tra chéo đầu vào & đầu ra trước khi cho phép xuất bản.\n\n💬 Hệ thống AI của bạn đã có lớp kiểm duyệt tự động này chưa? Xem ngay sơ đồ & mã nguồn tại bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072149248983",
+    "comment_id": "122134072149248983_2613249279137848"
+  },
+  {
+    "index": 26,
+    "code": "day9_img2_1015_aioffice3d",
+    "slot_dt": "2026-11-03 10:15",
+    "cta_kw": "AIOFFICE",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img2_1015_aioffice3d.jpg",
+    "caption": "🏢 KHỞI CHẠY VĂN PHÒNG ẢO 3D: KHI 11 NHÂN SỰ SUBAGENT HIỆN LÊN TRực QUAN TRÊN MẶT SÀN LÀM VIỆC!\n\nThay vì nhìn hàng chục dòng log đen trắng khô khan trong Terminal, giao diện Văn Phòng Ảo 3D giúp bạn quản lý cả đội ngũ AI trong một cái nhìn:\n✨ Biết ngay Agent nào đang gõ phím xử lý tác vụ, Agent nào đang kiểm duyệt bài, Agent nào đang rảnh.\n✨ Bấm trực tiếp vào từng nhân sự để giao việc hoặc xem lịch sử phối hợp giữa các phòng ban.\n\n💬 Bạn thích điều phối AI qua giao diện 3D trực quan hay qua dòng lệnh Terminal? Lấy hướng dẫn cài đặt ở bình luận đầu tiên nha! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072209248983",
+    "comment_id": "122134072209248983_1126962103153091"
+  },
+  {
+    "index": 27,
+    "code": "day9_img3_1330_graphrag",
+    "slot_dt": "2026-11-03 13:30",
+    "cta_kw": "GRAPHRAG",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img3_1330_graphrag.jpg",
+    "caption": "🕸️ GRAPHRAG VS VECTOR RAG: TẠI SAO ĐỒ THỊ TRI THỨC GIÚP AI SUY LUẬN SÂU GẤP 3 LẦN?\n\nVector RAG truyền thống chỉ cắt tài liệu thành từng đoạn ngắn và tìm theo độ giống nhau của câu chữ — nên khi hỏi một câu cần tổng hợp toàn bộ quy trình, AI rất dễ bỏ sót mạch liên kết.\n\nVới GraphRAG, dữ liệu được ánh xạ thành mạng lưới Thực Thể & Mối Quan Hệ chặt chẽ, giúp AI nắm bắt trọn vẹn bức tranh chiến lược.\n\n💬 Bạn đang lưu trữ kiến thức cho AI bằng file Markdown hay Vector DB? Nhận tài liệu thiết lập GraphRAG tại bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072335248983",
+    "comment_id": "122134072335248983_1619128326352251"
+  },
+  {
+    "index": 28,
+    "code": "day9_img4_1515_jsonschema",
+    "slot_dt": "2026-11-03 15:15",
+    "cta_kw": "JSON100",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img4_1515_jsonschema.jpg",
+    "caption": "🔒 ÉP KHUÔN 100% JSON SCHEMA: BÍ QUYẾT KẾT NỐI AI VÀO SQLITE & N8N KHÔNG BAO GIỜ GÃY LUỒNG!\n\nNếu để AI trả lời tự do bằng văn bản thông thường, chỉ cần một câu chào hỏi thừa ở đầu dòng là toàn bộ script tự động hóa phía sau sẽ báo lỗi cú pháp ngay lập tức.\n\nHãy khóa cứng đầu ra bằng JSON Schema (Strict Mode) để mọi trường dữ liệu luôn đúng chuẩn 100%.\n\n💬 Bạn hay gặp lỗi gì nhất khi nối AI vào Webhook n8n? Tải ngay bộ khuôn mẫu JSON Schema tại bình luận đầu tiên nha! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072461248983",
+    "comment_id": "122134072461248983_3666712253478456"
+  },
+  {
+    "index": 29,
+    "code": "day9_img5_1815_cookievault",
+    "slot_dt": "2026-11-03 18:15",
+    "cta_kw": "DUALPC",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img5_1815_cookievault.jpg",
+    "caption": "🔐 ĐỒNG BỘ PHIÊN CHROME BOT GIỮA MÁY CÔNG TY & MÁY Ở NHÀ MƯỢT MÀ KHÔNG BỊ CHECKPOINT!\n\nLàm sao để vừa làm việc ở văn phòng ban ngày, tối về nhà mở máy lên là toàn bộ phiên Fanpage và lịch sử công việc tiếp nối ngay lập tức mà không phải đăng nhập lại?\n\nBí mật nằm ở cơ chế Session Vault tự động đóng gói trạng thái ngay khi kết thúc ca chạy ngầm!\n\n💬 Bạn đang vận hành hệ thống AI trên 1 máy cố định hay đồng bộ nhiều máy? Xem kiến trúc đồng bộ 2 chiều ở bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072521248983",
+    "comment_id": "122134072521248983_1157665436615180"
+  },
+  {
+    "index": 30,
+    "code": "day9_img6_2115_zeroclone",
+    "slot_dt": "2026-11-03 21:15",
+    "cta_kw": "ZEROCLONE",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day9_img6_2115_zeroclone.jpg",
+    "caption": "🧬 THUẬT TOÁN QUÉT LƯỚI 64 VÙNG KHÔNG GIAN: CHẶN ĐỨNG 100% ẢNH ĐĂNG TRÙNG LẶP BỐ CỤC!\n\nNgười đọc trên mạng xã hội rất nhạy với các bài đăng dùng đi dùng lại một khuôn mẫu cố định. Để mỗi bài viết là một thiết kế độc bản thật sự, cổng kiểm định Zero-Clone tự động chia ảnh thành lưới 8×8 = 64 vùng để đo vector màu và độ sáng trước khi cho phép hẹn giờ.\n\n💬 Theo bạn yếu tố nào quyết định một bức ảnh Infographic giữ chân người xem lâu nhất? Lấy script kiểm định ảnh ở bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072641248983",
+    "comment_id": "122134072641248983_2382376699170772"
+  },
+  {
+    "index": 31,
+    "code": "day10_img1_0830_visionocr",
+    "slot_dt": "2026-11-04 08:30",
+    "cta_kw": "VISIONOCR",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img1_0830_visionocr.jpg",
+    "caption": "📄 BÓC TÁCH HÓA ĐƠN & BẢNG BIỂU PHỨC TẠP TRONG 2 GIÂY VỚI VISION-LANGUAGE OCR!\n\nCác phần mềm OCR đời cũ rất sợ hóa đơn chụp nghiêng hoặc bảng biểu có nhiều ô gộp ngang dọc. Khi kết hợp mô hình thị giác đa phương thức cùng bước kiểm tra chéo công thức toán học, bạn có thể tự động hóa 95% khâu nhập liệu kế toán & kho vận.\n\n💬 Công việc của bạn có phải xử lý nhiều file PDF hay hóa đơn giấy mỗi ngày không? Nhận bộ Prompt & Script OCR ở bình luận đầu tiên nha! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072713248983",
+    "comment_id": "122134072713248983_1136964395585166"
+  },
+  {
+    "index": 32,
+    "code": "day10_img2_1015_promptcache",
+    "slot_dt": "2026-11-04 10:15",
+    "cta_kw": "CACHING90",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img2_1015_promptcache.jpg",
+    "caption": "⚡ KỸ THUẬT PROMPT CACHING: CÁCH GIẢM 90% CHI PHÍ TOKEN & TĂNG TỐC ĐỘ PHẢN HỒI GẤP 4 LẦN!\n\nĐừng gửi lại toàn bộ sổ tay quy chuẩn hàng chục nghìn từ ở mỗi lượt gọi API theo cách thủ công! Bằng cách đặt toàn bộ quy tắc cố định lên phần đầu (Static Prefix) để kích hoạt bộ nhớ đệm, bạn vừa tiết kiệm 90% ngân sách vừa giúp Subagent phản hồi tức thì.\n\n💬 Chi phí API hàng tháng của bạn hiện đang tốn nhiều nhất ở khâu nào? Xem hướng dẫn tối ưu Token ở bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072827248983",
+    "comment_id": "122134072827248983_1844974279859430"
+  },
+  {
+    "index": 33,
+    "code": "day10_img3_1330_sandbox",
+    "slot_dt": "2026-11-04 13:30",
+    "cta_kw": "SANDBOX",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img3_1330_sandbox.jpg",
+    "caption": "🐍 ĐỪNG BẮT AI TÍNH NHẨM SỐ LIỆU: HÃY CHO NÓ TỰ VIẾT & CHẠY CODE PYTHON TRONG SANDBOX!\n\nMô hình ngôn ngữ sinh ra để dự đoán từ tiếp theo chứ không phải máy tính bỏ túi. Khi cần phân tích bảng doanh thu 100,000 dòng, hãy cấp cho Agent quyền gọi Python Sandbox để tính toán chính xác tuyệt đối tới từng con số lẻ.\n\n💬 Bạn thường dùng AI để viết nội dung hay phân tích dữ liệu nhiều hơn? Tải cấu hình Sandbox an toàn tại bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134072953248983",
+    "comment_id": "122134072953248983_2813396059061989"
+  },
+  {
+    "index": 34,
+    "code": "day10_img4_1515_selfheal",
+    "slot_dt": "2026-11-04 15:15",
+    "cta_kw": "SELFHEAL",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img4_1515_selfheal.jpg",
+    "caption": "🔄 WORKFLOW TỰ CHỮA LÀNH (SELF-HEALING): BÍ QUYẾT ĐỂ HỆ THỐNG TỰ ĐỘNG HÓA CHẠY BỀN BỈ 24/7!\n\nMột kịch bản tự động hóa thực chiến không bao giờ giả định mọi API luôn hoạt động hoàn hảo. Nhờ 3 cơ chế: Tự thử lại theo cấp số nhân (Exponential Backoff), Tự chuyển nhánh dự phòng (Fallback) và Ghi sổ trạng thái SQLite, hệ thống luôn vận hành trơn tru ngay cả khi bạn đang ngủ.\n\n💬 Luồng tự động hóa của bạn đã có nhánh Fallback dự phòng chưa? Nhận mẫu thiết kế luồng chống đứt gãy ở bình luận đầu tiên nha! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134073217248983",
+    "comment_id": "122134073217248983_1919649676137484"
+  },
+  {
+    "index": 35,
+    "code": "day10_img5_1815_slmedge",
+    "slot_dt": "2026-11-04 18:15",
+    "cta_kw": "SLM7B",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img5_1815_slmedge.jpg",
+    "caption": "💻 KHI NÀO MÔ HÌNH NHỎ (SLM 7B) THẮNG ÁP ĐẢO MÔ HÌNH KHỔNG LỒ?\n\nKhông phải việc gì cũng cần gọi tới mô hình lớn nhất! Trong kiến trúc Smart Model Tiering, hãy để mô hình lớn làm Tổng chỉ huy và duyệt chất lượng, còn các tác vụ phân loại bình luận, lọc từ khóa, định dạng bài đăng hãy giao cho các mô hình nhỏ tốc độ cao.\n\n💬 Bạn đã thử kết hợp nhiều tầng mô hình (Multi-Model Tiering) trong dự án của mình chưa? Xem bảng phân tầng chi tiết tại bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134073307248983",
+    "comment_id": "122134073307248983_1738471057218364"
+  },
+  {
+    "index": 36,
+    "code": "day10_img6_2115_shield",
+    "slot_dt": "2026-11-04 21:15",
+    "cta_kw": "SHIELD3",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-02\\ai-players-day9-day10-vault\\images\\day10_img6_2115_shield.jpg",
+    "caption": "🛡️ 3 VÒNG KHIÊN CHẶN ĐỨNG PROMPT INJECTION: BẢO VỆ CHATBOT & AGENT DOANH NGHIỆP!\n\nKhi mở cổng cho người dùng bên ngoài tương tác với AI, luôn có nguy cơ kẻ xấu gài các câu lệnh đánh lừa để khai thác prompt gốc hoặc thao túng hệ thống. Trang bị ngay 3 vòng rào chắn: Lọc đầu vào, Phân quyền tối thiểu và Kiểm duyệt đầu ra Zero-Leaks!\n\n💬 Yếu tố bảo mật nào khiến bạn quan tâm nhất khi ứng dụng AI vào công việc? Nhận bộ checklist bảo mật AI tại bình luận đầu tiên nhé! 👇",
+    "status": "SCHEDULED",
+    "post_id": "122134073397248983",
+    "comment_id": "122134073397248983_1108392578669898"
+  }
+]
