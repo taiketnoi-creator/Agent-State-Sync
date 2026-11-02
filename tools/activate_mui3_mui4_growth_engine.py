@@ -114,26 +114,26 @@ body {{
 </head>
 <body>
   <!-- Top Badge & Headline -->
-  <div style="position:absolute; top:36px; left:48px; right:48px; text-align:center;">
-    <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(245,158,11,0.16); border:2px solid #F59E0B; color:#FDE047; font-weight:900; font-size:18px; padding:8px 24px; border-radius:999px; letter-spacing:1.2px;">
+  <div style="position:absolute; top:34px; left:48px; right:48px; text-align:center;">
+    <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(245,158,11,0.16); border:2px solid #F59E0B; color:#FDE047; font-weight:900; font-size:17px; padding:7px 22px; border-radius:999px; letter-spacing:1px;">
       <span>🎁 BÀI GHIM CHỦ LỰC • TẶNG MIỄN PHÍ 100% CHO CỘNG ĐỒNG AI PLAYERS</span>
     </div>
-    <div style="font-size:48px; font-weight:900; line-height:1.12; margin-top:14px; letter-spacing:-1px;">
+    <div style="font-size:39px; font-weight:900; line-height:1.12; margin-top:14px; letter-spacing:-0.8px; white-space:nowrap;">
       KHO VŨ KHÍ <span style="color:#87FF00;">10 SUBAGENT</span> &amp; <span style="color:#FBBF24;">50 SIÊU PROMPT</span>
     </div>
-    <div style="font-size:22px; font-weight:700; color:#CBD5E1; margin-top:8px;">
+    <div style="font-size:20px; font-weight:700; color:#CBD5E1; margin-top:8px; white-space:nowrap;">
       Đóng hộp sẵn quy trình tự động hóa 80% việc lặp cho Dân Văn Phòng, Creator &amp; Chủ Shop
     </div>
   </div>
 
   <!-- 3 Vertical Weapon Vault Cards -->
-  <div style="position:absolute; top:232px; left:48px; right:48px; height:570px; display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;">
+  <div style="position:absolute; top:206px; left:48px; right:48px; height:600px; display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;">
     <!-- Vault 01 -->
-    <div style="background:linear-gradient(180deg, rgba(16,24,44,0.95) 0%, rgba(9,14,26,0.98) 100%); border:3px solid #87FF00; border-radius:28px; padding:28px 24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(135,255,0,0.14);">
+    <div style="background:linear-gradient(180deg, rgba(16,24,44,0.95) 0%, rgba(9,14,26,0.98) 100%); border:3px solid #87FF00; border-radius:28px; padding:26px 22px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(135,255,0,0.14);">
       <div>
-        <div style="background:#87FF00; color:#050811; font-weight:900; font-size:18px; padding:7px 16px; border-radius:10px; display:inline-block;">GÓI #01 • MULTI-AGENT</div>
-        <div style="font-size:30px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Bộ 10 File Cấu Hình Subagent (.MD)</div>
-        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:19px; color:#E2E8F0; font-weight:700;">
+        <div style="background:#87FF00; color:#050811; font-weight:900; font-size:17px; padding:7px 14px; border-radius:10px; display:inline-block; white-space:nowrap;">GÓI #01 • MULTI-AGENT</div>
+        <div style="font-size:28px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Bộ 10 File Cấu Hình Subagent (.MD)</div>
+        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:18.5px; color:#E2E8F0; font-weight:700;">
           <div>✔ Mama Tổng Quản (Hard Gate ≥ 9.0)</div>
           <div>✔ MKT Săn Hàng &amp; Đào Bình Luận</div>
           <div>✔ Content Kịch Bản Hook 3 Giây</div>
@@ -146,11 +146,11 @@ body {{
     </div>
 
     <!-- Vault 02 -->
-    <div style="background:linear-gradient(180deg, rgba(28,20,46,0.95) 0%, rgba(13,9,24,0.98) 100%); border:3px solid #F59E0B; border-radius:28px; padding:28px 24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(245,158,11,0.18);">
+    <div style="background:linear-gradient(180deg, rgba(28,20,46,0.95) 0%, rgba(13,9,24,0.98) 100%); border:3px solid #F59E0B; border-radius:28px; padding:26px 22px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(245,158,11,0.18);">
       <div>
-        <div style="background:#F59E0B; color:#050811; font-weight:900; font-size:18px; padding:7px 16px; border-radius:10px; display:inline-block;">GÓI #02 • VĂN PHÒNG</div>
-        <div style="font-size:30px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Sổ Tay 50 Siêu Prompt Thực Chiến</div>
-        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:19px; color:#FEF3C7; font-weight:700;">
+        <div style="background:#F59E0B; color:#050811; font-weight:900; font-size:17px; padding:7px 14px; border-radius:10px; display:inline-block; white-space:nowrap;">GÓI #02 • VĂN PHÒNG</div>
+        <div style="font-size:28px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Sổ Tay 50 Siêu Prompt Thực Chiến</div>
+        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:18.5px; color:#FEF3C7; font-weight:700;">
           <div>✔ Tự viết hàm Excel/SQL 50.000 dòng</div>
           <div>✔ Tóm tắt cuộc họp → Bảng giao việc</div>
           <div>✔ Chuỗi Email B2B &amp; Xử lý từ chối</div>
@@ -163,11 +163,11 @@ body {{
     </div>
 
     <!-- Vault 03 -->
-    <div style="background:linear-gradient(180deg, rgba(12,30,44,0.95) 0%, rgba(7,16,26,0.98) 100%); border:3px solid #38BDF8; border-radius:28px; padding:28px 24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(56,189,248,0.15);">
+    <div style="background:linear-gradient(180deg, rgba(12,30,44,0.95) 0%, rgba(7,16,26,0.98) 100%); border:3px solid #38BDF8; border-radius:28px; padding:26px 22px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(56,189,248,0.15);">
       <div>
-        <div style="background:#38BDF8; color:#050811; font-weight:900; font-size:18px; padding:7px 16px; border-radius:10px; display:inline-block;">GÓI #03 • AUTOMATION</div>
-        <div style="font-size:30px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Sơ Đồ Hạ Tầng &amp; Bộ Não Thứ 2</div>
-        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:19px; color:#E0F2FE; font-weight:700;">
+        <div style="background:#38BDF8; color:#050811; font-weight:900; font-size:17px; padding:7px 14px; border-radius:10px; display:inline-block; white-space:nowrap;">GÓI #03 • AUTOMATION</div>
+        <div style="font-size:28px; font-weight:900; color:#FFFFFF; line-height:1.2; margin-top:16px;">Sơ Đồ Hạ Tầng &amp; Bộ Não Thứ 2</div>
+        <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px; font-size:18.5px; color:#E0F2FE; font-weight:700;">
           <div>✔ Cầu nối Telegram 2 chiều điều khiển</div>
           <div>✔ Chrome Bot chạy ngầm 100% không vướng</div>
           <div>✔ Kiến trúc Memory Vault chống quên</div>
@@ -181,14 +181,14 @@ body {{
   </div>
 
   <!-- Bottom Conversion Banner -->
-  <div style="position:absolute; bottom:44px; left:48px; right:48px; height:186px; background:linear-gradient(90deg, #87FF00 0%, #F59E0B 100%); border-radius:28px; padding:26px 38px; color:#050811; display:flex; justify-content:space-between; align-items:center; box-shadow:0 20px 50px rgba(135,255,0,0.28);">
+  <div style="position:absolute; bottom:42px; left:48px; right:48px; height:176px; background:linear-gradient(90deg, #87FF00 0%, #F59E0B 100%); border-radius:28px; padding:22px 34px; color:#050811; display:flex; justify-content:space-between; align-items:center; box-shadow:0 20px 50px rgba(135,255,0,0.28);">
     <div>
-      <div style="font-size:20px; font-weight:900; letter-spacing:0.8px; text-transform:uppercase;">⚡ CÁCH NHẬN TRỌN BỘ 3 GÓI TÀI LIỆU GỐC TRONG 5 GIÂY:</div>
-      <div style="font-size:33px; font-weight:900; line-height:1.18; margin-top:6px;">
-        Bấm vào Link Nhóm Zalo ở <span style="text-decoration:underline;">Bình Luận Đầu Tiên</span><br>hoặc gõ từ khóa <span style="background:#050811; color:#87FF00; padding:2px 14px; border-radius:10px;">KHOAI</span> bên dưới!
+      <div style="font-size:18px; font-weight:900; letter-spacing:0.6px; text-transform:uppercase; white-space:nowrap;">⚡ CÁCH NHẬN TRỌN BỘ 3 GÓI TÀI LIỆU GỐC TRONG 5 GIÂY:</div>
+      <div style="font-size:26.5px; font-weight:900; line-height:1.28; margin-top:6px;">
+        Bấm vào Link Nhóm Zalo ở <span style="text-decoration:underline;">Bình Luận Đầu Tiên</span><br>hoặc gõ từ khóa <span style="background:#050811; color:#87FF00; padding:2px 12px; border-radius:9px;">KHOAI</span> bên dưới!
       </div>
     </div>
-    <div style="background:#050811; color:#FFFFFF; font-weight:900; font-size:24px; padding:22px 30px; border-radius:20px; text-align:center; flex-shrink:0; border:3px solid #FFFFFF;">
+    <div style="background:#050811; color:#FFFFFF; font-weight:900; font-size:22px; padding:20px 26px; border-radius:20px; text-align:center; flex-shrink:0; border:3px solid #FFFFFF;">
       TẢI NGAY<br><span style="color:#87FF00;">DƯỚI CMT #1 👇</span>
     </div>
   </div>
