@@ -2,7 +2,7 @@
 // - Đồng bộ trực tiếp Đa Cuộc Trò Chuyện chuẩn Antigravity IDE (Thinking, Tool Calls, Markdown)
 // - Bấm vào nhân vật 3D để giao việc trực tiếp + Hàng đợi tuần tự (Queue #1, #2, #3...)
 // - Hiệu ứng truyền thông tin 3D (Mama <-> Subagent <-> Bộ Não Thứ 2) + Nhân vật đi bộ trò chuyện
-import { Office3D, QUALITY } from './scene/office3d.js';
+import { Office3D, QUALITY } from './scene/office3d.js?v=mob3';
 
 const TOKEN = document.querySelector('meta[name="office-token"]').content;
 const PROVIDER_LABEL = {
@@ -909,9 +909,9 @@ setInterval(syncZoomSlider, 800);
   const header = $('#chat-header');
   if (!panel) return;
 
-  // Khôi phục kích thước đã lưu
+  // Khôi phục kích thước đã lưu (chỉ áp dụng trên màn hình Desktop > 768px)
   try {
-    const saved = JSON.parse(localStorage.getItem('office.chatRect') || 'null');
+    const saved = window.innerWidth > 768 ? JSON.parse(localStorage.getItem('office.chatRect') || 'null') : null;
     if (saved) {
       if (saved.w) panel.style.width = `${ Math.min(window.innerWidth - 20, Math.max(420, saved.w)) }px`;
       if (saved.h) {
@@ -1080,6 +1080,61 @@ setInterval(syncZoomSlider, 800);
       window.addEventListener('pointerup', onUp);
     });
   }
+})();
+
+
+/* MOBILE_NAV_HANDLERS_V2 */
+(function initMobileControls() {
+  const bindHoldPan = (selector, dx, dz) => {
+    const btn = $(selector);
+    if (!btn) return;
+    let timer = null;
+    const step = () => office.panByScreen(dx, dz, 0.16);
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    btn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      step();
+      stop();
+      timer = setInterval(step, 140);
+    });
+    btn.addEventListener('pointerup', stop);
+    btn.addEventListener('pointercancel', stop);
+    btn.addEventListener('pointerleave', stop);
+  };
+
+  bindHoldPan('#mob-pan-up', 0, 1);
+  bindHoldPan('#mob-pan-down', 0, -1);
+  bindHoldPan('#mob-pan-left', -1, 0);
+  bindHoldPan('#mob-pan-right', 1, 0);
+
+  $('#mob-home')?.addEventListener('click', () => {
+    office.overview();
+    toast('🎯 Đã đưa camera về Toàn cảnh trung tâm');
+  });
+  $('#mob-zoom-in')?.addEventListener('click', () => {
+    office.zoomBy(0.75);
+    setTimeout(syncZoomSlider, 350);
+  });
+  $('#mob-zoom-out')?.addEventListener('click', () => {
+    office.zoomBy(1.3);
+    setTimeout(syncZoomSlider, 350);
+  });
+  $('#btn-hud-toggle')?.addEventListener('click', () => {
+    const mode = office.cycleHudMode();
+    const labelMap = {
+      auto: '🏷️ Nhãn 3D: Thu gọn thông minh',
+      minimal: '🏷️ Nhãn 3D: Chỉ hiện Agent đang bận',
+      hidden: '🏷️ Nhãn 3D: Đã ẩn toàn bộ để ngắm 3D',
+    };
+    toast(labelMap[mode] || 'Đã đổi chế độ nhãn 3D');
+  });
+  $('#btn-mob-convs')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const p = $('#panel');
+    if (!p) return;
+    const open = p.classList.toggle('mob-convs-open');
+    $('#btn-mob-convs').textContent = open ? '🔼 Thu gọn DS' : '📂 DS Chat';
+  });
 })();
 
 await office.init();

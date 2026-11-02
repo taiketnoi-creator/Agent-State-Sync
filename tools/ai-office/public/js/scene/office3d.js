@@ -1215,21 +1215,67 @@ export class Office3D {
     return this.controls.autoRotate;
   }
 
-  /** Đổi chế độ cầm nắm chuột trái: 'orbit' (Xoay 360°) | 'pan' (Cầm nắm kéo sàn) | 'move_dept' (Cầm nắm kéo phòng ban) */
+  /** Đổi chế độ cầm nắm chuột trái / cảm ứng 1 ngón: 'orbit' (Xoay 360°) | 'pan' (Cầm nắm kéo sàn) | 'move_dept' (Cầm nắm kéo phòng ban) */
   setNavMode(mode = 'orbit') {
     this.navMode = mode;
     if (mode === 'pan') {
       this.controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
       this.controls.mouseButtons.RIGHT = THREE.MOUSE.ROTATE;
+      if (this.controls.touches) {
+        this.controls.touches.ONE = THREE.TOUCH.PAN;
+        this.controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
+      }
     } else {
       this.controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
       this.controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
+      if (this.controls.touches) {
+        this.controls.touches.ONE = THREE.TOUCH.ROTATE;
+        this.controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
+      }
     }
     const el = this.renderer?.domElement;
     if (el) {
       el.style.cursor = mode === 'pan' ? 'grab' : mode === 'move_dept' ? 'move' : 'grab';
     }
     this.onCameraChange?.({ mode: this.navMode, autoRotate: this.controls.autoRotate });
+  }
+
+  /** Di chuyển (Pan) mặt sàn theo hướng màn hình (D-Pad Mobile: dx trái/phải, dz tiến/lùi) */
+  panByScreen(dx = 0, dz = 0, dur = 0.2) {
+    const forward = new THREE.Vector3();
+    this.camera.getWorldDirection(forward);
+    forward.y = 0;
+    if (forward.lengthSq() < 0.001) forward.set(0, 0, -1);
+    forward.normalize();
+    const right = new THREE.Vector3().crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+    const distScale = Math.max(1.1, this.camera.position.distanceTo(this.controls.target) * 0.13);
+    const delta = new THREE.Vector3()
+      .addScaledVector(right, dx * distScale)
+      .addScaledVector(forward, dz * distScale);
+    const halfW = FLOOR.w * 0.65, halfD = FLOOR.d * 0.65;
+    const nextTarget = this.controls.target.clone().add(delta);
+    nextTarget.x = Math.max(-halfW, Math.min(halfW, nextTarget.x));
+    nextTarget.z = Math.max(-halfD, Math.min(halfD, nextTarget.z));
+    const actualDelta = nextTarget.clone().sub(this.controls.target);
+    const nextPos = this.camera.position.clone().add(actualDelta);
+    if (dur <= 0.05) {
+      this.camera.position.copy(nextPos);
+      this.controls.target.copy(nextTarget);
+      this.controls.update();
+    } else {
+      this.animateCamera(nextPos, nextTarget, dur);
+    }
+  }
+
+  /** Chuyển đổi chế độ hiển thị nhãn tên 3D: 'auto' (Gọn) | 'minimal' (Chỉ hiện người bận) | 'hidden' (Ẩn hết) */
+  cycleHudMode() {
+    const order = ['auto', 'minimal', 'hidden'];
+    const cur = this.hudDisplayMode || 'auto';
+    this.hudDisplayMode = order[(order.indexOf(cur) + 1) % order.length];
+    if (this.hudLayer) {
+      this.hudLayer.dataset.hudMode = this.hudDisplayMode;
+    }
+    return this.hudDisplayMode;
   }
 
   /** Zoom mượt theo hệ số hoặc khoảng cách */
@@ -1459,7 +1505,7 @@ export class Office3D {
     this.composer?.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    const scale = this.camera.aspect < 1.25 ? Math.min(2.1, 1.25 / this.camera.aspect) : 1;
+    const scale = this.camera.aspect < 1.25 ? Math.min(1.58, 1.15 / this.camera.aspect) : 1;
     if (force || this.homeScale !== scale) {
       this.homeScale = scale;
       this.camera.position.copy(this.home.pos).multiplyScalar(scale).setY(this.home.pos.y * scale);
@@ -1598,8 +1644,9 @@ export class Office3D {
       items.push({ el, sx, sy, z: this._projVec.z });
     }
 
-    // Chống đè thẻ (Screen-space collision repulsion 3 vòng lặp)
-    const minW = 128, minH = 50;
+    // Chống đè thẻ (Screen-space collision repulsion: trên mobile thu gọn kích thước thẻ để không đẩy tràn màn hình)
+    const isMob = w <= 768;
+    const minW = isMob ? 64 : 128, minH = isMob ? 22 : 50;
     for (let iter = 0; iter < 3; iter++) {
       for (let i = 0; i < items.length; i++) {
         for (let j = i + 1; j < items.length; j++) {
