@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02 08:53:32",
+  "updated_at": "2026-11-02 10:37:19",
   "banned_filenames": [
     "sales-phongtro-1145-style02.jpg",
     "sales-phongtro-1145-style02.png",
@@ -163,7 +163,8 @@
     "ktx_06_ban_hoc_gap_gon_khe_ipad_bold.jpg",
     "deadline_04_gia_do_laptop_nhom_cnc_bold.jpg",
     "deadline_05_goi_tua_lung_cao_su_non_bold.jpg",
-    "deadline_06_dong_ho_pomodoro_xoay_bold.jpg"
+    "deadline_06_dong_ho_pomodoro_xoay_bold.jpg",
+    "master_funnel_hub_ai_players_2026.jpg"
   ],
   "published_sha256": {
     "951eced28fac51ede457cb253475602836e5da4ef09ffb249202e7a5bde1a6e4": "legacy_campaign:2026-10-20/ai-agent-vs-chatbot-45s.mp4",
@@ -350,7 +351,8 @@
     "48c431c49311e24c6670927a2f71ed086aff97a5f1b6b731b982c0308b00e8c7": "ktx_06_ban_hoc_gap_gon_khe_ipad_bold.jpg | page=1421270697727753 | post=122113440933511096 | 2026-11-02 08:52:56",
     "ca03ea7cde43150f4395743e446085751df94180b77fe1b937b6791950e18130": "deadline_04_gia_do_laptop_nhom_cnc_bold.jpg | page=1407231352464711 | post=122116442685502096 | 2026-11-02 08:53:08",
     "53ab7e3e407446d4266c930b24243c53c875acd468af8092b0115a591a35b058": "deadline_05_goi_tua_lung_cao_su_non_bold.jpg | page=1407231352464711 | post=122116442751502096 | 2026-11-02 08:53:21",
-    "95bdfa412dfbfb84dd02991326a40c3b3590841f880c22f26573a1e65eaf4780": "deadline_06_dong_ho_pomodoro_xoay_bold.jpg | page=1407231352464711 | post=122116442901502096 | 2026-11-02 08:53:32"
+    "95bdfa412dfbfb84dd02991326a40c3b3590841f880c22f26573a1e65eaf4780": "deadline_06_dong_ho_pomodoro_xoay_bold.jpg | page=1407231352464711 | post=122116442901502096 | 2026-11-02 08:53:32",
+    "37e0232fee4dd0ca79860e11ae1ca73ea502f2b210eaf79eee7635ecee3e3b83": "master_funnel_hub_ai_players_2026.jpg | page=1022527194267367 | post=1022527194267367_122134080099248983 | 2026-11-02 10:37:19"
   },
   "published_caption_fingerprints": {
     "bạn nên giao việc nào cho ai tự làm đầu tiên trong 4 việc trên": "page=1022527194267367 | id=1022527194267367_122133399219248983 | created=2026-10-26T14:45:01+0000",
@@ -466,6 +468,7 @@
     "ngồi trên giường ktx mà đặt laptop trực tiếp lên đùi hay lên chăn gối vừa l": "page=1421270697727753 | post=122113440933511096 | 2026-11-02 08:52:56",
     "đặt laptop thẳng trên mặt bàn văn phòng khiến bạn luôn phải cúi đầu 45 suốt": "page=1407231352464711 | post=122116442685502096 | 2026-11-02 08:53:08",
     "ghế xoay văn phòng thông thường luôn để lại một khoảng trống hẫng ngay vùng": "page=1407231352464711 | post=122116442751502096 | 2026-11-02 08:53:21",
-    "định cầm điện thoại lên bật hẹn giờ pomodoro 25 phút để tập trung làm việc ": "page=1407231352464711 | post=122116442901502096 | 2026-11-02 08:53:32"
+    "định cầm điện thoại lên bật hẹn giờ pomodoro 25 phút để tập trung làm việc ": "page=1407231352464711 | post=122116442901502096 | 2026-11-02 08:53:32",
+    "tặng miễn phí 100 kho vũ khí đóng hộp 2026 trọn bộ 10 subagent md sổ tay 50": "page=1022527194267367 | post=1022527194267367_122134080099248983 | 2026-11-02 10:37:19"
   }
 }

@@ -117,11 +117,16 @@ const wrap = (fn: (req: Request, res: Response) => unknown) => (req: Request, re
 };
 const id = (req: Request) => String(req.params.id);
 
-api.get('/state', wrap(() => ({
-  ...office.snapshot(),
-  providers: PROVIDERS,
-  conversations: listAllConversations(25),
-})));
+api.get('/state', wrap(() => {
+  const conversations = listAllConversations(25);
+  const activeConvDetail = conversations.length > 0 ? getConversationDetail(conversations[0].id) : null;
+  return {
+    ...office.snapshot(),
+    providers: PROVIDERS,
+    conversations,
+    activeConvDetail,
+  };
+}));
 
 // ---- Quản lý Đa Cuộc Trò Chuyện chuẩn Antigravity IDE
 api.get('/conversations', wrap(() => listAllConversations(30)));

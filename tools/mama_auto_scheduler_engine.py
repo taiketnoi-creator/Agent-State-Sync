@@ -385,6 +385,11 @@ def main():
     dup_actions = purge_duplicate_published_posts(pages)
     sched_actions = list(dup_actions) + ensure_daily_sales_posts_scheduled(pages)
     pin_actions = ensure_all_live_posts_have_pinned_comment(pages)
+    try:
+        from activate_mui3_mui4_growth_engine import run_auto_reply_and_icebreaker
+        pin_actions.extend(run_auto_reply_and_icebreaker(pages))
+    except Exception:
+        pass
 
     # 2. Thực thi tác vụ theo từng mốc giờ
     sent_by_child = False

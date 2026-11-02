@@ -2,7 +2,7 @@
 // - Đồng bộ trực tiếp Đa Cuộc Trò Chuyện chuẩn Antigravity IDE (Thinking, Tool Calls, Markdown)
 // - Bấm vào nhân vật 3D để giao việc trực tiếp + Hàng đợi tuần tự (Queue #1, #2, #3...)
 // - Hiệu ứng truyền thông tin 3D (Mama <-> Subagent <-> Bộ Não Thứ 2) + Nhân vật đi bộ trò chuyện
-import { Office3D, QUALITY } from './scene/office3d.js?v=mob3';
+import { Office3D, QUALITY } from './scene/office3d.js?v=mob4';
 
 const TOKEN = document.querySelector('meta[name="office-token"]').content;
 const PROVIDER_LABEL = {
@@ -372,17 +372,33 @@ $('#btn-new-conv').onclick = async () => {
 
 async function selectConversation(convId) {
   state.activeConvId = convId;
+  // Tự động đóng ngăn DS Chat trên mobile sau khi bấm chọn cuộc trò chuyện
+  $('#panel')?.classList.remove('mob-convs-open');
+  if ($('#btn-mob-convs')) $('#btn-mob-convs').textContent = '📂 DS Chat';
+
+  const cached = convDetailCache.get(convId);
+  if (cached) {
+    state.activeConvDetail = cached;
+    renderPanelHeaderAndQueue();
+    renderChatStream(true);
+  } else {
+    const log = $('#log');
+    if (log) log.innerHTML = `<div class="muted" style="text-align:center;margin:auto;padding:24px">⏳ Đang tải cuộc trò chuyện…</div>`;
+  }
   renderConversationSidebar();
   try {
     const detail = await api(`/conversations/${encodeURIComponent(convId)}`);
-    state.activeConvDetail = detail;
-    if (detail.agentId && agentById(detail.agentId)) {
-      selectedId = detail.agentId;
-      office.select(selectedId);
+    convDetailCache.set(convId, detail);
+    if (state.activeConvId === convId) {
+      state.activeConvDetail = detail;
+      if (detail.agentId && agentById(detail.agentId)) {
+        selectedId = detail.agentId;
+        office.select(selectedId);
+      }
+      renderPanelHeaderAndQueue();
+      renderChatStream(true);
+      renderConversationSidebar();
     }
-    renderPanelHeaderAndQueue();
-    renderChatStream();
-    renderConversationSidebar();
   } catch (e) {
     toast(e.message);
   }
@@ -503,11 +519,12 @@ $('#q-list').addEventListener('click', async (e) => {
   }
 });
 
-function renderChatStream() {
+function renderChatStream(forceScroll = false) {
   const log = $('#log');
   if (!log) return;
   const conv = state.activeConvDetail;
   if (!conv || !conv.steps || !conv.steps.length) {
+    renderChatStream._lastSig = `${conv?.id || 'none'}:empty`;
     log.innerHTML = `<div class="muted" style="text-align:center;margin:auto;padding:24px">
       Nhập tin nhắn bên dưới để bắt đầu trò chuyện.
     </div>`;
@@ -517,6 +534,13 @@ function renderChatStream() {
   // Chỉ hiển thị câu hỏi của User và câu trả lời sạch của Antigravity (ẩn toàn bộ bước trung gian thừa)
   const visibleSteps = conv.steps.filter(st => st.role === 'user' || (st.content && st.content.trim().length > 0));
   const lastStep = visibleSteps[visibleSteps.length - 1];
+  const streamSig = `${conv.id}:${visibleSteps.length}:${lastStep?.role || ''}:${(lastStep?.content || '').length}`;
+  if (!forceScroll && renderChatStream._lastSig === streamSig) {
+    return; // Không ghi đè DOM khi nội dung chưa đổi để bảo toàn vị trí cuộn cảm ứng trên Mobile
+  }
+  const wasNearBottom = (log.scrollHeight - log.scrollTop - log.clientHeight) < 140;
+  renderChatStream._lastSig = streamSig;
+
   const waitingIndicator = (lastStep && lastStep.role === 'user')
     ? `<div class="anti-msg-agent"><div class="anti-content" style="opacity:0.75;font-style:italic">⏳ Đang trả lời...</div></div>`
     : '';
@@ -531,7 +555,11 @@ function renderChatStream() {
         </div>`;
     }).join('') + waitingIndicator;
 
-  log.scrollTop = log.scrollHeight;
+  if (forceScroll || wasNearBottom) {
+    requestAnimationFrame(() => {
+      log.scrollTop = log.scrollHeight;
+    });
+  }
 }
 
 function renderPerms() {
@@ -571,10 +599,14 @@ async function sendTask() {
     panelTray.clear();
 
     // Hiển thị tức thì tin nhắn vừa gửi + trạng thái Đang trả lời (0ms delay)
-    if (state.activeConvDetail && Array.isArray(state.activeConvDetail.steps)) {
-      state.activeConvDetail.steps.push({ role: 'user', content: prompt, createdAt: new Date().toISOString() });
-      renderChatStream();
+    if (!state.activeConvDetail || state.activeConvDetail.id !== convId) {
+      state.activeConvDetail = { id: convId, title: prompt.slice(0, 60), steps: [] };
     }
+    if (!Array.isArray(state.activeConvDetail.steps)) {
+      state.activeConvDetail.steps = [];
+    }
+    state.activeConvDetail.steps.push({ role: 'user', content: prompt, createdAt: new Date().toISOString() });
+    renderChatStream(true);
 
     const res = await api(`/conversations/${encodeURIComponent(convId)}/messages`, 'POST', {
       agentId: targetAgent,
@@ -582,8 +614,9 @@ async function sendTask() {
       attachments: attIds,
     });
     if (res.conv) {
+      convDetailCache.set(res.conv.id, res.conv);
       state.activeConvDetail = res.conv;
-      renderChatStream();
+      renderChatStream(true);
     }
     await loadState();
   } catch (err) {
@@ -725,6 +758,8 @@ $('#btn-depts').onclick = () => {
 };
 
 // ---------------- Dữ liệu & WebSocket Real-time
+const convDetailCache = new Map();
+
 async function loadState() {
   const s = await api('/state');
   state.departments = s.departments || [];
@@ -733,15 +768,26 @@ async function loadState() {
   state.feed = s.feed || [];
   state.providers = s.providers || [];
   if (Array.isArray(s.conversations)) state.conversations = s.conversations;
+  if (s.activeConvDetail && s.activeConvDetail.id) {
+    convDetailCache.set(s.activeConvDetail.id, s.activeConvDetail);
+  }
 
-  office.setData(state.departments, state.agents);
+  if (office.scene) {
+    office.setData(state.departments, state.agents);
+  }
   if (!state.activeConvId && state.conversations.length) {
     state.activeConvId = state.conversations[0].id;
-    api(`/conversations/${encodeURIComponent(state.activeConvId)}`).then(d => {
-      state.activeConvDetail = d;
-      renderChatStream();
-      renderPanelHeaderAndQueue();
-    }).catch(() => {});
+    if (s.activeConvDetail && s.activeConvDetail.id === state.activeConvId) {
+      state.activeConvDetail = s.activeConvDetail;
+      renderChatStream(true);
+    } else {
+      api(`/conversations/${encodeURIComponent(state.activeConvId)}`).then(d => {
+        convDetailCache.set(d.id, d);
+        state.activeConvDetail = d;
+        renderChatStream(true);
+        renderPanelHeaderAndQueue();
+      }).catch(() => {});
+    }
   }
   renderHud();
   renderFeed();
@@ -1032,6 +1078,7 @@ setInterval(syncZoomSlider, 800);
   // Kéo thanh tiêu đề để di chuyển vị trí khung chat trên màn hình
   if (header) {
     header.addEventListener('pointerdown', (e) => {
+      if (window.innerWidth <= 768) return;
       if (e.target.closest('button, select, input')) return;
       const startX = e.clientX;
       const startY = e.clientY;
@@ -1135,9 +1182,46 @@ setInterval(syncZoomSlider, 800);
     const open = p.classList.toggle('mob-convs-open');
     $('#btn-mob-convs').textContent = open ? '🔼 Thu gọn DS' : '📂 DS Chat';
   });
+
+  // Đảm bảo nút Gửi (#p-send) trên Mobile phản hồi ngay lập tức khi chạm (không bị sự kiện đóng bàn phím ảo nuốt click)
+  const sendBtn = $('#p-send');
+  if (sendBtn) {
+    sendBtn.addEventListener('pointerdown', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        sendTask();
+      }
+    });
+  }
+
+  // Tự động co chiều cao #panel khớp với bàn phím ảo trên iPhone/Android (visualViewport)
+  const syncMobileViewport = () => {
+    const p = $('#panel');
+    if (!p || window.innerWidth > 768) return;
+    p.style.width = '';
+    p.style.left = '';
+    p.style.right = '';
+    p.style.bottom = '';
+    if (window.visualViewport) {
+      p.style.height = `${Math.round(window.visualViewport.height)}px`;
+      p.style.top = `${Math.round(window.visualViewport.offsetTop)}px`;
+    } else {
+      p.style.height = '';
+      p.style.top = '';
+    }
+  };
+  window.visualViewport?.addEventListener('resize', syncMobileViewport);
+  window.visualViewport?.addEventListener('scroll', syncMobileViewport);
+  window.addEventListener('resize', syncMobileViewport);
 })();
 
+// Tải dữ liệu Cuộc trò chuyện & kết nối WebSocket NGAY LẬP TỨC (song song với khởi tạo 3D, không bắt chờ 3D tải xong!)
+connect();
+loadState().catch(() => {});
+
 await office.init();
+if (state.departments.length || state.agents.length) {
+  office.setData(state.departments, state.agents);
+}
 renderQuality();
 window.__office = office;
-connect();

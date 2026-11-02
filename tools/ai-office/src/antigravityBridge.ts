@@ -229,23 +229,43 @@ function normalizePromptKey(s: string): string {
   return (s || '').trim().replace(/\s+/g, ' ').toLowerCase();
 }
 
+// RAM_TRANSCRIPT_CACHE_V1
+interface CachedTranscript {
+  mtimeMs: number;
+  size: number;
+  customSig: string;
+  fullConv: AntiConversation;
+}
+const transcriptRamCache = new Map<string, CachedTranscript>();
+
 export function parseAntigravityTranscript(convId: string, fullSteps = false, summaryRow?: SummaryRow): AntiConversation | null {
-  const fullLogPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript_full.jsonl');
   const compactLogPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript.jsonl');
-  const logPath = existsSync(fullLogPath) ? fullLogPath : compactLogPath;
+  const fullLogPath = join(BRAIN_DIR, convId, '.system_generated', 'logs', 'transcript_full.jsonl');
+  const logPath = existsSync(compactLogPath) ? compactLogPath : fullLogPath;
   const hasLog = existsSync(logPath);
   if (!hasLog && !summaryRow) return null;
 
   let mtimeMs = Date.now();
+  let fileSize = 0;
   if (summaryRow?.last_modified_time) {
     const parsedTs = Date.parse(summaryRow.last_modified_time);
     if (!isNaN(parsedTs)) mtimeMs = parsedTs;
   }
   if (hasLog) {
     try {
-      const fTime = statSync(logPath).mtimeMs;
-      if (fTime > mtimeMs) mtimeMs = fTime;
+      const stStat = statSync(logPath);
+      if (stStat.mtimeMs > mtimeMs) mtimeMs = stStat.mtimeMs;
+      fileSize = stStat.size;
     } catch {}
+  }
+
+  const stCheck = loadState();
+  const cStepsCheck = stCheck.customSteps[convId] ?? [];
+  const customSig = `${cStepsCheck.length}:${cStepsCheck[cStepsCheck.length - 1]?.createdAt || ''}:${summaryRow?.status || ''}:${summaryRow?.title || ''}`;
+  const cached = transcriptRamCache.get(convId);
+  if (cached && cached.mtimeMs === mtimeMs && cached.size === fileSize && cached.customSig === customSig) {
+    if (fullSteps) return cached.fullConv;
+    return { ...cached.fullConv, steps: undefined };
   }
 
   // Gom các bước PLANNER_RESPONSE liên tiếp trong cùng 1 lượt (turn) thành 1 câu trả lời duy nhất giống hệt Antigravity IDE
@@ -369,7 +389,7 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
   const officialTitle = summaryRow?.title || state.titleOverrides[convId] || firstUserPrompt || `Cuộc trò chuyện ${convId.slice(0, 6)}`;
   const projectFolder = summaryRow ? extractFolderName(summaryRow.workspace_uris) : 'Subagent';
 
-  return {
+  const fullConvObj: AntiConversation = {
     id: convId,
     title: officialTitle.replace(/\s+/g, ' ').trim(),
     projectFolder,
@@ -384,8 +404,10 @@ export function parseAntigravityTranscript(convId: string, fullSteps = false, su
     source: 'antigravity-ide',
     updatedAt: mtimeMs,
     stepCount: allSteps.length || summaryRow?.step_count || 0,
-    steps: fullSteps ? allSteps.slice(-60) : undefined,
+    steps: allSteps.slice(-60),
   };
+  transcriptRamCache.set(convId, { mtimeMs, size: fileSize, customSig, fullConv: fullConvObj });
+  return fullSteps ? fullConvObj : { ...fullConvObj, steps: undefined };
 }
 
 export function listAllConversations(limit = 25): AntiConversation[] {
