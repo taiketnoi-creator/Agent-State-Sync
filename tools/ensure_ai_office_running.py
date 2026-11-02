@@ -89,11 +89,10 @@ def ensure_patches_applied() -> None:
 
 def start_office_server_if_needed() -> bool:
     """Khởi chạy máy chủ Văn Phòng Ảo 3D ở cổng 4800 nếu chưa chạy. Trả về True nếu vừa khởi động mới."""
-    if is_port_open(PORT):
-        return False
-
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     ensure_patches_applied()
+    if is_port_open(PORT):
+        return False
 
     node_exe = find_node_exe()
     tsx_cli = OFFICE_DIR / "node_modules" / "tsx" / "dist" / "cli.mjs"
