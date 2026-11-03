@@ -1,0 +1,113 @@
+{
+  "shift": 1,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS",
+  "total_likes": 7,
+  "total_comments": 1,
+  "total_shares": 2,
+  "total_groups_joined": 3,
+  "total_videos_interacted": 5,
+  "horizontal_videos_interacted": 2,
+  "vertical_videos_interacted": 3,
+  "details": [
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu - Decor & Mẹo Phòng Trọ",
+      "likes": 5,
+      "comments": 0,
+      "shares": 1,
+      "groups_joined": 2,
+      "video_horizontal": 1,
+      "video_vertical": 3,
+      "videos_total": 4,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 122,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 383
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 56,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 284
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 924,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 1836
+        }
+      ],
+      "screenshots": []
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến - Sinh Viên & Đời Sống KTX",
+      "likes": 2,
+      "comments": 1,
+      "shares": 1,
+      "groups_joined": 1,
+      "video_horizontal": 1,
+      "video_vertical": 0,
+      "videos_total": 1,
+      "top_scored_samples": [
+        {
+          "rank": 1,
+          "videoType": "post",
+          "likes": 3,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 205
+        },
+        {
+          "rank": 2,
+          "videoType": "post",
+          "likes": 3,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 205
+        },
+        {
+          "rank": 1,
+          "videoType": "video_horizontal",
+          "likes": 12000,
+          "comments": 0,
+          "views": 0,
+          "fresh": false,
+          "hotScore": 16400
+        }
+      ],
+      "screenshots": [
+        "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-11-01\\highvol_ktx_video_horizontal_1.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "F:\\Ai Agent Setup\\SubAgent\\Subagent\\campaigns\\daily-reports\\2026-11-01\\highvol_ktx_video_horizontal_1.png"
+  ],
+  "status": "OK",
+  "bot_chrome_auto_closed": {
+    "closed_via_cdp": true,
+    "terminated_bot_pids": [
+      18908,
+      16812,
+      10608,
+      14220,
+      8612,
+      22876
+    ],
+    "port_9222_still_open": false
+  }
+}
