@@ -2,7 +2,7 @@
 // - Đồng bộ trực tiếp Đa Cuộc Trò Chuyện chuẩn Antigravity IDE (Thinking, Tool Calls, Markdown)
 // - Bấm vào nhân vật 3D để giao việc trực tiếp + Hàng đợi tuần tự (Queue #1, #2, #3...)
 // - Hiệu ứng truyền thông tin 3D (Mama <-> Subagent <-> Bộ Não Thứ 2) + Nhân vật đi bộ trò chuyện
-import { Office3D, QUALITY } from './scene/office3d.js?v=mob4';
+import { Office3D, QUALITY } from './scene/office3d.js?v=mob5';
 
 const TOKEN = document.querySelector('meta[name="office-token"]').content;
 const PROVIDER_LABEL = {

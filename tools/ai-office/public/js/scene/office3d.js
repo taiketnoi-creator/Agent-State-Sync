@@ -12,7 +12,7 @@ import { MAT, PALETTE, blobShadow, poolMaterial, rugMaterial } from './materials
 import { floorTiles, skylinePanorama, floorLabel, pillLabel, agentOverheadTag, speechBubbleTag, ScreenBank } from './textures.js';
 import { rbox, mesh, rng, mergeStatic, disposeTree, roundedRectShape, markDynamic } from './util.js';
 import * as F from './furniture.js';
-import { Person } from './people.js';
+import { Person } from './people.js?v=mob5';
 import { MixamoLibrary } from './mixamo.js';
 import { Assets } from './assets.js';
 import { NavGrid } from './nav.js';
@@ -817,6 +817,7 @@ export class Office3D {
       'content': 'Content',
       'edit': 'Edit',
       'edit-2': 'Edit-2',
+      'edit-3': 'Edit-3',
       'voice': 'Voice',
       'content-da-kenh': 'Đa Kênh',
       'quan-ly-kenh': 'QL Kênh',

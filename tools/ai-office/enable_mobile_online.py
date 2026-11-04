@@ -667,15 +667,15 @@ def patch_index_html():
 """
         s = s[:idx1] + new_mobile_css + s[idx2:]
 
-    # Bust JS cache with ?v=mob4
-    s = s.replace('/js/main.js?v=mob3', '/js/main.js?v=mob4').replace('/js/main.js"', '/js/main.js?v=mob4"')
+    # Bust JS cache with ?v=mob5
+    s = s.replace('/js/main.js?v=mob3', '/js/main.js?v=mob5').replace('/js/main.js"', '/js/main.js?v=mob5"')
     INDEX_HTML.write_text(s, encoding="utf-8")
     print("Patched index.html (v=mob4)")
 
 
 def patch_main_js():
     s = MAIN_JS.read_text(encoding="utf-8").replace("\r\n", "\n")
-    s = s.replace("from './scene/office3d.js?v=mob3';", "from './scene/office3d.js?v=mob4';").replace("from './scene/office3d.js';", "from './scene/office3d.js?v=mob4';")
+    s = s.replace("from './scene/office3d.js?v=mob3';", "from './scene/office3d.js?v=mob5';").replace("from './scene/office3d.js';", "from './scene/office3d.js?v=mob5';")
 
     # 1. Add client-side convDetailCache & use activeConvDetail bundled in /api/state for 0ms chat opening
     old_load_state = """async function loadState() {

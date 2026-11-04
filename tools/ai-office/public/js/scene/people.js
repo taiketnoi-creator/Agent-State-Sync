@@ -66,6 +66,7 @@ const AGENT_SHIRT_OVERRIDE = {
   'content': '#8b5cf6',
   'edit': '#ec4899',
   'edit-2': '#f43f5e',
+  'edit-3': '#a855f7',
   'voice': '#d946ef',
   'content-da-kenh': '#f59e0b',
   'quan-ly-kenh': '#eab308',

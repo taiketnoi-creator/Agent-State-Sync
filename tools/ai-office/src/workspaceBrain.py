@@ -140,6 +140,7 @@ def generate_response(agent_id: str, agent_name: str, prompt: str) -> str:
         "content": "content.md",
         "edit": "edit.md",
         "edit-2": "edit-2.md",
+        "edit-3": "edit-3.md",
         "voice": "voice.md",
         "content-da-kenh": "content-da-kenh.md",
         "quan-ly-kenh": "quan-ly-kenh.md",
