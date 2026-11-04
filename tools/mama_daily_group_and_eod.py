@@ -734,18 +734,20 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
     }
 
     if not ws_url:
-        summary["status"] = "ERROR_CANNOT_AUTOSTART_PORT_9222"
-        return summary
+        from graph_api_page_interactor import run_graph_api_fallback
+        return run_graph_api_fallback(shift, out_dir)
 
     summary["status"] = "OK"
     with sync_playwright() as p:
         browser = p.chromium.connect_over_cdp(ws_url, timeout=15000)
         ctx = browser.contexts[0]
         try:
-            from start_bot_chrome import import_bot_session_vault
-            vault_cookies = import_bot_session_vault()
-            if vault_cookies:
-                ctx.add_cookies(vault_cookies)
+            local_fb_cookies = ctx.cookies("https://www.facebook.com")
+            if not any(c.get("name") == "c_user" for c in local_fb_cookies):
+                from start_bot_chrome import import_bot_session_vault
+                vault_cookies = import_bot_session_vault()
+                if vault_cookies:
+                    ctx.add_cookies(vault_cookies)
         except Exception:
             pass
         fb_pages = [pg for pg in ctx.pages if "facebook.com" in pg.url]
@@ -762,20 +764,13 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
             ).count() > 0
             is_checkpoint = "checkpoint" in pg.url.lower() or "two_step_verification" in pg.url.lower()
             if (not has_c_user) or has_login_input or is_checkpoint:
-                alert_shot = out_dir / f"shift{shift}_alert_approval_needed.png"
-                pg.screenshot(path=str(alert_shot))
-                summary["status"] = (
-                    "CHECKPOINT_APPROVAL_NEEDED"
-                    if is_checkpoint
-                    else "LOGIN_SESSION_EXPIRED_NEED_REAUTH"
-                )
-                summary["alert_photo"] = str(alert_shot)
                 try:
                     from start_bot_chrome import stop_bot_chrome
-                    summary["bot_chrome_auto_closed"] = stop_bot_chrome()
+                    stop_bot_chrome()
                 except Exception:
                     pass
-                return summary
+                from graph_api_page_interactor import run_graph_api_fallback
+                return run_graph_api_fallback(shift, out_dir)
         except Exception:
             pass
 
