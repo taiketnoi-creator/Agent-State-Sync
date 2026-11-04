@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-zero_repost_gate.py — Cổng Khóa Cứng Chống Đăng Lặp Bài Cũ / Ảnh Cũ / Video Cũ (Zero-Repost Firewall)
-và Cổng Khóa Cứng Chống Nhân Bản Bố Cục Video (`verify_zero_clone_tsx`).
+zero_repost_gate.py — Cổng Khóa Cứng Chống Đăng Lặp Bài Cũ / Ảnh Cũ / Video Cũ (Zero-Repost Firewall),
+Cổng Khóa Cứng Chống Nhân Bản Bố Cục Video (`verify_zero_clone_tsx`),
+và Cổng Khóa Cứng Chống Video Slide Tĩnh (`verify_video_has_real_motion`).
 """
 
 import argparse
 import hashlib
 import json
 import re
+import shutil
 import ssl
+import subprocess
 import sys
+import tempfile
 import urllib.parse
 import urllib.request
 from datetime import datetime
@@ -22,6 +26,7 @@ if hasattr(sys.stdout, "reconfigure"):
 SUBAGENT_DIR = Path(__file__).resolve().parent.parent
 REGISTRY_PATH = SUBAGENT_DIR / "campaigns" / "daily-reports" / "published_history_registry.json"
 VAULT_PATH = Path.home() / ".codex" / "mcp" / "facebook-mcp-server" / "pages_vault.json"
+FFMPEG_EXE = shutil.which("ffmpeg") or "ffmpeg"
 
 FOUR_PAGE_IDS = [
     "1022527194267367",  # AI Players - Người chơi hệ AI
@@ -60,6 +65,12 @@ PERMANENT_BANNED_FILENAMES = [
     "day1_img4_1845_khobau.png",
     "day1_img5_2015_hethong.png",
     "day1_img6_2145_poll.png",
+    "reel_01_6_subagent_ca_nhan.mp4",
+    "reel_02_5_subagent_doanh_nghiep.mp4",
+    "reel_03_dich_vu_xay_subagent_tron_goi.mp4",
+    "reel_04_subagent_thu_ky_hop_247.mp4",
+    "reel_05_subagent_quet_khach_b2b.mp4",
+    "reel_06_lo_trinh_7_ngay_ban_giao.mp4",
 ]
 
 
@@ -85,6 +96,61 @@ def compute_file_sha256(file_path: Path) -> str:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def verify_video_has_real_motion(mp4_path: Path | str, min_mean_pixel_diff: float = 0.35) -> tuple[bool, str]:
+    """
+    Cổng Khóa Cứng Chống Video Slide Tĩnh (`BANNED-13 — Anti-Static-Slide Video Gate`):
+    Trích xuất các cặp khung hình cách nhau 1.0 giây ở bên trong Scene 1 (`1.2s` vs `2.2s`)
+    và Scene 2 (`8.5s` vs `9.5s`).
+    - Nếu video được ghép từ ảnh tĩnh (`ffmpeg -loop 1 -i scene_X.jpg`), độ lệch pixel trung bình giữa
+      2 khung hình trong cùng 1 cảnh sẽ bằng `0.0` (hoặc `< 0.1` do nén MP4).
+    - Nếu video được render bằng Remotion 30fps thật (có floating orbs, SVG radar/laser quay, spring animations,
+      sliding karaoke subtitle), độ lệch pixel luôn `>= 0.35` trên thang `0..255`.
+    """
+    p = Path(mp4_path)
+    if not p.exists() or not p.is_file():
+        return False, f"Không tìm thấy file video: {p}"
+
+    from PIL import Image, ImageChops, ImageStat
+
+    pairs = [("1.2", "2.2"), ("8.5", "9.5")]
+    pair_diffs = []
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        for idx, (t1, t2) in enumerate(pairs):
+            f1 = tmp_path / f"p{idx}_1.jpg"
+            f2 = tmp_path / f"p{idx}_2.jpg"
+            subprocess.run(
+                [FFMPEG_EXE, "-y", "-ss", t1, "-i", str(p), "-frames:v", "1", "-q:v", "2", str(f1)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            subprocess.run(
+                [FFMPEG_EXE, "-y", "-ss", t2, "-i", str(p), "-frames:v", "1", "-q:v", "2", str(f2)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            if not f1.exists() or not f2.exists():
+                continue
+            with Image.open(f1) as im1, Image.open(f2) as im2:
+                diff_im = ImageChops.difference(im1.convert("RGB"), im2.convert("RGB"))
+                stat = ImageStat.Stat(diff_im)
+                mean_diff = sum(stat.mean) / 3.0
+                pair_diffs.append(mean_diff)
+
+    if not pair_diffs:
+        return False, f"CHẶN CỨNG [Video Motion Gate]: Không thể trích xuất khung hình kiểm định từ `{p.name}`!"
+
+    min_diff = min(pair_diffs)
+    if min_diff < min_mean_pixel_diff:
+        return (
+            False,
+            f"CHẶN CỨNG [BANNED-13 Anti-Static-Slide Gate]: File `{p.name}` bị đứng hình tĩnh (mean_pixel_diff={min_diff:.3f} < {min_mean_pixel_diff})! Nghiêm cấm ghép ảnh tĩnh bằng `ffmpeg -loop 1`; bắt buộc render bằng Remotion 30fps có chuyển động thật!",
+        )
+
+    return True, f"PASSED Real Motion 30fps Gate (`{p.name}` mean_pixel_diff={min_diff:.2f})"
 
 
 def load_registry() -> dict:
@@ -166,8 +232,12 @@ def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: s
     if media_path:
         p = Path(media_path)
         if p.name in reg.get("banned_filenames", []):
-            return False, f"CHẶN CỨNG [Zero-Repost]: File '{p.name}' nằm trong danh sách media cũ đã từng đăng!"
+            return False, f"CHẶN CỨNG [Zero-Repost]: File '{p.name}' nằm trong danh sách media cũ/bị cấm!"
         if p.exists():
+            if p.suffix.lower() == ".mp4":
+                ok_motion, msg_motion = verify_video_has_real_motion(p)
+                if not ok_motion:
+                    return False, msg_motion
             sha = compute_file_sha256(p)
             if sha and sha in reg.get("published_sha256", {}):
                 prev_info = reg["published_sha256"][sha]
@@ -379,7 +449,6 @@ def verify_zero_clone_images(image_dir: Path | str | None = None, max_similarity
         small = im.convert("RGB").resize((64, 64), Image.Resampling.BILINEAR)
         px = small.load()
         sig = []
-        # 8x8 zones, each zone is 8x8 pixels in the 64x64 thumbnail
         for gy in range(8):
             for gx in range(8):
                 r_sum = g_sum = b_sum = 0
@@ -425,7 +494,6 @@ def verify_zero_clone_images(image_dir: Path | str | None = None, max_similarity
         name_a, sig_a = signatures[i]
         for j in range(i + 1, len(signatures)):
             name_b, sig_b = signatures[j]
-            # Count matching non-DARK zones vs total active zones
             active_zones = 0
             matching_active = 0
             for za, zb in zip(sig_a, sig_b):
@@ -449,6 +517,7 @@ def main():
     parser.add_argument("--sync", action="store_true", help="Quét Graph API & kho cũ để khóa sổ Zero-Repost")
     parser.add_argument("--check-zero-clone", action="store_true", help="Kiểm tra cứng cấu trúc Zero-Clone của toàn bộ Reel Compositions")
     parser.add_argument("--check-zero-clone-images", type=str, nargs="?", const="", help="Kiểm tra cứng Zero-Clone cho thư mục ảnh bài đăng")
+    parser.add_argument("--check-video-motion", type=str, help="Kiểm tra cứng chuyển động 30fps thật của file video MP4")
     args = parser.parse_args()
 
     if args.check_zero_clone:
@@ -459,6 +528,11 @@ def main():
     if args.check_zero_clone_images is not None:
         target_dir = args.check_zero_clone_images if args.check_zero_clone_images else None
         ok, msg = verify_zero_clone_images(target_dir)
+        print(("✅ " if ok else "❌ ") + msg)
+        sys.exit(0 if ok else 1)
+
+    if args.check_video_motion:
+        ok, msg = verify_video_has_real_motion(args.check_video_motion)
         print(("✅ " if ok else "❌ ") + msg)
         sys.exit(0 if ok else 1)
 

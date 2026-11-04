@@ -14,7 +14,7 @@ Thực thi LUẬT #10 của CEO (2026-10-30):
      để khóa cứng, ngăn chặn tuyệt đối việc dùng lại bộ nhớ cũ.
 2. KIỂM DUYỆT TRƯỚC & SAU THỰC THI (`--audit --agent <name> --text <brief_or_output>`):
    - Đối chiếu mọi nhiệm vụ `mama` giao xuống và mọi sản phẩm của các Agent với `ACTIVE-RULES-MANIFEST.json`.
-   - Phát hiện tức thời nếu bất kỳ Agent nào sử dụng bộ nhớ cũ (`banned_stale_memories`) -> CHẶN CỨNG (`REJECTED_BY_SECOND_BRAIN`).
+   - Phát hiện tức thời nếu bất kỳ Agent nào sử dụng bộ nhớ cũ (`banned_stale_memories`) hoặc ghép ảnh slide tĩnh bằng `ffmpeg -loop 1` -> CHẶN CỨNG (`REJECTED_BY_SECOND_BRAIN`).
    - Cấp chứng nhận `APPROVED_BY_SECOND_BRAIN` khi đạt 100% quy chuẩn mới nhất để `mama` báo cáo cuối cùng cho CEO.
 """
 
@@ -80,6 +80,11 @@ DEFAULT_BANNED_STALE_PATTERNS = [
         "pattern": r"taskkill\s+/f\s+/im\s+chrome\.exe|Stop-Process\s+-Name\s+chrome",
         "reason": "VI PHẠM LUẬT CỨNG #6: Cấm tuyệt đối dùng taskkill đóng Chrome làm việc của CEO.",
         "agents": ["all"],
+    },
+    {
+        "pattern": r"render_scene_vertical_html|build_ai_players_subagent_agency_reels|-loop\s+1[^\n]*scene_|SCENE\s+0[1-6]/06|TRỌNG\s+TÂM\s+01|THUYẾT\s+MINH\s+THỰC\s+CHIẾN",
+        "reason": "VI PHẠM NGHIÊM TRỌNG LUẬT #2 & #10 (BANNED-13): Cấm tuyệt đối ghép ảnh tĩnh (.jpg/.png) bằng ffmpeg -loop 1 hoặc dùng khung slide tĩnh nhân bản (SCENE 0X/06, TRỌNG TÂM 01/02, THUYẾT MINH THỰC CHIẾN) làm Video Reel! 100% Video Reel trên AI Players bắt buộc render bằng Remotion 30fps có chuyển động thật và qua cổng verify_zero_clone_tsx() + verify_video_has_real_motion()!",
+        "agents": ["all", "edit", "quan-ly-kenh", "mama"],
     },
 ]
 
@@ -223,28 +228,48 @@ def audit_task_or_output(agent_name: str, text_or_path: str) -> dict:
     """
     Chốt Kiểm Duyệt Bắt Buộc Của Bộ Não Thứ 2 (`Pre-Execution & Final Compliance Gate`):
     - Kiểm tra nội dung giao việc hoặc kết quả của Agent xem có vi phạm quy tắc mới hoặc dùng lại bộ nhớ cũ không.
+    - Nếu đầu vào là đường dẫn tới file `.mp4`, tự động gọi `verify_video_has_real_motion()` để chặn đứng video slide tĩnh!
     """
     content = text_or_path
     p = Path(text_or_path)
+    violations = []
+
     if p.exists() and p.is_file():
-        try:
-            content = p.read_text(encoding="utf-8", errors="ignore")
-        except Exception:
-            pass
+        if p.suffix.lower() == ".mp4":
+            try:
+                sys.path.insert(0, str(Path(__file__).resolve().parent))
+                from zero_repost_gate import verify_video_has_real_motion
+                ok_motion, msg_motion = verify_video_has_real_motion(p)
+                if not ok_motion:
+                    violations.append(msg_motion)
+            except Exception as e:
+                violations.append(f"Lỗi kiểm định chuyển động video MP4: {e}")
+        else:
+            try:
+                content = p.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                pass
 
     manifest = load_json_safe(MANIFEST_FILE, {})
-    violations = []
 
     for rule in DEFAULT_BANNED_STALE_PATTERNS:
         target_agents = rule.get("agents", ["all"])
         if "all" in target_agents or agent_name in target_agents:
             if re.search(rule["pattern"], content, re.IGNORECASE):
-                violations.append(rule["reason"])
+                if rule["reason"] not in violations:
+                    violations.append(rule["reason"])
 
     for stale_kw in manifest.get("banned_stale_memories", []):
         if isinstance(stale_kw, dict):
-            pat = stale_kw.get("pattern") or stale_kw.get("keyword", "")
-            reason = stale_kw.get("reason", f"Phát hiện mẫu bộ nhớ cũ bị cấm: {pat}")
+            raw_regex = stale_kw.get("pattern")
+            kw = stale_kw.get("keyword", "")
+            reason = stale_kw.get("reason", f"Phát hiện mẫu bộ nhớ cũ bị cấm: {kw}")
+            if raw_regex:
+                if re.search(raw_regex, content, re.IGNORECASE):
+                    if reason not in violations:
+                        violations.append(reason)
+                continue
+            pat = kw
         else:
             pat = str(stale_kw)
             reason = f"Phát hiện mẫu bộ nhớ cũ bị cấm: {pat}"

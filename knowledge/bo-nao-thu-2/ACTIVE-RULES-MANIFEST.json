@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Agent Javis Active Rules & Stale Memories Manifest",
   "description": "Bảng quy tắc sống và danh mục bộ nhớ cũ bị cấm tuyệt đối do Bộ não thứ 2 (bo-nao-thu-2) quản lý theo lệnh tối cao của CEO ngày 2026-10-30.",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "updated_at": "2026-11-04T10:50:00+07:00",
   "owner": "bo-nao-thu-2",
   "gatekeeper_status": "ENFORCING",
@@ -379,6 +379,21 @@
       ],
       "reason": "CEO đã khóa cứng ngày 2026-11-04: Page AI Players chuyển 100% sang tuyến Subagent Cá nhân & Doanh nghiệp toàn diện, nhận tạo đội ngũ Subagent may đo trọn gói.",
       "replacement": "Mọi bài Ảnh 1:1 và Video Reel 9:16 trên AI Players phải minh họa sức mạnh của Đội ngũ Subagent Cá nhân/Doanh nghiệp và dẫn phễu Dịch vụ Xây dựng Đội ngũ Subagent trọn gói + Cộng đồng Zalo VIP."
+    },
+    {
+      "pattern_id": "BANNED-13",
+      "keyword": "render_scene_vertical_html",
+      "pattern": "render_scene_vertical_html|build_ai_players_subagent_agency_reels|-loop\\s+1[^\\n]*scene_|SCENE\\s+0[1-6]/06|TRỌNG\\s+TÂM\\s+01|THUYẾT\\s+MINH\\s+THỰC\\s+CHIẾN",
+      "forbidden_elements": [
+        "build_ai_players_subagent_agency_reels.py",
+        "render_scene_vertical_html",
+        "ffmpeg -loop 1 -i scene_X.jpg",
+        "SCENE 01/06 .. SCENE 06/06",
+        "TRỌNG TÂM 01 / TRỌNG TÂM 02",
+        "THUYẾT MINH THỰC CHIẾN"
+      ],
+      "reason": "VI PHẠM NGHIÊM TRỌNG LUẬT #2 & #10 (BANNED-13): Cấm tuyệt đối ghép ảnh slide tĩnh bằng ffmpeg -loop 1 hoặc dùng khung SCENE 0X/06 + TRỌNG TÂM 01/02 + THUYẾT MINH THỰC CHIẾN làm Video Reel! 100% Video Reel trên Page AI Players bắt buộc render bằng Remotion 30fps có chuyển động thật và qua cổng verify_zero_clone_tsx() + verify_video_has_real_motion()!",
+      "replacement": "Kết xuất 100% bằng Remotion 30fps (templates/remotion-cuongit-template) với chuyển động spring/interpolate liên tục, phụ đề Karaoke 1 dòng (SubtitleBox), qua cổng verify_zero_clone_tsx() và verify_video_has_real_motion()."
     }
   ]
 }
