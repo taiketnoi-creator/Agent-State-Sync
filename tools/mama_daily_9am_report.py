@@ -192,34 +192,35 @@ def fetch_page_metrics(page_cfg: dict, token: str, now_utc: dt.datetime) -> dict
 
             cmts = post.get("comments", {}).get("data", [])
             has_page_pin = False
-            pin_cnt_this_post = 0
+            page_self_cmts_this_post = 0
+            real_user_cmts_this_post = 0
             for c in cmts:
                 from_id = str(c.get("from", {}).get("id", ""))
+                from_name = (c.get("from", {}).get("name") or "").strip()
                 c_msg = (c.get("message") or "").strip()
-                is_pin = (
-                    c_msg.startswith("📌")
-                    or c_msg.startswith("👇")
-                    or "http://" in c_msg.lower()
-                    or "https://" in c_msg.lower()
-                    or (from_id == pid and not has_page_pin)
+                is_page_self = (
+                    from_id == pid
+                    or from_name.lower() == page_cfg["name"].lower()
+                    or c_msg.startswith("📌")
                 )
-                if is_pin and not has_page_pin:
+                if is_page_self:
                     metrics["page_comments_count"] += 1
+                    page_self_cmts_this_post += 1
                     has_page_pin = True
-                    pin_cnt_this_post = 1
                 else:
-                    from_name = c.get("from", {}).get("name", "Khán giả")
+                    real_user_cmts_this_post += 1
+                    disp_name = from_name or "Khán giả"
                     if len(metrics["user_comments_samples"]) < 5 and c_msg:
-                        metrics["user_comments_samples"].append(f"{from_name}: \"{c_msg[:60]}\"")
+                        metrics["user_comments_samples"].append(f"{disp_name}: \"{c_msg[:60]}\"")
 
             summary_cnt = post.get("comments", {}).get("summary", {}).get("total_count", 0)
             total_c_sum = max(len(cmts), summary_cnt)
-            if total_c_sum >= 1 and not has_page_pin:
+            if total_c_sum >= 1 and not has_page_pin and len(cmts) == 0:
                 has_page_pin = True
-                pin_cnt_this_post = 1
+                page_self_cmts_this_post = 1
                 metrics["page_comments_count"] += 1
 
-            metrics["user_comments_count"] += max(0, total_c_sum - pin_cnt_this_post)
+            metrics["user_comments_count"] += real_user_cmts_this_post
             if is_24h and (has_page_pin or total_c_sum >= 1):
                 metrics["posts_with_pinned_cmt"] += 1
     except Exception as e:

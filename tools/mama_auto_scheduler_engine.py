@@ -397,22 +397,35 @@ def main():
         subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_9am_report.py"), "--quiet"])
         sent_by_child = True
 
-    if args.mode in ("shift1-1200", "shift2-1730", "shift3-2030"):
-        shift_map = {"shift1-1200": (1, 12, 0), "shift2-1730": (2, 17, 30), "shift3-2030": (3, 20, 30)}
-        s_num, s_hour, s_min = shift_map[args.mode]
-        res_file = REPORTS_DIR / today_str / f"shift{s_num}_result.json"
-        already_done = False
-        if res_file.exists():
-            try:
-                rdata = json.loads(res_file.read_text(encoding="utf-8"))
-                if rdata.get("total_likes", 0) > 0 or rdata.get("total_comments", 0) > 0:
-                    already_done = True
-            except Exception:
-                pass
+    # Tự động kiểm tra chạy đúng ca hoặc chạy bù ca tương tác Group & Reels nếu máy bật muộn trong ngày
+    shift_schedule = [(1, 12, 0, "shift1-1200"), (2, 17, 30, "shift2-1730"), (3, 20, 30, "shift3-2030")]
+    now_minutes = now_vn.hour * 60 + now_vn.minute
+    shifts_to_run = []
+    for s_num, s_hour, s_min, s_mode in shift_schedule:
         sched_minutes = s_hour * 60 + s_min
-        now_minutes = now_vn.hour * 60 + now_vn.minute
-        if not already_done and abs(now_minutes - sched_minutes) <= 90:
-            subprocess.run([sys.executable, str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"), "--shift", str(s_num), "--send-telegram"])
+        if args.mode == s_mode or now_minutes >= sched_minutes:
+            res_file = REPORTS_DIR / today_str / f"shift{s_num}_result.json"
+            already_done = False
+            if res_file.exists():
+                try:
+                    rdata = json.loads(res_file.read_text(encoding="utf-8"))
+                    if rdata.get("total_comments", 0) >= 4:
+                        already_done = True
+                except Exception:
+                    pass
+            if not already_done:
+                shifts_to_run.append(s_num)
+
+    if shifts_to_run:
+        target_shift = shifts_to_run[-1]
+        subprocess.run([
+            sys.executable,
+            str(SUBAGENT_DIR / "tools" / "mama_daily_group_and_eod.py"),
+            "--shift", str(target_shift),
+            "--urls-per-niche", "4",
+            "--cmts-per-url", "3",
+            "--send-telegram"
+        ])
         sent_by_child = True
 
     # 3. Ghi nhận báo cáo mốc giờ ra file & gửi Telegram ngắn gọn (không gửi trùng 2 tin nhắn liên tiếp)

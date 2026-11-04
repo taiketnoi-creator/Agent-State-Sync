@@ -1,3 +1,4 @@
+import shutil
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -141,13 +142,13 @@ def sync_bot_state_between_machines(direction: str = "pull") -> None:
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
-            if snap_py.exists():
-                subprocess.run(
-                    [sys.executable, str(snap_py), "--direction", "pull"],
-                    timeout=8,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+            for rel_p in ["knowledge/fb_bot_session_vault.json", "campaigns/daily-reports/group_interaction_ledger.json"]:
+                src_f = STATE_SYNC_DIR / rel_p
+                dst_f = SUBAGENT_DIR / rel_p
+                if src_f.exists():
+                    if (not dst_f.exists()) or (src_f.stat().st_mtime > dst_f.stat().st_mtime + 1):
+                        dst_f.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(src_f, dst_f)
         elif direction == "push":
             if snap_py.exists():
                 subprocess.run(

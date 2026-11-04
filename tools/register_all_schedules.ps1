@@ -38,14 +38,14 @@ $tasks = @(
         Name = "AgentJavis_1200_Shift1GroupAndReport"
         Time = "12:00"
         Mode = "shift1-1200"
-        CatchUp = $false
+        CatchUp = $true
         Desc = "Mốc 12:00 Trưa: Chạy ngầm 100% (--headless=new) Chrome Bot 9222, Tương tác Hội nhóm Ca 1 rồi tự đóng trình duyệt"
     },
     @{
         Name = "AgentJavis_1730_Shift2CareAndReport"
         Time = "17:30"
         Mode = "shift2-1730"
-        CatchUp = $false
+        CatchUp = $true
         Desc = "Mốc 17:30 Chiều: Chạy ngầm 100% (--headless=new) Chrome Bot 9222, Tương tác Hội nhóm Ca 2 rồi tự đóng trình duyệt"
     },
     @{
@@ -59,7 +59,7 @@ $tasks = @(
         Name = "AgentJavis_2030_Shift3GroupAndReport"
         Time = "20:30"
         Mode = "shift3-2030"
-        CatchUp = $false
+        CatchUp = $true
         Desc = "Mốc 20:30 Tối: Chạy ngầm 100% (--headless=new) Chrome Bot 9222, Tương tác Hội nhóm Ca 3 rồi tự đóng trình duyệt"
     },
     @{
