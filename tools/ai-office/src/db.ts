@@ -8,6 +8,7 @@ mkdirSync('data', { recursive: true });
 export const db = new DatabaseSync(process.env.DB_PATH ?? 'data/office.db');
 
 db.exec(`
+PRAGMA busy_timeout = 8000;
 PRAGMA journal_mode = WAL;
 CREATE TABLE IF NOT EXISTS departments (
   id TEXT PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL,
