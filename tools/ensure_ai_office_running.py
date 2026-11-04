@@ -87,6 +87,26 @@ def ensure_patches_applied() -> None:
             pass
 
 
+def spawn_escaped_background_process(cmd_line: str, cwd: str) -> None:
+    """Khởi chạy tiến trình ngầm qua WMI Win32_Process.Create để thoát hoàn toàn khỏi Job Object của Hook/Terminal."""
+    if os.name == "nt":
+        try:
+            ps_cmd = (
+                "$s = New-CimInstance -ClassName Win32_ProcessStartup -ClientOnly -Property @{ShowWindow=[uint16]0}; "
+                f"Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{{CommandLine='{cmd_line.replace(chr(39), chr(39)*2)}'; CurrentDirectory='{cwd.replace(chr(39), chr(39)*2)}'; ProcessStartupInformation=$s}} | Out-Null"
+            )
+            subprocess.run(
+                ["powershell", "-NoProfile", "-WindowStyle", "Hidden", "-Command", ps_cmd],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=6,
+                creationflags=CREATE_NO_WINDOW,
+            )
+            return
+        except Exception:
+            pass
+
+
 def start_office_server_if_needed() -> bool:
     """Khởi chạy máy chủ Văn Phòng Ảo 3D ở cổng 4800 nếu chưa chạy. Trả về True nếu vừa khởi động mới."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -97,9 +117,19 @@ def start_office_server_if_needed() -> bool:
     node_exe = find_node_exe()
     tsx_cli = OFFICE_DIR / "node_modules" / "tsx" / "dist" / "cli.mjs"
     if tsx_cli.exists():
+        inner_cmd = f'"{node_exe}" "{tsx_cli}" src/server.ts'
         cmd = [node_exe, str(tsx_cli), "src/server.ts"]
     else:
+        inner_cmd = f'"{node_exe}" --experimental-transform-types src/server.ts'
         cmd = [node_exe, "--experimental-transform-types", "src/server.ts"]
+
+    wmi_cmd = f'cmd.exe /c "{inner_cmd} >> ""{SERVER_LOG_FILE}"" 2>&1"'
+    spawn_escaped_background_process(wmi_cmd, str(OFFICE_DIR))
+
+    for _ in range(14):
+        time.sleep(0.4)
+        if is_port_open(PORT):
+            return True
 
     env = os.environ.copy()
     node_dir = str(Path(node_exe).parent) if os.path.exists(node_exe) else ""
@@ -193,23 +223,27 @@ def start_tunnel_if_needed() -> tuple[str, bool]:
     except Exception:
         pass
 
-    log_f = open(TUNNEL_LOG_FILE, "a", encoding="utf-8", errors="ignore")
-    subprocess.Popen(
-        [
-            str(CLOUDFLARED_EXE),
-            "tunnel",
-            "--url",
-            f"http://localhost:{PORT}",
-            "--no-autoupdate",
-            "--logfile",
-            str(TUNNEL_LOG_FILE),
-        ],
-        cwd=str(OFFICE_DIR),
-        stdin=subprocess.DEVNULL,
-        stdout=log_f,
-        stderr=log_f,
-        creationflags=CREATE_NO_WINDOW | DETACHED_PROCESS,
-    )
+    wmi_tunnel_cmd = f'"{CLOUDFLARED_EXE}" tunnel --url http://localhost:{PORT} --no-autoupdate --logfile "{TUNNEL_LOG_FILE}"'
+    spawn_escaped_background_process(wmi_tunnel_cmd, str(OFFICE_DIR))
+
+    if not is_cloudflared_running():
+        log_f = open(TUNNEL_LOG_FILE, "a", encoding="utf-8", errors="ignore")
+        subprocess.Popen(
+            [
+                str(CLOUDFLARED_EXE),
+                "tunnel",
+                "--url",
+                f"http://localhost:{PORT}",
+                "--no-autoupdate",
+                "--logfile",
+                str(TUNNEL_LOG_FILE),
+            ],
+            cwd=str(OFFICE_DIR),
+            stdin=subprocess.DEVNULL,
+            stdout=log_f,
+            stderr=log_f,
+            creationflags=CREATE_NO_WINDOW | DETACHED_PROCESS,
+        )
 
     tunnel_url = ""
     for _ in range(25):
