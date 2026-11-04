@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04 09:55:57",
+  "updated_at": "2026-11-04 14:05:23",
   "banned_filenames": [
     "sales-phongtro-1145-style02.jpg",
     "sales-phongtro-1145-style02.png",
@@ -196,7 +196,19 @@
     "subagent_reel_03_custom_setup_service.mp4",
     "subagent_reel_04_chief_of_staff.mp4",
     "subagent_reel_05_sales_cskh_team.mp4",
-    "subagent_reel_06_second_brain_vault.mp4"
+    "subagent_reel_06_second_brain_vault.mp4",
+    "reel_01_6_subagent_ca_nhan.mp4",
+    "reel_02_5_subagent_doanh_nghiep.mp4",
+    "reel_03_dich_vu_xay_subagent_tron_goi.mp4",
+    "reel_04_subagent_thu_ky_hop_247.mp4",
+    "reel_05_subagent_quet_khach_b2b.mp4",
+    "reel_06_lo_trinh_7_ngay_ban_giao.mp4",
+    "golden_slide_01_reel01_Reel01DeepResearch.mp4",
+    "golden_slide_02_reel07_Reel07VoiceToAction.mp4",
+    "golden_slide_03_reel03_Reel03GraphRagMatrix.mp4",
+    "golden_slide_04_reel08_Reel08CodeSandboxExec.mp4",
+    "golden_slide_05_reel09_Reel09SelfHealingWorkflow.mp4",
+    "golden_slide_06_reel17_Reel17CustomerIntentRouter.mp4"
   ],
   "published_sha256": {
     "951eced28fac51ede457cb253475602836e5da4ef09ffb249202e7a5bde1a6e4": "legacy_campaign:2026-10-20/ai-agent-vs-chatbot-45s.mp4",
@@ -416,7 +428,13 @@
     "fb57e7f80ddca1e0f4537ea10c00f6c90a9840a15fb18e3da78f8958d9d317b1": "subagent_reel_03_custom_setup_service.mp4 | page=1022527194267367 | post=1022527194267367_1623309216475235 | 2026-11-04 09:50:37",
     "d04d4fde0a366a52d4d22b4fc787d4407a6d9ca68cdf1373e3a6918b92c8dbd1": "subagent_reel_04_chief_of_staff.mp4 | page=1022527194267367 | post=1022527194267367_1155496754102675 | 2026-11-04 09:52:56",
     "b9ad5cae192d1d7b99adf24cc046156cb2e516fafd22b59632a2aa290a4f66ce": "subagent_reel_05_sales_cskh_team.mp4 | page=1022527194267367 | post=1022527194267367_28621862700843901 | 2026-11-04 09:54:48",
-    "2cc753c1475a57f017e91108e3a03542457c1f626bc363493da84ab427c498c0": "subagent_reel_06_second_brain_vault.mp4 | page=1022527194267367 | post=1022527194267367_1785448600257860 | 2026-11-04 09:55:57"
+    "2cc753c1475a57f017e91108e3a03542457c1f626bc363493da84ab427c498c0": "subagent_reel_06_second_brain_vault.mp4 | page=1022527194267367 | post=1022527194267367_1785448600257860 | 2026-11-04 09:55:57",
+    "484ad19a00568aa7257906edf4e4178d1d7c66f60645ee6f5656568f14f5cb2b": "golden_slide_01_reel01_Reel01DeepResearch.mp4 | page=1022527194267367 | post=1022527194267367_1115358314645765 | 2026-11-04 13:57:36",
+    "fce463b43bc019a54816cfd681783d18797fbf38201b2fabc1288d0216dcb699": "golden_slide_02_reel07_Reel07VoiceToAction.mp4 | page=1022527194267367 | post=1022527194267367_1472791611447211 | 2026-11-04 13:59:23",
+    "34adb382400f28862a318d540abb8faf23606bd0d117adc5d864d7ccfd2a27d1": "golden_slide_03_reel03_Reel03GraphRagMatrix.mp4 | page=1022527194267367 | post=1022527194267367_2249123572312862 | 2026-11-04 14:00:51",
+    "0be2d9875e013f17e19184c9bac036371b954a43fbc2f8215eb726f9ff733cc1": "golden_slide_04_reel08_Reel08CodeSandboxExec.mp4 | page=1022527194267367 | post=1022527194267367_1131300152597747 | 2026-11-04 14:02:21",
+    "77176e27b6518d05a884cc95e3d83a3dd74659aafa9afe4cd08202468deca512": "golden_slide_05_reel09_Reel09SelfHealingWorkflow.mp4 | page=1022527194267367 | post=1022527194267367_1094595600073167 | 2026-11-04 14:03:55",
+    "7e143ec80b8495bd322ba710afb2ae2f98cc2522c672cb67afb70fa8ff48e548": "golden_slide_06_reel17_Reel17CustomerIntentRouter.mp4 | page=1022527194267367 | post=1022527194267367_1351908750234964 | 2026-11-04 14:05:23"
   },
   "published_caption_fingerprints": {
     "bạn nên giao việc nào cho ai tự làm đầu tiên trong 4 việc trên": "page=1022527194267367 | id=1022527194267367_122133399219248983 | created=2026-10-26T14:45:01+0000",
@@ -563,6 +581,12 @@
     "đừng dùng 1 chatgpt đơn lẻ nữa hãy sở hữu đội ngũ 6 subagent cá nhân toàn d": "page=1022527194267367 | post=1022527194267367_1144183461419139 | 2026-11-04 09:48:20",
     "trợ lý tổng quản chief of staff subagent chỉ cần giao 1 lệnh cả đội subagen": "page=1022527194267367 | post=1022527194267367_1155496754102675 | 2026-11-04 09:52:56",
     "đội ngũ subagent phòng sales cskh phản hồi khách trong 3 giây tăng 240 tỷ l": "page=1022527194267367 | post=1022527194267367_28621862700843901 | 2026-11-04 09:54:48",
-    "subagent bộ não thứ 2 bí quyết để đội ngũ subagent nhớ 100 quy tắc đồng bộ ": "page=1022527194267367 | post=1022527194267367_1785448600257860 | 2026-11-04 09:55:57"
+    "subagent bộ não thứ 2 bí quyết để đội ngũ subagent nhớ 100 quy tắc đồng bộ ": "page=1022527194267367 | post=1022527194267367_1785448600257860 | 2026-11-04 09:55:57",
+    "trong đội ngũ subagent cá nhân doanh nghiệp của bạn ai đang làm việc nghiên": "page=1022527194267367 | post=1022527194267367_1115358314645765 | 2026-11-04 13:57:36",
+    "đang di chuyển ngoài đường vẫn điều hành trọn vẹn công việc với subagent tr": "page=1022527194267367 | post=1022527194267367_1472791611447211 | 2026-11-04 13:59:23",
+    "tại sao nạp hàng trăm file vào ai mà vẫn không trả lời được bức tranh tổng ": "page=1022527194267367 | post=1022527194267367_2249123572312862 | 2026-11-04 14:00:51",
+    "đừng bắt chatgpt cộng nhẩm excel nữa hãy giao cho subagent phân tích số liệ": "page=1022527194267367 | post=1022527194267367_1131300152597747 | 2026-11-04 14:02:21",
+    "hẹn đội ngũ subagent chạy việc lúc 2 giờ sáng lỡ nghẽn mạng thì sao": "page=1022527194267367 | post=1022527194267367_1094595600073167 | 2026-11-04 14:03:55",
+    "khách đang khiếu nại đơn hàng mà chatbot cũ lại chào mời mua thêm đó là vì ": "page=1022527194267367 | post=1022527194267367_1351908750234964 | 2026-11-04 14:05:23"
   }
 }

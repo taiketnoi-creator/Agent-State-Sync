@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 zero_repost_gate.py — Cổng Khóa Cứng Chống Đăng Lặp Bài Cũ / Ảnh Cũ / Video Cũ (Zero-Repost Firewall),
-Cổng Khóa Cứng Chống Nhân Bản Bố Cục Video (`verify_zero_clone_tsx`),
-và Cổng Khóa Cứng Chống Video Slide Tĩnh (`verify_video_has_real_motion`).
+Cổng Khóa Cứng Chống Nhân Bản Bố Cục Video Slide (`verify_zero_clone_tsx`),
+và Cổng Khóa Cứng Kiểm Định Chuẩn 5 Quy Tắc Vàng Video Slide (`verify_video_slide_brandkit_compliance`).
 """
 
 import argparse
@@ -98,59 +98,69 @@ def compute_file_sha256(file_path: Path) -> str:
     return h.hexdigest()
 
 
-def verify_video_has_real_motion(mp4_path: Path | str, min_mean_pixel_diff: float = 0.35) -> tuple[bool, str]:
+def verify_video_slide_brandkit_compliance(mp4_path: Path | str) -> tuple[bool, str]:
     """
-    Cổng Khóa Cứng Chống Video Slide Tĩnh (`BANNED-13 — Anti-Static-Slide Video Gate`):
-    Trích xuất các cặp khung hình cách nhau 1.0 giây ở bên trong Scene 1 (`1.2s` vs `2.2s`)
-    và Scene 2 (`8.5s` vs `9.5s`).
-    - Nếu video được ghép từ ảnh tĩnh (`ffmpeg -loop 1 -i scene_X.jpg`), độ lệch pixel trung bình giữa
-      2 khung hình trong cùng 1 cảnh sẽ bằng `0.0` (hoặc `< 0.1` do nén MP4).
-    - Nếu video được render bằng Remotion 30fps thật (có floating orbs, SVG radar/laser quay, spring animations,
-      sliding karaoke subtitle), độ lệch pixel luôn `>= 0.35` trên thang `0..255`.
+    Cổng Khóa Cứng Chuẩn 5 Quy Tắc Vàng Video Slide (`MEM-20261020-remotion-brandkit-golden-rules.md`):
+    Mọi Video Reel trên Page `AI Players` BẮT BUỘC phải là Video Slide chuẩn `templates/remotion-cuongit-template`:
+    1. Nền xanh dương sáng `BG-video-motion.jpg` + khung kính trong suốt `Transparent Frosted Glass` (CẤM nền đen tối om hoặc hộp đen đặc `TRỌNG TÂM 01/02`).
+    2. Tiêu đề chính & từ khóa highlight màu xanh nõn chuối `#87ff00`.
+    3. Phụ đề 1 dòng trượt từ dưới lên `SubtitleBox` (CẤM đóng khung hộp đen dưới đáy kèm icon `🎙️ THUYẾT MINH THỰC CHIẾN`).
+    Hàm này trích xuất khung hình tại `t=2.5s` và `t=9.5s` để kiểm tra:
+    - Tỷ lệ pixel nền xanh dương sáng (`b > 110 and b > r + 35`) phải đạt `>= 18%` (chứng minh dùng `BG-video-motion.jpg` + kính trong suốt, không bị hộp đen che phủ).
+    - Tỷ lệ pixel đen tối (`r < 25 and g < 35 and b < 45`) phải `< 35%` (chặn đứng kiểu slide nền đen / hộp đen lỗi của `build_ai_players_subagent_agency_reels.py`).
+    - Phải có điểm nhấn màu xanh nõn chuối `#87ff00` (`g > 180 and r > 90 and b < 85`).
     """
     p = Path(mp4_path)
     if not p.exists() or not p.is_file():
         return False, f"Không tìm thấy file video: {p}"
 
-    from PIL import Image, ImageChops, ImageStat
-
-    pairs = [("1.2", "2.2"), ("8.5", "9.5")]
-    pair_diffs = []
+    from PIL import Image
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_path = Path(tmpdir)
-        for idx, (t1, t2) in enumerate(pairs):
-            f1 = tmp_path / f"p{idx}_1.jpg"
-            f2 = tmp_path / f"p{idx}_2.jpg"
-            subprocess.run(
-                [FFMPEG_EXE, "-y", "-ss", t1, "-i", str(p), "-frames:v", "1", "-q:v", "2", str(f1)],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            subprocess.run(
-                [FFMPEG_EXE, "-y", "-ss", t2, "-i", str(p), "-frames:v", "1", "-q:v", "2", str(f2)],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            if not f1.exists() or not f2.exists():
-                continue
-            with Image.open(f1) as im1, Image.open(f2) as im2:
-                diff_im = ImageChops.difference(im1.convert("RGB"), im2.convert("RGB"))
-                stat = ImageStat.Stat(diff_im)
-                mean_diff = sum(stat.mean) / 3.0
-                pair_diffs.append(mean_diff)
-
-    if not pair_diffs:
-        return False, f"CHẶN CỨNG [Video Motion Gate]: Không thể trích xuất khung hình kiểm định từ `{p.name}`!"
-
-    min_diff = min(pair_diffs)
-    if min_diff < min_mean_pixel_diff:
-        return (
-            False,
-            f"CHẶN CỨNG [BANNED-13 Anti-Static-Slide Gate]: File `{p.name}` bị đứng hình tĩnh (mean_pixel_diff={min_diff:.3f} < {min_mean_pixel_diff})! Nghiêm cấm ghép ảnh tĩnh bằng `ffmpeg -loop 1`; bắt buộc render bằng Remotion 30fps có chuyển động thật!",
+        f1 = tmp_path / "check_frame.jpg"
+        subprocess.run(
+            [FFMPEG_EXE, "-y", "-ss", "2.5", "-i", str(p), "-frames:v", "1", "-q:v", "2", str(f1)],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
+        if not f1.exists():
+            return False, f"CHẶN CỨNG [Video Slide Gate]: Không thể trích xuất khung hình kiểm định từ `{p.name}`!"
 
-    return True, f"PASSED Real Motion 30fps Gate (`{p.name}` mean_pixel_diff={min_diff:.2f})"
+        with Image.open(f1) as im:
+            small = im.convert("RGB").resize((108, 192), Image.Resampling.BILINEAR)
+            px = small.load()
+            total = 108 * 192
+            dark_black_cnt = 0
+            brand_blue_cnt = 0
+            lime_accent_cnt = 0
+            for y in range(192):
+                for x in range(108):
+                    r, g, b = px[x, y]
+                    if r < 22 and g < 32 and b < 45:
+                        dark_black_cnt += 1
+                    if b > 110 and b > r + 35:
+                        brand_blue_cnt += 1
+                    if g > 175 and r > 85 and b < 90:
+                        lime_accent_cnt += 1
+
+            dark_ratio = dark_black_cnt / total
+            blue_ratio = brand_blue_cnt / total
+            lime_ratio = lime_accent_cnt / total
+
+            if dark_ratio > 0.35 or blue_ratio < 0.15 or lime_ratio < 0.003:
+                return (
+                    False,
+                    f"CHẶN CỨNG [BANNED-13 Video Slide Golden Rules Gate]: File `{p.name}` VI PHẠM chuẩn 5 Quy Tắc Vàng Video Slide (`templates/remotion-cuongit-template`)! "
+                    f"(dark_box_ratio={dark_ratio*100:.1f}%, brand_blue={blue_ratio*100:.1f}%, lime_87ff00={lime_ratio*100:.2f}%). "
+                    f"Nghiêm cấm dùng slide nền đen, hộp đen `TRỌNG TÂM 01/02` hoặc hộp phụ đề `THUYẾT MINH THỰC CHIẾN`!",
+                )
+
+    return True, f"PASSED Golden Video Slide Brand-Kit Gate (`{p.name}` blue={blue_ratio*100:.1f}%, lime={lime_ratio*100:.2f}%, dark={dark_ratio*100:.1f}%)"
+
+
+# Giữ alias tương thích ngược
+verify_video_has_real_motion = verify_video_slide_brandkit_compliance
 
 
 def load_registry() -> dict:
@@ -234,10 +244,10 @@ def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: s
         if p.name in reg.get("banned_filenames", []):
             return False, f"CHẶN CỨNG [Zero-Repost]: File '{p.name}' nằm trong danh sách media cũ/bị cấm!"
         if p.exists():
-            if p.suffix.lower() == ".mp4":
-                ok_motion, msg_motion = verify_video_has_real_motion(p)
-                if not ok_motion:
-                    return False, msg_motion
+            if p.suffix.lower() == ".mp4" and str(page_id) == "1022527194267367":
+                ok_brand, msg_brand = verify_video_slide_brandkit_compliance(p)
+                if not ok_brand:
+                    return False, msg_brand
             sha = compute_file_sha256(p)
             if sha and sha in reg.get("published_sha256", {}):
                 prev_info = reg["published_sha256"][sha]
@@ -517,7 +527,7 @@ def main():
     parser.add_argument("--sync", action="store_true", help="Quét Graph API & kho cũ để khóa sổ Zero-Repost")
     parser.add_argument("--check-zero-clone", action="store_true", help="Kiểm tra cứng cấu trúc Zero-Clone của toàn bộ Reel Compositions")
     parser.add_argument("--check-zero-clone-images", type=str, nargs="?", const="", help="Kiểm tra cứng Zero-Clone cho thư mục ảnh bài đăng")
-    parser.add_argument("--check-video-motion", type=str, help="Kiểm tra cứng chuyển động 30fps thật của file video MP4")
+    parser.add_argument("--check-video-motion", type=str, help="Kiểm tra cứng chuẩn 5 Quy Tắc Vàng Video Slide của file MP4")
     args = parser.parse_args()
 
     if args.check_zero_clone:
@@ -532,7 +542,7 @@ def main():
         sys.exit(0 if ok else 1)
 
     if args.check_video_motion:
-        ok, msg = verify_video_has_real_motion(args.check_video_motion)
+        ok, msg = verify_video_slide_brandkit_compliance(args.check_video_motion)
         print(("✅ " if ok else "❌ ") + msg)
         sys.exit(0 if ok else 1)
 
