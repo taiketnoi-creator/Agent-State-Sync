@@ -175,3 +175,7 @@ Mục tiêu của community nurture là tạo qualified reach bằng tương tá
 Mỗi phiên ghi: `date`, `group_or_source`, `post_url`, `audience_problem`, `exact_customer_phrase`, `our_reply`, `page_mentioned`, `follow_signal`, `content_idea`, `rule_or_compliance_risk`, `owner`. Theo dõi funnel `group interaction → Page visit → follow → non-follower reach → retention → share/save → qualified comment → click → valid order` và review ở 24h/72h. Không kết luận từ like/view đơn lẻ; chuyển câu hỏi đúng tệp thành Reel phản hồi trong 24–48 giờ khi đã qua approval.
 
 Mọi hoạt động phải qua checklist đọc luật group, không claim chưa kiểm chứng, không giả khách hàng và không tự động ẩn/xóa khiếu nại hợp lệ. Khi gặp khiếu nại, hoàn tiền, hàng giả, claim sức khỏe/pháp lý hoặc dữ liệu chưa rõ, giữ hard gate `NEEDS_HUMAN` và báo Mama/người thật.
+
+# Định Vị Cốt Lõi Của Page AI Players (Khóa Cứng Ngày 04/11/2026 — `MEM-20261104-ai-players-subagent-agency-positioning`)
+- **Tuyến nội dung duy nhất cho Page `AI Players - Người chơi hệ AI` (`1022527194267367`):** Cả Hình ảnh vuông `1:1` và Video Reels `9:16` đều phải xoay quanh **Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tư Vấn, Thiết Kế & Xây Dựng Đội Ngũ Subagent May Đo Trọn Gói Cho Khách Hàng Cá Nhân & Doanh Nghiệp**.
+- **Cấm tuyệt đối (`BANNED-12`):** Không làm bài kiến thức AI/IT học thuật rời rạc chung chung. Mọi bài đều phải dẫn về giải pháp Đội ngũ Subagent toàn diện và CTA đặt làm Đội ngũ Subagent riêng / tham gia Nhóm Zalo VIP tại Bình luận đầu tiên (#1).

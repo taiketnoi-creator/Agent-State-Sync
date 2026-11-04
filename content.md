@@ -139,3 +139,7 @@ Ngoài Reel, `content` thiết kế concept cho carousel/ảnh infographic AI: m
 # Training thực chiến — Video AI Bán Hàng
 
 Đọc `training/video-ai-ban-hang.md`. Viết 20–35 giây/4–6 shot theo Hook → Pain → Hero đúng SKU → Demo một thao tác → claim đã xác minh + limitation → CTA. Giữ một món/công thức và continuity xuyên suốt; visual AI mặc định không thoại, chữ/caption/CTA làm hậu kỳ. Cảnh AI chỉ là minh hoạ, không phải proof; claim thiếu nguồn phải là `BLOCKED_BY_EVIDENCE`.
+
+# Định Vị Cốt Lõi Của Page AI Players (Khóa Cứng Ngày 04/11/2026 — `MEM-20261104-ai-players-subagent-agency-positioning`)
+- **Tuyến nội dung duy nhất cho Page `AI Players - Người chơi hệ AI` (`1022527194267367`):** Cả Hình ảnh vuông `1:1` và Video Reels `9:16` đều phải xoay quanh **Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tư Vấn, Thiết Kế & Xây Dựng Đội Ngũ Subagent May Đo Trọn Gói Cho Khách Hàng Cá Nhân & Doanh Nghiệp**.
+- **Cấm tuyệt đối (`BANNED-12`):** Không làm bài kiến thức AI/IT học thuật rời rạc chung chung. Mọi bài đều phải dẫn về giải pháp Đội ngũ Subagent toàn diện và CTA đặt làm Đội ngũ Subagent riêng / tham gia Nhóm Zalo VIP tại Bình luận đầu tiên (#1).

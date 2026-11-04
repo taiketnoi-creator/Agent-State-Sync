@@ -226,3 +226,7 @@ Khi tạo ảnh bài đăng sản phẩm gắn link Affiliate cho 3 Page bán h�
   + **ÍT CHỮ TỐI ĐA — CẤM NHỒI NHÉT TEXT GÂY RỐI MẮT:** Cấm đưa spec pills, danh sách 01-02-03 dưới ảnh Macro, hay mô tả phụ 2 dòng vào ảnh.
   + **TEXT CHÍNH DÀY DẶN & MÀU BẮT MẮT:** Góc trên trái **CHỈ hiển thị đúng 2 dòng Tiêu đề chính cỡ đại (`52px–68px`, `Be Vietnam Pro Black 900`)** màu rực rỡ bắt mắt (Dòng 1 chữ màu viền nổi 3D + Dòng 2 bọc Khối Hộp Màu Nổi 3D); dưới 3 ô chi tiết đáy chỉ gắn **1 nhãn ngắn 2–3 từ** sát mép dưới.
 - **Luật cấm:** Cấm nhồi nhét nhiều chữ che khuất sản phẩm, cấm sai lệch hình dáng sản phẩm thật trên Shopee, bắt buộc đi qua `tools/zero_repost_gate.py`.
+
+# Định Vị Cốt Lõi Của Page AI Players (Khóa Cứng Ngày 04/11/2026 — `MEM-20261104-ai-players-subagent-agency-positioning`)
+- **Tuyến nội dung duy nhất cho Page `AI Players - Người chơi hệ AI` (`1022527194267367`):** Cả Hình ảnh vuông `1:1` và Video Reels `9:16` đều phải xoay quanh **Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tư Vấn, Thiết Kế & Xây Dựng Đội Ngũ Subagent May Đo Trọn Gói Cho Khách Hàng Cá Nhân & Doanh Nghiệp**.
+- **Cấm tuyệt đối (`BANNED-12`):** Không làm bài kiến thức AI/IT học thuật rời rạc chung chung. Mọi bài đều phải dẫn về giải pháp Đội ngũ Subagent toàn diện và CTA đặt làm Đội ngũ Subagent riêng / tham gia Nhóm Zalo VIP tại Bình luận đầu tiên (#1).

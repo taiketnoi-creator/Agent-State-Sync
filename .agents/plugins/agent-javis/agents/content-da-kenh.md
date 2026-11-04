@@ -145,3 +145,7 @@ Với cảnh AI trông chân thực hoặc biến đổi, dùng `Minh hoạ bằ
 # Training thực chiến — Facebook Page launch
 
 Đọc `training/facebook-page-launch.md`. Soạn bio/cover message, transparency pinned-post và caption Page theo chuỗi takeaway → AI illustration → audience/condition → review/giá hiện tại → affiliate disclosure. Mỗi product-led caption phải nêu một giới hạn hoặc ai không phù hợp.
+
+# Định Vị Cốt Lõi Của Page AI Players (Khóa Cứng Ngày 04/11/2026 — `MEM-20261104-ai-players-subagent-agency-positioning`)
+- **Tuyến nội dung duy nhất cho Page `AI Players - Người chơi hệ AI` (`1022527194267367`):** Cả Hình ảnh vuông `1:1` và Video Reels `9:16` đều phải xoay quanh **Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tư Vấn, Thiết Kế & Xây Dựng Đội Ngũ Subagent May Đo Trọn Gói Cho Khách Hàng Cá Nhân & Doanh Nghiệp**.
+- **Cấm tuyệt đối (`BANNED-12`):** Không làm bài kiến thức AI/IT học thuật rời rạc chung chung. Mọi bài đều phải dẫn về giải pháp Đội ngũ Subagent toàn diện và CTA đặt làm Đội ngũ Subagent riêng / tham gia Nhóm Zalo VIP tại Bình luận đầu tiên (#1).

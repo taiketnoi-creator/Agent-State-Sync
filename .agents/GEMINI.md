@@ -67,7 +67,11 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ## 4. CHÍN (09) LUẬT CỨNG BẤT DI BẤT DỊCH CỦA CEO (CẤM LÀM SAI DƯỚI MỌI HÌNH THỨC)
 
-1. **LUẬT #1 — Định Mức & Quy Chuẩn Ảnh Bài Đăng Độc Bản `Zero-Clone` Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
+1. **LUẬT #1 — Định Vị Tuyến Nội Dung `Subagent Cá Nhân & Doanh Nghiệp Toàn Diện` + Quy Chuẩn Độc Bản `Zero-Clone` Page `AI Players - Người chơi hệ AI` (`1022527194267367`):**
+   - **TUYẾN NỘI DUNG CỐT LÕI ĐÃ KHÓA CỨNG NGÀY 04/11/2026 (`MEM-20261104-ai-players-subagent-agency-positioning`):**
+     + **100% cả Hình Ảnh (`1:1`) và Video Reels (`9:16`) trên Page `AI Players`** bắt buộc đi theo hướng **Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tư Vấn, Thiết Kế & Xây Dựng Đội Ngũ Subagent May Đo Trọn Gói Cho Khách Hàng Cá Nhân & Doanh Nghiệp**.
+     + **CẤM TUYỆT ĐỐI (`BANNED-12`)** đăng các bài kiến thức AI/IT học thuật rời rạc chung chung không gắn với giải pháp Đội ngũ Subagent!
+     + Mọi bài đăng phải có CTA kép dẫn xuống `Pinned Comment #1`: **(1) Đặt lịch Tư vấn & Xây dựng Đội ngũ Subagent riêng cho Cá nhân/Doanh nghiệp** và **(2) Tham gia Nhóm Zalo Cộng Đồng VIP (`https://zalo.me/g/fzxvbf259`) để nhận bộ khung mẫu**.
    - **Mục tiêu xuất bản:** **9 bài/ngày** = **6 bài Ảnh vuông `1:1` (`1080×1080`)** (`08:30`, `10:15`, `13:30`, `15:15`, `18:15`, `21:15`) + **3 Video Reels Remotion** (`11:45`, `16:30`, `20:00`), 100% có `Pinned Comment #1` dẫn phễu.
    - **QUY CHUẨN THIẾT KẾ ẢNH ĐỘC BẢN `ZERO-CLONE` ĐÃ CHỐT SÁNG 30/10 (`Không Thiết Kế Nào Được Giống Nhau`):**
      + Theo `knowledge/bo-nao-thu-2/memories/MEM-20261020-ai-players-image-style-guide.md` và `MEM-20261026-ai-players-vid-visual-style-lock.md`, kết xuất 100% bằng Headless Chrome HTML/CSS/SVG Engine tại `tools/build_bespoke_ai_players_images.py` & `tools/render_vid_style_card.py`.
@@ -119,20 +123,17 @@ Khi làm việc trong Workspace `Subagent` (trên **Máy Công Ty `guicci`**: `D
 
 ## 5. SỔ TAY NHIỆM VỤ ĐANG THỰC THI & CHỜ HOÀN TẤT (`ACTIVE TASKS — CẤM BỎ DỞ`)
 
-*(Cập nhật đồng bộ 2 máy lúc `2026-10-30 16:22` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
+*(Cập nhật đồng bộ 2 máy lúc `2026-11-04 09:25` — `mama` phải chủ động theo sát và hoàn tất dứt điểm từng việc dưới đây)*
 
-1. **`[IN_PROGRESS]` (Ưu tiên #1) Kho Nội Dung Độc Bản `Zero-Clone` & Hàng Đợi Hẹn Giờ Cho Page `AI Players - Người chơi hệ AI`:**
-   - **Nhánh 1A — Kho Ảnh Độc Bản `Zero-Clone` (`6 ảnh/ngày`):** Đã xóa sạch toàn bộ ảnh 5-template cũ trên Page & ổ cứng, khóa cổng `verify_zero_clone_images()` (`tools/zero_repost_gate.py`) và xuất bản/lên lịch đủ **24/24 Ảnh Độc Bản 100%** (`Cards 01..24` tại `tools/build_bespoke_ai_players_images.py` & `tools/build_bespoke_ai_players_day7_day8.py`) phủ kín đến hết `02/11/2026`. Tiếp tục thiết kế cuốn chiếu lô `03/11–06/11`.
-   - **Nhánh 1B — Kho Video Reels Độc Bản `Zero-Clone` (`3 Video Reels/ngày: 11:45, 16:30, 20:00`):** Đã hoàn tất 21/21 Bespoke Video Reels (`remotion-studio/src/compositions/bespoke21/Reel01..Reel21.tsx`), qua cổng `verify_zero_clone_compositions()` và hẹn giờ đầy đủ đến hết `02/11/2026`.
+1. **`[IN_PROGRESS]` (Ưu tiên #1 — Mệnh Lệnh Mới Của CEO 04/11) Chuyển Đổi 100% Tuyến Nội Dung Page `AI Players` (Cả Ảnh `1:1` & Video Reels `9:16`) Sang Hướng `Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tạo Đội Ngũ Subagent Trọn Gói`:**
+   - **Đã khóa cứng vào Bộ Não Thứ 2 (`MEM-20261104-ai-players-subagent-agency-positioning` & `ACTIVE-RULES-MANIFEST.json` v2.0.0)**: Cấm đăng bài kiến thức AI học thuật rời rạc; 100% Ảnh 1:1 (`6 bài/ngày`) và Video Reels 9:16 (`3 bài/ngày`) xoay quanh **Subagent Cá nhân toàn diện, Đội ngũ Subagent Doanh nghiệp, và Dịch vụ Nhận tạo Đội ngũ Subagent may đo 1:1**.
+   - Thay thế toàn bộ hàng đợi hẹn giờ cũ trên `AI Players` (`04/11 – 06/11`) bằng lô **Ảnh Độc Bản `Zero-Clone` & Video Reels 9:16 chuẩn tuyến Subagent Cá nhân & Doanh nghiệp** kèm `Pinned Comment #1` nhận đặt làm Đội ngũ Subagent riêng.
 
-2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Chuẩn `Bold High-Impact Typography` Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
-   - Đã nâng cấp lên chuẩn **`Editorial Macro & 3-Detail Grid (Bold High-Impact v2)`** (`tools/render_sales_bold_editorial.py` & `tools/build_sales_weekend_vault.py`, chữ dày `Be Vietnam Pro Black 900` + khối hộp màu nổi 3D + câu hỏi kích cầu A/B cuối caption) và lên lịch đủ **9 bài SKU mới** (`30/10 20:00`, `31/10 11:45`, `31/10 20:00`) kèm Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088`. Tiếp tục sản xuất cuốn chiếu lô SKU ngày `01/11–03/11`.
+2. **`[IN_PROGRESS]` (Ưu tiên #2) Sản Xuất & Nạp Kho Ảnh Vuông `1:1` Chuẩn `Minimal Pop-Bold Typography` Cho 3 Page Bán Hàng (`Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`):**
+   - Duy trì đều đặn 2 bài/page/ngày (`11:45` & `20:00`, chuẩn `Minimal Pop-Bold Typography`: ít chữ, chữ chính siêu dày `Black 900`, màu sắc bắt mắt + Pinned Comment #1 gắn link Shopee Affiliate `SHOPEE_AFFILIATE_ID=17395830088` + Bình luận phá băng #2).
 
-3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành Ổn Định 3 Ca Tương Tác Hội Nhóm Hàng Ngày (`12:00`, `17:30`, `20:30`) Chạy Ngầm 100% + Đồng Bộ Cookie 2 Máy:**
-   - Đã nâng cấp `tools/start_bot_chrome.py` chạy ngầm 100% (`--headless=new` + `CREATE_NO_WINDOW`), tự động đóng trình duyệt ngay sau ca (`stop_bot_chrome()`) và đồng bộ Cookie mã hóa (`knowledge/fb_bot_session_vault.json`) giữa Máy Công Ty và Máy Ở Nhà.
+3. **`[IN_PROGRESS]` (Ưu tiên #3) Vận Hành 3 Ca Tương Tác Hội Nhóm (`12:00`, `17:30`, `20:30`) Công Thức `80% Giá Trị + 20% Kéo Về Tường Fanpage` + Auto-Reply Bình Luận Khách:**
+   - Chạy ngầm 100% (`--headless=new`), đồng bộ Cookie 2 máy (`guicci` & `Admin-PC`), riêng ngách `ai` điều hướng thẳng khách hàng cá nhân & chủ doanh nghiệp về dịch vụ xây dựng Đội ngũ Subagent trên tường Page `AI Players`.
 
-4. **`[OPEN]` (Ưu tiên #4 — Chiến lược Phễu Page `AI Players`):**
-   - Đóng gói Món Quà số 1 từ kho 30 Lead Magnets (`Gói Subagent Đóng Hộp + Hook 3s / Văn Phòng`), cài đặt Nhóm Zalo Cộng Đồng Bảo Mật và lên bài thu phễu + 4 bài Group Seeding.
-
-5. **`[OPEN]` (Ưu tiên #5 — Đào tạo Video AI Bán Hàng SLL Đạt Chuẩn Vàng Trước Khi Mở Băng):**
-   - Kết nối Google Veo 3 để hoàn thiện quy trình sản xuất Video AI Bán Hàng SLL đạt chuẩn Vàng và trình CEO nghiệm thu (trong thời gian này 3 Page Bán Hàng giữ nguyên 100% chỉ đăng Ảnh vuông 1:1).
+4. **`[OPEN]` (Ưu tiên #4 — Đào Tạo Video AI Bán Hàng SLL Đạt Chuẩn Vàng Trước Khi Mở Băng):**
+   - Hoàn thiện quy trình sản xuất Video AI Bán Hàng SLL đạt chuẩn Vàng trình CEO nghiệm thu (trong thời gian này 3 Page Bán Hàng giữ nguyên 100% chỉ đăng Ảnh vuông 1:1).

@@ -320,8 +320,8 @@ def run_auto_reply_and_icebreaker(pages: dict) -> list[str]:
 
                 if pid == AI_ID:
                     reply_msg = (
-                        f"Chào {c_from_name} 👋 Mình gửi bạn link nhận trọn bộ Kho Vũ Khí 10 Subagent + 50 Siêu Prompt & Tài liệu tự động hóa thực chiến tại Nhóm Zalo Cộng Đồng AI Players nhé: "
-                        f"{ZALO_VIP_URL} 🚀 (Bạn bấm vào link là tải được toàn bộ file gốc ngay nha!)"
+                        f"Chào {c_from_name} 👋 Mình gửi bạn link nhận trọn bộ Blueprint Đội Ngũ Subagent Cá Nhân & Doanh Nghiệp Toàn Diện + Đặt lịch Tư vấn Thiết kế Đội ngũ Subagent May đo 1:1 tại Nhóm Zalo VIP AI Players nhé: "
+                        f"{ZALO_VIP_URL} 🚀 (Bạn bấm vào link hoặc nhắn tin cho Page để đội ngũ hỗ trợ khảo sát quy trình cho bạn ngay nha!)"
                     )
                 else:
                     link_to_send = post_shopee_url or "https://s.shopee.vn/an_redir?origin_link=https%3A%2F%2Fshopee.vn&affiliate_id=17395830088&sub_id=autoreply-sales"

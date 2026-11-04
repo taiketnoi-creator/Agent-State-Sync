@@ -1,0 +1,134 @@
+[
+  {
+    "index": 37,
+    "code": "card_37_mobile_cloudflare_tunnel",
+    "slot_dt": "2026-11-05 08:30",
+    "cta_kw": "TUNNEL",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_37_mobile_cloudflare_tunnel.jpg",
+    "caption": "📱 ĐIỀU KHIỂN VĂN PHÒNG ẢO 3D AI TRÊN ĐIỆN THOẠI MỌI LÚC MỌI NƠI QUA CLOUDFLARED TUNNEL!\n\nKhông cần ngồi trước màn hình máy tính, giờ đây bạn có thể mở điện thoại bằng 4G/5G để quan sát trực tiếp 11 nhân sự AI đang làm việc và gửi lệnh thẳng vào Antigravity IDE:\n🔹 Tự động khởi chạy ngầm 100% khi bật máy ở cả công ty lẫn ở nhà.\n🔹 Cấp phát đường hầm HTTPS bảo mật kèm mã khóa riêng mà không cần mở port modem.\n🔹 Giao diện Mobile tối ưu: cụm phím điều hướng D-Pad nổi và khung chat tốc độ phản hồi 18ms.\n\n👇 Anh em muốn điều khiển hệ thống AI từ điện thoại bằng 1 chạm hay qua Telegram? Bình luận 'TUNNEL' hoặc xem Bình luận ghim #1 để lấy trọn bộ script nhé!",
+    "status": "SCHEDULED",
+    "post_id": "122134259049248983",
+    "comment_id": "122134259049248983_1812627973403244"
+  },
+  {
+    "index": 38,
+    "code": "card_38_ram_transcript_cache",
+    "slot_dt": "2026-11-05 10:15",
+    "cta_kw": "RAMCACHE",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_38_ram_transcript_cache.jpg",
+    "caption": "⚡ TỐI ƯU BACKEND: GIẢM THỜI GIAN TẢI LỊCH SỬ CHAT AI TỪ 3.2 GIÂY XUỐNG CÒN 18ms!\n\nKhi file nhật ký hội thoại (.jsonl) của Agent phình to lên hàng chục MB, việc đọc lại ổ cứng mỗi 3 giây sẽ làm đơ cứng khung chat trên điện thoại. Đây là cách đội ngũ xử lý dứt điểm:\n1️⃣ Lưu chữ ký (mtime + byte size) trong bộ nhớ RAM: nếu file không đổi, trả kết quả ngay trong 0.001 giây.\n2️⃣ Đóng gói sẵn cuộc trò chuyện đang mở vào chung 1 gói tin duy nhất.\n3️⃣ Khóa chữ ký DOM trên trình duyệt để không làm nhảy vị trí khi đang vuốt đọc tin nhắn cũ.\n\n👇 Hệ thống của bạn có đang bị nghẽn cổ chai I/O không? Xem ngay Bình luận ghim #1 để tải mẫu kiến trúc RAM Cache nhé!",
+    "status": "SCHEDULED",
+    "post_id": "122134259115248983",
+    "comment_id": "122134259115248983_2131412331067788"
+  },
+  {
+    "index": 39,
+    "code": "card_39_outlier_post_finder",
+    "slot_dt": "2026-11-05 13:30",
+    "cta_kw": "OUTLIER",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_39_outlier_post_finder.jpg",
+    "caption": "🔥 ĐỪNG NHÌN LƯỢT VIEW THÔ — HÃY TÍNH CHỈ SỐ ĐỘT BIẾN (OUTLIER LIFT SCORE ≥ 5.0x)!\n\nMột video 100.000 view trên kênh 2 triệu người theo dõi thực chất là một bài thất bại. Ngược lại, một video 50.000 view trên kênh mới lập 500 người theo dõi chính là mỏ vàng cần giải phẫu ngay:\n✅ Bước 1: Quét 20 bài đăng gần nhất của kênh đối thủ.\n✅ Bước 2: Tính mức Trung vị (Median) thay vì Trung bình cộng để không bị lệch chuẩn.\n✅ Bước 3: Chỉ mổ xẻ những bài có Lift Score vượt ngưỡng từ 2.0x đến 5.0x trở lên.\n\n👇 Bạn đang tìm ý tưởng theo cảm tính hay theo dữ liệu Outlier? Bấm vào Bình luận ghim #1 để nhận công cụ Python chấm điểm tự động!",
+    "status": "SCHEDULED",
+    "post_id": "122134259283248983",
+    "comment_id": "122134259283248983_996391492852786"
+  },
+  {
+    "index": 40,
+    "code": "card_40_comment_mining_honeycomb",
+    "slot_dt": "2026-11-05 15:15",
+    "cta_kw": "MINING",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_40_comment_mining_honeycomb.jpg",
+    "caption": "⛏️ ĐÀO MỎ BÌNH LUẬN (COMMENT MINING): LẤY ĐÚNG NGÔN NGỮ KHÁCH HÀNG ĐỂ VIẾT HOOK 3 GIÂY!\n\nTại sao kịch bản AI viết ra nghe rất bóng bẩy nhưng khách lại lướt qua? Vì nó thiếu ngôn ngữ đời thực của người mua! Hãy phân loại bình luận vào 6 rổ tín hiệu:\n🔸 Nhóm 1 (Buying Intent): Khách hỏi giá, xin link, hỏi combo.\n🔸 Nhóm 2 (Objections): Rào cản sợ tốn điện, sợ ký túc xá cấm dùng, sợ hàng mỏng.\n🔸 Nhóm 3–6: Nỗi đau thực tế, thắc mắc tính năng, lời khen sau mua và từ lóng nguyên văn.\n\n👇 Lấy ngay câu phàn nàn nhiều nhất của khách làm câu mở đầu! Nhận script phân loại bình luận tại Bình luận ghim #1 nhé!",
+    "status": "SCHEDULED",
+    "post_id": "122134259421248983",
+    "comment_id": "122134259421248983_1666646491489494"
+  },
+  {
+    "index": 41,
+    "code": "card_41_transcript_intelligence_anatomy",
+    "slot_dt": "2026-11-05 18:15",
+    "cta_kw": "TRANSCRIPT",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_41_transcript_intelligence_anatomy.jpg",
+    "caption": "🎙️ GIẢI PHẪU LỜI THOẠI (TRANSCRIPT INTELLIGENCE): 4 LÁT CẮT CỦA VIDEO NGẮN CHUYỂN ĐỔI CAO!\n\nMọi video ngắn 30 giây giữ chân người xem trên 65% đều tuân thủ nghiêm ngặt nhịp độ 4 chặng và giới hạn dưới 85 từ:\n⏱️ [00–03s] Exact Hook: Câu hỏi xoáy nỗi đau hoặc cảnh báo trực diện (tuyệt đối cấm chào hỏi).\n⏱️ [03–10s] Pain & Setup: Đặt ngay vào bối cảnh phòng trọ, ký túc xá hoặc bàn làm việc.\n⏱️ [10–23s] Visual Proof: Chứng minh bằng hình ảnh Before/After rõ nét.\n⏱️ [23–30s] Payoff & CTA: Chỉ dẫn dứt khoát xuống Bình luận ghim #1.\n\n👇 Tải ngay bộ Linter kiểm tra kịch bản tự động ở Bình luận ghim #1!",
+    "status": "SCHEDULED",
+    "post_id": "122134259499248983",
+    "comment_id": "122134259499248983_1676538687261836"
+  },
+  {
+    "index": 42,
+    "code": "card_42_triple_layer_profile_firewall",
+    "slot_dt": "2026-11-05 21:15",
+    "cta_kw": "FIREWALL",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_42_triple_layer_profile_firewall.jpg",
+    "caption": "🔒 TƯỜNG LỬA 3 LỚP BẢO VỆ TRANG CÁ NHÂN & MESSENGER KHI CHẠY BOT TƯƠNG TÁC TỰ ĐỘNG!\n\nSai lầm nguy hiểm nhất khi dùng trình duyệt tự động đi seeding hội nhóm là để Bot dùng nhầm nick cá nhân hoặc gõ nhầm vào cửa sổ chat Messenger. Đây là 3 chốt chặn bắt buộc:\n🛡️ Lớp 1: Tự động chuyển hồ sơ (Switch Profile) sang đúng Fanpage trước mỗi ca chạy.\n🛡️ Lớp 2: Quét và đóng toàn bộ popup Messenger nổi trên màn hình.\n🛡️ Lớp 3: Kiểm tra thuộc tính aria-label của ô nhập liệu — chỉ gõ khi xác nhận đúng tên Fanpage.\n\n👇 Xem chi tiết mã nguồn Tường Lửa 3 Lớp tại Bình luận ghim #1!",
+    "status": "SCHEDULED",
+    "post_id": "122134259607248983",
+    "comment_id": "122134259607248983_1855062085679181"
+  },
+  {
+    "index": 43,
+    "code": "card_43_bot_chrome_cookie_vault",
+    "slot_dt": "2026-11-06 08:30",
+    "cta_kw": "VAULT",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_43_bot_chrome_cookie_vault.jpg",
+    "caption": "🔄 ĐỒNG BỘ PHIÊN ĐĂNG NHẬP BOT GIỮA MÁY CÔNG TY & MÁY NHÀ KHÔNG CẦN LOGIN LẠI!\n\nLàm sao để Bot chạy ngầm ở công ty lúc 12:00 trưa, rồi tối về nhà lúc 20:30 tự động chạy tiếp mà không bao giờ hỏi mật khẩu hay mã 2FA?\n🔹 Khởi chạy trình duyệt Bot độc lập ở cổng 9222 với chế độ chạy ngầm --headless=new.\n🔹 Ngay khi kết thúc ca tương tác, tự động trích xuất Cookie lưu vào Vault và đóng trình duyệt giải phóng RAM.\n🔹 Tuyệt đối không dùng lệnh taskkill toàn cục làm ảnh hưởng đến trình duyệt làm việc của bạn.\n\n👇 Nhận ngay kiến trúc Cross-PC Session Vault tại Bình luận ghim #1!",
+    "status": "SCHEDULED",
+    "post_id": "122134259715248983",
+    "comment_id": "122134259715248983_1461212505951574"
+  },
+  {
+    "index": 44,
+    "code": "card_44_purge_on_upgrade_protocol",
+    "slot_dt": "2026-11-06 10:15",
+    "cta_kw": "PURGE",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_44_purge_on_upgrade_protocol.jpg",
+    "caption": "🔥 GIAO THỨC PURGE-ON-UPGRADE: TẠI SAO PHẢI XÓA SẠCH CODE & MẪU CŨ NGAY KHI CÓ CHUẨN MỚI?\n\nKhi vận hành đội ngũ 10 AI Subagent, nếu bạn giữ lại các thư mục mẫu cũ đã lỗi thời, sớm muộn cũng có Agent đọc nhầm và sản xuất ra phiên bản cũ. Quy tắc sống còn:\n1️⃣ Ngay khi chốt quy chuẩn thiết kế mới, chạy script dọn sạch toàn bộ mẫu cũ trên cả máy chính lẫn kho đồng bộ Git.\n2️⃣ Chỉ để lại duy nhất 1 nguồn sự thật (Single Source of Truth) trong codebase.\n3️⃣ Khóa cổng kiểm duyệt Bộ Não Thứ 2 để chặn mọi tham chiếu tới quy tắc cũ.\n\n👇 Bấm vào Bình luận ghim #1 để tải bộ quy tắc quản trị bộ nhớ sạch cho đội Agent!",
+    "status": "SCHEDULED",
+    "post_id": "122134259787248983",
+    "comment_id": "122134259787248983_1424850566466826"
+  },
+  {
+    "index": 45,
+    "code": "card_45_sqlite_n8n_zero_token_hub",
+    "slot_dt": "2026-11-06 13:30",
+    "cta_kw": "HYBRID",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_45_sqlite_n8n_zero_token_hub.jpg",
+    "caption": "⚙️ KIẾN TRÚC HYBRID ZERO-WASTE: TIẾT KIỆM 85% TOKEN NHỜ KẾT HỢP GEMINI 4 + SQLITE + N8N!\n\nĐừng bắt mô hình AI đắt đỏ phải làm những việc lặp đi lặp lại như đếm chữ, nối chuỗi link hay lưu bảng dữ liệu:\n🟢 Giao cho AI: Nghiên cứu góc tiếp cận, sáng tạo kịch bản và kiểm duyệt chất lượng.\n🟢 Giao cho SQLite & Python CLI: Lưu trữ danh mục sản phẩm, kiểm tra trùng lặp SHA-256 và xuất file với chi phí 0 đồng.\n🟢 Giao cho n8n Local: Tự động hóa lịch đăng và báo cáo về Telegram.\n\n👇 Tải trọn bộ sơ đồ kết nối MCP SQLite + n8n tại Bình luận ghim #1 nhé!",
+    "status": "SCHEDULED",
+    "post_id": "122134259907248983",
+    "comment_id": "122134259907248983_1794967528438621"
+  },
+  {
+    "index": 46,
+    "code": "card_46_ad_library_teardown_matrix",
+    "slot_dt": "2026-11-06 15:15",
+    "cta_kw": "TEARDOWN",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_46_ad_library_teardown_matrix.jpg",
+    "caption": "🕵️ MA TRẬN GIẢI PHẪU QUẢNG CÁO ĐỐI THỦ (AD LIBRARY TEARDOWN) TÌM KHOẢNG TRỐNG THỊ TRƯỜNG!\n\nĐừng nhìn thấy một quảng cáo đang bật mà vội kết luận nó đang ra đơn khủng. Hãy dùng quy trình 4 bước của Subagent MKT:\n1️⃣ Lọc các quảng cáo chạy lặp lại dài ngày (Repeated Ads > 14 ngày).\n2️⃣ Gom cụm thông điệp theo: Nỗi đau -> Ưu đãi -> Bối cảnh hình ảnh.\n3️⃣ Tìm ra 3 góc tiếp cận mới (Gap Angles) mà đối thủ đang bỏ trống.\n\n👇 Nhận ngay mẫu prompt Ad Library Teardown tại Bình luận ghim #1!",
+    "status": "SCHEDULED",
+    "post_id": "122134260081248983",
+    "comment_id": "122134260081248983_2894608424245987"
+  },
+  {
+    "index": 47,
+    "code": "card_47_lead_magnet_50_prompts",
+    "slot_dt": "2026-11-06 18:15",
+    "cta_kw": "50PROMPT",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_47_lead_magnet_50_prompts.jpg",
+    "caption": "🎁 TẶNG MIỄN PHÍ: BỘ 50 PROMPT SUBAGENT ĐÓNG HỘP VẬN HÀNH PHÒNG MARKETING TỰ ĐỘNG!\n\nToàn bộ hệ thống câu lệnh thực chiến đã được chia sẵn thành 5 nhóm chuyên môn để bạn copy vào dùng ngay:\n📌 10 Prompt Nghiên cứu thị trường & Đào bình luận khách hàng.\n📌 10 Prompt Viết kịch bản video ngắn & Hook 3 giây.\n📌 10 Prompt Thiết kế hình ảnh & Storyboard chuyển động.\n📌 10 Prompt Biến thể nội dung đa kênh & Chăm sóc bình luận.\n📌 10 Prompt Phân tích phễu chuyển đổi & Tối ưu hiệu suất.\n\n👇 Bình luận '50PROMPT' hoặc bấm thẳng vào link ở Bình luận ghim #1 để nhận toàn bộ tài liệu nhé!",
+    "status": "SCHEDULED",
+    "post_id": "122134260147248983",
+    "comment_id": "122134260147248983_1020829237730641"
+  },
+  {
+    "index": 48,
+    "code": "card_48_funnel_audit_traffic_lights",
+    "slot_dt": "2026-11-06 21:15",
+    "cta_kw": "FUNNEL",
+    "image_path": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\2026-11-04\\ai-players-day11-day12-vault\\images\\card_48_funnel_audit_traffic_lights.jpg",
+    "caption": "📊 MA TRẬN ĐÈN GIAO THÔNG (KEEP • ITERATE • STOP): ĐỌC SỐ LIỆU SAU 48 GIỜ ĐỂ TỐI ƯU CHUYỂN ĐỔI!\n\nSau khi xuất bản nội dung 48 giờ, Subagent Hiệu Suất sẽ tự động phân tích phễu 3 tầng và ra quyết định dứt khoát:\n🟢 KEEP (Giữ & Nhân bản): Tỷ lệ giữ chân 3s đầu ≥ 65%, tỷ lệ bấm link ≥ 3.5% -> Nhân bản ngay 3 biến thể mới.\n🟡 ITERATE (Sửa Hook): Nội dung giữa tốt nhưng 3s đầu rơi rụng nhiều -> Giữ phần thân, làm lại tiêu đề và mở đầu.\n🔴 STOP (Dừng ngay): Cả giữ chân lẫn tương tác đều thấp -> Dừng ngay để tập trung nguồn lực cho chủ đề thắng.\n\n👇 Lấy bảng tính Funnel tự động tại Bình luận ghim #1!",
+    "status": "SCHEDULED",
+    "post_id": "122134260297248983",
+    "comment_id": "122134260297248983_1449993810661270"
+  }
+]

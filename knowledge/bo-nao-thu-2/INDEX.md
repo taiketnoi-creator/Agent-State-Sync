@@ -38,6 +38,8 @@ Agent sẽ lưu bản ghi mới vào `memories/` và thêm vào bảng dưới. 
 | MEM-20261030-second-brain-supreme-gatekeeper-mandate | Mệnh lệnh CEO: Nâng cấp quyền hạn cốt lõi cho Bộ Não Thứ 2 — Giám sát đa tab, chốt chặn kiểm duyệt trước thực thi & kiểm soát bộ nhớ cũ (Supreme Gatekeeper Mandate) | decision | VALIDATED | bo-nao-thu-2, gatekeeper, omni-tab, live-rules, anti-stale-memory, pre-execution-gate, audit, ceo-mandate | CEO chỉ đạo trực tiếp — 2026-10-30 | `memories/MEM-20261030-second-brain-supreme-gatekeeper-mandate.md` |
 | MEM-20261030-create-edit-2-sales-video-specialist | Mệnh lệnh CEO: Khởi tạo Subagent edit-2 chuyên trách Edit Video Bán Hàng Affiliate (TVC 8 Nhịp, Prompt tiếng Anh, 5 Lớp đồ họa Remotion/FFmpeg) | decision | VALIDATED | edit-2, sales-pages, video-ban-hang, tvc-8-beat, prompt-english, nano-banana, google-veo-3, freeze-video-rule | CEO chỉ đạo trực tiếp — 2026-10-30 | `memories/MEM-20261030-create-edit-2-sales-video-specialist.md` |
 
+| MEM-20261104-ai-players-subagent-agency-positioning | Mệnh lệnh CEO: Chuyển đổi 100% tuyến nội dung Page AI Players (cả Ảnh 1:1 & Video Reel 9:16) sang hướng Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tạo Đội Ngũ Subagent May Đo Trọn Gói | decision | VALIDATED | ai-players, subagent-team, personal-subagent, enterprise-subagent, custom-agency-service, content-line, image-1x1, reel-9x16, ceo-mandate | CEO chỉ đạo trực tiếp — 2026-11-04 | `memories/MEM-20261104-ai-players-subagent-agency-positioning.md` |
+
 ## Quy ước trạng thái
 
 - `UNVERIFIED`: ý tưởng/ghi nhận chưa có bằng chứng đủ.

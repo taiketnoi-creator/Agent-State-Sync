@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Agent Javis Active Rules & Stale Memories Manifest",
   "description": "Bảng quy tắc sống và danh mục bộ nhớ cũ bị cấm tuyệt đối do Bộ não thứ 2 (bo-nao-thu-2) quản lý theo lệnh tối cao của CEO ngày 2026-10-30.",
-  "version": "1.0.0",
-  "updated_at": "2026-10-30T15:30:00Z",
+  "version": "2.0.0",
+  "updated_at": "2026-11-04T09:20:00+07:00",
   "owner": "bo-nao-thu-2",
   "gatekeeper_status": "ENFORCING",
   "active_rules_by_agent": {
@@ -22,6 +22,12 @@
         "rule_id": "RULE-ALL-03",
         "name": "Pre-Execution Gate & Final Compliance",
         "description": "Mọi nhiệm vụ mama phân công đều phải đối chiếu bộ quy tắc của bo-nao-thu-2; kết quả chỉ được báo cáo lên CEO sau khi bo-nao-thu-2 kiểm duyệt."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "edit": [
@@ -54,6 +60,12 @@
         "name": "Sales Pages Video Freeze",
         "memory_ref": "MEM-20261023-sales-pages-freeze-video-image-only-rule",
         "description": "3 Page Bán Hàng chỉ đăng ảnh 1:1 kèm link Shopee Affiliate; đóng băng tuyệt đối không xuất bản video cho đến khi training đạt chuẩn."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "edit-2": [
@@ -112,6 +124,12 @@
         "name": "Sales Pages Caption & Pinned Comment Strategy",
         "memory_ref": "MEM-20261020-sales-pages-image-style-guide",
         "description": "Cuối caption bắt buộc có 1 câu hỏi tương tác lựa chọn A/B ngắn gọn; hướng dẫn xem link Shopee chính hãng tại Pinned Comment #1."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "mkt": [
@@ -132,6 +150,12 @@
         "name": "Subagent Course Funnel Strategy",
         "memory_ref": "MEM-20261021-ai-players-subagent-course-funnel-strategy",
         "description": "Vận hành phễu Hybrid 3 tầng, 30 lead magnets giá trị, phễu đào tạo thực chiến và gói VIP Coaching 10X."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "voice": [
@@ -154,6 +178,12 @@
         "name": "Brand Pod Multi-Platform Scale",
         "memory_ref": "MEM-20261022-brand-pod-100-channels-architecture",
         "description": "Kiến trúc Brand Pod mở rộng mạng lưới kênh, thiết lập rào chắn nội dung bản quyền và Instagram Auto-DM."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "quan-ly-kenh": [
@@ -167,6 +197,12 @@
         "name": "Page Network Pilot Phasing",
         "memory_ref": "MEM-20261012-page-network-pilot",
         "description": "Vận hành các Page theo đúng thứ tự ưu tiên và giai đoạn thử nghiệm đã được phê duyệt."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "cham-soc-kenh": [
@@ -181,6 +217,12 @@
         "name": "Strict Audience Firewall Enforcement",
         "memory_ref": "MEM-20261022-audience-cluster-firewall-ai-vs-sales-pages",
         "description": "Nghiêm cấm dùng tài khoản Page này đi comment dạo trên Page khác trong hệ thống để tránh xung đột thuật toán Facebook."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuyến Nội Dung Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Xây Dựng Đội Ngũ Subagent Trọn Gói (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% nội dung Hình ảnh 1:1 và Video Reel 9:16 trên Page AI Players phải xoay quanh 3 trụ cột: (1) Đội ngũ Subagent Cá nhân toàn diện, (2) Đội ngũ Subagent Doanh nghiệp chuyên môn hóa, và (3) Dịch vụ nhận tư vấn & xây dựng Đội ngũ Subagent may đo trọn gói cho khách hàng Cá nhân & Doanh nghiệp. Cấm đăng bài kiến thức AI/IT học thuật rời rạc chung chung."
       }
     ],
     "hieu-suat": [
@@ -307,6 +349,16 @@
       ],
       "reason": "Vi phạm MEM-20261020: AI vẽ chữ tiếng Việt thường bị sai chính tả, méo mó chữ gây mất uy tín.",
       "replacement": "Toàn bộ chữ tiếng Việt, khiên bảo hành, CTA phải đóng dấu ở tầng hậu kỳ Remotion/FFmpeg."
+    },
+    {
+      "pattern_id": "BANNED-12",
+      "keyword": "Nội dung AI/IT học thuật rời rạc chung chung trên Page AI Players (không gắn với Giải pháp & Dịch vụ Đội Ngũ Subagent Cá Nhân/Doanh Nghiệp)",
+      "forbidden_elements": [
+        "Giải thích thuật toán thuần học thuật (Prompt Caching, SLM 7B, Standard RAG, OCR) không gắn với Đội ngũ Subagent",
+        "Chia sẻ tin tức AI chung chung không có CTA nhận xây dựng Đội ngũ Subagent cho Cá nhân & Doanh nghiệp"
+      ],
+      "reason": "CEO đã khóa cứng ngày 2026-11-04: Page AI Players chuyển 100% sang tuyến Subagent Cá nhân & Doanh nghiệp toàn diện, nhận tạo đội ngũ Subagent may đo trọn gói.",
+      "replacement": "Mọi bài Ảnh 1:1 và Video Reel 9:16 trên AI Players phải minh họa sức mạnh của Đội ngũ Subagent Cá nhân/Doanh nghiệp và dẫn phễu Dịch vụ Xây dựng Đội ngũ Subagent trọn gói + Cộng đồng Zalo VIP."
     }
   ]
 }

@@ -39,7 +39,7 @@ DEFAULT_PINNED_COMMENTS = {
     "1022527194267367": (
         "📌 KHO TÀI LIỆU & CỘNG ĐỒNG AI PLAYERS CHÍNH THỨC:\n"
         "👉 Tham gia ngay Nhóm Zalo Cộng Đồng Bảo Mật để tải trọn bộ KHO VŨ KHÍ 6 SUBAGENT (.MD) & Sơ đồ Kiến trúc Miễn phí: "
-        "https://zalo.me/g/etllok798 (Mã vào nhóm: AIPLAYERS2026) 🚀"
+        "https://zalo.me/g/fzxvbf259 (Hoặc bình luận 'SETUP' để đăng ký Tư vấn & Thiết kế Đội ngũ Subagent Cá nhân / Doanh nghiệp may đo 1:1!) 🚀"
     ),
     "1442323328956326": (
         "📌 KHO DEAL ĐỒ GIA DỤNG PHÒNG TRỌ CHÍNH HÃNG:\n"
