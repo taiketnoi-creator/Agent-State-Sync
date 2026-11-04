@@ -383,6 +383,49 @@ def notify_telegram_if_new_tunnel(tunnel_url: str, lan_ip: str) -> None:
         pass
 
 
+def ensure_daily_background_tasks_running(state: dict, today_str: str) -> dict:
+    """
+    Khi CEO mở Antigravity ở Công ty (guicci) hoặc Ở nhà (Admin-PC):
+    1. Tự động đăng ký/cập nhật 7 Scheduled Tasks hàng ngày (09:00, 11:45, 12:00, 17:30, 20:00, 20:30, 21:30 với CatchUp=True) trên máy hiện tại.
+    2. Tự động kích hoạt ngầm `mama_auto_scheduler_engine.py --mode boot-or-9am` (kiểm tra lịch 4 Page, gắn Pinned Comment #1,
+       Auto-Reply bình luận khách, và chạy bù các ca tương tác Group/Reels nếu đã tới giờ).
+    """
+    reg_ps1 = SUBAGENT_DIR / "tools" / "register_all_schedules.ps1"
+    if reg_ps1.exists() and state.get("schedules_registered_date") != today_str:
+        try:
+            subprocess.Popen(
+                ["powershell", "-NoProfile", "-WindowStyle", "Hidden", "-ExecutionPolicy", "Bypass", "-File", str(reg_ps1)],
+                cwd=str(SUBAGENT_DIR),
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=CREATE_NO_WINDOW | DETACHED_PROCESS,
+            )
+            state["schedules_registered_date"] = today_str
+        except Exception:
+            pass
+
+    engine_script = SUBAGENT_DIR / "tools" / "mama_auto_scheduler_engine.py"
+    now_ts = int(time.time())
+    last_engine_ts = int(state.get("last_auto_engine_ts", 0) or 0)
+    # Chạy ngầm kiểm tra & bắt nhịp tác vụ hàng ngày mỗi khi mở Antigravity (cách nhau tối thiểu 10 phút để chống trùng)
+    if engine_script.exists() and (now_ts - last_engine_ts >= 600):
+        try:
+            subprocess.Popen(
+                [sys.executable, str(engine_script), "--mode", "boot-or-9am"],
+                cwd=str(SUBAGENT_DIR),
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=CREATE_NO_WINDOW | DETACHED_PROCESS,
+            )
+            state["last_auto_engine_ts"] = now_ts
+            state["daily_tasks_auto_triggered_at"] = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        except Exception:
+            pass
+    return state
+
+
 def main():
     parser = argparse.ArgumentParser(description="Auto-start 3D AI Virtual Office & Mobile Tunnel")
     parser.add_argument("--open-browser", action="store_true", help="Tự mở tab trình duyệt http://localhost:4800 (chống mở lặp)")
@@ -412,6 +455,7 @@ def main():
         "pin": REMOTE_PIN,
         "port_open": is_port_open(PORT),
     })
+    state = ensure_daily_background_tasks_running(state, today_str)
     save_live_state(state)
 
     if args.open_browser and state["port_open"] and (server_started or not browser_already_opened_today):

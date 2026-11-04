@@ -250,9 +250,10 @@ def ensure_bot_chrome_online(timeout_sec: float = 12.0, headless: bool = True) -
     chrome_args.append("https://www.facebook.com/")
 
     try:
+        cflags = (DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW) if headless else (DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
         subprocess.Popen(
             chrome_args,
-            creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW,
+            creationflags=cflags,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
