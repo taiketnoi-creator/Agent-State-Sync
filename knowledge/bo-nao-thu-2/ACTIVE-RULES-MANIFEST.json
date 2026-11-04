@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Agent Javis Active Rules & Stale Memories Manifest",
   "description": "Bảng quy tắc sống và danh mục bộ nhớ cũ bị cấm tuyệt đối do Bộ não thứ 2 (bo-nao-thu-2) quản lý theo lệnh tối cao của CEO ngày 2026-10-30.",
-  "version": "2.0.0",
-  "updated_at": "2026-11-04T09:20:00+07:00",
+  "version": "2.1.0",
+  "updated_at": "2026-11-04T10:50:00+07:00",
   "owner": "bo-nao-thu-2",
   "gatekeeper_status": "ENFORCING",
   "active_rules_by_agent": {
@@ -230,6 +230,26 @@
         "rule_id": "RULE-HIEUSUAT-01",
         "name": "Automated Quality & Duplicate Guard",
         "description": "Kiểm tra hash, AST, cấu trúc và thời lượng tệp trước khi đẩy lên nền tảng, đảm bảo không có nội dung trùng lặp hoặc vi phạm chính sách."
+      }
+    ],
+    "edit-3": [
+      {
+        "rule_id": "RULE-EDIT3-01",
+        "name": "Editonny Local Engine & 145 Motion Scenes Pipeline",
+        "memory_ref": "MEM-20261104-edit3-editonny-video-rhythm-specialist",
+        "description": "S? d?ng b? c?ng c? editonny t?i templates/editonny (Faster-Whisper, waveform_cut.py, tighten_cut.py, track_faces.py, captions.py, 145 c?nh HTML/GSAP/Three.js, 79 video g?c v? hyperframes@0.8.179) ?? c?t nh?p gi?ng n?i, ??ng ph? ?? t?ng t?, b?m m?t 9:16 v? ch?n ?? h?a chuy?n ??ng; b?t bu?c ki?m ??nh qua verify.py v? quality_gate.py."
+      },
+      {
+        "rule_id": "RULE-EDIT3-02",
+        "name": "Sales Pages Video Freeze Compliance",
+        "memory_ref": "MEM-20261023-sales-pages-freeze-video-image-only-rule",
+        "description": "Tu?n th? l?nh ??ng b?ng video b?n h?ng tr?n 3 Page B?n H?ng cho ??n khi c? l?nh m? b?ng c?a CEO."
+      },
+      {
+        "rule_id": "RULE-AI-SUBAGENT-AGENCY-20261104",
+        "name": "Tuy?n N?i Dung Subagent C? Nh?n & Doanh Nghi?p To?n Di?n ? Nh?n X?y D?ng ??i Ng? Subagent Tr?n G?i (Page AI Players)",
+        "memory_ref": "MEM-20261104-ai-players-subagent-agency-positioning",
+        "description": "100% n?i dung H?nh ?nh 1:1 v? Video Reel 9:16 tr?n Page AI Players ph?i xoay quanh 3 tr? c?t: (1) ??i ng? Subagent C? nh?n to?n di?n, (2) ??i ng? Subagent Doanh nghi?p chuy?n m?n h?a, v? (3) D?ch v? nh?n t? v?n & x?y d?ng ??i ng? Subagent may ?o tr?n g?i cho kh?ch h?ng C? nh?n & Doanh nghi?p."
       }
     ]
   },

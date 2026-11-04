@@ -39,6 +39,7 @@ Agent sẽ lưu bản ghi mới vào `memories/` và thêm vào bảng dưới. 
 | MEM-20261030-create-edit-2-sales-video-specialist | Mệnh lệnh CEO: Khởi tạo Subagent edit-2 chuyên trách Edit Video Bán Hàng Affiliate (TVC 8 Nhịp, Prompt tiếng Anh, 5 Lớp đồ họa Remotion/FFmpeg) | decision | VALIDATED | edit-2, sales-pages, video-ban-hang, tvc-8-beat, prompt-english, nano-banana, google-veo-3, freeze-video-rule | CEO chỉ đạo trực tiếp — 2026-10-30 | `memories/MEM-20261030-create-edit-2-sales-video-specialist.md` |
 
 | MEM-20261104-ai-players-subagent-agency-positioning | Mệnh lệnh CEO: Chuyển đổi 100% tuyến nội dung Page AI Players (cả Ảnh 1:1 & Video Reel 9:16) sang hướng Hệ Sinh Thái Subagent Cá Nhân & Doanh Nghiệp Toàn Diện — Nhận Tạo Đội Ngũ Subagent May Đo Trọn Gói | decision | VALIDATED | ai-players, subagent-team, personal-subagent, enterprise-subagent, custom-agency-service, content-line, image-1x1, reel-9x16, ceo-mandate | CEO chỉ đạo trực tiếp — 2026-11-04 | `memories/MEM-20261104-ai-players-subagent-agency-positioning.md` |
+| MEM-20261104-edit3-editonny-video-rhythm-specialist | Quy chuẩn Subagent edit-3 — Chuyên gia Editonny (Cắt nhịp giọng nói, Phụ đề từng từ, Bám mặt 9:16 & 145 Cảnh Đồ Họa HyperFrames) | decision | VALIDATED | edit-3, editonny, hyperframes, faster-whisper, motion-scenes, talking-head, video-rhythm | CEO chỉ đạo trực tiếp — 2026-11-04 | `memories/MEM-20261104-edit3-editonny-video-rhythm-specialist.md` |
 
 ## Quy ước trạng thái
 
