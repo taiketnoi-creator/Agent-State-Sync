@@ -409,7 +409,7 @@ def main():
             if res_file.exists():
                 try:
                     rdata = json.loads(res_file.read_text(encoding="utf-8"))
-                    if rdata.get("total_comments", 0) >= 4:
+                    if rdata.get("status") == "OK" and rdata.get("total_comments", 0) >= 4:
                         already_done = True
                 except Exception:
                     pass

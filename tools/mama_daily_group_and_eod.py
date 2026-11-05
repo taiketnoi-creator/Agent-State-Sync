@@ -35,59 +35,59 @@ REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 COMMENTS_POOL = {
     "ai": [
-        "Chuẩn thực chiến luôn bác! Dùng 1 con AI lẻ rất dễ loạn ngữ cảnh — bên mình đang vận hành mô hình Đội ngũ 10 Subagent Cá nhân & Doanh nghiệp có cổng kiểm duyệt riêng. Mình có ghim sẵn Sơ đồ Kiến trúc + Nhận thiết kế Đội ngũ Subagent may đo 1:1 ngay bài đầu trên tường Page, bác bấm vào tên Page mình xem nha!",
-        "Đúng nỗi đau của nhiều anh em làm văn phòng và chủ shop! Thay vì làm thủ công từng việc, chỉ cần dựng một Đội ngũ Subagent chuyên trách (Tổng quản, MKT, Content, Báo cáo, CSKH) chạy ngầm 24/7. Bản thiết kế mẫu & dịch vụ Setup Đội ngũ Subagent trọn gói mình ghim ngay trên tường Page, anh em bấm vào tên Page mình lấy nhé!",
-        "Góc nhìn rất sát thực tế! Khi gắn thêm 'Bộ não thứ 2' (Memory Vault) vào Đội ngũ Subagent Cá nhân, AI sẽ nhớ 100% quy tắc và phong cách làm việc của chủ nhân mà không lặp lại lỗi cũ. Mình vừa ghim bộ khung 10 Subagent (.MD) ngay bài đầu tiên trên tường Page, bác nào cần bấm vào tên Page mình tải miễn phí nha!",
-        "Bí quyết giải phóng 80% thời gian cho CEO và Freelancer là bàn giao việc lặp lại cho một Đội ngũ Subagent Doanh nghiệp nối thẳng qua Zalo/Telegram. Toàn bộ Blueprint kiến trúc & đăng ký tư vấn thiết kế Đội ngũ Subagent riêng mình để sẵn ngay bài ghim trên tường Page, bác bấm vào tên Page mình tham khảo nhé!",
-        "Chia sẻ quá chất lượng! Anh em nào muốn có riêng một Đội ngũ Subagent Cá nhân hoặc Phòng ban Subagent Doanh nghiệp may đo sát 100% quy trình thực tế mà không cần tự mò code phức tạp thì ghé ngay bài đầu tiên trên tường Page mình nhé — có sẵn bản mẫu miễn phí lẫn gói dựng trọn gói 1:1 luôn ạ!",
-        "Đồng ý 100%! Từ lọc dữ liệu, viết kịch bản đa kênh, thiết kế đồ họa Zero-Clone tới trực bình luận đều có thể giao cho Đội ngũ Subagent tự hành. Mình vừa cập nhật sơ đồ vận hành 11 Subagent thực tế ngay trên tường Page, bác nào quan tâm bấm vào tên Page mình xem chi tiết nha!"
+        "Chuẩn thực chiến luôn bác! Dùng 1 con AI lẻ làm đủ thứ việc rất dễ bị trôi ngữ cảnh và nhớ nhầm quy tắc. Tách việc cho từng Sub Agent chuyên trách có 1 cổng kiểm duyệt đầu ra (Gatekeeper) riêng là hết sạch lỗi làm sai ý sếp!",
+        "Đúng nỗi đau của nhiều anh em làm văn phòng và chủ shop! Thay vì tự nhắc lệnh thủ công mỗi sáng, chỉ cần khóa cứng quy trình vào file .MD cho từng Sub Agent (Tổng quản, MKT, Content, Báo cáo) là hệ thống chạy chuẩn 100%.",
+        "Góc nhìn rất sát thực tế! Bí quyết để AI không bao giờ lặp lại lỗi cũ là gắn thêm 'Bộ não thứ 2' (Memory Vault) đứng trước Đội ngũ Sub Agent để tự động kiểm duyệt mọi đầu việc trước khi xuất bản.",
+        "Chia sẻ quá chất lượng! Thực tế cá nhân hay doanh nghiệp nhỏ chỉ cần 1 Chief of Staff (Mama) điều phối 3–5 Sub Agent chuyên môn hóa là đã giải phóng được hơn 80% thời gian làm việc lặp lại mỗi ngày rồi.",
+        "Chuẩn luôn bác! Bên mình vừa đóng gói sẵn Sơ đồ Kiến trúc Đội ngũ 12 Sub Agent Cá nhân & Doanh nghiệp kèm bản mẫu miễn phí ngay bài ghim đầu tiên trên tường Fanpage, bác nào cần tham khảo cứ ghé tường mình lấy nhé!",
+        "Đồng ý 100%! Anh em nào muốn có riêng một Đội ngũ Sub Agent may đo sát 100% quy trình thực tế mà không cần tự mò code phức tạp thì mình có ghim bộ khung mẫu & nhận thiết kế 1:1 ngay trên tường Fanpage nhé!"
     ],
     "phongtro": [
-        "Đồng cảm thực sự luôn! Phòng trọ nhỏ 15–20m2 bí kíp của mình là dùng kệ giày chữ Z sát cửa và cây lau nhà tự vắt đứng gọn góc 10cm. Mình vừa ghim hình thực tế mấy món cứu cánh phòng trọ nhỏ gọn cực rẻ ngay bài đầu trên tường Page, bạn nào đang dọn phòng bấm vào tên Page mình xem nha!",
-        "Phòng trọ kín gió gặp đợt mưa ẩm quần áo hay bị mùi ngai ngái thì cứ dùng túi sấy quần áo gấp gọn có tia UV khử khuẩn nhé, sấy 45 phút khô thơm phức rồi gấp gọn bằng cuốn sổ! Hình thực tế món này mình ghim ngay trên tường Page, bạn bấm vào tên Page mình tham khảo nha!",
-        "Ở trọ tầng cao nước yếu hoặc đường ống cũ có cặn vàng thì lắp thêm đầu vòi tăng áp xoay 720 độ có lõi lọc bông PP trong suốt là nước mạnh gấp 3 mà sạch hẳn cặn bẩn. Mình có để chi tiết món này ngay bài đầu trên tường Page, bạn nào cần bấm vào tên Page mình xem nhé!",
-        "Khe hở dưới đáy cửa phòng trọ chính là đường cao tốc cho gián, bụi hành lang và thoát hơi lạnh điều hòa! Dán 1 thanh ron cao su 3 lớp chắn đáy cửa là kín bưng và cách âm cực êm — mình vừa đăng hình thực tế ngay trên tường Page, bạn bấm vào tên Page mình xem nha!",
-        "Góc bàn phòng trọ hay đầu giường nhiều dây sạc chằng chịt thì cứ gom vào hộp nhựa ABS chống cháy nắp vân gỗ là gọn đẹp chuẩn Hàn Quốc ngay. List đồ cải tạo phòng trọ giá hạt dẻ không cần khoan tường mình ghim sẵn trên tường Page, mọi người bấm vào tên Page mình xem nhé!",
-        "Đi làm về muộn ngại nhất dọn dẹp lỉnh kỉnh, cứ ưu tiên đồ gấp gọn dán tường chịu lực để lúc chuyển trọ mang đi nhẹ tênh. Mình vừa tổng hợp mấy món đồ trọ thông minh đáng tiền nhất ngay trên tường Page, bạn nào đang decor lại phòng bấm vào tên Page mình xem nha!"
+        "Đồng cảm thực sự luôn! Phòng trọ nhỏ 15–20m2 bí kíp tiết kiệm diện tích nhất là tận dụng không gian chiều dọc bằng kệ chữ Z sát cửa và các móc dán tường chịu lực trong nhà tắm, vừa thoáng vừa không sợ mất cọc chủ nhà.",
+        "Phòng trọ kín gió gặp đợt mưa ẩm quần áo rất dễ bị mùi ngai ngái. Kinh nghiệm của mình là vắt kỹ rồi cho vào túi sấy quần áo gấp gọn có tia UV khử khuẩn tầm 45 phút là khô cong thơm phức, cất gọn bằng cuốn sổ!",
+        "Ở trọ tầng cao nước yếu hoặc đường ống cũ có cặn vàng thì lắp thêm đầu vòi tăng áp xoay 720 độ có lõi lọc bông PP trong suốt là thấy ngay hiệu quả, nước mạnh hơn hẳn mà lọc sạch cặn rỉ sét.",
+        "Khe hở dưới đáy cửa phòng trọ chính là đường cao tốc cho gián, bụi hành lang và thoát hơi lạnh điều hòa! Dán 1 thanh ron cao su 3 lớp chắn đáy cửa là kín bưng và giảm ồn hành lang cực êm.",
+        "Góc bàn phòng trọ hay đầu giường nhiều dây sạc chằng chịt thì cứ gom vào hộp nhựa ABS chống cháy nắp vân gỗ là gọn đẹp ngay. List đồ cải tạo phòng trọ giá hạt dẻ không cần khoan tường mình có ghim sẵn trên tường Fanpage cho bạn nào cần tham khảo nhé!",
+        "Đi làm về muộn ngại nhất dọn dẹp lỉnh kỉnh, cứ ưu tiên đồ gấp gọn dán tường để lúc chuyển trọ mang đi nhẹ tênh. Mình vừa tổng hợp mấy món đồ trọ thông minh đáng tiền nhất ngay bài ghim trên tường Fanpage nha!"
     ],
     "ktx": [
-        "Nhớ cảnh KTX quá! Tủ sắt cá nhân ở KTX nhỏ xíu thì cứ dùng bộ túi nén hút chân không kèm bơm tay là thu gọn được 75% chỗ để chăn bông với áo khoác dày. Trọn bộ đồ sinh tồn KTX tiết kiệm diện tích mình ghim sẵn ngay trên tường Page, đồng môn bấm vào tên Page mình xem nhé!",
-        "Mùa thi thức đêm ôn bài ở KTX ngại nhất bật đèn trần làm chói mắt cả phòng! Chân ái là đèn học LED chống cận ngàm kẹp thành giường tích điện, chiếu đúng trang sách cực dịu mắt — mình vừa lên bài mẫu này ngay trên tường Page, bạn nào ở giường tầng bấm vào tên Page mình xem nha!",
-        "Nằm giường tầng 2 KTX ngại nhất mỗi lần lấy chai nước, sạc dự phòng hay laptop lại phải trèo thang lên xuống. Ngoắc ngay 1 chiếc giỏ thép sơn tĩnh điện vào thành giường là đủ chỗ để mọi thứ trong tầm tay — hình thực tế mình ghim ngay trên tường Page, bạn bấm vào tên Page mình xem nhé!",
-        "Ở phòng KTX 6–8 người muốn có góc riêng tư thay đồ, học bài hay ngủ sớm thì lắp bộ rèm che giường tầng cản sáng 90% kèm dây treo không khoan đục là chuẩn bài nhất! Mình vừa tổng hợp các mẫu rèm KTX thoáng đẹp ngay trên tường Page, đồng môn bấm vào tên Page mình tham khảo nha!",
-        "Giường tầng KTX lúc kéo rèm kín quạt trần không thổi tới thì hầm bí cực kỳ. Thủ sẵn chiếc quạt tích điện ngàm kẹp lớn kẹp thẳng vào khung sắt đầu giường là mát rượi êm ru suốt đêm — mình có ghim chi tiết món này trên tường Page, mọi người bấm vào tên Page mình xem nhé!",
-        "Tân sinh viên học bài trên giường tầng nhớ sắm bàn học gấp gọn có khe dựng iPad và lỗ luồn dây sạc nhé, ngồi viết bài êm lưng không lo mỏi cổ. Toàn bộ list đồ giường tầng KTX giá sinh viên mình ghim sẵn trên tường Page, bạn nào cần bấm vào tên Page mình xem nha!"
+        "Nhớ cảnh KTX quá! Tủ sắt cá nhân ở KTX nhỏ xíu thì cứ dùng bộ túi nén hút chân không kèm bơm tay là thu gọn được 75% thể tích chăn bông với áo khoác dày, dư hẳn nửa tủ để đồ dùng học tập.",
+        "Mùa thi thức đêm ôn bài ở KTX ngại nhất bật đèn trần làm chói mắt cả phòng! Dùng đèn học LED chống cận ngàm kẹp thành giường tích điện, ánh sáng vàng ấm 4000K chiếu đúng trang sách là êm mắt nhất.",
+        "Nằm giường tầng 2 KTX ngại nhất mỗi lần lấy chai nước, sạc dự phòng hay laptop lại phải trèo thang lên xuống. Ngoắc 1 chiếc giỏ thép sơn tĩnh điện vào thành giường là để vừa gọn mọi thứ trong tầm tay.",
+        "Ở phòng KTX 6–8 người muốn có góc riêng tư thay đồ hay ngủ sớm khi phòng còn bật đèn thì lắp bộ rèm che giường tầng cản sáng 90% kèm dây cáp luồn không khoan đục là kín đáo và lịch sự nhất.",
+        "Giường tầng KTX lúc kéo rèm kín quạt trần không thổi tới thì thủ sẵn chiếc quạt tích điện ngàm kẹp lớn kẹp vào khung sắt đầu giường là mát rượi suốt đêm. Trọn bộ đồ giường tầng KTX giá sinh viên mình có ghim trên tường Fanpage nhé!",
+        "Tân sinh viên học bài trên giường tầng nhớ dùng bàn học gấp gọn có khe dựng iPad và lỗ luồn dây sạc để đỡ mỏi cổ nhé. Mình vừa tổng hợp bộ đồ sinh tồn KTX tiết kiệm diện tích ngay trên tường Fanpage cho đồng môn tham khảo nha!"
     ],
     "deadline": [
-        "Dân văn phòng ngồi ghế xoay 8 tiếng hay tê mỏi bắp chân và đau thắt lưng là do hai bàn chân bị hẫng! Đặt chiếc ghế kê chân công thái học có con lăn massage dưới gầm bàn là giữ đùi vuông góc 90 độ êm ru ngay — mình vừa ghim chi tiết trên tường Page, bác nào hay mỏi lưng bấm vào tên Page mình xem nhé!",
-        "Cày deadline ban đêm mà bật đèn bàn thường chiếu lóa mặt màn hình thì chỉ 1 tiếng là mỏi nhức hai mắt! Đổi sang thanh đèn treo màn hình ScreenBar quang học bất đối xứng là sáng rực mặt bàn mà màn hình 0% chói lóa — hình thực tế mình ghim ngay trên tường Page, anh em bấm vào tên Page mình xem nha!",
-        "Gõ phím và di chuột liên tục cả ngày khiến cạnh bàn cứng tỳ vào cổ tay đỏ ửng, rất dễ bị hội chứng ống cổ tay. Dùng bộ đệm kê tay cao su non Memory Foam bọc vải thoáng khí là êm cổ tay suốt 8 tiếng — mình có ghim combo này trên tường Page, bác nào cần bấm vào tên Page mình tham khảo nhé!",
-        "Đặt laptop thẳng trên mặt bàn khiến cổ luôn cúi gập 45 độ, tới chiều là cứng đờ hai bả vai! Nâng màn hình lên ngang tầm mắt bằng giá đỡ laptop hợp kim nhôm xoay 360 độ là hết hẳn mỏi cổ vai gáy — bài review chi tiết mình để ngay trên tường Page, anh em văn phòng bấm vào tên Page mình xem nha!",
-        "Ghế xoay văn phòng thường hở ngay hõm thắt lưng nên ngồi tới chiều là lưng cong chữ C. Lắp thêm gối tựa lưng cao su non ôm sát cột sống là ngồi làm việc cả ngày vẫn thẳng lưng nhẹ tênh — bộ phụ kiện công thái học văn phòng mình ghim sẵn trên tường Page, mọi người bấm vào tên Page mình xem nhé!",
-        "Muốn chạy deadline tập trung gấp đôi mà không bị xao nhãng bởi điện thoại thì dùng đồng hồ Pomodoro lục giác cảm biến trọng lực: lật mặt 25 phút lên là tự đếm ngược vào việc ngay! Mình vừa lên bài món này trên tường Page, bác nào làm văn phòng bấm vào tên Page mình xem nha!"
+        "Dân văn phòng ngồi ghế xoay 8 tiếng hay tê mỏi bắp chân và đau thắt lưng phần lớn là do hai bàn chân bị hẫng! Đặt một chiếc kê chân công thái học nghiêng 15 độ dưới gầm bàn là giữ đùi vuông góc 90 độ êm lưng ngay.",
+        "Cày deadline ban đêm mà bật đèn bàn thường chiếu thẳng vào mặt màn hình thì chỉ 1 tiếng là mỏi nhức mắt do phản xạ ánh sáng xanh. Đổi sang đèn treo màn hình ScreenBar quang học bất đối xứng là sáng mặt bàn mà màn hình 0% chói lóa.",
+        "Gõ phím và di chuột liên tục cả ngày khiến cạnh bàn cứng tỳ vào cổ tay đỏ ửng, lâu ngày rất dễ bị hội chứng ống cổ tay. Kê thêm bộ đệm cổ tay cao su non Memory Foam bọc vải thoáng khí là cổ tay thẳng trục tự nhiên.",
+        "Đặt laptop thẳng trên mặt bàn khiến cổ luôn cúi gập 45 độ, tới chiều là cứng đờ hai bả vai! Nâng màn hình lên ngang tầm mắt bằng giá đỡ hợp kim nhôm kết hợp bàn phím rời là hết hẳn mỏi cổ vai gáy.",
+        "Ghế xoay văn phòng thường hở ngay hõm thắt lưng nên ngồi tới chiều là lưng cong chữ C. Lắp thêm gối tựa lưng cao su non ôm sát cột sống là ngồi cả ngày vẫn nhẹ tênh — bộ phụ kiện công thái học văn phòng mình có ghim trên tường Fanpage nhé!",
+        "Muốn chạy deadline tập trung gấp đôi mà không bị xao nhãng bởi điện thoại thì áp dụng nhịp 25 phút Pomodoro rất hiệu quả. Mình vừa tổng hợp combo desk setup bảo vệ cột sống & cổ tay ngay trên tường Fanpage cho anh em văn phòng tham khảo nha!"
     ]
 }
 
 DIRECT_REPLY_POOL = {
     "ai": [
-        "Chuẩn luôn bác! Nếu muốn tách việc cho một Đội ngũ Subagent Cá nhân hoặc Doanh nghiệp chạy tự động có cổng kiểm duyệt riêng, bác bấm vào tên Page mình xem bộ khung 10 Subagent mẫu & dịch vụ thiết kế may đo 1:1 ngay bài ghim đầu tiên nhé!",
-        "Góc nhìn rất thực tế ạ! Bên mình vừa đóng gói sẵn Sơ đồ Kiến trúc Đội ngũ Subagent Toàn diện kèm nhận dựng hệ thống Subagent theo quy trình riêng ngay trên tường Page, bác bấm vào tên Page mình tham khảo nha!",
-        "Đúng chỗ nhiều anh em đang vướng luôn! Mình có ghim trọn bộ Blueprint Đội ngũ Subagent Cá nhân & Doanh nghiệp miễn phí ở bài đầu tiên trên tường Page, bác bấm vào tên Page mình lấy về áp dụng thử nhé!"
+        "Chuẩn luôn bác! Nếu muốn tách việc cho Đội ngũ Sub Agent Cá nhân hoặc Doanh nghiệp chạy tự động có cổng kiểm duyệt riêng, mình có ghim sẵn bộ khung 12 Sub Agent mẫu ngay bài đầu trên tường Fanpage nhé!",
+        "Góc nhìn rất thực tế ạ! Khi phân vai rõ ràng giữa Chief of Staff và các Sub Agent chuyên môn, tốc độ xử lý công việc tăng gấp 5 lần mà không bị loạn ngữ cảnh.",
+        "Đúng chỗ nhiều anh em đang vướng luôn! Mình có để sẵn trọn bộ Blueprint Đội ngũ Sub Agent Cá nhân & Doanh nghiệp ở bài ghim trên tường Fanpage, bác ghé xem thử nhé!"
     ],
     "phongtro": [
-        "Đồng cảm luôn bạn ơi! Mình vừa tổng hợp mấy món đồ phòng trọ nhỏ gọn không cần khoan tường xử lý gọn tình trạng này ngay bài đầu tiên trên tường Page, bạn bấm vào tên Page mình xem thử nha!",
-        "Chuẩn bài luôn ạ! Trên tường Page mình vừa lên hình chi tiết mấy món cứu cánh phòng trọ nhỏ giá hạt dẻ mà cực bền, bạn bấm vào tên Page mình tham khảo thêm nhé!",
-        "Mẹo này áp dụng ở phòng trọ siêu tiện luôn! Mình có ghim sẵn list đồ gia dụng phòng trọ thông minh ngay trên tường Page, bạn bấm vào tên Page mình xem chi tiết nha!"
+        "Đồng cảm luôn bạn ơi! Mấy góc hẹp trong phòng trọ nhỏ chỉ cần đổi sang kệ góc dán tường chịu lực là rộng rãi hơn hẳn mà không cần khoan đục.",
+        "Chuẩn bài luôn ạ! Trên tường Fanpage mình vừa tổng hợp chi tiết mấy món cứu cánh phòng trọ nhỏ giá hạt dẻ mà cực bền, bạn ghé tham khảo thêm nhé!",
+        "Mẹo này áp dụng ở phòng trọ siêu tiện luôn, nhất là lúc chuyển trọ tháo ra mang đi cực gọn nhẹ!"
     ],
     "ktx": [
-        "Chuẩn cảnh sinh viên KTX luôn bạn ơi! Mình vừa ghim trọn bộ đồ dùng giường tầng KTX siêu gọn nhẹ giá sinh viên ngay bài đầu trên tường Page, bạn bấm vào tên Page mình xem nha!",
-        "Ở KTX có món này tiện hơn hẳn thật! Trên tường Page mình có tổng hợp sẵn mấy món bảo bối giường tầng KTX không cần khoan đục, đồng môn bấm vào tên Page mình tham khảo nhé!",
-        "Đồng môn nói chuẩn quá! Mình vừa cập nhật bộ sưu tập đồ sinh tồn KTX tiết kiệm diện tích ngay trên tường Page, bạn bấm vào tên Page mình xem chi tiết nha!"
+        "Chuẩn cảnh sinh viên KTX luôn bạn ơi! Giường tầng cứ thêm chiếc giỏ treo khung sắt với đèn kẹp tích điện là tiện gấp đôi.",
+        "Ở KTX có món này tiện hơn hẳn thật! Trên tường Fanpage mình có tổng hợp sẵn mấy món bảo bối giường tầng KTX không cần khoan đục, đồng môn ghé tham khảo nhé!",
+        "Đồng môn nói chuẩn quá, ở tập thể cứ ưu tiên đồ gấp gọn và không gây tiếng ồn là cả phòng đều vui!"
     ],
     "deadline": [
-        "Chuẩn nỗi đau dân văn phòng luôn bác! Mình vừa ghim trọn bộ phụ kiện công thái học chống mỏi cổ vai gáy & cổ tay ngay bài đầu trên tường Page, bác bấm vào tên Page mình tham khảo nhé!",
-        "Ngồi máy tính 8 tiếng mỗi ngày có thêm món công thái học đỡ mỏi hẳn thật! Trên tường Page mình vừa lên bài chi tiết mấy món setup góc làm việc cực êm, bác bấm vào tên Page mình xem nha!",
-        "Đồng ý 100% luôn ạ! Mình có tổng hợp sẵn combo desk setup tăng tập trung chạy deadline ngay trên tường Page, bác bấm vào tên Page mình xem chi tiết nhé!"
+        "Chuẩn nỗi đau dân văn phòng luôn bác! Chỉnh lại độ cao màn hình ngang tầm mắt và thêm đệm kê cổ tay là ngồi 8 tiếng đỡ mỏi hẳn.",
+        "Ngồi máy tính cả ngày có thêm phụ kiện công thái học đỡ đau lưng mỏi gáy thật! Trên tường Fanpage mình có ghim sẵn combo desk setup văn phòng, bác ghé xem nha!",
+        "Đồng ý 100% luôn ạ! Đầu tư góc làm việc chuẩn tư thế công thái học là khoản đầu tư lời nhất cho sức khỏe dân văn phòng."
     ]
 }
 
@@ -203,10 +203,13 @@ NICHE_META = [
 ]
 
 JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
-(feedMode) => {
+(argObj) => {
+    const feedMode = (typeof argObj === 'string') ? argObj : (argObj.feedMode || 'post_group');
+    const seenSet = new Set((argObj && Array.isArray(argObj.seenFingerprints)) ? argObj.seenFingerprints : []);
     document.querySelectorAll('[data-javis-like-rank]').forEach(el => el.removeAttribute('data-javis-like-rank'));
     document.querySelectorAll('[data-javis-cmt-rank]').forEach(el => el.removeAttribute('data-javis-cmt-rank'));
     document.querySelectorAll('[data-javis-share-rank]').forEach(el => el.removeAttribute('data-javis-share-rank'));
+    document.querySelectorAll('[data-javis-fp]').forEach(el => el.removeAttribute('data-javis-fp'));
 
     function parseMetricCount(str) {
         if (!str) return 0;
@@ -246,6 +249,17 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
         const text = (container.innerText || '');
         const lower = text.toLowerCase();
         if (lower.includes('đã tắt tính năng bình luận') || lower.includes('hạn chế ai có thể bình luận')) {
+            continue;
+        }
+
+        let postFp = '';
+        const permEl = container.querySelector('a[href*="/posts/"], a[href*="/permalink/"], a[href*="/reel/"], a[href*="/videos/"]');
+        if (permEl && permEl.href) {
+            postFp = permEl.href.split('?')[0];
+        } else {
+            postFp = 'txt:' + lower.replace(/\s+/g, ' ').slice(0, 75);
+        }
+        if (postFp && seenSet.has(postFp)) {
             continue;
         }
 
@@ -331,6 +345,7 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
             views,
             hasVeryFresh,
             hasGroupLink,
+            postFp,
             videoType,
             hotScore
         });
@@ -353,6 +368,9 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
             cmtRank += 1;
             item.cmtBtn.setAttribute('data-javis-cmt-rank', String(cmtRank));
             item.cmtBtn.setAttribute('data-javis-vtype', item.videoType);
+            if (item.postFp) {
+                item.cmtBtn.setAttribute('data-javis-fp', item.postFp);
+            }
         }
         if (item.shareBtn && shareRank === 0) {
             shareRank += 1;
@@ -643,6 +661,8 @@ def interact_direct_reel_or_video_urls(
     cmt_cursor: int,
     max_targets: int,
     out_dir: pathlib.Path,
+    interacted_map: dict | None = None,
+    shift: int = 1,
 ) -> dict:
     """
     Mở trực tiếp từng URL Facebook Reels (`/reel/...`) hoặc Watch (`/watch/...`),
@@ -660,6 +680,9 @@ def interact_direct_reel_or_video_urls(
     for v_url in urls:
         if interacted >= max_targets:
             break
+        clean_v_url = v_url.split("?")[0]
+        if interacted_map is not None and (v_url in interacted_map or clean_v_url in interacted_map):
+            continue
         try:
             pg.goto(v_url, timeout=25000)
             time.sleep(3.2)
@@ -708,6 +731,12 @@ def interact_direct_reel_or_video_urls(
                 interacted += 1
                 res["comments"] += 1
                 res["videos_interacted"] += 1
+                if interacted_map is not None:
+                    interacted_map[clean_v_url] = {
+                        "ts": dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "slug": slug,
+                        "shift": shift,
+                    }
 
                 r_text = reply_pool[res["cmt_cursor"] % len(reply_pool)]
                 if try_reply_to_user_comment(pg, fanpage_name, r_text):
@@ -822,6 +851,13 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
 
             if not ensure_fanpage_active(pg, fanpage_name):
                 continue
+            try:
+                from start_bot_chrome import load_group_ledger
+                ledger_obj = load_group_ledger()
+            except Exception:
+                ledger_obj = {"updated_at": "", "interacted": {}}
+            interacted_map = ledger_obj.setdefault("interacted", {})
+
             niche_likes = 0
             niche_cmts = 0
             niche_user_replies = 0
@@ -862,7 +898,10 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
 
                     rank_info = {}
                     try:
-                        rank_info = pg.evaluate(JS_RANK_HOT_POSTS_AND_VIDEOS, f_mode)
+                        rank_info = pg.evaluate(
+                            JS_RANK_HOT_POSTS_AND_VIDEOS,
+                            {"feedMode": f_mode, "seenFingerprints": list(interacted_map.keys())},
+                        )
                         if rank_info and rank_info.get("topItems"):
                             niche_top_scored.extend(rank_info["topItems"][:2])
                     except Exception:
@@ -934,6 +973,9 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                                 continue
 
                             c_btn.scroll_into_view_if_needed(timeout=1800)
+                            post_fp = c_btn.get_attribute("data-javis-fp") or ""
+                            if post_fp and post_fp in interacted_map:
+                                continue
                             if f_mode.startswith("video_"):
                                 time.sleep(1.8)
                             c_btn.click(timeout=1800)
@@ -951,6 +993,12 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                                 posted_here += 1
                                 niche_cmts += 1
                                 summary["total_comments"] += 1
+                                if post_fp:
+                                    interacted_map[post_fp] = {
+                                        "ts": dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                        "slug": slug,
+                                        "shift": shift,
+                                    }
 
                                 if posted_here == 1:
                                     r_text = reply_pool[cmt_cursor % len(reply_pool)]
@@ -1003,6 +1051,8 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                                 cmt_cursor=cmt_cursor,
                                 max_targets=max(1, cmts_per_url - posted_here),
                                 out_dir=out_dir,
+                                interacted_map=interacted_map,
+                                shift=shift,
                             )
                             cmt_cursor = d_res["cmt_cursor"]
                             niche_likes += d_res["likes"]
@@ -1022,6 +1072,12 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
                             summary["screenshots"].extend(d_res["shots"])
                 except Exception:
                     pass
+
+            try:
+                from start_bot_chrome import save_group_ledger
+                save_group_ledger(ledger_obj)
+            except Exception:
+                pass
 
             summary["details"].append(
                 {
@@ -1161,11 +1217,16 @@ def main():
                 f"• {reason_text or 'Phiên đăng nhập Facebook trên trình duyệt Bot (.chrome-fb-bot) đã hết hạn.'}",
             ]
         alert_text = "\n".join(alert_lines)
-        if args.send_telegram or args.reply_task > 0:
+        alert_flag = out_dir / f".alert_sent_{status_code}.flag"
+        if (args.send_telegram or args.reply_task > 0) and not alert_flag.exists():
             cmd = [sys.executable, str(bridge), "--send", "8110826820", "--text", alert_text]
             if summary.get("alert_photo"):
                 cmd += ["--photo", summary["alert_photo"]]
             subprocess.run(cmd, check=False)
+            try:
+                alert_flag.write_text(short_now, encoding="utf-8")
+            except Exception:
+                pass
 
     print(json.dumps(summary, ensure_ascii=False))
 

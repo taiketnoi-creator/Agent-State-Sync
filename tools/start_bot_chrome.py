@@ -126,6 +126,42 @@ def import_bot_session_vault() -> list:
     return []
 
 
+def load_group_ledger() -> dict:
+    """
+    Đọc sổ cái các bài viết Group / Reels đã bình luận (`group_interaction_ledger.json`)
+    để chống bình luận lặp lại cùng 1 bài giữa các ca và giữa 2 máy.
+    """
+    if not INTERACTION_LEDGER_FILE.exists():
+        return {"updated_at": "", "interacted": {}}
+    try:
+        data = json.loads(INTERACTION_LEDGER_FILE.read_text(encoding="utf-8"))
+        if isinstance(data, dict) and isinstance(data.get("interacted"), dict):
+            return data
+    except Exception:
+        pass
+    return {"updated_at": "", "interacted": {}}
+
+
+def save_group_ledger(ledger: dict) -> None:
+    """
+    Lưu sổ cái `group_interaction_ledger.json` (giữ tối đa 500 mục mới nhất trong 7 ngày).
+    """
+    try:
+        interacted = ledger.get("interacted", {})
+        if len(interacted) > 500:
+            sorted_items = sorted(interacted.items(), key=lambda kv: str(kv[1].get("ts", "")), reverse=True)[:500]
+            interacted = dict(sorted_items)
+        payload = {
+            "updated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "source_machine": platform.node(),
+            "interacted": interacted,
+        }
+        INTERACTION_LEDGER_FILE.parent.mkdir(parents=True, exist_ok=True)
+        INTERACTION_LEDGER_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
 def sync_bot_state_between_machines(direction: str = "pull") -> None:
     """
     Đồng bộ 2 chiều trạng thái Chrome Bot (`fb_bot_session_vault.json` + `group_interaction_ledger.json`)
@@ -245,8 +281,9 @@ def ensure_bot_chrome_online(timeout_sec: float = 12.0, headless: bool = True) -
     ]
     if headless:
         chrome_args.insert(4, "--headless=new")
-
-    chrome_args.append("https://www.facebook.com/")
+        chrome_args.append("about:blank")
+    else:
+        chrome_args.append("https://www.facebook.com/")
 
     try:
         cflags = (DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW) if headless else (DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
