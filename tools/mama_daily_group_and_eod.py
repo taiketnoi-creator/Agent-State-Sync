@@ -245,6 +245,11 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
 
         const text = (container.innerText || '');
         const lower = text.toLowerCase();
+        if (lower.includes('đã tắt tính năng bình luận') || lower.includes('hạn chế ai có thể bình luận')) {
+            continue;
+        }
+
+        const hasGroupLink = !!container.querySelector('a[href*="/groups/"]');
 
         let freshnessScore = 0;
         const hasOldYear = /\b(2018|2019|2020|2021|2022|2023|2024|2025)\b/.test(lower);
@@ -308,6 +313,9 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
         const shareBtn = container.querySelector('[aria-label*="Chia sẻ"], [aria-label*="Gửi nội dung này"]');
 
         let hotScore = freshnessScore + (likes * 1.5) + (comments * 6.0) + (shares * 4.0) + (views * 0.05);
+        if (feedMode === 'post_group') {
+            hotScore += hasGroupLink ? 400 : -350;
+        }
         if (feedMode === 'video_horizontal' && videoType === 'video_horizontal') hotScore += 250;
         if (feedMode === 'video_vertical' && videoType === 'video_vertical') hotScore += 250;
         if (likes > 0 || comments > 0 || views > 0) hotScore += 150;
@@ -322,6 +330,7 @@ JS_RANK_HOT_POSTS_AND_VIDEOS = r"""
             shares,
             views,
             hasVeryFresh,
+            hasGroupLink,
             videoType,
             hotScore
         });
@@ -734,8 +743,9 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
     }
 
     if not ws_url:
-        from graph_api_page_interactor import run_graph_api_fallback
-        return run_graph_api_fallback(shift, out_dir)
+        summary["status"] = "ERROR_CHROME_BOT_OFFLINE"
+        summary["reason"] = "Không khởi động được trình duyệt .chrome-fb-bot cổng 9222."
+        return summary
 
     summary["status"] = "OK"
     with sync_playwright() as p:
@@ -757,6 +767,17 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
         try:
             pg.goto("https://www.facebook.com/", timeout=22000)
             time.sleep(2.5)
+            page_title_lower = (pg.title() or "").lower()
+            if "blocked" in page_title_lower or "access denied" in page_title_lower:
+                summary["status"] = "NETWORK_BLOCKED_ON_OFFICE_PC"
+                summary["reason"] = f"Tường lửa mạng hiện tại chặn *.facebook.com (Title: {pg.title()})."
+                try:
+                    from start_bot_chrome import stop_bot_chrome
+                    stop_bot_chrome()
+                except Exception:
+                    pass
+                return summary
+
             fb_cookies_now = ctx.cookies("https://www.facebook.com")
             has_c_user = any(c.get("name") == "c_user" for c in fb_cookies_now)
             has_login_input = pg.locator(
@@ -764,15 +785,34 @@ def run_shift_interactions(shift: int, urls_per_niche: int, cmts_per_url: int, o
             ).count() > 0
             is_checkpoint = "checkpoint" in pg.url.lower() or "two_step_verification" in pg.url.lower()
             if (not has_c_user) or has_login_input or is_checkpoint:
+                alert_shot = out_dir / f"shift{shift}_alert_login_needed.png"
+                try:
+                    pg.screenshot(path=str(alert_shot))
+                    summary["alert_photo"] = str(alert_shot)
+                except Exception:
+                    pass
                 try:
                     from start_bot_chrome import stop_bot_chrome
                     stop_bot_chrome()
                 except Exception:
                     pass
-                from graph_api_page_interactor import run_graph_api_fallback
-                return run_graph_api_fallback(shift, out_dir)
-        except Exception:
-            pass
+                summary["status"] = "NEED_FACEBOOK_LOGIN"
+                summary["reason"] = "Phiên đăng nhập Facebook trên .chrome-fb-bot hết hạn hoặc cần xác nhận Tiếp tục."
+                return summary
+        except Exception as nav_err:
+            err_str = str(nav_err)
+            try:
+                from start_bot_chrome import stop_bot_chrome
+                stop_bot_chrome()
+            except Exception:
+                pass
+            if "ERR_CERT_AUTHORITY_INVALID" in err_str or "403" in err_str or "blocked" in err_str.lower():
+                summary["status"] = "NETWORK_BLOCKED_ON_OFFICE_PC"
+                summary["reason"] = f"Mạng hiện tại chặn kết nối HTTPS tới facebook.com ({err_str.splitlines()[0]})."
+            else:
+                summary["status"] = "ERROR_NAVIGATION_FAILED"
+                summary["reason"] = err_str.splitlines()[0]
+            return summary
 
         for niche in NICHE_META:
             slug = niche["slug"]
@@ -1108,15 +1148,24 @@ def main():
             subprocess.run(cmd, check=False)
     else:
         status_code = summary.get("status", "ZERO_INTERACTION")
-        alert_lines = [
-            f"⚠️ Cảnh báo {shift_names.get(args.shift, 'Ca tương tác')} ({short_now}): {status_code}",
-            "• Phiên đăng nhập Facebook trên trình duyệt Bot (.chrome-fb-bot) đã hết hạn (màn hình 'Tiếp tục Thành Tài'). Đã mở cửa sổ .chrome-fb-bot để CEO bấm Tiếp tục / nhập mật khẩu 1 lần.",
-        ]
+        reason_text = summary.get("reason", "")
+        if status_code == "NETWORK_BLOCKED_ON_OFFICE_PC":
+            alert_lines = [
+                f"⏸️ Tạm hoãn {shift_names.get(args.shift, 'Ca tương tác')} ({short_now}): {status_code}",
+                f"• {reason_text or 'Mạng công ty hiện tại đang chặn *.facebook.com.'}",
+                "• Đã khóa chặn báo cáo ảo (0 tương tác Group). Ca tương tác sẽ thực thi thật trên máy có mạng mở Facebook.",
+            ]
+        else:
+            alert_lines = [
+                f"⚠️ Cảnh báo {shift_names.get(args.shift, 'Ca tương tác')} ({short_now}): {status_code}",
+                f"• {reason_text or 'Phiên đăng nhập Facebook trên trình duyệt Bot (.chrome-fb-bot) đã hết hạn.'}",
+            ]
         alert_text = "\n".join(alert_lines)
-        cmd = [sys.executable, str(bridge), "--send", "8110826820", "--text", alert_text]
-        if summary.get("alert_photo"):
-            cmd += ["--photo", summary["alert_photo"]]
-        subprocess.run(cmd, check=False)
+        if args.send_telegram or args.reply_task > 0:
+            cmd = [sys.executable, str(bridge), "--send", "8110826820", "--text", alert_text]
+            if summary.get("alert_photo"):
+                cmd += ["--photo", summary["alert_photo"]]
+            subprocess.run(cmd, check=False)
 
     print(json.dumps(summary, ensure_ascii=False))
 

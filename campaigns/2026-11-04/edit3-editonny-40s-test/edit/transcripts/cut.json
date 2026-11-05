@@ -1,0 +1,734 @@
+{
+  "words": [
+    {
+      "text": "Năm",
+      "start": 0.28,
+      "end": 0.502
+    },
+    {
+      "text": "2026,",
+      "start": 0.516,
+      "end": 0.959
+    },
+    {
+      "text": "sở",
+      "start": 0.988,
+      "end": 1.136
+    },
+    {
+      "text": "hữu",
+      "start": 1.145,
+      "end": 1.367
+    },
+    {
+      "text": "ngay",
+      "start": 1.381,
+      "end": 1.677
+    },
+    {
+      "text": "hệ",
+      "start": 1.696,
+      "end": 1.843
+    },
+    {
+      "text": "sinh",
+      "start": 1.853,
+      "end": 2.149
+    },
+    {
+      "text": "thái",
+      "start": 2.167,
+      "end": 2.463
+    },
+    {
+      "text": "12",
+      "start": 2.482,
+      "end": 2.63
+    },
+    {
+      "text": "chuyên",
+      "start": 2.639,
+      "end": 3.083
+    },
+    {
+      "text": "viên",
+      "start": 3.111,
+      "end": 3.407
+    },
+    {
+      "text": "Sub",
+      "start": 3.426,
+      "end": 3.647
+    },
+    {
+      "text": "Agent",
+      "start": 3.662,
+      "end": 4.031
+    },
+    {
+      "text": "AI.",
+      "start": 4.055,
+      "end": 4.35
+    },
+    {
+      "text": "Chỉ",
+      "start": 4.98,
+      "end": 5.15
+    },
+    {
+      "text": "cần",
+      "start": 5.161,
+      "end": 5.33
+    },
+    {
+      "text": "nhắn",
+      "start": 5.341,
+      "end": 5.567
+    },
+    {
+      "text": "cho",
+      "start": 5.582,
+      "end": 5.752
+    },
+    {
+      "text": "tổng",
+      "start": 5.762,
+      "end": 5.989
+    },
+    {
+      "text": "quản",
+      "start": 6.003,
+      "end": 6.23
+    },
+    {
+      "text": "Mama",
+      "start": 6.244,
+      "end": 6.47
+    },
+    {
+      "text": "dựng",
+      "start": 6.485,
+      "end": 6.711
+    },
+    {
+      "text": "video",
+      "start": 6.725,
+      "end": 7.008
+    },
+    {
+      "text": "và",
+      "start": 7.026,
+      "end": 7.14
+    },
+    {
+      "text": "chạy",
+      "start": 7.147,
+      "end": 7.373
+    },
+    {
+      "text": "4",
+      "start": 7.388,
+      "end": 7.501
+    },
+    {
+      "text": "Fanpage,",
+      "start": 7.508,
+      "end": 8.017
+    },
+    {
+      "text": "hệ",
+      "start": 8.05,
+      "end": 8.163
+    },
+    {
+      "text": "thống",
+      "start": 8.17,
+      "end": 8.453
+    },
+    {
+      "text": "xử",
+      "start": 8.471,
+      "end": 8.584
+    },
+    {
+      "text": "lý",
+      "start": 8.591,
+      "end": 8.705
+    },
+    {
+      "text": "xong",
+      "start": 8.712,
+      "end": 8.938
+    },
+    {
+      "text": "ngay.",
+      "start": 8.952,
+      "end": 9.292
+    },
+    {
+      "text": "Quy",
+      "start": 10.38,
+      "end": 10.571
+    },
+    {
+      "text": "trình",
+      "start": 10.583,
+      "end": 10.902
+    },
+    {
+      "text": "chỉ",
+      "start": 10.922,
+      "end": 11.113
+    },
+    {
+      "text": "3",
+      "start": 11.126,
+      "end": 11.253
+    },
+    {
+      "text": "bước:",
+      "start": 11.261,
+      "end": 11.644
+    },
+    {
+      "text": "một",
+      "start": 11.668,
+      "end": 11.859
+    },
+    {
+      "text": "giao",
+      "start": 11.871,
+      "end": 12.126
+    },
+    {
+      "text": "lệnh",
+      "start": 12.142,
+      "end": 12.397
+    },
+    {
+      "text": "cho",
+      "start": 12.414,
+      "end": 12.605
+    },
+    {
+      "text": "Mama,",
+      "start": 12.617,
+      "end": 12.999
+    },
+    {
+      "text": "hai",
+      "start": 13.024,
+      "end": 13.215
+    },
+    {
+      "text": "đội",
+      "start": 13.227,
+      "end": 13.418
+    },
+    {
+      "text": "AI",
+      "start": 13.43,
+      "end": 13.558
+    },
+    {
+      "text": "xử",
+      "start": 13.566,
+      "end": 13.693
+    },
+    {
+      "text": "lý,",
+      "start": 13.702,
+      "end": 13.957
+    },
+    {
+      "text": "ba",
+      "start": 13.973,
+      "end": 14.1
+    },
+    {
+      "text": "xuất",
+      "start": 14.108,
+      "end": 14.363
+    },
+    {
+      "text": "bản",
+      "start": 14.379,
+      "end": 14.571
+    },
+    {
+      "text": "tự",
+      "start": 14.583,
+      "end": 14.71
+    },
+    {
+      "text": "động.",
+      "start": 14.718,
+      "end": 15.101
+    },
+    {
+      "text": "Công",
+      "start": 16.68,
+      "end": 16.906
+    },
+    {
+      "text": "cụ",
+      "start": 16.92,
+      "end": 17.033
+    },
+    {
+      "text": "Editonny",
+      "start": 17.041,
+      "end": 17.492
+    },
+    {
+      "text": "tự",
+      "start": 17.521,
+      "end": 17.634
+    },
+    {
+      "text": "động",
+      "start": 17.641,
+      "end": 17.867
+    },
+    {
+      "text": "cắt",
+      "start": 17.882,
+      "end": 18.051
+    },
+    {
+      "text": "7",
+      "start": 18.062,
+      "end": 18.175
+    },
+    {
+      "text": "khoảng",
+      "start": 18.182,
+      "end": 18.521
+    },
+    {
+      "text": "lặng",
+      "start": 18.543,
+      "end": 18.769
+    },
+    {
+      "text": "theo",
+      "start": 18.783,
+      "end": 19.009
+    },
+    {
+      "text": "sóng",
+      "start": 19.023,
+      "end": 19.249
+    },
+    {
+      "text": "âm,",
+      "start": 19.264,
+      "end": 19.49
+    },
+    {
+      "text": "rút",
+      "start": 19.504,
+      "end": 19.673
+    },
+    {
+      "text": "gọn",
+      "start": 19.684,
+      "end": 19.854
+    },
+    {
+      "text": "1",
+      "start": 19.865,
+      "end": 19.977
+    },
+    {
+      "text": "phút",
+      "start": 19.985,
+      "end": 20.211
+    },
+    {
+      "text": "15",
+      "start": 20.225,
+      "end": 20.338
+    },
+    {
+      "text": "giây",
+      "start": 20.345,
+      "end": 20.571
+    },
+    {
+      "text": "xuống",
+      "start": 20.586,
+      "end": 20.868
+    },
+    {
+      "text": "40",
+      "start": 20.886,
+      "end": 20.999
+    },
+    {
+      "text": "giây.",
+      "start": 21.006,
+      "end": 21.345
+    },
+    {
+      "text": "Trước",
+      "start": 21.98,
+      "end": 22.291
+    },
+    {
+      "text": "đây",
+      "start": 22.311,
+      "end": 22.498
+    },
+    {
+      "text": "mất",
+      "start": 22.51,
+      "end": 22.696
+    },
+    {
+      "text": "6",
+      "start": 22.708,
+      "end": 22.833
+    },
+    {
+      "text": "giờ",
+      "start": 22.841,
+      "end": 23.027
+    },
+    {
+      "text": "tự",
+      "start": 23.039,
+      "end": 23.164
+    },
+    {
+      "text": "dựng",
+      "start": 23.172,
+      "end": 23.421
+    },
+    {
+      "text": "thủ",
+      "start": 23.436,
+      "end": 23.623
+    },
+    {
+      "text": "công,",
+      "start": 23.635,
+      "end": 24.008
+    },
+    {
+      "text": "giờ",
+      "start": 24.032,
+      "end": 24.219
+    },
+    {
+      "text": "có",
+      "start": 24.231,
+      "end": 24.355
+    },
+    {
+      "text": "Sub",
+      "start": 24.363,
+      "end": 24.55
+    },
+    {
+      "text": "Agent",
+      "start": 24.562,
+      "end": 24.873
+    },
+    {
+      "text": "chỉ",
+      "start": 24.893,
+      "end": 25.08
+    },
+    {
+      "text": "mất",
+      "start": 25.092,
+      "end": 25.278
+    },
+    {
+      "text": "5",
+      "start": 25.29,
+      "end": 25.415
+    },
+    {
+      "text": "phút,",
+      "start": 25.423,
+      "end": 25.796
+    },
+    {
+      "text": "nhanh",
+      "start": 25.82,
+      "end": 26.131
+    },
+    {
+      "text": "gấp",
+      "start": 26.151,
+      "end": 26.338
+    },
+    {
+      "text": "22",
+      "start": 26.349,
+      "end": 26.474
+    },
+    {
+      "text": "lần.",
+      "start": 26.482,
+      "end": 26.793
+    },
+    {
+      "text": "Hiệu",
+      "start": 28.08,
+      "end": 28.279
+    },
+    {
+      "text": "suất",
+      "start": 28.292,
+      "end": 28.491
+    },
+    {
+      "text": "sản",
+      "start": 28.504,
+      "end": 28.653
+    },
+    {
+      "text": "xuất",
+      "start": 28.663,
+      "end": 28.862
+    },
+    {
+      "text": "nội",
+      "start": 28.874,
+      "end": 29.024
+    },
+    {
+      "text": "dung",
+      "start": 29.033,
+      "end": 29.232
+    },
+    {
+      "text": "và",
+      "start": 29.245,
+      "end": 29.345
+    },
+    {
+      "text": "chuyển",
+      "start": 29.351,
+      "end": 29.65
+    },
+    {
+      "text": "đổi",
+      "start": 29.669,
+      "end": 29.818
+    },
+    {
+      "text": "khách",
+      "start": 29.828,
+      "end": 30.077
+    },
+    {
+      "text": "hàng",
+      "start": 30.092,
+      "end": 30.292
+    },
+    {
+      "text": "tăng",
+      "start": 30.304,
+      "end": 30.503
+    },
+    {
+      "text": "trưởng",
+      "start": 30.516,
+      "end": 30.815
+    },
+    {
+      "text": "bứt",
+      "start": 30.834,
+      "end": 30.983
+    },
+    {
+      "text": "phá",
+      "start": 30.993,
+      "end": 31.142
+    },
+    {
+      "text": "320",
+      "start": 31.152,
+      "end": 31.301
+    },
+    {
+      "text": "phần",
+      "start": 31.311,
+      "end": 31.51
+    },
+    {
+      "text": "trăm.",
+      "start": 31.522,
+      "end": 31.821
+    },
+    {
+      "text": "Xóa",
+      "start": 32.68,
+      "end": 32.828
+    },
+    {
+      "text": "bỏ",
+      "start": 32.837,
+      "end": 32.935
+    },
+    {
+      "text": "ngay",
+      "start": 32.942,
+      "end": 33.138
+    },
+    {
+      "text": "3",
+      "start": 33.151,
+      "end": 33.249
+    },
+    {
+      "text": "nỗi",
+      "start": 33.255,
+      "end": 33.403
+    },
+    {
+      "text": "lo:",
+      "start": 33.412,
+      "end": 33.609
+    },
+    {
+      "text": "bí",
+      "start": 33.622,
+      "end": 33.72
+    },
+    {
+      "text": "ý",
+      "start": 33.726,
+      "end": 33.825
+    },
+    {
+      "text": "tưởng,",
+      "start": 33.831,
+      "end": 34.175
+    },
+    {
+      "text": "thức",
+      "start": 34.197,
+      "end": 34.394
+    },
+    {
+      "text": "khuya",
+      "start": 34.406,
+      "end": 34.652
+    },
+    {
+      "text": "dựng",
+      "start": 34.668,
+      "end": 34.865
+    },
+    {
+      "text": "clip,",
+      "start": 34.877,
+      "end": 35.172
+    },
+    {
+      "text": "trễ",
+      "start": 35.191,
+      "end": 35.339
+    },
+    {
+      "text": "lịch",
+      "start": 35.348,
+      "end": 35.545
+    },
+    {
+      "text": "đăng.",
+      "start": 35.557,
+      "end": 35.852
+    },
+    {
+      "text": "Bình",
+      "start": 36.38,
+      "end": 36.582
+    },
+    {
+      "text": "luận",
+      "start": 36.595,
+      "end": 36.798
+    },
+    {
+      "text": "ngay",
+      "start": 36.811,
+      "end": 37.013
+    },
+    {
+      "text": "chữ",
+      "start": 37.026,
+      "end": 37.178
+    },
+    {
+      "text": "Sub",
+      "start": 37.187,
+      "end": 37.339
+    },
+    {
+      "text": "Agent",
+      "start": 37.349,
+      "end": 37.602
+    },
+    {
+      "text": "dưới",
+      "start": 37.618,
+      "end": 37.82
+    },
+    {
+      "text": "video",
+      "start": 37.833,
+      "end": 38.086
+    },
+    {
+      "text": "để",
+      "start": 38.102,
+      "end": 38.203
+    },
+    {
+      "text": "đặt",
+      "start": 38.21,
+      "end": 38.362
+    },
+    {
+      "text": "lịch",
+      "start": 38.371,
+      "end": 38.574
+    },
+    {
+      "text": "thiết",
+      "start": 38.586,
+      "end": 38.839
+    },
+    {
+      "text": "kế",
+      "start": 38.856,
+      "end": 38.957
+    },
+    {
+      "text": "đội",
+      "start": 38.963,
+      "end": 39.115
+    },
+    {
+      "text": "ngũ",
+      "start": 39.125,
+      "end": 39.276
+    },
+    {
+      "text": "AI",
+      "start": 39.286,
+      "end": 39.387
+    },
+    {
+      "text": "riêng.",
+      "start": 39.394,
+      "end": 39.748
+    }
+  ]
+}

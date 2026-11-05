@@ -89,7 +89,11 @@ python "d:\Phiên bản Ai agent\Subagent\templates\editonny\skills\editonny\scr
   python "<PROJECT_DIR>\build.py" hf render --quality draft --fps 30 --output "renders/output.mp4"
   ```
 - Kiểm tra chất lượng âm thanh (`-14 LUFS`, `true-peak ≤ -1 dBTP`), khung hình và phụ đề qua `quality_gate.py` trước khi bàn giao.
-- **Khóa Cứng Bảo Vệ Hệ Thống (`LUẬT #3 & LUẬT #10`):** Không tự ý sửa code gốc trong gói cài đặt `editonny`; không tự ý đăng video lên 3 Page Bán Hàng khi đang đóng băng; mọi đầu ra đều phải qua `second_brain_gatekeeper.py --audit --agent edit-3`.
+- **Khóa Cứng Bảo Vệ Hệ Thống & 4 Luật Sắt Thực Chiến Tiếng Việt (`LUẬT #3 & LUẬT #10`):**
+  1. **Đồng nhất 1 giọng đọc & Viết tách `Sub Agent`:** Chỉ dùng 1 giọng TTS duy nhất xuyên suốt video (cấm fallback trộn giọng Nam/Nữ); bắt buộc viết tách **`Sub Agent`** (có dấu cách để TTS đọc chuẩn *"Sấp Ây-giần"*, cấm viết liền `"Subagent"` bị đọc thành *"Su-ba-geng"*) và viết **`Fanpage`** (thay vì `"Page"`).
+  2. **Không đè Voice & Không đè Phụ đề (`0ms overlap`):** Cắt khoảng lặng đầu/cuối (`silenceremove`) và khóa cứng (`atrim`) từng câu thoại nằm gọn trong `[scene_start + 0.08s, scene_end - 0.18s]`; đặt phụ đề ở `top: 1540px` và kiểm tra mọi `#cap` có `duration > 0`.
+  3. **Font tiếng Việt đầy đủ (`Montserrat.ttf` `U+1EA0–U+1EFF`):** Mọi scene HTML phải trỏ `@font-face` của `"Inter"`, `"SoraV"`, `"PlayfairI"` về `assets/fonts/Montserrat.ttf` (`format("truetype")`, không giới hạn `unicode-range`).
+  4. **Đồng bộ 1-1 Hình & Tiếng:** Mọi con số đếm trong JS (`countNumber` của `before-after`, `waveform-cuts`, `glass-chart`, `year-hook`) và nhãn trạng thái phải khớp 100% với lời thoại tiếng Việt; không tự ý đăng video lên 3 Page Bán Hàng khi đang đóng băng; mọi đầu ra đều phải qua `second_brain_gatekeeper.py --audit --agent edit-3`.
 
 ---
 

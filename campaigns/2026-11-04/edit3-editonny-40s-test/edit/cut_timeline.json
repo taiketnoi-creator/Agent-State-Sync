@@ -1,0 +1,14 @@
+{
+  "duration": 40.0,
+  "width": 1080,
+  "height": 1920,
+  "fps": 24,
+  "segments": [
+    {
+      "out_start": 0.0,
+      "out_end": 40.0,
+      "source_start": 0.0,
+      "source_end": 40.0
+    }
+  ]
+}

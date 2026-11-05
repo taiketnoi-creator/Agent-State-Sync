@@ -224,8 +224,7 @@ def ensure_bot_chrome_online(timeout_sec: float = 12.0, headless: bool = True) -
     ck_path = BOT_DIR / "Default" / "Network" / "Cookies"
     if not ck_path.exists():
         try:
-            from setup_fb_bot_chrome import sync_to_bot_dir
-            sync_to_bot_dir()
+            pass
         except Exception:
             pass
 

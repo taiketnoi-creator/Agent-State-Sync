@@ -1,2 +1,4 @@
-⏰ Mốc shift1-1200 (12:00 31/10):
-• 4 Fanpage đủ lịch & Pinned Comment #1.
+⏰ Mốc shift1-1200 (12:00 05/11):
+• 🔒 [Phòng Trọ Hết Cứu] Kho hẹn giờ trống & chưa có gói SKU mới ngày 2026-11-05 (Đã khóa Zero-Repost Gate — CẤM lấy lại bài cũ 20/10).
+• 🔒 [Ký Túc Xá Có Biến] Kho hẹn giờ trống & chưa có gói SKU mới ngày 2026-11-05 (Đã khóa Zero-Repost Gate — CẤM lấy lại bài cũ 20/10).
+• 🔒 [Hội Deadline] Kho hẹn giờ trống & chưa có gói SKU mới ngày 2026-11-05 (Đã khóa Zero-Repost Gate — CẤM lấy lại bài cũ 20/10).

@@ -1,20 +1,82 @@
 {
   "shift": 1,
-  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS_AND_DIRECT_REELS_AND_USER_REPLIES",
-  "total_likes": 0,
-  "total_comments": 0,
-  "total_user_replies": 0,
+  "status": "OK_GRAPH_API_ZERO_LOGIN",
+  "filter_policy": "META_GRAPH_API_ZERO_CHROME_LOGIN_DIRECT_INTERACTION",
+  "total_likes": 22,
+  "total_comments": 10,
+  "total_user_replies": 5,
   "total_shares": 0,
   "total_groups_joined": 0,
-  "total_videos_interacted": 0,
+  "total_videos_interacted": 1,
   "horizontal_videos_interacted": 0,
-  "vertical_videos_interacted": 0,
-  "details": [],
-  "screenshots": [],
-  "status": "OK",
-  "bot_chrome_auto_closed": {
-    "closed_via_cdp": true,
-    "terminated_bot_pids": [],
-    "port_9222_still_open": false
-  }
+  "vertical_videos_interacted": 1,
+  "details": [
+    {
+      "slug": "ai",
+      "name": "AI Players - Người chơi hệ AI",
+      "likes": 4,
+      "comments": 4,
+      "user_replies": 2,
+      "shares": 0,
+      "groups_joined": 0,
+      "video_horizontal": 0,
+      "video_vertical": 1,
+      "videos_total": 1,
+      "screenshots": [
+        "campaigns\\daily-reports\\2026-11-04\\highvol_ai_graph_1.png"
+      ]
+    },
+    {
+      "slug": "phongtro",
+      "name": "Phòng Trọ Hết Cứu",
+      "likes": 6,
+      "comments": 2,
+      "user_replies": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "video_horizontal": 0,
+      "video_vertical": 0,
+      "videos_total": 0,
+      "screenshots": [
+        "campaigns\\daily-reports\\2026-11-04\\highvol_phongtro_graph_1.png"
+      ]
+    },
+    {
+      "slug": "ktx",
+      "name": "Ký Túc Xá Có Biến",
+      "likes": 6,
+      "comments": 2,
+      "user_replies": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "video_horizontal": 0,
+      "video_vertical": 0,
+      "videos_total": 0,
+      "screenshots": [
+        "campaigns\\daily-reports\\2026-11-04\\highvol_ktx_graph_1.png"
+      ]
+    },
+    {
+      "slug": "deadline",
+      "name": "Hội Deadline",
+      "likes": 6,
+      "comments": 2,
+      "user_replies": 1,
+      "shares": 0,
+      "groups_joined": 0,
+      "video_horizontal": 0,
+      "video_vertical": 0,
+      "videos_total": 0,
+      "screenshots": [
+        "campaigns\\daily-reports\\2026-11-04\\highvol_deadline_graph_1.png"
+      ]
+    }
+  ],
+  "screenshots": [
+    "campaigns\\daily-reports\\2026-11-04\\highvol_ai_graph_1.png",
+    "campaigns\\daily-reports\\2026-11-04\\highvol_phongtro_graph_1.png",
+    "campaigns\\daily-reports\\2026-11-04\\highvol_ktx_graph_1.png",
+    "campaigns\\daily-reports\\2026-11-04\\highvol_deadline_graph_1.png"
+  ],
+  "grid_photo": "campaigns\\daily-reports\\2026-11-04\\shift1_summary_grid.jpg"
 }

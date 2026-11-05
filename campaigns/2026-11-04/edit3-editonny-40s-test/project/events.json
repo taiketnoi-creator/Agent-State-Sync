@@ -1,0 +1,107 @@
+[
+ {
+  "t": 0.32,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-3.wav",
+  "note": "Year hook 1",
+  "sceneId": "year-hook",
+  "level": -7.2
+ },
+ {
+  "t": 4.75,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\photo\\photo-1.wav",
+  "note": "Transition glow 1",
+  "sceneId": "transition-glow",
+  "level": "medium"
+ },
+ {
+  "t": 6.651,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\message\\message-1.wav",
+  "note": "AI chat interface 1",
+  "sceneId": "ai-chat-interface",
+  "level": -6.0
+ },
+ {
+  "t": 10.15,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-1.wav",
+  "note": "Transition zoom 1",
+  "sceneId": "transition-zoom",
+  "level": "medium"
+ },
+ {
+  "t": 10.42,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-4.wav",
+  "note": "Three steps 1",
+  "sceneId": "three-steps",
+  "level": -12.0
+ },
+ {
+  "t": 11.4,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\pop-ui\\pop-ui-1.wav",
+  "note": "number appears · Three steps 1",
+  "sceneId": "three-steps",
+  "level": -6.0
+ },
+ {
+  "t": 16.45,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\glitch\\glitch-1.wav",
+  "note": "Transition glitch 1",
+  "sceneId": "transition-glitch",
+  "level": "medium"
+ },
+ {
+  "t": 19.8,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\ding\\ding-1.wav",
+  "note": "Waveform cuts 1",
+  "sceneId": "waveform-cuts",
+  "level": -15.0
+ },
+ {
+  "t": 21.75,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\photo\\photo-2.wav",
+  "note": "Transition flash 1",
+  "sceneId": "transition-flash",
+  "level": "medium"
+ },
+ {
+  "t": 22.02,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-1.wav",
+  "note": "Before after 1",
+  "sceneId": "before-after",
+  "level": -10.7
+ },
+ {
+  "t": 22.963,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\pop-ui\\pop-ui-2.wav",
+  "note": "number appears · Before after 1",
+  "sceneId": "before-after",
+  "level": -6.0
+ },
+ {
+  "t": 27.85,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-2.wav",
+  "note": "Transition iris 1",
+  "sceneId": "transition-iris",
+  "level": "medium"
+ },
+ {
+  "t": 28.12,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-2.wav",
+  "note": "Glass chart 1",
+  "sceneId": "glass-chart",
+  "level": -9.7
+ },
+ {
+  "t": 33.431,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\pencil\\pencil-1.wav",
+  "note": "Completed checklist 1",
+  "sceneId": "completed-checklist",
+  "level": -7.5
+ },
+ {
+  "t": 36.42,
+  "sound": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\visuals\\library\\effects\\whoosh\\whoosh-3.wav",
+  "note": "Comment call to action 1",
+  "sceneId": "comment-call-to-action",
+  "level": -7.2
+ }
+]

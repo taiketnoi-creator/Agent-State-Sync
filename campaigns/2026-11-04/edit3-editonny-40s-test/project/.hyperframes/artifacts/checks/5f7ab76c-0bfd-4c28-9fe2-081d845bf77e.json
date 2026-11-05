@@ -1,0 +1,2515 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 26
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 51,
+    "findings": [
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(1) > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 282.19,
+          "top": -943.58,
+          "right": 401.61,
+          "bottom": -716.58,
+          "width": 119.42,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "7",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 943.58
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 282.19,
+          "y": -943.58,
+          "width": 119.42,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(1) > span:nth-of-type(1) > b:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 278.75,
+          "top": -690.62,
+          "right": 405.05,
+          "bottom": -463.62,
+          "width": 126.3,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "8",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 690.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 278.75,
+          "y": -690.62,
+          "width": 126.3,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(1) > span:nth-of-type(1) > b:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 280.61,
+          "top": -437.67,
+          "right": 403.19,
+          "bottom": -210.67,
+          "width": 122.58,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "9",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 437.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 280.61,
+          "y": -437.67,
+          "width": 122.58,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(1) > span:nth-of-type(1) > b:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 277.27,
+          "top": -184.72,
+          "right": 406.55,
+          "bottom": 42.28,
+          "width": 129.28,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "0",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 184.72
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 277.27,
+          "y": -184.72,
+          "width": 129.28,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 415.56,
+          "top": -1449.48,
+          "right": 529.59,
+          "bottom": -1222.48,
+          "width": 114.03,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "3",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1449.48
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 415.56,
+          "y": -1449.48,
+          "width": 114.03,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 406.55,
+          "top": -1196.53,
+          "right": 538.61,
+          "bottom": -969.53,
+          "width": 132.06,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "4",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1196.53
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 406.55,
+          "y": -1196.53,
+          "width": 132.06,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 415.19,
+          "top": -943.58,
+          "right": 529.95,
+          "bottom": -716.58,
+          "width": 114.76,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "5",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 943.58
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 415.19,
+          "y": -943.58,
+          "width": 114.76,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 411.28,
+          "top": -690.62,
+          "right": 533.86,
+          "bottom": -463.62,
+          "width": 122.58,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "6",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 690.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 411.28,
+          "y": -690.62,
+          "width": 122.58,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(5)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 412.86,
+          "top": -437.67,
+          "right": 532.28,
+          "bottom": -210.67,
+          "width": 119.42,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "7",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 437.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 412.86,
+          "y": -437.67,
+          "width": 119.42,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1) > b:nth-of-type(6)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 409.42,
+          "top": -184.72,
+          "right": 535.72,
+          "bottom": 42.28,
+          "width": 126.3,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "8",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 184.72
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 409.42,
+          "y": -184.72,
+          "width": 126.3,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 547.63,
+          "top": -1955.39,
+          "right": 661.66,
+          "bottom": -1728.39,
+          "width": 114.03,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "3",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1955.39
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 547.63,
+          "y": -1955.39,
+          "width": 114.03,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 538.61,
+          "top": -1702.44,
+          "right": 670.67,
+          "bottom": -1475.44,
+          "width": 132.06,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "4",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1702.44
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 538.61,
+          "y": -1702.44,
+          "width": 132.06,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 547.25,
+          "top": -1449.48,
+          "right": 662.02,
+          "bottom": -1222.48,
+          "width": 114.77,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "5",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1449.48
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 547.25,
+          "y": -1449.48,
+          "width": 114.77,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 543.34,
+          "top": -1196.53,
+          "right": 665.92,
+          "bottom": -969.53,
+          "width": 122.58,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "6",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1196.53
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 543.34,
+          "y": -1196.53,
+          "width": 122.58,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(5)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 544.92,
+          "top": -943.58,
+          "right": 664.34,
+          "bottom": -716.58,
+          "width": 119.42,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "7",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 943.58
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 544.92,
+          "y": -943.58,
+          "width": 119.42,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(6)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 541.48,
+          "top": -690.62,
+          "right": 667.78,
+          "bottom": -463.62,
+          "width": 126.3,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "8",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 690.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 541.48,
+          "y": -690.62,
+          "width": 126.3,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(7)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 543.34,
+          "top": -437.67,
+          "right": 665.92,
+          "bottom": -210.67,
+          "width": 122.58,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "9",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 437.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 543.34,
+          "y": -437.67,
+          "width": 122.58,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1) > b:nth-of-type(8)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 540,
+          "top": -184.72,
+          "right": 669.28,
+          "bottom": 42.28,
+          "width": 129.28,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "0",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 184.72
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 540,
+          "y": -184.72,
+          "width": 129.28,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 679.31,
+          "top": -2461.3,
+          "right": 794.08,
+          "bottom": -2234.3,
+          "width": 114.77,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "5",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 2461.3
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 679.31,
+          "y": -2461.3,
+          "width": 114.77,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 675.41,
+          "top": -2208.34,
+          "right": 797.98,
+          "bottom": -1981.34,
+          "width": 122.57,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "6",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 2208.34
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 675.41,
+          "y": -2208.34,
+          "width": 122.57,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 676.98,
+          "top": -1955.39,
+          "right": 796.41,
+          "bottom": -1728.39,
+          "width": 119.43,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "7",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1955.39
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 676.98,
+          "y": -1955.39,
+          "width": 119.43,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 673.55,
+          "top": -1702.44,
+          "right": 799.84,
+          "bottom": -1475.44,
+          "width": 126.29,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "8",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1702.44
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 673.55,
+          "y": -1702.44,
+          "width": 126.29,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(5)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 675.41,
+          "top": -1449.48,
+          "right": 797.98,
+          "bottom": -1222.48,
+          "width": 122.57,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "9",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1449.48
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 675.41,
+          "y": -1449.48,
+          "width": 122.57,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(6)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 672.06,
+          "top": -1196.53,
+          "right": 801.34,
+          "bottom": -969.53,
+          "width": 129.28,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "0",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 1196.53
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 672.06,
+          "y": -1196.53,
+          "width": 129.28,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(7)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 698.09,
+          "top": -943.58,
+          "right": 775.3,
+          "bottom": -716.58,
+          "width": 77.21,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "1",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 943.58
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 698.09,
+          "y": -943.58,
+          "width": 77.21,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(8)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 680.06,
+          "top": -690.62,
+          "right": 793.34,
+          "bottom": -463.62,
+          "width": 113.28,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "2",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 690.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 680.06,
+          "y": -690.62,
+          "width": 113.28,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(9)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 679.69,
+          "top": -437.67,
+          "right": 793.72,
+          "bottom": -210.67,
+          "width": 114.03,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "3",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 437.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 679.69,
+          "y": -437.67,
+          "width": 114.03,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1) > b:nth-of-type(10)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 670.67,
+          "top": -184.72,
+          "right": 802.73,
+          "bottom": 42.28,
+          "width": 132.06,
+          "height": 227
+        },
+        "containerSelector": "#root",
+        "text": "4",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "top": 184.72
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 670.67,
+          "y": -184.72,
+          "width": 132.06,
+          "height": 227
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 277.27,
+          "top": -933.58,
+          "right": 406.55,
+          "bottom": 584.14,
+          "width": 129.28,
+          "height": 1517.72
+        },
+        "containerSelector": "#yearhookyearhook01-n > span:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 277.27,
+          "top": 331.19,
+          "right": 415.84,
+          "bottom": 539.5,
+          "width": 138.58,
+          "height": 208.31
+        },
+        "overflow": {
+          "top": 1264.77,
+          "bottom": 44.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 277.27,
+          "y": -933.58,
+          "width": 129.28,
+          "height": 1517.72
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 406.55,
+          "top": -1439.48,
+          "right": 538.61,
+          "bottom": 584.14,
+          "width": 132.06,
+          "height": 2023.63
+        },
+        "containerSelector": "#yearhookyearhook01-n > span:nth-of-type(2)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 406.55,
+          "top": 331.19,
+          "right": 547.91,
+          "bottom": 539.5,
+          "width": 141.36,
+          "height": 208.31
+        },
+        "overflow": {
+          "top": 1770.67,
+          "bottom": 44.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 406.55,
+          "y": -1439.48,
+          "width": 132.06,
+          "height": 2023.63
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(3) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 538.61,
+          "top": -1945.39,
+          "right": 670.67,
+          "bottom": 584.14,
+          "width": 132.06,
+          "height": 2529.53
+        },
+        "containerSelector": "#yearhookyearhook01-n > span:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 538.61,
+          "top": 331.19,
+          "right": 679.97,
+          "bottom": 539.5,
+          "width": 141.36,
+          "height": 208.31
+        },
+        "overflow": {
+          "top": 2276.58,
+          "bottom": 44.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 538.61,
+          "y": -1945.39,
+          "width": 132.06,
+          "height": 2529.53
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 2.222,
+        "selector": "#yearhookyearhook01-n > span:nth-of-type(4) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 670.67,
+          "top": -2451.3,
+          "right": 802.73,
+          "bottom": 584.14,
+          "width": 132.06,
+          "height": 3035.44
+        },
+        "containerSelector": "#yearhookyearhook01-n > span:nth-of-type(4)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 670.67,
+          "top": 331.19,
+          "right": 812.03,
+          "bottom": 539.5,
+          "width": 141.36,
+          "height": 208.31
+        },
+        "overflow": {
+          "top": 2782.49,
+          "bottom": 44.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 670.67,
+          "y": -2451.3,
+          "width": 132.06,
+          "height": 3035.44
+        },
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(1) > div:nth-of-type(9)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1072.32,
+          "top": 1623.67,
+          "right": 1110.92,
+          "bottom": 1696.53,
+          "width": 38.6,
+          "height": 72.86
+        },
+        "containerSelector": "#root",
+        "text": "o",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 30.92
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 1072.32,
+          "y": 1623.67,
+          "width": 38.6,
+          "height": 72.86
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(1) > div:nth-of-type(10)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1185.2,
+          "top": 1621.88,
+          "right": 1227.02,
+          "bottom": 1694.69,
+          "width": 41.82,
+          "height": 72.81
+        },
+        "containerSelector": "#root",
+        "text": "p",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 147.02
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 1185.2,
+          "y": 1621.88,
+          "width": 41.82,
+          "height": 72.81
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(2) > div:nth-of-type(9)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1145.84,
+          "top": 1778.68,
+          "right": 1164.27,
+          "bottom": 1852.33,
+          "width": 18.43,
+          "height": 73.65
+        },
+        "containerSelector": "#root",
+        "text": "l",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 84.27
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 1145.84,
+          "y": 1778.68,
+          "width": 18.43,
+          "height": 73.65
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 324.72,
+          "top": 1952.3,
+          "right": 355.05,
+          "bottom": 2028.16,
+          "width": 30.33,
+          "height": 75.86
+        },
+        "containerSelector": "#root",
+        "text": "z",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 108.16
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 324.72,
+          "y": 1952.3,
+          "width": 30.33,
+          "height": 75.86
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 442.25,
+          "top": 1950.04,
+          "right": 474.18,
+          "bottom": 2025.82,
+          "width": 31.93,
+          "height": 75.78
+        },
+        "containerSelector": "#root",
+        "text": "x",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 105.82
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 442.25,
+          "y": 1950.04,
+          "width": 31.93,
+          "height": 75.78
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 559.19,
+          "top": 1947.79,
+          "right": 593.17,
+          "bottom": 2023.49,
+          "width": 33.98,
+          "height": 75.7
+        },
+        "containerSelector": "#root",
+        "text": "c",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 103.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 559.19,
+          "y": 1947.79,
+          "width": 33.98,
+          "height": 75.7
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 677.27,
+          "top": 1945.57,
+          "right": 710.37,
+          "bottom": 2021.14,
+          "width": 33.1,
+          "height": 75.57
+        },
+        "containerSelector": "#root",
+        "text": "v",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 101.14
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 677.27,
+          "y": 1945.57,
+          "width": 33.1,
+          "height": 75.57
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(5)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 790.47,
+          "top": 1943.27,
+          "right": 831.87,
+          "bottom": 2018.88,
+          "width": 41.4,
+          "height": 75.61
+        },
+        "containerSelector": "#root",
+        "text": "b",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 98.88
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 790.47,
+          "y": 1943.27,
+          "width": 41.4,
+          "height": 75.61
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(6)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 907.39,
+          "top": 1941.05,
+          "right": 949,
+          "bottom": 2016.55,
+          "width": 41.61,
+          "height": 75.5
+        },
+        "containerSelector": "#root",
+        "text": "n",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 96.55
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 907.39,
+          "y": 1941.05,
+          "width": 41.61,
+          "height": 75.5
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb > div:nth-of-type(3) > div:nth-of-type(7)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1012.75,
+          "top": 1938.62,
+          "right": 1077.12,
+          "bottom": 2014.45,
+          "width": 64.37,
+          "height": 75.83
+        },
+        "containerSelector": "#root",
+        "text": "m",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 94.45
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 1012.75,
+          "y": 1938.62,
+          "width": 64.37,
+          "height": 75.83
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -21.75,
+          "top": 47.36,
+          "right": 1113.83,
+          "bottom": 1976.77,
+          "width": 1135.58,
+          "height": 1929.41
+        },
+        "containerSelector": "#aichatinterfaceaichatinterface01-w",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 21.75,
+          "right": 33.83,
+          "bottom": 56.77
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": -21.75,
+          "y": 47.36,
+          "width": 1135.58,
+          "height": 1929.41
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-trk",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 44.94,
+          "top": -134.85,
+          "right": 1285.74,
+          "bottom": 1893.26,
+          "width": 1240.79,
+          "height": 2028.11
+        },
+        "containerSelector": "#aichatinterfaceaichatinterface01-sc",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 68.84,
+          "top": 236.78,
+          "right": 1336.45,
+          "bottom": 2351.93,
+          "width": 1267.62,
+          "height": 2115.15
+        },
+        "overflow": {
+          "left": 23.9,
+          "top": 371.63
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 44.94,
+          "y": -134.85,
+          "width": 1240.79,
+          "height": 2028.11
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 67.79,
+          "top": 1565.86,
+          "right": 1340.02,
+          "bottom": 2428.52,
+          "width": 1272.23,
+          "height": 862.66
+        },
+        "containerSelector": "#aichatinterfaceaichatinterface01-sc",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 68.84,
+          "top": 236.78,
+          "right": 1336.45,
+          "bottom": 2351.93,
+          "width": 1267.62,
+          "height": 2115.15
+        },
+        "overflow": {
+          "right": 3.57,
+          "bottom": 76.59
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 67.79,
+          "y": 1565.86,
+          "width": 1272.23,
+          "height": 862.66
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-hdr",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 93.89,
+          "top": 236.78,
+          "right": 1251.08,
+          "bottom": 519.35,
+          "width": 1157.19,
+          "height": 282.57
+        },
+        "containerSelector": "#root",
+        "text": "10:24 M Mama · Tổng Quản AI online",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 171.08
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 93.89,
+          "y": 236.78,
+          "width": 1157.19,
+          "height": 282.57
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 6.667,
+        "selector": "#aichatinterfaceaichatinterface01-kb",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 67.79,
+          "top": 1565.86,
+          "right": 1340.02,
+          "bottom": 2428.52,
+          "width": 1272.23,
+          "height": 862.66
+        },
+        "containerSelector": "#root",
+        "text": "q w e r t y u i o p a s d f g h j k l z x c v b ",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 260.02,
+          "bottom": 508.52
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/ai-chat-interface-01.html",
+        "bbox": {
+          "x": 67.79,
+          "y": 1565.86,
+          "width": 1272.23,
+          "height": 862.66
+        },
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 11.111,
+        "selector": "#c3_threesteps01-p1 > span:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 160.35,
+          "top": 652.14,
+          "right": 815.7,
+          "bottom": 699.23,
+          "width": 655.36,
+          "height": 47.09
+        },
+        "containerSelector": "#c3_threesteps01-v1",
+        "text": "nhắn yêu cầu cho Tổng quản Mama",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.22,
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/three-steps-01.html",
+        "bbox": {
+          "x": 160.35,
+          "y": 652.14,
+          "width": 655.36,
+          "height": 47.09
+        },
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "code": "video_alpha_unread",
+        "severity": "info",
+        "time": 11.111,
+        "selector": "#c3_threesteps01-v1",
+        "message": "Could not read this video's frame alpha (it is rotated, skewed or transformed in 3D), so text under it was judged as if the video were opaque.",
+        "rect": {
+          "left": 709.83,
+          "top": 458.34,
+          "right": 975.86,
+          "bottom": 724.37,
+          "width": 266.03,
+          "height": 266.03
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "6",
+          "data-track-index": "2",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/scenes/three-steps-01.html",
+        "bbox": {
+          "x": 709.83,
+          "y": 458.34,
+          "width": 266.03,
+          "height": 266.03
+        },
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 24.444,
+        "selector": "#c4-fd_beforeafter01",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 960,
+          "right": 1080,
+          "bottom": 2880,
+          "width": 1080,
+          "height": 1920
+        },
+        "containerSelector": "#c4-d_beforeafter01",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 960,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 960
+        },
+        "overflow": {
+          "bottom": 960
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "5.8",
+          "data-track-index": "3",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/scenes/before-after-01.html",
+        "bbox": {
+          "x": 0,
+          "y": 960,
+          "width": 1080,
+          "height": 1920
+        },
+        "firstSeen": 24.444,
+        "lastSeen": 24.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          24.444
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 28.889,
+        "selector": "#glasschartglasschart01-lz",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -200.01,
+          "top": -199.99,
+          "right": 1279.99,
+          "bottom": 2120.01,
+          "width": 1480,
+          "height": 2320
+        },
+        "containerSelector": "#glasschartglasschart01-w",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 200.01,
+          "right": 199.99,
+          "top": 199.99,
+          "bottom": 200.01
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/glass-chart-01.html",
+        "bbox": {
+          "x": -200.01,
+          "y": -199.99,
+          "width": 1480,
+          "height": 2320
+        },
+        "firstSeen": 28.889,
+        "lastSeen": 28.889,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          28.889
+        ]
+      }
+    ],
+    "duration": 40,
+    "samples": [
+      2.222,
+      6.667,
+      11.111,
+      15.556,
+      20,
+      24.444,
+      28.889,
+      33.333,
+      37.778
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 51,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 8,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.39:1; WCAG AA requires 3:1.",
+        "text": "0",
+        "fg": "rgb(255,243,234)",
+        "bg": "rgb(42,184,77)",
+        "ratio": 2.39,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(85,81,78)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(6) > div > div > div > div > div:nth-of-type(3) > div:nth-of-type(1) > span:nth-of-type(2) > span > b:nth-of-type(8)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 406.546875,
+          "y": 331.1885070800781,
+          "width": 132.0625,
+          "height": 252.95309448242188
+        },
+        "time": 2.222,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.75:1; WCAG AA requires 3:1.",
+        "text": "2",
+        "fg": "rgb(255,243,234)",
+        "bg": "rgb(40,171,72)",
+        "ratio": 2.75,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(76,72,70)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(6) > div > div > div > div > div:nth-of-type(3) > div:nth-of-type(1) > span:nth-of-type(3) > span > b:nth-of-type(10)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 538.609375,
+          "y": 331.1885070800781,
+          "width": 132.0625,
+          "height": 252.95309448242188
+        },
+        "time": 2.222,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.75:1; WCAG AA requires 3:1.",
+        "text": "6",
+        "fg": "rgb(255,243,234)",
+        "bg": "rgb(39,171,72)",
+        "ratio": 2.75,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(76,72,70)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(6) > div > div > div > div > div:nth-of-type(3) > div:nth-of-type(1) > span:nth-of-type(4) > span > b:nth-of-type(12)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/year-hook-01.html",
+        "bbox": {
+          "x": 670.671875,
+          "y": 331.1875305175781,
+          "width": 132.0625,
+          "height": 252.95309448242188
+        },
+        "time": 2.222,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.99:1; WCAG AA requires 3:1.",
+        "text": "A",
+        "fg": "rgb(48,209,88)",
+        "bg": "rgb(255,253,249)",
+        "ratio": 1.99,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(39,169,71)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(13) > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(6)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/comment-call-to-action-01.html",
+        "bbox": {
+          "x": 431.9375,
+          "y": 381.4849853515625,
+          "width": 51.875,
+          "height": 86
+        },
+        "time": 37.778,
+        "times": [
+          37.778
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.99:1; WCAG AA requires 3:1.",
+        "text": "G",
+        "fg": "rgb(48,209,88)",
+        "bg": "rgb(255,253,249)",
+        "ratio": 1.99,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(39,169,71)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(13) > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(7)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/comment-call-to-action-01.html",
+        "bbox": {
+          "x": 483.8125,
+          "y": 381.4849853515625,
+          "width": 50.75,
+          "height": 86
+        },
+        "time": 37.778,
+        "times": [
+          37.778
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.99:1; WCAG AA requires 3:1.",
+        "text": "E",
+        "fg": "rgb(48,209,88)",
+        "bg": "rgb(255,253,249)",
+        "ratio": 1.99,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(39,169,71)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(13) > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(8)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/comment-call-to-action-01.html",
+        "bbox": {
+          "x": 534.5625,
+          "y": 381.4849853515625,
+          "width": 43.890625,
+          "height": 86
+        },
+        "time": 37.778,
+        "times": [
+          37.778
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.99:1; WCAG AA requires 3:1.",
+        "text": "N",
+        "fg": "rgb(48,209,88)",
+        "bg": "rgb(255,253,249)",
+        "ratio": 1.99,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(39,169,71)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(13) > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(9)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/comment-call-to-action-01.html",
+        "bbox": {
+          "x": 578.453125,
+          "y": 381.4849853515625,
+          "width": 53.28125,
+          "height": 86
+        },
+        "time": 37.778,
+        "times": [
+          37.778
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.99:1; WCAG AA requires 3:1.",
+        "text": "T",
+        "fg": "rgb(48,209,88)",
+        "bg": "rgb(255,253,249)",
+        "ratio": 1.99,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(39,169,71)",
+        "large": true,
+        "selector": "div > div > div:nth-of-type(4) > div:nth-of-type(13) > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(10)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scenes/comment-call-to-action-01.html",
+        "bbox": {
+          "x": 631.734375,
+          "y": 381.4849853515625,
+          "width": 41.3125,
+          "height": 86
+        },
+        "time": 37.778,
+        "times": [
+          37.778
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      2.222,
+      11.111,
+      20,
+      28.889,
+      37.778
+    ],
+    "checked": 36,
+    "passed": 28
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

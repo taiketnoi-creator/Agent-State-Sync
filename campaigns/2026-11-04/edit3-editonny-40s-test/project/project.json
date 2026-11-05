@@ -1,0 +1,135 @@
+{
+ "title": "Hệ Sinh Thái 12 Subagent AI — Edit-3 Editonny 40s (Fixed)",
+ "skill": "D:\\Phiên bản Ai agent\\Subagent\\templates\\editonny\\skills\\editonny\\engine",
+ "edit": "../edit",
+ "format": "9:16",
+ "style": "night",
+ "corrections": {},
+ "blocks": [
+  {
+   "scene": "fullscreen",
+   "start": 0,
+   "zoom": 1.0
+  }
+ ],
+ "captions": {
+  "enabled": true,
+  "style": "standard",
+  "maxWords": 3,
+  "inFrame": false
+ },
+ "animations": [],
+ "sounds": [],
+ "endHold": 0,
+ "endCard": {
+  "enabled": false,
+  "seconds": 1.8,
+  "title": "",
+  "sub": "",
+  "button": "Tap Learn more",
+  "logo": ""
+ },
+ "scenes": [
+  {
+   "file": "compositions/scenes/transition-glow-01.html",
+   "start": 4.55,
+   "end": 4.95,
+   "name": "Transition glow 1",
+   "sceneId": "transition-glow"
+  },
+  {
+   "file": "compositions/scenes/transition-zoom-01.html",
+   "start": 9.9,
+   "end": 10.4,
+   "name": "Transition zoom 1",
+   "sceneId": "transition-zoom"
+  },
+  {
+   "file": "compositions/scenes/transition-glitch-01.html",
+   "start": 16.25,
+   "end": 16.65,
+   "name": "Transition glitch 1",
+   "sceneId": "transition-glitch"
+  },
+  {
+   "file": "compositions/scenes/transition-flash-01.html",
+   "start": 21.6,
+   "end": 21.9,
+   "name": "Transition flash 1",
+   "sceneId": "transition-flash"
+  },
+  {
+   "file": "compositions/scenes/transition-iris-01.html",
+   "start": 27.5,
+   "end": 28.2,
+   "name": "Transition iris 1",
+   "sceneId": "transition-iris"
+  },
+  {
+   "file": "compositions/scenes/year-hook-01.html",
+   "start": 0.2,
+   "end": 4.6,
+   "name": "Year hook 1",
+   "sceneId": "year-hook"
+  },
+  {
+   "file": "compositions/scenes/ai-chat-interface-01.html",
+   "start": 4.9,
+   "end": 10.0,
+   "name": "AI chat interface 1",
+   "sceneId": "ai-chat-interface",
+   "hidesCaptions": true,
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/three-steps-01.html",
+   "start": 10.3,
+   "end": 16.3,
+   "name": "Three steps 1",
+   "sceneId": "three-steps",
+   "hidesCaptions": true,
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/waveform-cuts-01.html",
+   "start": 16.6,
+   "end": 21.6,
+   "name": "Waveform cuts 1",
+   "sceneId": "waveform-cuts",
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/before-after-01.html",
+   "start": 21.9,
+   "end": 27.7,
+   "name": "Before after 1",
+   "sceneId": "before-after",
+   "hidesCaptions": true,
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/glass-chart-01.html",
+   "start": 28.0,
+   "end": 32.3,
+   "name": "Glass chart 1",
+   "sceneId": "glass-chart",
+   "hidesCaptions": true,
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/completed-checklist-01.html",
+   "start": 32.6,
+   "end": 36.1,
+   "name": "Completed checklist 1",
+   "sceneId": "completed-checklist",
+   "overPerson": true
+  },
+  {
+   "file": "compositions/scenes/comment-call-to-action-01.html",
+   "start": 36.3,
+   "end": 40.0,
+   "name": "Comment call to action 1",
+   "sceneId": "comment-call-to-action"
+  }
+ ]
+}

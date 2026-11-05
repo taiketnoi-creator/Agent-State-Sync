@@ -1,0 +1,345 @@
+{
+ "mode": "compose",
+ "window": [
+  0.0,
+  40.0
+ ],
+ "files": {
+  "index.html": "89d24914fab09f85bbb5159e7957433f665f26e49bc8f69d3caf2d93dd535786"
+ },
+ "inputs": {
+  "..\\edit\\cut.mp4": "846f7183cd503ddb97187e141b97f38390b100fa532fad0a669e689832e68ede",
+  "..\\edit\\cut_timeline.json": "e9acef86316c05f42b76373ab6814a34d53f14ea27710d0dadcb4f04f52d8a44",
+  "..\\edit\\transcripts\\cut.json": "bf1f6d56011236f96e932c7d48445a900ddbebfa528b6184020be061605d658b",
+  "assets\\cut.mp4": "846f7183cd503ddb97187e141b97f38390b100fa532fad0a669e689832e68ede",
+  "assets\\fonts\\Caveat.ttf": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
+  "assets\\fonts\\JetBrainsMono.ttf": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+  "assets\\fonts\\Montserrat.ttf": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+  "assets\\fonts\\OFL-Caveat.txt": "6be75733f5ff1e7eb72f147f489db88752c890c9c70292be8e2460d7ef77f5bb",
+  "assets\\fonts\\OFL-JetBrainsMono.txt": "ef2870fd9ccb5f68d6b89aba72c3b30a27ab66f317b41d8c2c048693236bee01",
+  "assets\\fonts\\OFL-Montserrat.txt": "41cbef8d8a37b9e58a3c613a8958014bfc58801569c40211dfb251f600c6d718",
+  "assets\\fonts\\widths.json": "1c7dce76d27150fc7af8c3e05423302867adbb5051d90c2c6aa6e9c9200a91f2",
+  "assets\\gsap.min.js": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+  "assets\\three\\BufferGeometryUtils.js": "d8cac0695c2b1ad228cd7a5c606b0a11785f0a1fb9fea739f7789a07484caf5a",
+  "assets\\three\\GLTFLoader.js": "be667276f6208cee3a3f2710c581c31d18b60932485402cf6876aaa14a3c2e86",
+  "assets\\three\\LICENSE": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05",
+  "assets\\three\\RoomEnvironment.js": "5411550bcb9b4bc803a3244a803cf918dd3fe5a0184d625e424c45fc71c1d216",
+  "assets\\three\\SOURCE.txt": "00156850fa33f5f1d2fee4fb65e4ab3ba52c1b9da938074f32099706dc208fdf",
+  "assets\\three\\three.core.min.js": "34cf3ab6cff3de9fb78105990282c2916f5c099d1028193d9eb5abbf4c410265",
+  "assets\\three\\three.module.min.js": "821364f8e59040d428c831c6fb8e7ea190553d9add4969019af27fe12b88e4dd",
+  "assets\\visuals\\fonts\\Montserrat.ttf": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+  "assets\\visuals\\fonts\\Playfair-Italic.ttf": "a5e26dc5e2e77fb2803a0bf02fd4f81ee136ec8dea863ccdb0c59a263b21378b",
+  "assets\\visuals\\fonts\\Playfair.ttf": "c40f2293766a503bc70cce9e512ef844a4ccb7cbcde792fe2ea31d191917d8d6",
+  "assets\\visuals\\fonts\\Sora.ttf": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+  "assets\\visuals\\fonts\\inter-var-latin-ext.woff2": "a28eb6d3ccb534ae0c94ca999371df024aab60b08c3c8a5720ee9e32fa0faaa2",
+  "assets\\visuals\\fonts\\inter-var-latin.woff2": "c940764593d0fe5d596be327ca7558855e018039fb78509aa21921fd3644c3e4",
+  "assets\\visuals\\img\\blocked-artery.png": "c1fc4e7c8437338ee322780bb9bb1257067ddd01dd348b06c85d178d55403b4b",
+  "assets\\visuals\\img\\building.png": "7c3769c9e4c78e19c1fb0ec69e9c789e7aa28a0adcec542a54523a4d8d1ad94e",
+  "assets\\visuals\\img\\city.jpg": "1a70ff0d6a65c839fbdd0e7cf4db87d02808839d787133994f8f33fb5c246ebe",
+  "assets\\visuals\\img\\cube.png": "839c299bc5b3b9776c220da0ace51acfea9b4b5448a2f157ca515694b285d980",
+  "assets\\visuals\\img\\drink-carton.png": "141d4f2595b7c6d6ad656ebfb83580e6935ffbe3988f94c1b00be0f0ff21bf69",
+  "assets\\visuals\\img\\floor-plan-outline.png": "c5b1bb6ad812ff032a340945a7ced3dfe111f8fcfc0748b177d7ef6e7e656410",
+  "assets\\visuals\\img\\floor-plan.png": "7679cc77f99b2a12773fcd6164f20e3ab389b66a12ab6e722845b5e1a238a465",
+  "assets\\visuals\\img\\healthy-artery.png": "49d3b72d9828a80916d27a3027c47d42cf233d2093cc6ebb46a5feb93539df7f",
+  "assets\\visuals\\img\\heart.png": "796d36edb66453178b5875bb28a8bfb60e96989f36c303468f766b9408f56456",
+  "assets\\visuals\\img\\orange.png": "22befda853e7e788e4eebe33266f559c792e7e4d0105d8055f83db8119fa3819",
+  "assets\\visuals\\video\\01-clock.webm": "7f2b535ca7f9834b2a24513e5d36c8189f58fe428b27cb72b7b5800add38ae7b",
+  "assets\\visuals\\video\\02-camera.webm": "458dc523175b44f659009edd7de8eb578bd2569b328b793f06fd87aefc9a9d08",
+  "assets\\visuals\\video\\03-megaphone.webm": "429812d0f0497aada32c6f03bb303065c773d90c761c4812fddf29bba688021f",
+  "assets\\visuals\\video\\09-badge.webm": "bb3155ac461f33d1be3c26aaba002b5ad3a77f85a5180b7c0e8115e64795471f",
+  "assets\\visuals\\video\\10-chip.webm": "2f137d291ae1c722fa91233376ff92daec25a53b64f48224b4b93c6b3e671ae2",
+  "assets\\visuals\\video\\dark-grid.mp4": "b9d7e2b28dfb1f44df6b50ea636e8cf475c6ec9e432a1af4c4f07b886a47057a",
+  "assets\\visuals\\video\\dark-rays.mp4": "2245e79e119ca47cdfb5e6ee599d1ae564ea17c772718e06238842fb9e6c6267",
+  "assets\\visuals\\video\\neon-green-fluid.mp4": "0e1966576c5a53cb23b5427feea78d8ff2b48f2836b24727a5ad76662382d465",
+  "assets\\visuals\\video\\orange-fruit.png": "834efb836232d6ec9f1aea3186fb3cf5ad2135a5b8c86535d93621e6472ba21e",
+  "build.py": "50f6a6c30c11b482c42b365601b356301f02ea759d839d97a291a4a5eeb71aa8",
+  "compositions\\scenes\\2d\\before-after.html": "283f714f3371af1cbb9bc2d6725f0956155bd3e9480db802eda2f2d915dd45f4",
+  "compositions\\scenes\\2d\\conversation.html": "9e66dfed8bd38cba50701d9edc812eca3fbe0cfee76f5584c433856eb6820476",
+  "compositions\\scenes\\2d\\diagram.html": "c1740dbf157688ce8c417ea94ead0b4bbf6b3fd8262e3937e8b7a9fedf048c6e",
+  "compositions\\scenes\\2d\\file.html": "20d4cc3bc8ea22d07a6f6334146fe510231a415c4a48d903c3452657a5239798",
+  "compositions\\scenes\\2d\\gauge.html": "c93c10135793952ea93f2a3a153783a8d1e0e9d3c05599efbfd471af8b4249c6",
+  "compositions\\scenes\\2d\\notes.html": "d2dd5b3643371509fd344154e005482443a18303210781bf230a749f8e4aead5",
+  "compositions\\scenes\\2d\\search.html": "1cc1e2062b08586514bafac222ddd5748f59c7141122de2638306f3c7de4ac0c",
+  "compositions\\scenes\\2d\\terminal.html": "3f7b42e0574b27ecaf88251a9516c8115f44ac8cdf3f37bd0399a82052907e3e",
+  "compositions\\scenes\\3d\\engine\\camera.mjs": "307e02ba24d2d859519e0c9e7fa98222493eaea742d106d5179f83f828a3a8d8",
+  "compositions\\scenes\\3d\\engine\\labels.mjs": "906a6298a939dc01d215e4d155c7b6364efb2c5c683d7f81c38d2ab39a0ae04a",
+  "compositions\\scenes\\3d\\engine\\materials.mjs": "41f2770b4a55d677e1b5495ffbb970956b317a65554dc0cfc66b9ea5b5c25ca9",
+  "compositions\\scenes\\3d\\engine\\media.mjs": "6576e0d9a1d52db01663702dcb0fa0843c20f2c521248aa42ff6ac89666de7de",
+  "compositions\\scenes\\3d\\engine\\stage.mjs": "e0091f57750f8ed43d2a9727cb82cccd19465ab0b5b52d8fd50fa3c3df75298a",
+  "compositions\\scenes\\3d\\engine\\text.mjs": "2257fccbb3c7f0ed3e398ea108f804089fab06dfff5032aef05c89eb484651fe",
+  "compositions\\scenes\\3d\\engine\\three.mjs": "0e07ab4b1c7321e6224cd9373fc88714cfe5e23b212198a789cf432044abb825",
+  "compositions\\scenes\\3d\\engine\\time.mjs": "0e67b7604f7c4161fb5e5320d9c8625ea54e0cc7a894ad1b20e802d3d788ea85",
+  "compositions\\scenes\\3d\\exploded.html": "fc624171acb99ac7c4bcf6938225115dd82aa73c97e86f46d36e7d444ba7b8ec",
+  "compositions\\scenes\\3d\\path.html": "0d4c0a10a3de8a5b12bc5d3f2d902a7cf46907e0f41ecedfe617a589f8d99b6d",
+  "compositions\\scenes\\3d\\screen.html": "3278b871726b9f27f995f26fe2c4a8ea51f647481ade8006a4e9c03be786f981",
+  "compositions\\scenes\\3d\\three-scene.js": "3c539e284ac9983d50afc0873bc06997bb5bcbbc87ec889fb43cc593dc150fc1",
+  "compositions\\scenes\\3d\\volume.html": "baefab39e4997f71e94701f513802be13e975a01c2d04c1db997dd5d330887d9",
+  "compositions\\scenes\\README.md": "f4f428089443d771476756113428d2728a794b28d0096ce63731e00ff4579b65",
+  "compositions\\scenes\\ai-chat-interface-01.html": "2f6bc0c8a43bbc961ac0235f148f59efd43cfa3e2339c69da13c614ebec08e96",
+  "compositions\\scenes\\before-after-01.html": "27f74d9bc58c70708a4bc8df8783a28774cf322e54c7d35f620977abd768f2c0",
+  "compositions\\scenes\\comment-call-to-action-01.html": "b1bba6e4819ddbd31bd147b10646b076083851a6fa8d90577d19df608874cdfe",
+  "compositions\\scenes\\completed-checklist-01.html": "131533f7a7778bc900ff0625c6faa79608627748aacbe77193010e8cdc3c43cf",
+  "compositions\\scenes\\glass-chart-01.html": "7afaa777d409e70e3c1d9251f16ec85c108e66cd95099c9534d461a9a610e409",
+  "compositions\\scenes\\three-steps-01.html": "fc69d80e1bd8ce82674f361ea833291ce20ce77b55f45921e229589364131d7e",
+  "compositions\\scenes\\transition-flash-01.html": "97e210bac59226490afc34bd2076837fb03df8900e61a8a03016dcdf40598e36",
+  "compositions\\scenes\\transition-glitch-01.html": "afd80875fa45604765c0d2aaf4dbaf9692054b05e59e32e0038260a769f3fa0e",
+  "compositions\\scenes\\transition-glow-01.html": "1ff5978532ae5ad7f2c268b2f5bd54de8c050c363f74efb42533b590f72c21a3",
+  "compositions\\scenes\\transition-iris-01.html": "aa2e831d29198b97ca511f78da111acf6078688caf537d0e34c7cf41767ab229",
+  "compositions\\scenes\\transition-zoom-01.html": "1cb18fa93428b109e2f7d0379c95383222255b8d27d6a981696842813d39d269",
+  "compositions\\scenes\\waveform-cuts-01.html": "aa4b83cfa527813846361ca335d6d5972e804d62e04345aba92a192bae623b87",
+  "compositions\\scenes\\year-hook-01.html": "6424efcc4398bfc69e6c1d56d673bd19fff848b5e9b8c7d722defc46c44333ac",
+  "project.json": "b6c95932a8f0ef5b8ef5b56c38f50bb54c22f979ed548f7ff10eeefc6a0a555d"
+ },
+ "overlayMasks": [
+  {
+   "start": 0.28,
+   "end": 0.988,
+   "box": [
+    0.29641666666666666,
+    0.621875,
+    0.7035833333333333,
+    0.678125
+   ]
+  },
+  {
+   "start": 0.988,
+   "end": 1.696,
+   "box": [
+    0.24061111111111114,
+    0.621875,
+    0.7593888888888889,
+    0.678125
+   ]
+  },
+  {
+   "start": 1.696,
+   "end": 2.482,
+   "box": [
+    0.24069444444444443,
+    0.621875,
+    0.7593055555555556,
+    0.678125
+   ]
+  },
+  {
+   "start": 2.482,
+   "end": 3.426,
+   "box": [
+    0.20136111111111113,
+    0.621875,
+    0.7986388888888889,
+    0.678125
+   ]
+  },
+  {
+   "start": 3.426,
+   "end": 4.47,
+   "box": [
+    0.23122222222222225,
+    0.621875,
+    0.7687777777777778,
+    0.678125
+   ]
+  },
+  {
+   "start": 16.68,
+   "end": 17.041,
+   "box": [
+    0.3084166666666667,
+    0.621875,
+    0.6915833333333333,
+    0.678125
+   ]
+  },
+  {
+   "start": 17.041,
+   "end": 17.641,
+   "box": [
+    0.24097222222222223,
+    0.621875,
+    0.7590277777777777,
+    0.678125
+   ]
+  },
+  {
+   "start": 17.641,
+   "end": 18.062,
+   "box": [
+    0.29527777777777775,
+    0.621875,
+    0.7047222222222222,
+    0.678125
+   ]
+  },
+  {
+   "start": 18.062,
+   "end": 18.783,
+   "box": [
+    0.19919444444444445,
+    0.621875,
+    0.8008055555555555,
+    0.678125
+   ]
+  },
+  {
+   "start": 18.783,
+   "end": 19.504,
+   "box": [
+    0.2106388888888889,
+    0.621875,
+    0.7893611111111111,
+    0.678125
+   ]
+  },
+  {
+   "start": 19.504,
+   "end": 19.985,
+   "box": [
+    0.29233333333333333,
+    0.621875,
+    0.7076666666666667,
+    0.678125
+   ]
+  },
+  {
+   "start": 19.985,
+   "end": 20.586,
+   "box": [
+    0.24286111111111108,
+    0.621875,
+    0.7571388888888889,
+    0.678125
+   ]
+  },
+  {
+   "start": 20.586,
+   "end": 21.465,
+   "box": [
+    0.20944444444444443,
+    0.621875,
+    0.7905555555555556,
+    0.678125
+   ]
+  },
+  {
+   "start": 32.68,
+   "end": 33.151,
+   "box": [
+    0.2338888888888889,
+    0.621875,
+    0.7661111111111111,
+    0.678125
+   ]
+  },
+  {
+   "start": 33.151,
+   "end": 33.622,
+   "box": [
+    0.3100277777777778,
+    0.621875,
+    0.6899722222222222,
+    0.678125
+   ]
+  },
+  {
+   "start": 33.622,
+   "end": 34.197,
+   "box": [
+    0.276,
+    0.621875,
+    0.724,
+    0.678125
+   ]
+  },
+  {
+   "start": 34.197,
+   "end": 34.668,
+   "box": [
+    0.24816666666666665,
+    0.621875,
+    0.7518333333333334,
+    0.678125
+   ]
+  },
+  {
+   "start": 34.668,
+   "end": 35.191,
+   "box": [
+    0.28200000000000003,
+    0.621875,
+    0.7180000000000001,
+    0.678125
+   ]
+  },
+  {
+   "start": 35.191,
+   "end": 35.971999999999994,
+   "box": [
+    0.20727777777777778,
+    0.621875,
+    0.7927222222222222,
+    0.678125
+   ]
+  },
+  {
+   "start": 36.38,
+   "end": 37.026,
+   "box": [
+    0.18536111111111112,
+    0.621875,
+    0.8146388888888888,
+    0.678125
+   ]
+  },
+  {
+   "start": 37.026,
+   "end": 37.618,
+   "box": [
+    0.20102777777777778,
+    0.621875,
+    0.7989722222222222,
+    0.678125
+   ]
+  },
+  {
+   "start": 37.618,
+   "end": 38.102,
+   "box": [
+    0.26769444444444446,
+    0.621875,
+    0.7323055555555555,
+    0.678125
+   ]
+  },
+  {
+   "start": 38.102,
+   "end": 38.586,
+   "box": [
+    0.2521666666666667,
+    0.621875,
+    0.7478333333333333,
+    0.678125
+   ]
+  },
+  {
+   "start": 38.586,
+   "end": 39.125,
+   "box": [
+    0.2504166666666667,
+    0.621875,
+    0.7495833333333333,
+    0.678125
+   ]
+  },
+  {
+   "start": 39.125,
+   "end": 39.867999999999995,
+   "box": [
+    0.2396666666666667,
+    0.621875,
+    0.7603333333333333,
+    0.678125
+   ]
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "shift": 1,
+  "filter_policy": "PRIORITIZE_NEW_HIGH_LIKES_HIGH_COMMENTS_AND_DIRECT_REELS_AND_USER_REPLIES",
+  "total_likes": 0,
+  "total_comments": 0,
+  "total_user_replies": 0,
+  "total_shares": 0,
+  "total_groups_joined": 0,
+  "total_videos_interacted": 0,
+  "horizontal_videos_interacted": 0,
+  "vertical_videos_interacted": 0,
+  "details": [],
+  "screenshots": [],
+  "status": "NEED_FACEBOOK_LOGIN",
+  "alert_photo": "D:\\Phiên bản Ai agent\\Subagent\\campaigns\\daily-reports\\2026-11-05\\shift1_alert_login_needed.png",
+  "reason": "Phiên đăng nhập Facebook trên .chrome-fb-bot hết hạn hoặc cần xác nhận Tiếp tục."
+}

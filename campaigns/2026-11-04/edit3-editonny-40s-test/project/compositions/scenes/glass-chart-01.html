@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><title>editonny · Glass chart</title></head>
+<body>
+<!-- Glass chart. When a metric rises or falls: a white curve draws progressively while its marker and counter move to the final value. -->
+
+<template id="glass-chart-01-template">
+<style>
+@font-face{font-family:"Inter";src:url("assets/fonts/Montserrat.ttf") format("truetype");font-weight:100 900;font-display:block}
+#root{position:absolute;inset:0;overflow:hidden;font-family:"Inter",sans-serif}
+@font-face{font-family:"SoraV";src:url("assets/fonts/Montserrat.ttf") format("truetype");font-weight:100 900;font-display:block}
+#glasschartglasschart01-w{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0;overflow:hidden;background:#000;font-family:"Inter",sans-serif;color:#fff}
+#glasschartglasschart01-lz{position:absolute;left:-200px;top:-200px;width:1480px;height:2320px}
+#glasschartglasschart01-lf{position:absolute;inset:0}
+.glasschartglasschart01-l{position:absolute;inset:0;opacity:0;mix-blend-mode:screen}
+#glasschartglasschart01-lcg{background:radial-gradient(ellipse 900px 840px at 1150px 200px,rgba(46,255,62,.82),rgba(0,0,0,0) 70%),radial-gradient(ellipse 820px 700px at 286px 2120px,rgba(46,255,62,.5),rgba(0,0,0,0) 70%)}
+#glasschartglasschart01-lca{background:radial-gradient(ellipse 900px 840px at 1150px 200px,rgba(255,122,26,.82),rgba(0,0,0,0) 70%),radial-gradient(ellipse 820px 700px at 286px 2120px,rgba(255,122,26,.5),rgba(0,0,0,0) 70%)}
+#glasschartglasschart01-lcr{background:radial-gradient(ellipse 900px 840px at 1150px 200px,rgba(255,24,40,.82),rgba(0,0,0,0) 70%),radial-gradient(ellipse 820px 700px at 286px 2120px,rgba(255,24,40,.5),rgba(0,0,0,0) 70%)}
+#glasschartglasschart01-lfg{background:linear-gradient(180deg,rgba(40,240,54,.95) 0%,rgba(22,150,34,.6) 30%,rgba(0,0,0,0) 68%)}
+#glasschartglasschart01-lfa{background:linear-gradient(180deg,rgba(255,122,26,.92) 0%,rgba(160,70,10,.6) 30%,rgba(0,0,0,0) 68%)}
+#glasschartglasschart01-lfr{background:linear-gradient(180deg,rgba(225,10,26,.95) 0%,rgba(140,6,16,.6) 30%,rgba(0,0,0,0) 68%)}
+#glasschartglasschart01-vin{position:absolute;inset:0;box-shadow:inset 0 0 200px 30px rgba(0,0,0,.35)}
+#glasschartglasschart01-ct{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
+#glasschartglasschart01-cd{position:absolute;left:140px;top:540px;width:800px;height:800px;opacity:0}
+.glasschartglasschart01-vd{position:absolute;inset:0;border-radius:52px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.19),rgba(255,255,255,.06) 70%,rgba(255,255,255,.03));border:1.5px solid rgba(255,255,255,.26);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.42),0 40px 90px rgba(0,0,0,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.glasschartglasschart01-gd{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.12) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(255,255,255,.12) 1.5px,transparent 1.5px);background-size:72px 72px;background-position:-2px -2px;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9) 30%,rgba(0,0,0,.25) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,.9) 30%,rgba(0,0,0,.25) 100%)}
+#glasschartglasschart01-hd{position:absolute;left:60px;top:54px;width:680px;display:flex;align-items:center;gap:18px;color:#ececf0;font-weight:600;letter-spacing:.04em;line-height:1.15}
+.glasschartglasschart01-hi{flex:0 0 auto;width:52px;height:52px;fill:none;stroke:#fff;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+#glasschartglasschart01-ti{flex:1 1 auto}
+#glasschartglasschart01-nm{position:absolute;left:56px;top:142px;width:690px;white-space:nowrap;font-family:"SoraV","Inter",sans-serif;font-weight:800;line-height:1;letter-spacing:-.02em;color:#fff;text-shadow:0 0 30px rgba(255,255,255,.25)}
+#glasschartglasschart01-ns{font-size:.56em;letter-spacing:0;margin-left:.06em}
+#glasschartglasschart01-nb{position:absolute;left:62px;top:330px;width:150px;height:12px;border-radius:6px;background:#ff8a2e;box-shadow:0 0 18px rgba(255,138,46,.7)}
+#glasschartglasschart01-ar{position:absolute;left:60px;top:400px;width:680px;height:340px;clip-path:inset(0 100% 0 0)}
+#glasschartglasschart01-ar svg,#glasschartglasschart01-sv{display:block;overflow:visible}
+#glasschartglasschart01-sv{position:absolute;left:60px;top:400px;width:680px;height:340px;filter:drop-shadow(0 0 7px rgba(255,255,255,.95)) drop-shadow(0 0 18px rgba(255,255,255,.5))}
+#glasschartglasschart01-fl{position:absolute;inset:0;background:#fff;opacity:0}
+</style>
+<div id="root" data-composition-id="glass-chart-01" data-width="1080" data-height="1920" data-duration="4.5">
+<div id="glasschartglasschart01-w"><div id="glasschartglasschart01-lz"><div class="glasschartglasschart01-l" id="glasschartglasschart01-lcg"></div><div class="glasschartglasschart01-l" id="glasschartglasschart01-lca"></div><div class="glasschartglasschart01-l" id="glasschartglasschart01-lcr"></div></div><div id="glasschartglasschart01-lf"><div class="glasschartglasschart01-l" id="glasschartglasschart01-lfg"></div><div class="glasschartglasschart01-l" id="glasschartglasschart01-lfa"></div><div class="glasschartglasschart01-l" id="glasschartglasschart01-lfr"></div></div><div id="glasschartglasschart01-vin"></div><div id="glasschartglasschart01-ct"><div id="glasschartglasschart01-cd"><div class="glasschartglasschart01-vd"><div class="glasschartglasschart01-gd"></div><div id="glasschartglasschart01-hd"><svg class="glasschartglasschart01-hi" viewBox="0 0 48 48"><path d="M5 38 L17 24 L27 31 L43 11"/><path d="M33 11 H43 V21"/></svg><span id="glasschartglasschart01-ti"></span></div><div id="glasschartglasschart01-nm"><span id="glasschartglasschart01-nv"></span><span id="glasschartglasschart01-ns"></span></div><div id="glasschartglasschart01-nb"></div><div id="glasschartglasschart01-ar"><svg viewBox="0 0 680 340" width="680" height="340"><defs><linearGradient id="glasschartglasschart01-ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" id="glasschartglasschart01-gs0" stop-color="#ffffff" stop-opacity=".26"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><path id="glasschartglasschart01-pa" d="" fill="url(#glasschartglasschart01-ga)"/></svg></div><svg id="glasschartglasschart01-sv" viewBox="0 0 680 340" width="680" height="340"><path id="glasschartglasschart01-pc" d="" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="2000 2000" stroke-dashoffset="2000"/><circle id="glasschartglasschart01-rg" r="14" cx="0" cy="0" fill="none" stroke="#fff" stroke-width="4" opacity="0"/><circle id="glasschartglasschart01-dt" r="14" cx="0" cy="0" fill="#fff" opacity="0"/></svg></div></div></div><div id="glasschartglasschart01-fl"></div></div>
+</div>
+<script>
+(function () {
+  const C = (window.__scenes || {})["glass-chart-01"] || { duration: 4.5 };
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+  var D = C.duration || 4.5, t0 = 0;
+
+  var P = {
+    title: "HIỆU SUẤT TỰ ĐỘNG HÓA", // Chart label at the top of the card.
+    start: 20, // Starting number.
+    end: 320, // Ending number.
+    direction: "rising", // "falling" or "rising" sets curve shape and final color: red for falling, green for rising.
+    suffix: "%", // Suffix after the number, such as %, thousand, or x; empty omits it.
+  };
+
+
+  var $ = function (id) { return document.getElementById(id); };
+  var LZ = { g: [0, 0], a: [0, 0], r: [0, 0] };
+  function light(t, k, mode, d) { ["g", "a", "r"].forEach(function (c) { [0, 1].forEach(function (m) { var target = c === k ? (m === 0 ? 1 : (mode === "f" ? 1 : 0)) : 0; if (target === LZ[c][m]) return; tl.fromTo("#glasschartglasschart01-l" + (m ? "f" : "c") + c, { opacity: LZ[c][m] }, { opacity: target, duration: d || .5, ease: "power2.inOut", immediateRender: false }, t); LZ[c][m] = target; }); }); }
+  function num(v, pad) { var s = String(v === undefined || v === null || v === "" ? pad : v).trim().replace(/\s/g, ""); if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, ""); var n = parseFloat(s); return { n: isFinite(n) ? n : pad, c: (s.split(".")[1] || "").length }; }
+  var A = num(P.start, 100), B = num(P.end, 12), decimals = Math.min(2, Math.max(A.c, B.c));
+  var sen = String(P.direction || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  var rise = sen.indexOf("subtitle") === 0 || sen.indexOf("cres") === 0 || sen.indexOf("sub") === 0 ? true : sen.indexOf("ca") === 0 || sen.indexOf("des") === 0 ? false : B.n > A.n;
+  var suf = P.suffix === undefined || P.suffix === null ? "%" : String(P.suffix);
+  function fmt(v) { var s = Math.abs(v).toFixed(decimals).split("."), i = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, "."); return (v < 0 ? "-" : "") + i + (s[1] ? "," + s[1] : ""); }
+  var COLOR = rise ? "#45ff55" : "#ff3448", RGB = rise ? "60,255,80" : "255,40,60", KF = rise ? "g" : "r";
+
+  var dC = rise ? "M0 300 C150 300 230 292 340 172 C450 52 530 40 680 38" : "M0 40 C150 40 230 48 340 168 C450 288 530 300 680 302";
+  $("glasschartglasschart01-pc").setAttribute("d", dC); $("glasschartglasschart01-pa").setAttribute("d", dC + " L680 340 L0 340 Z");
+  $("glasschartglasschart01-ti").textContent = String(P.title || "viewer attention");
+
+  var ZW = "\u2060";
+  $("glasschartglasschart01-nv").textContent = ZW + fmt(A.n); $("glasschartglasschart01-ns").textContent = suf;
+
+  function measure(txts, widthValue, mx, mn, lines, lh, style) {
+    var m = document.createElement("div"), px, j, ok;
+    m.style.cssText = "position:absolute;left:-99999px;top:0;visibility:hidden;white-space:normal;" + style + ";width:" + widthValue + "px;line-height:" + lh;
+    document.body.appendChild(m);
+    for (px = mx; px >= mn; px -= 2) { m.style.fontSize = px + "px"; ok = true; for (j = 0; j < txts.length; j++) { m.innerHTML = txts[j]; if (m.offsetHeight > px * lh * lines + 4 || m.scrollWidth > widthValue + 1) { ok = false; break; } } if (ok) break; }
+    document.body.removeChild(m); return ok ? px : 0;
+  }
+  function adjust() {
+    var t = String(P.title || "viewer attention").replace(/[<>&]/g, " "), E = "font-family:Inter,sans-serif;font-weight:600;letter-spacing:.04em";
+    var pt = measure([t], 610, 44, 36, 1, 1.15, E), lin = 1;
+    if (!pt) { pt = measure([t], 610, 40, 34, 2, 1.15, E); lin = 2; }
+    if (!pt) { pt = 34; lin = 3; }
+    $("glasschartglasschart01-ti").style.fontSize = pt + "px";
+    var nums = [fmt(A.n), fmt(B.n), fmt(Math.max(A.n, B.n))].map(function (s) { return s + '<span style="font-size:.56em;margin-left:.06em">' + suf.replace(/[<>&]/g, "") + "</span>"; });
+    var pn = measure(nums, 680, 176, 90, 1, 1, "font-family:SoraV,Inter,sans-serif;font-weight:800;letter-spacing:-.02em;white-space:nowrap") || 90;
+    if (lin > 2) pn = Math.min(pn, 140);
+    $("glasschartglasschart01-nm").style.fontSize = pn + "px";
+
+    var dy = lin > 1 ? Math.round(pt * 1.15 * (lin - 1)) - 6 : 0;
+    $("glasschartglasschart01-nm").style.top = (142 + dy) + "px"; $("glasschartglasschart01-nb").style.top = (142 + dy + pn + 14) + "px";
+  }
+  adjust();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { adjust(); tl.invalidate(); });
+
+  var pc = $("glasschartglasschart01-pc"), Lc = pc.getTotalLength(), NP = 40, pts = [], q;
+  for (q = 0; q <= NP; q++) { var pp = pc.getPointAtLength(Lc * q / NP); pts.push({ x: pp.x, y: pp.y }); }
+  var yA = pts[0].y, yB = pts[NP].y;
+
+  var LD = Math.ceil(Lc) + 8;
+  pc.setAttribute("stroke-dasharray", LD + " " + (LD + 40)); pc.setAttribute("stroke-dashoffset", LD + 8);
+
+
+  var enter = t0 + .05, exit = t0 + D - .32, u = exit - enter;
+  var tD0 = enter + .4, dD = Math.max(.7, Math.min(3, .55 * u)), tD1 = tD0 + dD;
+  tl.fromTo("#glasschartglasschart01-w", { opacity: 0 }, { opacity: 1, duration: .16, ease: "power1.out" }, enter);
+  tl.fromTo("#glasschartglasschart01-ct", { opacity: 0 }, { opacity: 1, duration: .01, ease: "none" }, enter);
+  light(enter, "a", "c", .5);
+  tl.fromTo("#glasschartglasschart01-lz", { x: 180, y: -180 }, { x: 0, y: 0, duration: .8, ease: "power3.out" }, enter);
+  var vM = Math.max(1, Math.round((exit - enter - .8) / 1.5)), dM = (exit - enter - .8) / vM;
+  tl.fromTo("#glasschartglasschart01-lz", { x: 0, y: 0 }, { x: -46, y: 34, duration: dM, ease: "sine.inOut", yoyo: true, repeat: vM - 1, immediateRender: false }, enter + .8);
+
+  tl.fromTo("#glasschartglasschart01-cd", { opacity: 0, y: 220, rotationX: 22, transformPerspective: 1700, filter: "blur(18px)" }, { opacity: 1, y: 0, rotationX: 5, transformPerspective: 1700, filter: "blur(0px)", duration: .55, ease: "power3.out" }, enter + .04);
+  tl.to("#glasschartglasschart01-cd", { rotationX: 0, rotationY: rise ? 3 : -3, y: -14, duration: Math.max(.2, exit - enter - .6), ease: "sine.inOut", immediateRender: false }, enter + .59);
+
+  var e = gsap.parseEase("power1.inOut"), tk, k, previousValue = 0;
+  tl.fromTo("#glasschartglasschart01-pc", { strokeDashoffset: LD + 8 }, { strokeDashoffset: 8, duration: dD, ease: "power1.inOut" }, tD0);
+  tl.fromTo("#glasschartglasschart01-ar", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: dD, ease: "power1.inOut" }, tD0);
+  tl.fromTo("#glasschartglasschart01-dt", { attr: { cx: pts[0].x, cy: pts[0].y }, opacity: 0 }, { attr: { cx: pts[0].x, cy: pts[0].y }, opacity: 1, duration: .12, ease: "none" }, tD0 - .12);
+  for (k = 1; k <= 30; k++) {
+    var pr = e(k / 30), ix = pr * NP, i0 = Math.floor(ix), fr = ix - i0, P0 = pts[i0], P1 = pts[Math.min(NP, i0 + 1)];
+    var px = P0.x + (P1.x - P0.x) * fr, py = P0.y + (P1.y - P0.y) * fr;
+    tk = tD0 + dD * (k - 1) / 30;
+    tl.to("#glasschartglasschart01-dt", { attr: { cx: px, cy: py }, duration: dD / 30, ease: "none", immediateRender: false }, tk);
+    var f = Math.abs(yB - yA) < 1 ? pr : (py - yA) / (yB - yA);
+    tl.set("#glasschartglasschart01-nv", { textContent: ZW + fmt(A.n + (B.n - A.n) * Math.max(0, Math.min(1, f))) }, tD0 + dD * k / 30);
+  }
+  tl.set("#glasschartglasschart01-nv", { textContent: ZW + fmt(B.n) }, tD1 + .01);
+
+  light(tD1 - .15, KF, "c", .5);
+  tl.to("#glasschartglasschart01-nm", { color: COLOR, textShadow: "0 0 34px rgba(" + RGB + ",.75)", duration: .25, ease: "power1.out", immediateRender: false }, tD1 - .05);
+  tl.to("#glasschartglasschart01-nb", { backgroundColor: COLOR, boxShadow: "0 0 22px rgba(" + RGB + ",.85)", duration: .25, ease: "power1.out", immediateRender: false }, tD1 - .05);
+  tl.to("#glasschartglasschart01-gs0", { attr: { "stop-color": COLOR }, duration: .3, ease: "none", immediateRender: false }, tD1 - .05);
+  tl.fromTo("#glasschartglasschart01-rg", { attr: { cx: pts[NP].x, cy: pts[NP].y, r: 14 }, opacity: 0 }, { attr: { cx: pts[NP].x, cy: pts[NP].y, r: 14 }, opacity: .9, duration: .01, ease: "none" }, tD1);
+  tl.to("#glasschartglasschart01-rg", { attr: { r: 58 }, opacity: 0, duration: .55, ease: "power2.out", immediateRender: false }, tD1 + .01);
+  tl.fromTo("#glasschartglasschart01-dt", { attr: { r: 14 } }, { attr: { r: 21 }, duration: .14, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, tD1);
+
+  var nR = Math.max(0, Math.min(3, Math.floor((exit - tD1 - .75) / .7))), jr;
+  for (jr = 1; jr <= nR; jr++) {
+    tl.fromTo("#glasschartglasschart01-rg", { attr: { cx: pts[NP].x, cy: pts[NP].y, r: 14 }, opacity: .75 }, { attr: { cx: pts[NP].x, cy: pts[NP].y, r: 54 }, opacity: 0, duration: .6, ease: "power2.out", immediateRender: false }, tD1 + jr * .7);
+    tl.fromTo("#glasschartglasschart01-dt", { attr: { r: 14 } }, { attr: { r: 18 }, duration: .12, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, tD1 + jr * .7);
+  }
+
+  tl.to("#glasschartglasschart01-ct", { opacity: 0, y: -50, filter: "blur(16px)", duration: .28, ease: "power2.in", immediateRender: false }, exit);
+  tl.to("#glasschartglasschart01-w", { opacity: 0, duration: .3, ease: "power2.in", immediateRender: false }, exit);
+  tl.to({}, { duration: D }, 0);
+  window.__timelines["glass-chart-01"] = tl;
+})();
+</script>
+</template>
+</body></html>
