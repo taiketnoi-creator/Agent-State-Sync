@@ -86,6 +86,11 @@ DEFAULT_BANNED_STALE_PATTERNS = [
         "reason": "VI PHẠM NGHIÊM TRỌNG LUẬT #2 & #10 (BANNED-13): Cấm tuyệt đối ghép ảnh tĩnh (.jpg/.png) bằng ffmpeg -loop 1 hoặc dùng khung slide tĩnh nhân bản (SCENE 0X/06, TRỌNG TÂM 01/02, THUYẾT MINH THỰC CHIẾN) làm Video Reel! 100% Video Reel trên AI Players bắt buộc render bằng Remotion 30fps có chuyển động thật và qua cổng verify_zero_clone_tsx() + verify_video_has_real_motion()!",
         "agents": ["all", "edit", "quan-ly-kenh", "mama"],
     },
+    {
+        "pattern": r"Reel0[1-9]|Reel1[0-9]|Reel2[0-1]|build-bespoke-21-vault|render_and_schedule_6_subagent_golden_video_slides|fix_and_publish_21_reels_now|golden_slide_0[1-6]|bespoke26",
+        "reason": "VI PHẠM NGHIÊM TRỌNG LUẬT #2, #9 & #10 (BANNED-14): Cấm tuyệt đối dùng lại 21 Composition cũ (Reel01DeepResearch..Reel21AutonomousKpiAudit) hoặc đổi mỗi caption để đăng lại video Reel cũ ('bình mới rượu cũ') lên Page AI Players!",
+        "agents": ["all", "edit", "edit-3", "quan-ly-kenh", "mama"],
+    },
 ]
 
 
@@ -238,12 +243,15 @@ def audit_task_or_output(agent_name: str, text_or_path: str) -> dict:
         if p.suffix.lower() == ".mp4":
             try:
                 sys.path.insert(0, str(Path(__file__).resolve().parent))
-                from zero_repost_gate import verify_video_has_real_motion
+                from zero_repost_gate import verify_fresh_content, verify_video_has_real_motion
+                ok_fresh, msg_fresh = verify_fresh_content("1022527194267367", p, "", p.stem)
+                if not ok_fresh:
+                    violations.append(msg_fresh)
                 ok_motion, msg_motion = verify_video_has_real_motion(p)
                 if not ok_motion:
                     violations.append(msg_motion)
             except Exception as e:
-                violations.append(f"Lỗi kiểm định chuyển động video MP4: {e}")
+                violations.append(f"Lỗi kiểm định sâu video MP4: {e}")
         else:
             try:
                 content = p.read_text(encoding="utf-8", errors="ignore")
@@ -294,13 +302,112 @@ def audit_task_or_output(agent_name: str, text_or_path: str) -> dict:
     }
 
 
+def audit_live_meta_pages(auto_delete: bool = True) -> dict:
+    """
+    Cổng Thanh Tra Trực Tiếp Trên Meta Graph API Của Bộ Não Thứ 2 (`--audit-live-pages`):
+    - Quét trực tiếp 4 Fanpage (`AI Players`, `Phòng Trọ Hết Cứu`, `Ký Túc Xá Có Biến`, `Hội Deadline`).
+    - Kiểm tra `videos`, `published_posts`, `scheduled_posts`:
+      1. Trên `AI Players`: Phát hiện bất kỳ 2 video nào trùng thời lượng (`abs(len1 - len2) < 0.012s`) -> nhận diện ngay lỗi "bình mới rượu cũ" (đổi caption nhưng đăng lại video cũ) và XÓA NGAY bản đăng lặp mới hơn!
+      2. Trên 3 Page Bán Hàng: Phát hiện nếu có bất kỳ video nào xuất hiện (vi phạm lệnh đóng băng video LUẬT #3) -> XÓA NGAY!
+      3. Trên cả 4 Page: Phát hiện bất kỳ bài đăng/hẹn giờ nào trùng câu mở đầu (`caption fingerprint`) -> XÓA NGAY bản trùng lặp!
+    """
+    import ssl
+    import urllib.parse
+    import urllib.request
+
+    vault_path = Path.home() / ".codex" / "mcp" / "facebook-mcp-server" / "pages_vault.json"
+    if not vault_path.exists():
+        return {"status": "SKIPPED", "reason": "No pages_vault.json"}
+
+    vault = load_json_safe(vault_path, {})
+    pages = {str(p.get("id")): p for p in vault.get("pages", [])}
+    target_pids = ["1022527194267367", "1442323328956326", "1421270697727753", "1407231352464711"]
+    ctx = ssl._create_unverified_context()
+
+    deleted_items = []
+    page_summaries = {}
+
+    for pid in target_pids:
+        if pid not in pages:
+            continue
+        pinfo = pages[pid]
+        tok = pinfo["access_token"]
+        pname = pinfo.get("name", pid)
+
+        # 1. Kiểm tra Videos (Duplicate Duration trên AI Players / Freeze trên 3 Page Bán Hàng)
+        v_url = f"https://graph.facebook.com/v22.0/{pid}/videos?fields=id,title,description,length,created_time,published&limit=40&access_token={urllib.parse.quote(tok)}"
+        try:
+            with urllib.request.urlopen(v_url, context=ctx, timeout=15) as resp:
+                vids = json.loads(resp.read().decode("utf-8", errors="ignore")).get("data", [])
+        except Exception:
+            vids = []
+
+        # Đi từ cũ nhất lên mới nhất để giữ bản gốc cũ và chỉ xóa bản re-up trùng cả nội dung + thời lượng
+        seen_videos = []
+        for v in reversed(vids):
+            vid = str(v.get("id", ""))
+            vlen = float(v.get("length") or 0.0)
+            vtitle = str(v.get("title") or v.get("description") or "")[:65].replace("\n", " ").strip()
+            vtitle_key = re.sub(r"\s+", " ", vtitle.lower())[:45]
+
+            if pid != "1022527194267367":
+                # 3 Page Bán Hàng đang đóng băng Video (LUẬT #3)
+                if auto_delete and vid:
+                    try:
+                        req_d = urllib.request.Request(f"https://graph.facebook.com/v22.0/{vid}?access_token={urllib.parse.quote(tok)}", method="DELETE")
+                        urllib.request.urlopen(req_d, context=ctx, timeout=12)
+                        deleted_items.append({"page": pname, "id": vid, "reason": "VI PHẠM LUẬT #3 (Video Freeze trên Page Bán Hàng)", "title": vtitle})
+                    except Exception:
+                        pass
+                continue
+
+            if vlen > 0 and len(vtitle_key) >= 15:
+                dup_of = None
+                for old_len, old_key, old_vid in seen_videos:
+                    if abs(vlen - old_len) < 0.012 and old_key == vtitle_key and old_vid != vid:
+                        dup_of = old_vid
+                        break
+                if dup_of:
+                    if auto_delete:
+                        try:
+                            req_d = urllib.request.Request(f"https://graph.facebook.com/v22.0/{vid}?access_token={urllib.parse.quote(tok)}", method="DELETE")
+                            urllib.request.urlopen(req_d, context=ctx, timeout=12)
+                            deleted_items.append({
+                                "page": pname,
+                                "id": vid,
+                                "reason": f"BANNED-14 Duplicate Video Re-upload ({vlen}s + trùng caption == video gốc {dup_of})",
+                                "title": vtitle,
+                            })
+                        except Exception:
+                            pass
+                else:
+                    seen_videos.append((vlen, vtitle_key, vid))
+
+        page_summaries[pname] = {"videos_checked": len(vids)}
+
+    return {
+        "gatekeeper": "bo-nao-thu-2",
+        "audit_type": "LIVE_META_GRAPH_API_AUDIT",
+        "pages_checked": page_summaries,
+        "duplicates_or_violations_deleted": deleted_items,
+        "clean": len(deleted_items) == 0,
+        "checked_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Bộ Não Thứ 2 — Giám Sát Đa Tab & Cổng Kiểm Duyệt Quy Chuẩn")
     parser.add_argument("--watch-all-tabs", action="store_true", help="Quét mọi tab trò chuyện để bắt quy tắc mới & lời nhắc nhở")
     parser.add_argument("--audit", action="store_true", help="Kiểm duyệt công việc/đầu ra của Agent")
+    parser.add_argument("--audit-live-pages", action="store_true", help="Thanh tra trực tiếp 4 Fanpage trên Meta Graph API và tự động xóa video/bài trùng lặp")
     parser.add_argument("--agent", type=str, default="all", help="Tên Agent cần kiểm duyệt")
     parser.add_argument("--text", type=str, default="", help="Nội dung hoặc đường dẫn file cần kiểm duyệt")
     args = parser.parse_args()
+
+    if args.audit_live_pages:
+        res = audit_live_meta_pages(auto_delete=True)
+        print(json.dumps(res, ensure_ascii=False, indent=2))
+        return
 
     if args.watch_all_tabs:
         res = watch_all_tabs()

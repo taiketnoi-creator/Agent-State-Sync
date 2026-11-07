@@ -71,7 +71,63 @@ PERMANENT_BANNED_FILENAMES = [
     "reel_04_subagent_thu_ky_hop_247.mp4",
     "reel_05_subagent_quet_khach_b2b.mp4",
     "reel_06_lo_trinh_7_ngay_ban_giao.mp4",
+    "golden_slide_01_reel01_Reel01DeepResearch.mp4",
+    "golden_slide_02_reel07_Reel07VoiceToAction.mp4",
+    "golden_slide_03_reel03_Reel03GraphRagMatrix.mp4",
+    "golden_slide_04_reel08_Reel08CodeSandboxExec.mp4",
+    "golden_slide_05_reel09_Reel09SelfHealingWorkflow.mp4",
+    "golden_slide_06_reel17_Reel17CustomerIntentRouter.mp4",
 ]
+
+BANNED_LEGACY_REEL_TOKENS = (
+    "reel01deepresearch",
+    "reel02zeroshotvoice",
+    "reel03graphragmatrix",
+    "reel04structuredjson",
+    "reel05visionocrparser",
+    "reel06promptcaching",
+    "reel07voicetoaction",
+    "reel08codesandboxexec",
+    "reel09selfhealingworkflow",
+    "reel10competitoradspy",
+    "reel11smalllanguagemodel",
+    "reel12semanticsearchvector",
+    "reel13promptinjectionshield",
+    "reel14syntheticdatagen",
+    "reel15batchapiovernight",
+    "reel16speculativedecoding",
+    "reel17customerintentrouter",
+    "reel18automatedabtesting",
+    "reel19longcontextneedle",
+    "reel20zerotouchonboarding",
+    "reel21autonomouskpiaudit",
+    "build-bespoke-21-vault",
+    "videos_bespoke21",
+    "golden_slide_0",
+)
+
+# Thời lượng (giây) của 21 video bespoke21 cũ đã xuất bản ngày 27/10 - 30/10 (cấm re-up bình mới rượu cũ)
+BANNED_LEGACY_VIDEO_LENGTHS = (
+    46.997,
+    48.192,
+    46.485,
+    47.360,
+    45.290,
+    46.954,
+    48.213,
+    44.224,
+    45.760,
+    45.781,
+    47.061,
+    47.424,
+    47.445,
+    47.552,
+    48.021,
+    47.594,
+    46.016,
+    47.722,
+    48.746,
+)
 
 
 def normalize_caption_fingerprint(text: str) -> str:
@@ -241,10 +297,35 @@ def verify_fresh_content(page_id: str, media_path: Path | str | None, caption: s
     reg = load_registry()
     if media_path:
         p = Path(media_path)
+        p_low = str(p).lower()
+        for banned_tok in BANNED_LEGACY_REEL_TOKENS:
+            if banned_tok in p_low:
+                return (
+                    False,
+                    f"CHẶN CỨNG [BANNED-14 Zero-Repost]: File '{p.name}' chứa mã video cũ đã xuất bản ('{banned_tok}')! Cấm tuyệt đối re-up video cũ!",
+                )
         if p.name in reg.get("banned_filenames", []):
             return False, f"CHẶN CỨNG [Zero-Repost]: File '{p.name}' nằm trong danh sách media cũ/bị cấm!"
         if p.exists():
             if p.suffix.lower() == ".mp4" and str(page_id) == "1022527194267367":
+                # Kiểm tra thời lượng chống re-render video bespoke21 cũ ("bình mới rượu cũ")
+                ffprobe_exe = shutil.which("ffprobe") or "ffprobe"
+                try:
+                    pr = subprocess.run(
+                        [ffprobe_exe, "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", str(p)],
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                    )
+                    dur = float((pr.stdout or "0").strip() or 0)
+                    for old_len in BANNED_LEGACY_VIDEO_LENGTHS:
+                        if abs(dur - old_len) < 0.012:
+                            return (
+                                False,
+                                f"CHẶN CỨNG [BANNED-14 Zero-Repost Duration Fingerprint]: Video '{p.name}' có thời lượng {dur:.3f}s trùng khớp với Video Reel cũ đã đăng ({old_len:.3f}s)!",
+                            )
+                except Exception:
+                    pass
                 ok_brand, msg_brand = verify_video_slide_brandkit_compliance(p)
                 if not ok_brand:
                     return False, msg_brand

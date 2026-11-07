@@ -81,6 +81,10 @@ def upload_via_reels_api(
     schedule_ts: int | None = None,
 ) -> dict:
     """Thực hiện 3 bước chuẩn của Facebook Reels Publishing API (`/{page_id}/video_reels`)."""
+    from zero_repost_gate import verify_fresh_content
+    is_fresh, reason = verify_fresh_content(str(page_id), video_path, description, title)
+    if not is_fresh:
+        return dict(error=reason, phase=str(0))
     # Bước 1: Khởi tạo phiên upload
     start_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/video_reels"
     start_data = json.dumps({"upload_phase": "start", "access_token": page_token}).encode("utf-8")

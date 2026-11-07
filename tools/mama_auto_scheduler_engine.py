@@ -253,6 +253,15 @@ def purge_duplicate_published_posts(pages: dict) -> list:
     from zero_repost_gate import normalize_caption_fingerprint
 
     deleted_log = []
+    try:
+        from second_brain_gatekeeper import audit_live_meta_pages
+        live_audit = audit_live_meta_pages(auto_delete=True)
+        for d in live_audit.get("duplicates_or_violations_deleted", []):
+            deleted_log.append(
+                f"🛡️ [bo-nao-thu-2 Live Audit] Đã xóa video/bài vi phạm trên [{d.get('page')}]: id={d.get('id')} ({d.get('reason')})"
+            )
+    except Exception:
+        pass
     for pid, p_obj in pages.items():
         if pid not in ([AI_ID] + SALES_IDS):
             continue
